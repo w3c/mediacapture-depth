@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+      Media Capture Depth Stream Extensions
+    </title>
+    <meta charset='utf-8'>
+    <script src='//www.w3.org/Tools/respec/respec-w3c-common' async="" class=
+    "remove">
+</script>
+    <script class='remove'>
+
+      var respecConfig = {
+        specStatus: "ED",
+        shortName: "mediacapture-depth",
+        // publishDate: "2009-08-06",
+        // copyrightStart: "2005"
+        // previousPublishDate: "1977-03-15",
+        // previousMaturity: "WD",
+        edDraftURI: "http://w3c.github.com/mediacapture-depth/",
+        // lcEnd: "2009-08-05",
+        noLegacyStyle: true,
+        editors: [
+            {
+              name:       "Anssi Kostiainen",
+              company:    "Intel",
+              companyURL: "http://www.intel.com/"
+            },
+            {
+              name:       "Ningxin Hu",
+              company:    "Intel",
+              companyURL: "http://www.intel.com/"
+            }
+        ],
+        wg: [
+          "Device APIs Working Group",
+          "Web Real-Time Communications Working Group"
+        ],
+        wgURI: [
+          "http://www.w3.org/2009/dap/",
+          "http://www.w3.org/2011/04/webrtc/"
+        ],
+        wgPublicList: "public-media-capture",
+        wgPatentURI: [
+          "http://www.w3.org/2004/01/pp-impl/47318/status",
+          "http://www.w3.org/2004/01/pp-impl/43696/status"
+        ]
+    };
+
+    </script>
+  </head>
+  <body>
+    <section id='abstract'>
+      <p>
+        This specification extends the <em>Media Capture and Streams</em>
+        specification [[!GETUSERMEDIA]] to allow a <a>depth stream</a> to be
+        requested from a platform using APIs familiar to web authors.
+      </p>
+    </section>
+    <section id='sotd'>
+      <p>
+        <strong>This document is not complete and is subject to change. Early
+        experimentations are encouraged to allow the Media Capture Task Force
+        to evolve the specification based on technical discussions within the
+        Task Force, implementation experience gained from early
+        implementations, and feedback from other groups and
+        individuals.</strong>
+      </p>
+    </section>
+    <section>
+      <h2>
+        Introduction
+      </h2>
+      <p>
+        TBD
+      </p>
+    </section>
+    <section>
+      <h2>
+        Terminology
+      </h2>
+      <p>
+        The <code><a href=
+        "http://dev.w3.org/2011/webrtc/editor/getusermedia.html#idl-def-MediaStreamConstraints">
+        <dfn>MediaStreamConstraints</dfn></a></code> dictionary, <code><a href=
+        "http://dev.w3.org/2011/webrtc/editor/getusermedia.html#idl-def-MediaStreamTrack">
+        <dfn>MediaStreamTrack</dfn></a></code> and <code><a href=
+        "http://dev.w3.org/2011/webrtc/editor/getusermedia.html#idl-def-MediaStream">
+        <dfn>MediaStream</dfn></a></code> interfaces this specification extends
+        are defined in [[!GETUSERMEDIA]].
+      </p>
+      <p>
+        The <code><a href=
+        "http://dev.w3.org/2011/webrtc/editor/getusermedia.html#idl-def-NavigatorUserMediaSuccessCallback">
+        <dfn>NavigatorUserMediaSuccessCallback</dfn></a></code> callback is
+        defined in [[!GETUSERMEDIA]].
+      </p>
+      <p>
+        The <code><a href=
+        "http://www.w3.org/html/wg/drafts/2dcontext/master/#imagedata"><dfn>ImageData</dfn></a></code>
+        interface and its <code><a href=
+        "http://www.w3.org/html/wg/drafts/2dcontext/master/#dom-imagedata-data">
+        <dfn>data</dfn></a></code> attribute are defined in [[!2dcontext2]].
+      </p>
+      <p>
+        The <code><a href=
+        "http://www.khronos.org/registry/typedarray/specs/latest/#6"><dfn>ArrayBufferView</dfn></a></code>
+        type is defined in [[!typedarray]].
+      </p>
+      <p>
+        A <dfn>depth stream</dfn> is an abstraction of a data stream that
+        represents the distance between the camera and the subject for each
+        point of the image.
+      </p>
+      <p>
+        A <dfn>depth track</dfn> is a <a><code>MediaStreamTrack</code></a>
+        object that represents a <a>depth stream</a>.
+      </p>
+    </section>
+    <section>
+      <h2>
+        Extensions
+      </h2>
+      <section>
+        <h2>
+          <code><a>MediaStreamConstraints</a></code> dictionary
+        </h2>
+        <dl class="idl" title="partial dictionary MediaStreamConstraints">
+          <dt>
+            boolean depth = false
+          </dt>
+          <dd>
+            -
+          </dd>
+        </dl>
+        <p>
+          The <code id="widl-MediaStreamConstraints-depth">depth</code>
+          attribute MUST return the value it was initialized to. When the
+          object is created, this attribute MUST be initialized to false. It
+          represents a request that the <a><code>MediaStream</code></a> object
+          returned as an argument of the
+          <code><a>NavigatorUserMediaSuccessCallback</a></code> contains a
+          <a>depth track</a>.
+        </p>
+      </section>
+      <section>
+        <h2>
+          <code>MediaStream</code> interface
+        </h2>
+        <dl class="idl" title="partial interface MediaStream">
+          <dt>
+            sequence&lt;MediaStreamTrack&gt; getDepthTracks ()
+          </dt>
+          <dd>
+            -
+          </dd>
+        </dl>
+        <p>
+          The <code id=
+          "widl-MediaStream-getDepthTracks-sequence-MediaStreamTrack"><dfn>getDepthTracks()</dfn></code>
+          method, when invoked, MUST return a sequence of
+          <code><a>MediaStreamTrack</a></code> objects representing the
+          <a>depth track</a>s in this stream.
+        </p>
+        <p>
+          The <code><a href=
+          "#widl-MediaStream-getDepthTracks-sequence-MediaStreamTrack">getDepthTracks()</a></code>
+          method MUST return a sequence that represents a snapshot of all the
+          <code><a>MediaStreamTrack</a></code> objects in this stream's track
+          set whose <code><a>kind</a></code> is equal to "<code>depth</code>".
+          The conversion from the track set to the sequence is user agent
+          defined and the order does not have to stable between calls.
+        </p>
+      </section>
+      <section>
+        <h2>
+          <code>MediaStreamTrack</code> interface
+        </h2>
+        <p>
+          On getting, the <code><dfn>kind</dfn></code> attribute MUST return
+          the string "<code>depth</code>" if the object represents a <a>depth
+          track</a>.
+        </p>
+      </section>
+      <section>
+        <h2>
+          <code>ImageData</code> interface
+        </h2>
+        <div class="issue">
+          <p>
+            Depth cameras usually produce 16-bit depth values per pixel.
+            However, the canvas drawing surface used to draw and manipulate 2D
+            graphics on the web platform does not currently support 16bpp.
+          </p>
+          <p>
+            To address the issue the <code>data</code> attribute of the
+            <code><a>ImageData</a></code> interface should be of type
+            <code>ArrayBufferView</code> instead of
+            <code>Uint8ClampedArray</code>, to allow the
+            <code>Uint16Array</code> type.
+          </p>
+          <p>
+            Need to investigate whether that has undesired side-effects, and
+            file a bug against the HTML Canvas 2D Context spec to change the
+            data type to ArrayBufferView. Alternatively, we could add a
+            separate attribute to the ImageData for the Uint16Array type
+            without the need to patch the Canvas spec.
+          </p>
+        </div>
+      </section>
+    </section>
+    <section class='appendix'>
+      <h2>
+        Acknowledgements
+      </h2>
+      <p>
+        Thanks to everyone who contributed to the <a href=
+        "https://www.w3.org/wiki/Media_Capture_Depth_Stream_Extension">Use
+        Cases and Requirements</a>, sent feedback and comments. Special thanks
+        to Ningxin Hu for experimental implementations, as well as to the
+        Project Tango for their experiments.
+      </p>
+    </section>
+  </body>
+</html>
