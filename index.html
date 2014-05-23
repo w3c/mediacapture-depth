@@ -89,6 +89,8 @@
         The <code><a href=
         "http://dev.w3.org/2011/webrtc/editor/getusermedia.html#idl-def-MediaStreamConstraints">
         <dfn>MediaStreamConstraints</dfn></a></code> dictionary, <code><a href=
+        "http://dev.w3.org/2011/webrtc/editor/getusermedia.html#idl-def-MediaTrackConstraints">
+        <dfn>MediaTrackConstraints</dfn></a></code> dictionary, <code><a href=
         "http://dev.w3.org/2011/webrtc/editor/getusermedia.html#idl-def-MediaStreamTrack">
         <dfn>MediaStreamTrack</dfn></a></code> and <code><a href=
         "http://dev.w3.org/2011/webrtc/editor/getusermedia.html#idl-def-MediaStream">
@@ -133,7 +135,7 @@
         </h2>
         <dl class="idl" title="partial dictionary MediaStreamConstraints">
           <dt>
-            boolean depth = false
+            (boolean or MediaTrackConstraints) depth = false
           </dt>
           <dd>
             -
@@ -146,7 +148,9 @@
           true, the attribute represents a request that the
           <a><code>MediaStream</code></a> object returned as an argument of the
           <code><a>NavigatorUserMediaSuccessCallback</a></code> contains a
-          <a>depth track</a>.
+          <a>depth track</a>. If a <a><code>Constraints</code></a> structure is
+          provided, it further specifies the nature and settings of the <a>depth 
+          track</a>.
         </p>
       </section>
       <section>
