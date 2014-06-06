@@ -78,7 +78,17 @@
         Introduction
       </h2>
       <p>
-        TBD
+        This specification extends the <a><code>MediaStream</code></a>
+        interface [[!GETUSERMEDIA]] to enable it to also contain depth-based
+        <a><code>MediaStreamTrack</code></a>s. A depth-based
+        <a><code>MediaStreamTrack</code></a>, referred to as a <a>depth
+        track</a>, represents an abstraction of a stream of image frames that
+        can each be converted to <a><code>ImageData</code></a> objects which
+        contain an array of pixel data, where each pixel represents the
+        distance between the camera and the objects in the scene for that point
+        in the <a><code>ImageData</code></a> array. A
+        <a><code>MediaStream</code></a> object that contains one or more
+        <a>depth track</a>s is referred to as a <a>depth stream</a>.
       </p>
     </section>
     <section>
@@ -118,13 +128,12 @@
         type is defined in [[!typedarray]].
       </p>
       <p>
-        A <dfn>depth stream</dfn> is an abstraction of a data stream that
-        represents the distance between the camera and the subject for each
-        point of the image.
+        A <dfn>depth stream</dfn> is a <a><code>MediaStream</code></a> object
+        that contains one of more <a>depth track</a>s.
       </p>
       <p>
-        A <dfn>depth track</dfn> is a <a><code>MediaStreamTrack</code></a>
-        object that represents a <a>depth stream</a>.
+        A <dfn>depth track</dfn> represents media sourced from a depth camera
+        or other similar source.
       </p>
     </section>
     <section>
