@@ -95,6 +95,19 @@
         <a>depth track</a>s is referred to as a <a>depth stream</a>.
       </p>
     </section>
+    <section id="conformance">
+      <p>
+        This specification defines conformance criteria that apply to a single
+        product: the <dfn>user agent</dfn> that implements the interfaces that
+        it contains.
+      </p>
+      <p>
+        Implementations that use ECMAScript to implement the APIs defined in
+        this specification must implement them in a manner consistent with the
+        ECMAScript Bindings defined in the Web IDL specification [[!WEBIDL]],
+        as this specification uses that specification and terminology.
+      </p>
+    </section>
     <section>
       <h2>
         Terminology
@@ -193,8 +206,9 @@
           method MUST return a sequence that represents a snapshot of all the
           <code><a>MediaStreamTrack</a></code> objects in this stream's track
           set whose <code><a>kind</a></code> is equal to "<code>depth</code>".
-          The conversion from the track set to the sequence is user agent
-          defined and the order does not have to be stable between calls.
+          The conversion from the track set to the sequence is <a>user
+          agent</a> defined and the order does not have to be stable between
+          calls.
         </p>
       </section>
       <section>
