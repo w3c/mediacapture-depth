@@ -137,12 +137,12 @@
         "http://www.w3.org/html/wg/drafts/2dcontext/master/#imagedata"><dfn>ImageData</dfn></a></code>
         interface and its <code><a href=
         "http://www.w3.org/html/wg/drafts/2dcontext/master/#dom-imagedata-data">
-        <dfn>data</dfn></a></code> attribute are defined in [[!2dcontext2]].
+        <dfn>data</dfn></a></code> attribute are defined in [[!2DCONTEXT2]].
       </p>
       <p>
         The <code><a href=
         "http://www.khronos.org/registry/typedarray/specs/latest/#6"><dfn>ArrayBufferView</dfn></a></code>
-        type is defined in [[!typedarray]].
+        type is defined in [[!TYPEDARRAY]].
       </p>
       <p>
         A <dfn>depth stream</dfn> is a <a><code>MediaStream</code></a> object
@@ -151,6 +151,10 @@
       <p>
         A <dfn>depth track</dfn> represents media sourced from a depth camera
         or other similar source.
+      </p>
+      <p>
+        A <dfn>depth data</dfn> represents the underlying depth data structure
+        of an area of a <code>canvas</code> element.
       </p>
     </section>
     <section>
@@ -223,7 +227,7 @@
       </section>
       <section>
         <h2>
-          <code>ImageData</code> interface
+          <code>DepthData</code> interface
         </h2>
         <div class="issue">
           <p>
@@ -232,20 +236,104 @@
             graphics on the web platform does not currently support 16bpp.
           </p>
           <p>
-            To address the issue the <code>data</code> attribute of the
-            <code><a>ImageData</a></code> interface should be of type
+            To address the issue, two alternative proposals have been
+            discussed:
+          </p>
+          <ol>
+            <li>make the <code>data</code> attribute of the
+            <code><a>ImageData</a></code> interface of type
             <code>ArrayBufferView</code> instead of
-            <code>Uint8ClampedArray</code>, to allow the
-            <code>Uint16Array</code> type.
+            <code>Uint8ClampedArray</code> to allow the
+            <code>Uint16Array</code> type;
+            </li>
+            <li>define a new <code><a>DepthData</a></code> interface and pixel
+            manipulation constructors and methods that create, and interact
+            with, <code><a>DepthData</a></code> objects.
+            </li>
+          </ol>
+          <p>
+            An early concrete proposal for the latter option is presented below
+            in terms of IDL (see <code><a>DepthData</a></code> and
+            <code><a>CanvasRenderingContext2D</a></code>).
           </p>
           <p>
-            Need to investigate whether that has undesired side-effects, and
-            file a bug against the HTML Canvas 2D Context spec to change the
-            data type to ArrayBufferView. Alternatively, we could add a
-            separate attribute to the ImageData for the Uint16Array type
-            without the need to patch the Canvas spec.
+            (Please note, that we may need to file bugs against [[!2DCONTEXT2]]
+            to add extension points this extension specification can hook into
+            to avoid monkey patching.)
           </p>
         </div>
+        <dl class="idl" title="[Constructor(unsigned long sw, unsigned long sh),
+ Constructor(ArrayBufferView data, unsigned long sw, optional unsigned long sh),
+ Exposed=Window,Worker] interface DepthData">
+        <dt>
+            readonly attribute unsigned long width
+          </dt>
+          <dd>
+            -
+          </dd>
+          <dt>
+            readonly attribute unsigned long height
+          </dt>
+          <dd>
+            -
+          </dd>
+          <dt>
+            readonly attribute ArrayBufferView data
+          </dt>
+          <dd>
+            -
+          </dd>
+        </dl>
+        <p>
+          New <code><a>DepthData</a></code> objects MUST be initialised so that
+          their <code>width</code> attribute is set to the number of entries
+          per row in the <a>depth data</a>, their <code>height</code> attribute
+          is set to the number of rows in the <a>depth data</a>, and their
+          <code>data</code> attribute, except where an existing array is
+          provided, is initialised to a new <code>ArrayBufferView</code>
+          object.
+        </p>
+      </section>
+      <section>
+        <h2>
+          <code>CanvasRenderingContext2D</code> interface
+        </h2>
+        <dl class="idl" title="partial interface CanvasRenderingContext2D">
+          <dt>
+            DepthData createDepthData(double sw, double sh)
+          </dt>
+          <dd>
+            -
+          </dd>
+          <dt>
+            DepthData createDepthData(DepthData depthdata)
+          </dt>
+          <dd>
+            -
+          </dd>
+          <dt>
+            DepthData getDepthData(double sx, double sy, double sw, double sh)
+          </dt>
+          <dd>
+            -
+          </dd>
+          <dt>
+            void putDepthData(DepthData depthdata, double dx, double dy)
+          </dt>
+          <dd>
+            -
+          </dd>
+          <dt>
+            void putDepthData(DepthData depthdata, double dx, double dy, double
+            dirtyX, double dirtyY, double dirtyWidth, double dirtyHeight)
+          </dt>
+          <dd>
+            -
+          </dd>
+        </dl>
+        <p>
+          [TODO]
+        </p>
       </section>
     </section>
     <section class='appendix'>
