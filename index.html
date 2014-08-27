@@ -141,8 +141,12 @@
       </p>
       <p>
         The <code><a href=
+        "https://www.khronos.org/registry/typedarray/specs/latest/#5"><dfn>ArrayBuffer</dfn></a></code>,
+        <code><a href=
         "http://www.khronos.org/registry/typedarray/specs/latest/#6"><dfn>ArrayBufferView</dfn></a></code>
-        type is defined in [[!TYPEDARRAY]].
+        and <code><a href=
+        "http://www.khronos.org/registry/typedarray/specs/latest/#7"><dfn>Uint16Array</dfn></a></code>
+        types are defined in [[!TYPEDARRAY]].
       </p>
       <p>
         A <dfn>depth stream</dfn> is a <a><code>MediaStream</code></a> object
@@ -242,8 +246,8 @@
           <ol>
             <li>make the <code>data</code> attribute of the
             <code><a>ImageData</a></code> interface of type
-            <code>ArrayBufferView</code> instead of
-            <code>Uint8ClampedArray</code> to allow the
+            <code>Uint16Array</code> (or <code>ArrayBufferView</code>) instead
+            of <code>Uint8ClampedArray</code> to allow the
             <code>Uint16Array</code> type;
             </li>
             <li>define a new <code><a>DepthData</a></code> interface and pixel
@@ -262,9 +266,8 @@
             to avoid monkey patching.)
           </p>
         </div>
-        <dl class="idl" title="[Constructor(unsigned long sw, unsigned long sh),
- Constructor(ArrayBufferView data, unsigned long sw, optional unsigned long sh),
- Exposed=Window,Worker] interface DepthData">
+        <dl class="idl" title=
+        "[Constructor(unsigned long sw, unsigned long sh), Constructor(Uint16Array data, unsigned long sw, optional unsigned long sh), Exposed=Window,Worker] interface DepthData">
         <dt>
             readonly attribute unsigned long width
           </dt>
@@ -278,7 +281,13 @@
             -
           </dd>
           <dt>
-            readonly attribute ArrayBufferView data
+            readonly attribute Uint16Array data
+          </dt>
+          <dd>
+            -
+          </dd>
+          <dt>
+            readonly attribute CameraParameters parameters
           </dt>
           <dd>
             -
@@ -290,8 +299,77 @@
           per row in the <a>depth data</a>, their <code>height</code> attribute
           is set to the number of rows in the <a>depth data</a>, and their
           <code>data</code> attribute, except where an existing array is
-          provided, is initialised to a new <code>ArrayBufferView</code>
-          object.
+          provided, is initialised to a new <code>Uint16Array</code> object.
+          The <code>Uint16Array</code> object MUST use a new <a>Canvas depth
+          <code>ArrayBuffer</code></a> for its storage, and MUST have a zero
+          start offset and a length equal to the length of its storage, in
+          bytes.
+        </p>
+        <p>
+          A <dfn>Canvas Depth <code>ArrayBuffer</code></dfn> is an
+          <a><code>ArrayBuffer</code></a> whose data is represented in
+          left-to-right order, row by row top to bottom, starting with the top
+          left, with each pixel's depth component being given in that order for
+          each pixel. Each depth component of each pixel represented in this
+          array MUST be in the range 0..65536, representing the 16 bit value
+          for that depth component. The depth components MUST be assigned
+          consecutive indices starting with 0 for the top left pixel's depth
+          component.
+        </p>
+      </section>
+      <section>
+        <h2>
+          <code>CameraParameters</code> interface
+        </h2>
+        <div class="issue">
+          <p>
+            What is the minumum set of metadata
+            <code><a>CameraParameters</a></code> should expose? At minimum, the
+            general pinhole camera model have to be calculable. For related
+            discussion, see <a href=
+            "http://lists.w3.org/Archives/Public/public-media-capture/2014Jun/0113.html">
+            Focal length/fov capabilities and general camera intrinsics</a>
+            thread.
+          </p>
+        </div>
+        <p>
+          Each <a>DepthData</a> interface is associated with a
+          <a>CameraParameters</a> object. It represents the parameters of a
+          pinhole camera model that describes the mathematical relationship
+          between the coordinates of a 3D point and its projection onto the
+          image plane.
+        </p>
+        <dl class="idl" title="interface CameraParameters">
+          <dt>
+            readonly attribute double focalLength
+          </dt>
+          <dd>
+            -
+          </dd>
+          <dt>
+            readonly attribute double horizontalViewAngle
+          </dt>
+          <dd>
+            -
+          </dd>
+          <dt>
+            readonly attribute double verticalViewAngle
+          </dt>
+          <dd>
+            -
+          </dd>
+        </dl>
+        <p>
+          The <code>focalLength</code> attribute, on getting, MUST return the
+          focal length of the camera in millimeters.
+        </p>
+        <p>
+          The <code>horizontalViewAngle</code> attribute, on getting, MUST
+          return the horizontal angle of view in degrees.
+        </p>
+        <p>
+          The <code>verticalViewAngle</code> attribute, on getting, MUST return
+          the vertical angle of view in degrees.
         </p>
       </section>
       <section>
