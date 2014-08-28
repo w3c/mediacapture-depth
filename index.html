@@ -224,7 +224,7 @@
           <code>MediaStreamTrack</code> interface
         </h2>
         <p>
-          On getting, the <code><dfn>kind</dfn></code> attribute MUST return
+          The <code><dfn>kind</dfn></code> attribute MUST, on getting, return
           the string "<code>depth</code>" if the object represents a <a>depth
           track</a>.
         </p>
@@ -267,7 +267,9 @@
           </p>
         </div>
         <dl class="idl" title=
-        "[Constructor(unsigned long sw, unsigned long sh), Constructor(Uint16Array data, unsigned long sw, optional unsigned long sh), Exposed=Window,Worker] interface DepthData">
+        "[Constructor(unsigned long sw, unsigned long sh),
+ Constructor(Uint16Array data, unsigned long sw, optional unsigned long sh),
+ Exposed=Window,Worker] interface DepthData">
         <dt>
             readonly attribute unsigned long width
           </dt>
@@ -323,10 +325,10 @@
         </h2>
         <div class="issue">
           <p>
-            What is the minumum set of metadata
+            What is the minimum set of metadata
             <code><a>CameraParameters</a></code> should expose? At minimum, the
             general pinhole camera model have to be calculable. For related
-            discussion, see <a href=
+            discussion, see the <a href=
             "http://lists.w3.org/Archives/Public/public-media-capture/2014Jun/0113.html">
             Focal length/fov capabilities and general camera intrinsics</a>
             thread.
