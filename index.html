@@ -137,12 +137,16 @@
         "http://www.w3.org/html/wg/drafts/2dcontext/master/#imagedata"><dfn>ImageData</dfn></a></code>
         interface and its <code><a href=
         "http://www.w3.org/html/wg/drafts/2dcontext/master/#dom-imagedata-data">
-        <dfn>data</dfn></a></code> attribute are defined in [[!2dcontext2]].
+        <dfn>data</dfn></a></code> attribute are defined in [[!2DCONTEXT2]].
       </p>
       <p>
         The <code><a href=
+        "https://www.khronos.org/registry/typedarray/specs/latest/#5"><dfn>ArrayBuffer</dfn></a></code>,
+        <code><a href=
         "http://www.khronos.org/registry/typedarray/specs/latest/#6"><dfn>ArrayBufferView</dfn></a></code>
-        type is defined in [[!typedarray]].
+        and <code><a href=
+        "http://www.khronos.org/registry/typedarray/specs/latest/#7"><dfn>Uint16Array</dfn></a></code>
+        types are defined in [[!TYPEDARRAY]].
       </p>
       <p>
         A <dfn>depth stream</dfn> is a <a><code>MediaStream</code></a> object
@@ -151,6 +155,10 @@
       <p>
         A <dfn>depth track</dfn> represents media sourced from a depth camera
         or other similar source.
+      </p>
+      <p>
+        A <dfn>depth data</dfn> represents the underlying depth data structure
+        of an area of a <code>canvas</code> element.
       </p>
     </section>
     <section>
@@ -216,14 +224,14 @@
           <code>MediaStreamTrack</code> interface
         </h2>
         <p>
-          On getting, the <code><dfn>kind</dfn></code> attribute MUST return
+          The <code><dfn>kind</dfn></code> attribute MUST, on getting, return
           the string "<code>depth</code>" if the object represents a <a>depth
           track</a>.
         </p>
       </section>
       <section>
         <h2>
-          <code>ImageData</code> interface
+          <code>DepthData</code> interface
         </h2>
         <div class="issue">
           <p>
@@ -232,20 +240,180 @@
             graphics on the web platform does not currently support 16bpp.
           </p>
           <p>
-            To address the issue the <code>data</code> attribute of the
-            <code><a>ImageData</a></code> interface should be of type
-            <code>ArrayBufferView</code> instead of
-            <code>Uint8ClampedArray</code>, to allow the
-            <code>Uint16Array</code> type.
+            To address the issue, two alternative proposals have been
+            discussed:
+          </p>
+          <ol>
+            <li>make the <code>data</code> attribute of the
+            <code><a>ImageData</a></code> interface of type
+            <code>Uint16Array</code> (or <code>ArrayBufferView</code>) instead
+            of <code>Uint8ClampedArray</code> to allow the
+            <code>Uint16Array</code> type;
+            </li>
+            <li>define a new <code><a>DepthData</a></code> interface and pixel
+            manipulation constructors and methods that create, and interact
+            with, <code><a>DepthData</a></code> objects.
+            </li>
+          </ol>
+          <p>
+            An early concrete proposal for the latter option is presented below
+            in terms of IDL (see <code><a>DepthData</a></code> and
+            <code><a>CanvasRenderingContext2D</a></code>).
           </p>
           <p>
-            Need to investigate whether that has undesired side-effects, and
-            file a bug against the HTML Canvas 2D Context spec to change the
-            data type to ArrayBufferView. Alternatively, we could add a
-            separate attribute to the ImageData for the Uint16Array type
-            without the need to patch the Canvas spec.
+            (Please note, that we may need to file bugs against [[!2DCONTEXT2]]
+            to add extension points this extension specification can hook into
+            to avoid monkey patching.)
           </p>
         </div>
+        <dl class="idl" title=
+        "[Constructor(unsigned long sw, unsigned long sh),
+ Constructor(Uint16Array data, unsigned long sw, optional unsigned long sh),
+ Exposed=Window,Worker] interface DepthData">
+        <dt>
+            readonly attribute unsigned long width
+          </dt>
+          <dd>
+            -
+          </dd>
+          <dt>
+            readonly attribute unsigned long height
+          </dt>
+          <dd>
+            -
+          </dd>
+          <dt>
+            readonly attribute Uint16Array data
+          </dt>
+          <dd>
+            -
+          </dd>
+          <dt>
+            readonly attribute CameraParameters parameters
+          </dt>
+          <dd>
+            -
+          </dd>
+        </dl>
+        <p>
+          New <code><a>DepthData</a></code> objects MUST be initialised so that
+          their <code>width</code> attribute is set to the number of entries
+          per row in the <a>depth data</a>, their <code>height</code> attribute
+          is set to the number of rows in the <a>depth data</a>, and their
+          <code>data</code> attribute, except where an existing array is
+          provided, is initialised to a new <code>Uint16Array</code> object.
+          The <code>Uint16Array</code> object MUST use a new <a>Canvas depth
+          <code>ArrayBuffer</code></a> for its storage, and MUST have a zero
+          start offset and a length equal to the length of its storage, in
+          bytes.
+        </p>
+        <p>
+          A <dfn>Canvas Depth <code>ArrayBuffer</code></dfn> is an
+          <a><code>ArrayBuffer</code></a> whose data is represented in
+          left-to-right order, row by row top to bottom, starting with the top
+          left, with each pixel's depth component being given in that order for
+          each pixel. Each depth component of each pixel represented in this
+          array MUST be in the range 0..65536, representing the 16 bit value
+          for that depth component. The depth components MUST be assigned
+          consecutive indices starting with 0 for the top left pixel's depth
+          component.
+        </p>
+      </section>
+      <section>
+        <h2>
+          <code>CameraParameters</code> interface
+        </h2>
+        <div class="issue">
+          <p>
+            What is the minimum set of metadata
+            <code><a>CameraParameters</a></code> should expose? At minimum, the
+            general pinhole camera model have to be calculable. For related
+            discussion, see the <a href=
+            "http://lists.w3.org/Archives/Public/public-media-capture/2014Jun/0113.html">
+            Focal length/fov capabilities and general camera intrinsics</a>
+            thread.
+          </p>
+        </div>
+        <p>
+          Each <a>DepthData</a> interface is associated with a
+          <a>CameraParameters</a> object. It represents the parameters of a
+          pinhole camera model that describes the mathematical relationship
+          between the coordinates of a 3D point and its projection onto the
+          image plane.
+        </p>
+        <dl class="idl" title="interface CameraParameters">
+          <dt>
+            readonly attribute double focalLength
+          </dt>
+          <dd>
+            -
+          </dd>
+          <dt>
+            readonly attribute double horizontalViewAngle
+          </dt>
+          <dd>
+            -
+          </dd>
+          <dt>
+            readonly attribute double verticalViewAngle
+          </dt>
+          <dd>
+            -
+          </dd>
+        </dl>
+        <p>
+          The <code>focalLength</code> attribute, on getting, MUST return the
+          focal length of the camera in millimeters.
+        </p>
+        <p>
+          The <code>horizontalViewAngle</code> attribute, on getting, MUST
+          return the horizontal angle of view in degrees.
+        </p>
+        <p>
+          The <code>verticalViewAngle</code> attribute, on getting, MUST return
+          the vertical angle of view in degrees.
+        </p>
+      </section>
+      <section>
+        <h2>
+          <code>CanvasRenderingContext2D</code> interface
+        </h2>
+        <dl class="idl" title="partial interface CanvasRenderingContext2D">
+          <dt>
+            DepthData createDepthData(double sw, double sh)
+          </dt>
+          <dd>
+            -
+          </dd>
+          <dt>
+            DepthData createDepthData(DepthData depthdata)
+          </dt>
+          <dd>
+            -
+          </dd>
+          <dt>
+            DepthData getDepthData(double sx, double sy, double sw, double sh)
+          </dt>
+          <dd>
+            -
+          </dd>
+          <dt>
+            void putDepthData(DepthData depthdata, double dx, double dy)
+          </dt>
+          <dd>
+            -
+          </dd>
+          <dt>
+            void putDepthData(DepthData depthdata, double dx, double dy, double
+            dirtyX, double dirtyY, double dirtyWidth, double dirtyHeight)
+          </dt>
+          <dd>
+            -
+          </dd>
+        </dl>
+        <p>
+          [TODO]
+        </p>
       </section>
     </section>
     <section class='appendix'>
