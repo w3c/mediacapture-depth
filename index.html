@@ -260,11 +260,6 @@
             in terms of IDL (see <code><a>DepthData</a></code> and
             <code><a>CanvasRenderingContext2D</a></code>).
           </p>
-          <p>
-            (Please note, that we may need to file bugs against [[!2DCONTEXT2]]
-            to add extension points this extension specification can hook into
-            to avoid monkey patching.)
-          </p>
         </div>
         <dl class="idl" title=
         "[Constructor(unsigned long sw, unsigned long sh),
@@ -411,9 +406,18 @@
             -
           </dd>
         </dl>
-        <p>
-          [TODO]
-        </p>
+        <div class="issue">
+          <p>
+            Define the algorithms for the <code>createDepthData()</code>,
+            <code>getDepthData()</code>, and <code>putDepthData()</code>
+            methods.
+          </p>
+          <p>
+            We may want to file bugs against [[!2DCONTEXT2]] to add extension
+            points this specification can hook into to facilitate reuse of
+            common algorithms and avoid monkey patching.
+          </p>
+        </div>
       </section>
     </section>
     <section class='appendix'>
