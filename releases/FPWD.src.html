@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+      Media Capture Depth Stream Extensions
+    </title>
+    <meta charset='utf-8'>
+    <script src='//www.w3.org/Tools/respec/respec-w3c-common' async="" class=
+    "remove">
+</script>
+    <script class='remove'>
+
+      var respecConfig = {
+        specStatus: "FPWD",
+        shortName: "mediacapture-depth",
+        publishDate: "2014-10-02",
+        // copyrightStart: "2005"
+        // previousPublishDate: "1977-03-15",
+        // previousMaturity: "WD",
+        edDraftURI: "http://w3c.github.io/mediacapture-depth/",
+        // lcEnd: "2009-08-05",
+        noLegacyStyle: true,
+        editors: [
+            {
+              name:       "Anssi Kostiainen",
+              company:    "Intel",
+              companyURL: "http://www.intel.com/"
+            },
+            {
+              name:       "Ningxin Hu",
+              company:    "Intel",
+              companyURL: "http://www.intel.com/"
+            },
+            {
+              name:       "Rob Manson",
+              company:    "Invited Expert"
+            }
+        ],
+        wg: [
+          "Device APIs Working Group",
+          "Web Real-Time Communications Working Group"
+        ],
+        wgURI: [
+          "http://www.w3.org/2009/dap/",
+          "http://www.w3.org/2011/04/webrtc/"
+        ],
+        wgPublicList: "public-media-capture",
+        wgPatentURI: [
+          "http://www.w3.org/2004/01/pp-impl/47318/status",
+          "http://www.w3.org/2004/01/pp-impl/43696/status"
+        ],
+        otherLinks: [
+          {
+            key: "Revision history",
+            href: "https://github.com/w3c/mediacapture-depth/commits/gh-pages/"
+          }
+        ]
+    };
+
+    </script>
+  </head>
+  <body>
+    <section id='abstract'>
+      <p>
+        This specification extends the <em>Media Capture and Streams</em>
+        specification [[!GETUSERMEDIA]] to allow a <a>depth stream</a> to be
+        requested from the web platform using APIs familiar to web authors.
+      </p>
+    </section>
+    <section id='sotd'>
+      <p>
+        <strong>This document is not complete and is subject to change. Early
+        experimentations are encouraged to allow the Media Capture Task Force
+        to evolve the specification based on technical discussions within the
+        Task Force, implementation experience gained from early
+        implementations, and feedback from other groups and
+        individuals.</strong>
+      </p>
+    </section>
+    <section>
+      <h2>
+        Introduction
+      </h2>
+      <p>
+        This specification extends the <a><code>MediaStream</code></a>
+        interface [[!GETUSERMEDIA]] to enable it to also contain depth-based
+        <a><code>MediaStreamTrack</code></a>s. A depth-based
+        <a><code>MediaStreamTrack</code></a>, referred to as a <a>depth
+        track</a>, represents an abstraction of a stream of image frames that
+        can each be converted to <a><code>ImageData</code></a> objects which
+        contain an array of pixel data, where each pixel represents the
+        distance between the camera and the objects in the scene for that point
+        in the <a><code>ImageData</code></a> array. A
+        <a><code>MediaStream</code></a> object that contains one or more
+        <a>depth track</a>s is referred to as a <a>depth stream</a>.
+      </p>
+    </section>
+    <section id="conformance">
+      <p>
+        This specification defines conformance criteria that apply to a single
+        product: the <dfn>user agent</dfn> that implements the interfaces that
+        it contains.
+      </p>
+      <p>
+        Implementations that use ECMAScript to implement the APIs defined in
+        this specification must implement them in a manner consistent with the
+        ECMAScript Bindings defined in the Web IDL specification [[!WEBIDL]],
+        as this specification uses that specification and terminology.
+      </p>
+    </section>
+    <section>
+      <h2>
+        Terminology
+      </h2>
+      <p>
+        The <code><a href=
+        "http://w3c.github.io/mediacapture-main/getusermedia.html#idl-def-Constraints">
+        <dfn>Constraints</dfn></a></code>, <code><a href=
+        "http://w3c.github.io/mediacapture-main/getusermedia.html#idl-def-MediaStreamConstraints">
+        <dfn>MediaStreamConstraints</dfn></a></code>, and <code><a href=
+        "http://w3c.github.io/mediacapture-main/getusermedia.html#idl-def-MediaTrackConstraints">
+        <dfn>MediaTrackConstraints</dfn></a></code> dictionaries,
+        <code><a href="http://w3c.github.io/mediacapture-main/getusermedia.html#idl-def-MediaStreamTrack">
+        <dfn>MediaStreamTrack</dfn></a></code> and <code><a href=
+        "http://w3c.github.io/mediacapture-main/getusermedia.html#idl-def-MediaStream">
+        <dfn>MediaStream</dfn></a></code> interfaces this specification extends
+        are defined in [[!GETUSERMEDIA]].
+      </p>
+      <p>
+        The <code><a href=
+        "http://w3c.github.io/mediacapture-main/#idl-def-NavigatorUserMediaSuccessCallback">
+        <dfn>NavigatorUserMediaSuccessCallback</dfn></a></code> callback is
+        defined in [[!GETUSERMEDIA]].
+      </p>
+      <p>
+        The <code><a href=
+        "http://www.w3.org/html/wg/drafts/2dcontext/master/#imagedata"><dfn>ImageData</dfn></a></code>
+        interface and its <code><a href=
+        "http://www.w3.org/html/wg/drafts/2dcontext/master/#dom-imagedata-data">
+        <dfn>data</dfn></a></code> attribute are defined in [[!2DCONTEXT2]].
+      </p>
+      <p>
+        The <code><a href=
+        "https://www.khronos.org/registry/typedarray/specs/latest/#5"><dfn>ArrayBuffer</dfn></a></code>,
+        <code><a href=
+        "http://www.khronos.org/registry/typedarray/specs/latest/#6"><dfn>ArrayBufferView</dfn></a></code>
+        and <code><a href=
+        "http://www.khronos.org/registry/typedarray/specs/latest/#7"><dfn>Uint16Array</dfn></a></code>
+        types are defined in [[!TYPEDARRAY]].
+      </p>
+      <p>
+        A <dfn>depth stream</dfn> is a <a><code>MediaStream</code></a> object
+        that contains one or more <a>depth track</a>s.
+      </p>
+      <p>
+        A <dfn>depth track</dfn> represents media sourced from a depth camera
+        or other similar source.
+      </p>
+      <p>
+        A <dfn>depth data</dfn> represents the underlying depth data structure
+        of an area of a <code>canvas</code> element.
+      </p>
+    </section>
+    <section>
+      <h2>
+        Extensions
+      </h2>
+      <section>
+        <h2>
+          <code><a>MediaStreamConstraints</a></code> dictionary
+        </h2>
+        <dl class="idl" title="partial dictionary MediaStreamConstraints">
+          <dt>
+            (boolean or MediaTrackConstraints) depth = false
+          </dt>
+          <dd>
+            -
+          </dd>
+        </dl>
+        <p>
+          The <code id="widl-MediaStreamConstraints-depth">depth</code>
+          attribute MUST return the value it was initialized to. When the
+          object is created, this attribute MUST be initialized to false. If
+          true, the attribute represents a request that the
+          <a><code>MediaStream</code></a> object returned as an argument of the
+          <code><a>NavigatorUserMediaSuccessCallback</a></code> contains a
+          <a>depth track</a>. If a <a><code>Constraints</code></a> structure is
+          provided, it further specifies the nature and settings of the
+          <a>depth track</a>.
+        </p>
+      </section>
+      <section>
+        <h2>
+          <code>MediaStream</code> interface
+        </h2>
+        <dl class="idl" title="partial interface MediaStream">
+          <dt>
+            sequence&lt;MediaStreamTrack&gt; getDepthTracks ()
+          </dt>
+          <dd>
+            -
+          </dd>
+        </dl>
+        <p>
+          The <code id=
+          "widl-MediaStream-getDepthTracks-sequence-MediaStreamTrack"><dfn>getDepthTracks()</dfn></code>
+          method, when invoked, MUST return a sequence of
+          <code><a>MediaStreamTrack</a></code> objects representing the
+          <a>depth track</a>s in this stream.
+        </p>
+        <p>
+          The <code><a href=
+          "#widl-MediaStream-getDepthTracks-sequence-MediaStreamTrack">getDepthTracks()</a></code>
+          method MUST return a sequence that represents a snapshot of all the
+          <code><a>MediaStreamTrack</a></code> objects in this stream's track
+          set whose <code><a>kind</a></code> is equal to "<code>depth</code>".
+          The conversion from the track set to the sequence is <a>user
+          agent</a> defined and the order does not have to be stable between
+          calls.
+        </p>
+      </section>
+      <section>
+        <h2>
+          <code>MediaStreamTrack</code> interface
+        </h2>
+        <p>
+          The <code><dfn>kind</dfn></code> attribute MUST, on getting, return
+          the string "<code>depth</code>" if the object represents a <a>depth
+          track</a>.
+        </p>
+      </section>
+      <section>
+        <h2>
+          <code>DepthData</code> interface
+        </h2>
+        <div class="issue">
+          <p>
+            Depth cameras usually produce 16-bit depth values per pixel.
+            However, the canvas drawing surface used to draw and manipulate 2D
+            graphics on the web platform does not currently support 16bpp.
+          </p>
+          <p>
+            To address the issue, two alternative proposals have been
+            discussed:
+          </p>
+          <ol>
+            <li>make the <code>data</code> attribute of the
+            <code><a>ImageData</a></code> interface of type
+            <code>Uint16Array</code> (or <code>ArrayBufferView</code>) instead
+            of <code>Uint8ClampedArray</code> to allow the
+            <code>Uint16Array</code> type;
+            </li>
+            <li>define a new <code><a>DepthData</a></code> interface and pixel
+            manipulation constructors and methods that create, and interact
+            with, <code><a>DepthData</a></code> objects.
+            </li>
+          </ol>
+          <p>
+            An early concrete proposal for the latter option is presented below
+            in terms of IDL (see <code><a>DepthData</a></code> and
+            <code><a>CanvasRenderingContext2D</a></code>).
+          </p>
+        </div>
+        <dl class="idl" title=
+        "[Constructor(unsigned long sw, unsigned long sh),
+ Constructor(Uint16Array data, unsigned long sw, optional unsigned long sh),
+ Exposed=Window,Worker] interface DepthData">
+        <dt>
+            readonly attribute unsigned long width
+          </dt>
+          <dd>
+            -
+          </dd>
+          <dt>
+            readonly attribute unsigned long height
+          </dt>
+          <dd>
+            -
+          </dd>
+          <dt>
+            readonly attribute Uint16Array data
+          </dt>
+          <dd>
+            -
+          </dd>
+          <dt>
+            readonly attribute CameraParameters parameters
+          </dt>
+          <dd>
+            -
+          </dd>
+        </dl>
+        <p>
+          New <code><a>DepthData</a></code> objects MUST be initialised so that
+          their <code>width</code> attribute is set to the number of entries
+          per row in the <a>depth data</a>, their <code>height</code> attribute
+          is set to the number of rows in the <a>depth data</a>, and their
+          <code>data</code> attribute, except where an existing array is
+          provided, is initialised to a new <code>Uint16Array</code> object.
+          The <code>Uint16Array</code> object MUST use a new <a>Canvas depth
+          <code>ArrayBuffer</code></a> for its storage, and MUST have a zero
+          start offset and a length equal to the length of its storage, in
+          bytes.
+        </p>
+        <p>
+          A <dfn>Canvas Depth <code>ArrayBuffer</code></dfn> is an
+          <a><code>ArrayBuffer</code></a> whose data is represented in
+          left-to-right order, row by row top to bottom, starting with the top
+          left, with each pixel's depth component being given in that order for
+          each pixel. Each depth component of each pixel represented in this
+          array MUST be in the range 0..65536, representing the 16 bit value
+          for that depth component. The depth components MUST be assigned
+          consecutive indices starting with 0 for the top left pixel's depth
+          component.
+        </p>
+      </section>
+      <section>
+        <h2>
+          <code>CameraParameters</code> interface
+        </h2>
+        <div class="issue">
+          <p>
+            What is the minimum set of metadata
+            <code><a>CameraParameters</a></code> should expose? At minimum, the
+            general pinhole camera model have to be calculable. For related
+            discussion, see the <a href=
+            "http://lists.w3.org/Archives/Public/public-media-capture/2014Jun/0113.html">
+            Focal length/fov capabilities and general camera intrinsics</a>
+            thread.
+          </p>
+        </div>
+        <p>
+          Each <a>DepthData</a> interface is associated with a
+          <a>CameraParameters</a> object. It represents the parameters of a
+          pinhole camera model that describes the mathematical relationship
+          between the coordinates of a 3D point and its projection onto the
+          image plane.
+        </p>
+        <dl class="idl" title="interface CameraParameters">
+          <dt>
+            readonly attribute double focalLength
+          </dt>
+          <dd>
+            -
+          </dd>
+          <dt>
+            readonly attribute double horizontalViewAngle
+          </dt>
+          <dd>
+            -
+          </dd>
+          <dt>
+            readonly attribute double verticalViewAngle
+          </dt>
+          <dd>
+            -
+          </dd>
+        </dl>
+        <p>
+          The <code>focalLength</code> attribute, on getting, MUST return the
+          focal length of the camera in millimeters.
+        </p>
+        <p>
+          The <code>horizontalViewAngle</code> attribute, on getting, MUST
+          return the horizontal angle of view in degrees.
+        </p>
+        <p>
+          The <code>verticalViewAngle</code> attribute, on getting, MUST return
+          the vertical angle of view in degrees.
+        </p>
+      </section>
+      <section>
+        <h2>
+          <code>CanvasRenderingContext2D</code> interface
+        </h2>
+        <dl class="idl" title="partial interface CanvasRenderingContext2D">
+          <dt>
+            DepthData createDepthData(double sw, double sh)
+          </dt>
+          <dd>
+            -
+          </dd>
+          <dt>
+            DepthData createDepthData(DepthData depthdata)
+          </dt>
+          <dd>
+            -
+          </dd>
+          <dt>
+            DepthData getDepthData(double sx, double sy, double sw, double sh)
+          </dt>
+          <dd>
+            -
+          </dd>
+          <dt>
+            void putDepthData(DepthData depthdata, double dx, double dy)
+          </dt>
+          <dd>
+            -
+          </dd>
+          <dt>
+            void putDepthData(DepthData depthdata, double dx, double dy, double
+            dirtyX, double dirtyY, double dirtyWidth, double dirtyHeight)
+          </dt>
+          <dd>
+            -
+          </dd>
+        </dl>
+        <div class="issue">
+          <p>
+            Define the algorithms for the <code>createDepthData()</code>,
+            <code>getDepthData()</code>, and <code>putDepthData()</code>
+            methods.
+          </p>
+          <p>
+            We may want to file bugs against [[!2DCONTEXT2]] to add extension
+            points this specification can hook into to facilitate reuse of
+            common algorithms and avoid monkey patching.
+          </p>
+        </div>
+      </section>
+    </section>
+    <section class='appendix'>
+      <h2>
+        Acknowledgements
+      </h2>
+      <p>
+        Thanks to everyone who contributed to the <a href=
+        "https://www.w3.org/wiki/Media_Capture_Depth_Stream_Extension">Use
+        Cases and Requirements</a>, sent feedback and comments. Special thanks
+        to Ningxin Hu for experimental implementations, as well as to the
+        Project Tango for their experiments.
+      </p>
+    </section>
+  </body>
+</html>
