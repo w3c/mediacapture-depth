@@ -86,11 +86,10 @@
         interface [[!GETUSERMEDIA]] to enable it to also contain depth-based
         <a><code>MediaStreamTrack</code></a>s. A depth-based
         <a><code>MediaStreamTrack</code></a>, referred to as a <a>depth
-        track</a>, represents an abstraction of a stream of image frames that
-        can each be converted to <a><code>ImageData</code></a> objects which
-        contain an array of pixel data, where each pixel represents the
-        distance between the camera and the objects in the scene for that point
-        in the <a><code>ImageData</code></a> array. A
+        track</a>, represents an abstraction of a stream of frames that can
+        each be converted to objects which contain an array of pixel data,
+        where each pixel represents the distance between the camera and the
+        objects in the scene for that point in the array. A
         <a><code>MediaStream</code></a> object that contains one or more
         <a>depth track</a>s is referred to as a <a>depth stream</a>.
       </p>
@@ -233,32 +232,18 @@
         <h2>
           <code>DepthData</code> interface
         </h2>
-        <div class="issue">
+        <div class="note">
           <p>
             Depth cameras usually produce 16-bit depth values per pixel.
             However, the canvas drawing surface used to draw and manipulate 2D
             graphics on the web platform does not currently support 16bpp.
           </p>
           <p>
-            To address the issue, two alternative proposals have been
-            discussed:
-          </p>
-          <ol>
-            <li>make the <code>data</code> attribute of the
-            <code><a>ImageData</a></code> interface of type
-            <code>Uint16Array</code> (or <code>ArrayBufferView</code>) instead
-            of <code>Uint8ClampedArray</code> to allow the
-            <code>Uint16Array</code> type;
-            </li>
-            <li>define a new <code><a>DepthData</a></code> interface and pixel
-            manipulation constructors and methods that create, and interact
-            with, <code><a>DepthData</a></code> objects.
-            </li>
-          </ol>
-          <p>
-            An early concrete proposal for the latter option is presented below
-            in terms of IDL (see <code><a>DepthData</a></code> and
-            <code><a>CanvasRenderingContext2D</a></code>).
+            To address the issue, this specification defines a new
+            <code><a>DepthData</a></code> interface and extends the
+            <code><a>CanvasRenderingContext2D</a></code> interface to provide
+            pixel manipulation constructors and methods that create, and
+            interact with, <code><a>DepthData</a></code> objects.
           </p>
         </div>
         <dl class="idl" title=
@@ -373,7 +358,8 @@
         <h2>
           <code>CanvasRenderingContext2D</code> interface
         </h2>
-        <dl class="idl" title="partial interface CanvasRenderingContext2D">
+        <dl class="idl" title="partial interface CanvasRenderingContext2D" id=
+        "idl-def-CanvasRenderingContext2D">
           <dt>
             DepthData createDepthData(double sw, double sh)
           </dt>

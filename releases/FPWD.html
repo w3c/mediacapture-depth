@@ -5,10 +5,6 @@
       Media Capture Depth Stream Extensions
     </title>
     <meta charset="utf-8">
-    <!--
-    <script src='//www.w3.org/Tools/respec/respec-w3c-common' async="" class=
-    "remove">
-    -->
     
     
   <style>/*****************************************************************
@@ -397,9 +393,11 @@ table.exceptions table {
 </style><link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/W3C-WD"><!--[if lt IE 9]><script src='https://www.w3.org/2008/site/js/html5shiv.js'></script><![endif]--></head>
   <body class="h-entry" role="document" id="respecDocument"><div class="head" role="contentinfo" id="respecHeader">
   <p>
-    
-      <a href="http://www.w3.org/"><img width="72" height="48" src="https://www.w3.org/Icons/w3c_home" alt="W3C"></a>
-    
+      
+        
+            <a href="http://www.w3.org/"><img width="72" height="48" src="https://www.w3.org/Icons/w3c_home" alt="W3C"></a>
+        
+      
   </p>
   <h1 class="title p-name" id="title" property="dcterms:title">Media Capture Depth Stream Extensions</h1>
   
@@ -588,11 +586,10 @@ table.exceptions table {
         interface [<cite><a class="bibref" href="#bib-GETUSERMEDIA">GETUSERMEDIA</a></cite>] to enable it to also contain depth-based
         <a href="#dfn-mediastreamtrack" class="internalDFN"><code>MediaStreamTrack</code></a>s. A depth-based
         <a href="#dfn-mediastreamtrack" class="internalDFN"><code>MediaStreamTrack</code></a>, referred to as a <a href="#dfn-depth-track" class="internalDFN">depth
-        track</a>, represents an abstraction of a stream of image frames that
-        can each be converted to <a href="#dfn-imagedata" class="internalDFN"><code>ImageData</code></a> objects which
-        contain an array of pixel data, where each pixel represents the
-        distance between the camera and the objects in the scene for that point
-        in the <a href="#dfn-imagedata" class="internalDFN"><code>ImageData</code></a> array. A
+        track</a>, represents an abstraction of a stream of frames that can
+        each be converted to objects which contain an array of pixel data,
+        where each pixel represents the distance between the camera and the
+        objects in the scene for that point in the array. A
         <a href="#idl-def-MediaStream" class="idlType"><code>MediaStream</code></a> object that contains one or more
         <a href="#dfn-depth-track" class="internalDFN">depth track</a>s is referred to as a <a href="#dfn-depth-stream" class="internalDFN">depth stream</a>.
       </p>
@@ -723,32 +720,18 @@ table.exceptions table {
         <h3 aria-level="2" role="heading" id="h3_depthdata-interface"><span class="secno">4.4 </span>
           <code>DepthData</code> interface
         </h3>
-        <div class="issue"><div class="issue-title" aria-level="3" role="heading" id="h_issue_1"><span>Issue 1</span></div><div class="">
+        <div class="note"><div class="note-title" aria-level="3" role="heading" id="h_note_1"><span>Note</span></div><div class="">
           <p>
             Depth cameras usually produce 16-bit depth values per pixel.
             However, the canvas drawing surface used to draw and manipulate 2D
             graphics on the web platform does not currently support 16bpp.
           </p>
           <p>
-            To address the issue, two alternative proposals have been
-            discussed:
-          </p>
-          <ol>
-            <li>make the <code>data</code> attribute of the
-            <code><a href="#dfn-imagedata" class="internalDFN">ImageData</a></code> interface of type
-            <code>Uint16Array</code> (or <code>ArrayBufferView</code>) instead
-            of <code>Uint8ClampedArray</code> to allow the
-            <code>Uint16Array</code> type;
-            </li>
-            <li>define a new <code><a href="#idl-def-DepthData" class="idlType"><code>DepthData</code></a></code> interface and pixel
-            manipulation constructors and methods that create, and interact
-            with, <code><a href="#idl-def-DepthData" class="idlType"><code>DepthData</code></a></code> objects.
-            </li>
-          </ol>
-          <p>
-            An early concrete proposal for the latter option is presented below
-            in terms of IDL (see <code><a href="#idl-def-DepthData" class="idlType"><code>DepthData</code></a></code> and
-            <code><a href="#idl-def-CanvasRenderingContext2D" class="idlType"><code>CanvasRenderingContext2D</code></a></code>).
+            To address the issue, this specification defines a new
+            <code><a href="#idl-def-DepthData" class="idlType"><code>DepthData</code></a></code> interface and extends the
+            <code><a href="#idl-def-CanvasRenderingContext2D" class="idlType"><code>CanvasRenderingContext2D</code></a></code> interface to provide
+            pixel manipulation constructors and methods that create, and
+            interact with, <code><a href="#idl-def-DepthData" class="idlType"><code>DepthData</code></a></code> objects.
           </p>
         </div></div>
         <pre class="idl"><span class="idlInterface" id="idl-def-DepthData">[<span class="extAttr">Constructor(unsigned long sw, unsigned long sh),
@@ -788,7 +771,7 @@ interface <span class="idlInterfaceID">DepthData</span> {
         <h3 aria-level="2" role="heading" id="h3_cameraparameters-interface"><span class="secno">4.5 </span>
           <code>CameraParameters</code> interface
         </h3>
-        <div class="issue"><div class="issue-title" aria-level="3" role="heading" id="h_issue_2"><span>Issue 2</span></div><div class="">
+        <div class="issue"><div class="issue-title" aria-level="3" role="heading" id="h_issue_1"><span>Issue 1</span></div><div class="">
           <p>
             What is the minimum set of metadata
             <code><a href="#idl-def-CameraParameters" class="idlType"><code>CameraParameters</code></a></code> should expose? At minimum, the
@@ -827,14 +810,14 @@ interface <span class="idlInterfaceID">DepthData</span> {
         <h3 aria-level="2" role="heading" id="h3_canvasrenderingcontext2d-interface"><span class="secno">4.6 </span>
           <code>CanvasRenderingContext2D</code> interface
         </h3>
-        <pre class="idl"><span class="idlInterface" id="idl-def-CanvasRenderingContextD">partial interface <span class="idlInterfaceID">CanvasRenderingContext2D</span> {
+        <pre class="idl" id="idl-def-CanvasRenderingContext2D"><span class="idlInterface" id="idl-def-CanvasRenderingContextD">partial interface <span class="idlInterfaceID">CanvasRenderingContext2D</span> {
 <span class="idlMethod">    <span class="idlMethType"><a href="#idl-def-DepthData" class="idlType"><code>DepthData</code></a></span> <span class="idlMethName"><a href="#widl-CanvasRenderingContextD-createDepthData-DepthData-double-sw-double-sh">createDepthData</a></span> (<span class="idlParam"><span class="idlParamType">double</span> <span class="idlParamName">sw</span></span>, <span class="idlParam"><span class="idlParamType">double</span> <span class="idlParamName">sh</span></span>);</span>
 <span class="idlMethod">    <span class="idlMethType"><a href="#idl-def-DepthData" class="idlType"><code>DepthData</code></a></span> <span class="idlMethName"><a href="#widl-CanvasRenderingContextD-createDepthData-DepthData-DepthData-depthdata">createDepthData</a></span> (<span class="idlParam"><span class="idlParamType"><a href="#idl-def-DepthData" class="idlType"><code>DepthData</code></a></span> <span class="idlParamName">depthdata</span></span>);</span>
 <span class="idlMethod">    <span class="idlMethType"><a href="#idl-def-DepthData" class="idlType"><code>DepthData</code></a></span> <span class="idlMethName"><a href="#widl-CanvasRenderingContextD-getDepthData-DepthData-double-sx-double-sy-double-sw-double-sh">getDepthData</a></span> (<span class="idlParam"><span class="idlParamType">double</span> <span class="idlParamName">sx</span></span>, <span class="idlParam"><span class="idlParamType">double</span> <span class="idlParamName">sy</span></span>, <span class="idlParam"><span class="idlParamType">double</span> <span class="idlParamName">sw</span></span>, <span class="idlParam"><span class="idlParamType">double</span> <span class="idlParamName">sh</span></span>);</span>
 <span class="idlMethod">    <span class="idlMethType">void</span>      <span class="idlMethName"><a href="#widl-CanvasRenderingContextD-putDepthData-void-DepthData-depthdata-double-dx-double-dy">putDepthData</a></span> (<span class="idlParam"><span class="idlParamType"><a href="#idl-def-DepthData" class="idlType"><code>DepthData</code></a></span> <span class="idlParamName">depthdata</span></span>, <span class="idlParam"><span class="idlParamType">double</span> <span class="idlParamName">dx</span></span>, <span class="idlParam"><span class="idlParamType">double</span> <span class="idlParamName">dy</span></span>);</span>
 <span class="idlMethod">    <span class="idlMethType">void</span>      <span class="idlMethName"><a href="#widl-CanvasRenderingContextD-putDepthData-void-DepthData-depthdata-double-dx-double-dy-double-dirtyX-double-dirtyY-double-dirtyWidth-double-dirtyHeight">putDepthData</a></span> (<span class="idlParam"><span class="idlParamType"><a href="#idl-def-DepthData" class="idlType"><code>DepthData</code></a></span> <span class="idlParamName">depthdata</span></span>, <span class="idlParam"><span class="idlParamType">double</span> <span class="idlParamName">dx</span></span>, <span class="idlParam"><span class="idlParamType">double</span> <span class="idlParamName">dy</span></span>, <span class="idlParam"><span class="idlParamType">double</span> <span class="idlParamName">dirtyX</span></span>, <span class="idlParam"><span class="idlParamType">double</span> <span class="idlParamName">dirtyY</span></span>, <span class="idlParam"><span class="idlParamType">double</span> <span class="idlParamName">dirtyWidth</span></span>, <span class="idlParam"><span class="idlParamType">double</span> <span class="idlParamName">dirtyHeight</span></span>);</span>
 };</span></pre>
-        <div class="issue"><div class="issue-title" aria-level="3" role="heading" id="h_issue_3"><span>Issue 3</span></div><div class="">
+        <div class="issue"><div class="issue-title" aria-level="3" role="heading" id="h_issue_2"><span>Issue 2</span></div><div class="">
           <p>
             Define the algorithms for the <code>createDepthData()</code>,
             <code>getDepthData()</code>, and <code>putDepthData()</code>
