@@ -622,12 +622,12 @@ table.exceptions table {
         Terminology
       </h2>
       <p>
-        The <code><a href="http://w3c.github.io/mediacapture-main/getusermedia.html#idl-def-Constraints">
-        <dfn id="dfn-constraints">Constraints</dfn></a></code>, <code><a href="http://w3c.github.io/mediacapture-main/getusermedia.html#idl-def-MediaStreamConstraints">
-        <dfn id="dfn-mediastreamconstraints">MediaStreamConstraints</dfn></a></code>, and <code><a href="http://w3c.github.io/mediacapture-main/getusermedia.html#idl-def-MediaTrackConstraints">
+        The <code><a href="http://w3c.github.io/mediacapture-main/archives/20140909/getusermedia.html#idl-def-Constraints">
+        <dfn id="dfn-constraints">Constraints</dfn></a></code>, <code><a href="http://w3c.github.io/mediacapture-main/archives/20140909/getusermedia.html#idl-def-MediaStreamConstraints">
+        <dfn id="dfn-mediastreamconstraints">MediaStreamConstraints</dfn></a></code>, and <code><a href="http://w3c.github.io/mediacapture-main/archives/20140909/getusermedia.html#idl-def-MediaTrackConstraints">
         <dfn id="dfn-mediatrackconstraints">MediaTrackConstraints</dfn></a></code> dictionaries,
-        <code><a href="http://w3c.github.io/mediacapture-main/getusermedia.html#idl-def-MediaStreamTrack">
-        <dfn id="dfn-mediastreamtrack">MediaStreamTrack</dfn></a></code> and <code><a href="http://w3c.github.io/mediacapture-main/getusermedia.html#idl-def-MediaStream">
+        <code><a href="http://w3c.github.io/mediacapture-main/archives/20140909/getusermedia.html#idl-def-MediaStreamTrack">
+        <dfn id="dfn-mediastreamtrack">MediaStreamTrack</dfn></a></code> and <code><a href="http://w3c.github.io/mediacapture-main/archives/20140909/getusermedia.html#idl-def-MediaStream">
         <dfn id="dfn-mediastream">MediaStream</dfn></a></code> interfaces this specification extends
         are defined in [<cite><a class="bibref" href="#bib-GETUSERMEDIA">GETUSERMEDIA</a></cite>].
       </p>
@@ -738,10 +738,10 @@ table.exceptions table {
  Constructor(Uint16Array data, unsigned long sw, optional unsigned long sh),
  Exposed=Window,Worker</span>]
 interface <span class="idlInterfaceID">DepthData</span> {
-<span class="idlAttribute">    readonly    attribute <span class="idlAttrType">unsigned long</span>    <span class="idlAttrName"><a href="#widl-DepthData-width">width</a></span>;</span>
-<span class="idlAttribute">    readonly    attribute <span class="idlAttrType">unsigned long</span>    <span class="idlAttrName"><a href="#widl-DepthData-height">height</a></span>;</span>
-<span class="idlAttribute">    readonly    attribute <span class="idlAttrType"><a href="#dfn-uint16array" class="internalDFN">Uint16Array</a></span>      <span class="idlAttrName"><a href="#widl-DepthData-data">data</a></span>;</span>
-<span class="idlAttribute">    readonly    attribute <span class="idlAttrType"><a href="#idl-def-CameraParameters" class="idlType"><code>CameraParameters</code></a></span> <span class="idlAttrName"><a href="#widl-DepthData-parameters">parameters</a></span>;</span>
+<span class="idlAttribute">    readonly    attribute <span class="idlAttrType">unsigned long</span>    <span class="idlAttrName"><a>width</a></span>;</span>
+<span class="idlAttribute">    readonly    attribute <span class="idlAttrType">unsigned long</span>    <span class="idlAttrName"><a>height</a></span>;</span>
+<span class="idlAttribute">    readonly    attribute <span class="idlAttrType"><a href="#dfn-uint16array" class="internalDFN">Uint16Array</a></span>      <span class="idlAttrName"><a>data</a></span>;</span>
+<span class="idlAttribute">    readonly    attribute <span class="idlAttrType"><a href="#idl-def-CameraParameters" class="idlType"><code>CameraParameters</code></a></span> <span class="idlAttrName"><a>parameters</a></span>;</span>
 };</span></pre>
         <p>
           New <code><a href="#idl-def-DepthData" class="idlType"><code>DepthData</code></a></code> objects <em class="rfc2119" title="MUST">MUST</em> be initialised so that
@@ -789,9 +789,9 @@ interface <span class="idlInterfaceID">DepthData</span> {
           image plane.
         </p>
         <pre class="idl"><span class="idlInterface" id="idl-def-CameraParameters">interface <span class="idlInterfaceID">CameraParameters</span> {
-<span class="idlAttribute">    readonly    attribute <span class="idlAttrType">double</span> <span class="idlAttrName"><a href="#widl-CameraParameters-focalLength">focalLength</a></span>;</span>
-<span class="idlAttribute">    readonly    attribute <span class="idlAttrType">double</span> <span class="idlAttrName"><a href="#widl-CameraParameters-horizontalViewAngle">horizontalViewAngle</a></span>;</span>
-<span class="idlAttribute">    readonly    attribute <span class="idlAttrType">double</span> <span class="idlAttrName"><a href="#widl-CameraParameters-verticalViewAngle">verticalViewAngle</a></span>;</span>
+<span class="idlAttribute">    readonly    attribute <span class="idlAttrType">double</span> <span class="idlAttrName"><a>focalLength</a></span>;</span>
+<span class="idlAttribute">    readonly    attribute <span class="idlAttrType">double</span> <span class="idlAttrName"><a>horizontalViewAngle</a></span>;</span>
+<span class="idlAttribute">    readonly    attribute <span class="idlAttrType">double</span> <span class="idlAttrName"><a>verticalViewAngle</a></span>;</span>
 };</span></pre>
         <p>
           The <code>focalLength</code> attribute, on getting, <em class="rfc2119" title="MUST">MUST</em> return the
@@ -811,11 +811,11 @@ interface <span class="idlInterfaceID">DepthData</span> {
           <code>CanvasRenderingContext2D</code> interface
         </h3>
         <pre class="idl" id="idl-def-CanvasRenderingContext2D"><span class="idlInterface" id="idl-def-CanvasRenderingContextD">partial interface <span class="idlInterfaceID">CanvasRenderingContext2D</span> {
-<span class="idlMethod">    <span class="idlMethType"><a href="#idl-def-DepthData" class="idlType"><code>DepthData</code></a></span> <span class="idlMethName"><a href="#widl-CanvasRenderingContextD-createDepthData-DepthData-double-sw-double-sh">createDepthData</a></span> (<span class="idlParam"><span class="idlParamType">double</span> <span class="idlParamName">sw</span></span>, <span class="idlParam"><span class="idlParamType">double</span> <span class="idlParamName">sh</span></span>);</span>
-<span class="idlMethod">    <span class="idlMethType"><a href="#idl-def-DepthData" class="idlType"><code>DepthData</code></a></span> <span class="idlMethName"><a href="#widl-CanvasRenderingContextD-createDepthData-DepthData-DepthData-depthdata">createDepthData</a></span> (<span class="idlParam"><span class="idlParamType"><a href="#idl-def-DepthData" class="idlType"><code>DepthData</code></a></span> <span class="idlParamName">depthdata</span></span>);</span>
-<span class="idlMethod">    <span class="idlMethType"><a href="#idl-def-DepthData" class="idlType"><code>DepthData</code></a></span> <span class="idlMethName"><a href="#widl-CanvasRenderingContextD-getDepthData-DepthData-double-sx-double-sy-double-sw-double-sh">getDepthData</a></span> (<span class="idlParam"><span class="idlParamType">double</span> <span class="idlParamName">sx</span></span>, <span class="idlParam"><span class="idlParamType">double</span> <span class="idlParamName">sy</span></span>, <span class="idlParam"><span class="idlParamType">double</span> <span class="idlParamName">sw</span></span>, <span class="idlParam"><span class="idlParamType">double</span> <span class="idlParamName">sh</span></span>);</span>
-<span class="idlMethod">    <span class="idlMethType">void</span>      <span class="idlMethName"><a href="#widl-CanvasRenderingContextD-putDepthData-void-DepthData-depthdata-double-dx-double-dy">putDepthData</a></span> (<span class="idlParam"><span class="idlParamType"><a href="#idl-def-DepthData" class="idlType"><code>DepthData</code></a></span> <span class="idlParamName">depthdata</span></span>, <span class="idlParam"><span class="idlParamType">double</span> <span class="idlParamName">dx</span></span>, <span class="idlParam"><span class="idlParamType">double</span> <span class="idlParamName">dy</span></span>);</span>
-<span class="idlMethod">    <span class="idlMethType">void</span>      <span class="idlMethName"><a href="#widl-CanvasRenderingContextD-putDepthData-void-DepthData-depthdata-double-dx-double-dy-double-dirtyX-double-dirtyY-double-dirtyWidth-double-dirtyHeight">putDepthData</a></span> (<span class="idlParam"><span class="idlParamType"><a href="#idl-def-DepthData" class="idlType"><code>DepthData</code></a></span> <span class="idlParamName">depthdata</span></span>, <span class="idlParam"><span class="idlParamType">double</span> <span class="idlParamName">dx</span></span>, <span class="idlParam"><span class="idlParamType">double</span> <span class="idlParamName">dy</span></span>, <span class="idlParam"><span class="idlParamType">double</span> <span class="idlParamName">dirtyX</span></span>, <span class="idlParam"><span class="idlParamType">double</span> <span class="idlParamName">dirtyY</span></span>, <span class="idlParam"><span class="idlParamType">double</span> <span class="idlParamName">dirtyWidth</span></span>, <span class="idlParam"><span class="idlParamType">double</span> <span class="idlParamName">dirtyHeight</span></span>);</span>
+<span class="idlMethod">    <span class="idlMethType"><a href="#idl-def-DepthData" class="idlType"><code>DepthData</code></a></span> <span class="idlMethName"><a>createDepthData</a></span> (<span class="idlParam"><span class="idlParamType">double</span> <span class="idlParamName">sw</span></span>, <span class="idlParam"><span class="idlParamType">double</span> <span class="idlParamName">sh</span></span>);</span>
+<span class="idlMethod">    <span class="idlMethType"><a href="#idl-def-DepthData" class="idlType"><code>DepthData</code></a></span> <span class="idlMethName"><a>createDepthData</a></span> (<span class="idlParam"><span class="idlParamType"><a href="#idl-def-DepthData" class="idlType"><code>DepthData</code></a></span> <span class="idlParamName">depthdata</span></span>);</span>
+<span class="idlMethod">    <span class="idlMethType"><a href="#idl-def-DepthData" class="idlType"><code>DepthData</code></a></span> <span class="idlMethName"><a>getDepthData</a></span> (<span class="idlParam"><span class="idlParamType">double</span> <span class="idlParamName">sx</span></span>, <span class="idlParam"><span class="idlParamType">double</span> <span class="idlParamName">sy</span></span>, <span class="idlParam"><span class="idlParamType">double</span> <span class="idlParamName">sw</span></span>, <span class="idlParam"><span class="idlParamType">double</span> <span class="idlParamName">sh</span></span>);</span>
+<span class="idlMethod">    <span class="idlMethType">void</span>      <span class="idlMethName"><a>putDepthData</a></span> (<span class="idlParam"><span class="idlParamType"><a href="#idl-def-DepthData" class="idlType"><code>DepthData</code></a></span> <span class="idlParamName">depthdata</span></span>, <span class="idlParam"><span class="idlParamType">double</span> <span class="idlParamName">dx</span></span>, <span class="idlParam"><span class="idlParamType">double</span> <span class="idlParamName">dy</span></span>);</span>
+<span class="idlMethod">    <span class="idlMethType">void</span>      <span class="idlMethName"><a>putDepthData</a></span> (<span class="idlParam"><span class="idlParamType"><a href="#idl-def-DepthData" class="idlType"><code>DepthData</code></a></span> <span class="idlParamName">depthdata</span></span>, <span class="idlParam"><span class="idlParamType">double</span> <span class="idlParamName">dx</span></span>, <span class="idlParam"><span class="idlParamType">double</span> <span class="idlParamName">dy</span></span>, <span class="idlParam"><span class="idlParamType">double</span> <span class="idlParamName">dirtyX</span></span>, <span class="idlParam"><span class="idlParamType">double</span> <span class="idlParamName">dirtyY</span></span>, <span class="idlParam"><span class="idlParamType">double</span> <span class="idlParamName">dirtyWidth</span></span>, <span class="idlParam"><span class="idlParamType">double</span> <span class="idlParamName">dirtyHeight</span></span>);</span>
 };</span></pre>
         <div class="issue"><div class="issue-title" aria-level="3" role="heading" id="h_issue_2"><span>Issue 2</span></div><div class="">
           <p>
