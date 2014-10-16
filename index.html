@@ -97,8 +97,20 @@
         Introduction
       </h2>
       <p>
-        This specification extends the <a><code>MediaStream</code></a>
-        interface [[!GETUSERMEDIA]] to enable it to also contain depth-based
+        Depth cameras are increasingly being integrated into devices such as
+        phones, tablets, and laptops. Depth cameras provide a depth map, which
+        conveys the distance information between points on an object's surface
+        and the camera. With depth information, web content and applications
+        can be enhanced by, for example, the use of hand gestures as an input
+        mechanism, or by creating 3D models of real-world objects that can
+        interact and integrate with the web platform. Concrete applications of
+        this technology include more immersive gaming experiences, more
+        accessible 3D video conferences, and augmented reality, to name a few.
+      </p>
+      <p>
+        To bring depth capability to the web platform, this specification
+        extends the <a><code>MediaStream</code></a> interface [[!GETUSERMEDIA]]
+        to enable it to also contain depth-based
         <a><code>MediaStreamTrack</code></a>s. A depth-based
         <a><code>MediaStreamTrack</code></a>, referred to as a <a>depth
         track</a>, represents an abstraction of a stream of frames that can
