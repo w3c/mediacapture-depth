@@ -289,6 +289,21 @@
       </section>
       <section>
         <h2>
+          <code>CanvasImageSource</code> typedef
+        </h2>
+        <div class="note">
+          <p>
+            Several methods in the <code>CanvasRenderingContext2D</code> API
+            take the union type <code>CanvasImageSource</code> as an argument.
+          </p>
+        </div>
+        <p>
+          A <code>video</code> element whose source is a <a><code>MediaStream</code></a>
+          object containing a <a>depth track</a> may be used as <a><code>CanvasImageSource</code></a>.
+        </p>
+      </section>
+      <section>
+        <h2>
           <code>ImageData</code> interface
         </h2>
         <div class="note">
@@ -305,10 +320,6 @@
             image produced by depth cameras.
           </p>
         </div>
-        <p>
-          A <code>video</code> element whose source is a <a><code>MediaStream</code></a>
-          object containing a <a>depth track</a> may be used as <a><code>CanvasImageSource</code></a>.
-        </p>
         <p>
           When representing a depth image, the <dfn>Canvas Pixel <code>ArrayBuffer</code></dfn>
           is an <a><code>ArrayBuffer</code></a> whose data is represented in
@@ -388,6 +399,7 @@
         to Ningxin Hu for experimental implementations, as well as to the
         Project Tango for their experiments.
       </p>
+    </section>
     </section>
   </body>
 </html>
