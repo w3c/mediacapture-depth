@@ -289,7 +289,7 @@
       </section>
       <section>
         <h2>
-          <code>DepthData</code> interface
+          <code>ImageData</code> interface
         </h2>
         <div class="note">
           <p>
@@ -299,63 +299,27 @@
           </p>
           <p>
             To address the issue, this specification defines a new
-            <code><a>DepthData</a></code> interface and extends the
-            <code><a>CanvasRenderingContext2D</a></code> interface to provide
-            pixel manipulation constructors and methods that create, and
-            interact with, <code><a>DepthData</a></code> objects.
+            data representation for current
+            <code><a>Canvas Pixel ArrayBuffer</a></code> of
+            <code><a>ImageData</a></code> interface to represent 16bpp depth
+            image produced by depth cameras.
           </p>
         </div>
-        <dl class="idl" title=
-        "[Constructor(unsigned long sw, unsigned long sh),
- Constructor(Uint16Array data, unsigned long sw, optional unsigned long sh),
- Exposed=Window,Worker] interface DepthData">
-        <dt>
-            readonly attribute unsigned long width
-          </dt>
-          <dd>
-            -
-          </dd>
-          <dt>
-            readonly attribute unsigned long height
-          </dt>
-          <dd>
-            -
-          </dd>
-          <dt>
-            readonly attribute Uint16Array data
-          </dt>
-          <dd>
-            -
-          </dd>
-          <dt>
-            readonly attribute CameraParameters parameters
-          </dt>
-          <dd>
-            -
-          </dd>
-        </dl>
         <p>
-          New <code><a>DepthData</a></code> objects MUST be initialised so that
-          their <code>width</code> attribute is set to the number of entries
-          per row in the <a>depth data</a>, their <code>height</code> attribute
-          is set to the number of rows in the <a>depth data</a>, and their
-          <code>data</code> attribute, except where an existing array is
-          provided, is initialised to a new <code>Uint16Array</code> object.
-          The <code>Uint16Array</code> object MUST use a new <a>Canvas depth
-          <code>ArrayBuffer</code></a> for its storage, and MUST have a zero
-          start offset and a length equal to the length of its storage, in
-          bytes.
+          A <code>video</code> element whose source is a <a><code>MediaStream</code></a>
+          object containing a <a>depth track</a> may be used as <a><code>CanvasImageSource</code></a>.
         </p>
         <p>
-          A <dfn>Canvas Depth <code>ArrayBuffer</code></dfn> is an
-          <a><code>ArrayBuffer</code></a> whose data is represented in
+          When representing a depth image, the <dfn>Canvas Pixel <code>ArrayBuffer</code></dfn>
+          is an <a><code>ArrayBuffer</code></a> whose data is represented in
           left-to-right order, row by row top to bottom, starting with the top
-          left, with each pixel's depth component being given in that order for
-          each pixel. Each depth component of each pixel represented in this
-          array MUST be in the range 0..65536, representing the 16 bit value
-          for that depth component. The depth components MUST be assigned
-          consecutive indices starting with 0 for the top left pixel's depth
-          component.
+          left, with each pixel's lower 8 bit of 16 bit depth value, upper 8
+          bit of 16 bit depth value, 8 bit reserved data, and another 8 bit
+          reserved data being given in that order for each pixel. Each component
+          of each pixel represented in this array must be in the range 0..255,
+          representing the 8 bit value for that component. The components must
+          be assigned consecutive indices starting with 0 for the top left
+          pixel's lower 8 bit of 16 bit depth value component.
         </p>
       </section>
       <section>
@@ -413,58 +377,6 @@
           the vertical angle of view in degrees.
         </p>
       </section>
-      <section>
-        <h2>
-          <code>CanvasRenderingContext2D</code> interface
-        </h2>
-        <dl class="idl" title="partial interface CanvasRenderingContext2D" id=
-        "idl-def-CanvasRenderingContext2D">
-          <dt>
-            DepthData createDepthData(double sw, double sh)
-          </dt>
-          <dd>
-            -
-          </dd>
-          <dt>
-            DepthData createDepthData(DepthData depthdata)
-          </dt>
-          <dd>
-            -
-          </dd>
-          <dt>
-            DepthData getDepthData(double sx, double sy, double sw, double sh)
-          </dt>
-          <dd>
-            -
-          </dd>
-          <dt>
-            void putDepthData(DepthData depthdata, double dx, double dy)
-          </dt>
-          <dd>
-            -
-          </dd>
-          <dt>
-            void putDepthData(DepthData depthdata, double dx, double dy, double
-            dirtyX, double dirtyY, double dirtyWidth, double dirtyHeight)
-          </dt>
-          <dd>
-            -
-          </dd>
-        </dl>
-        <div class="issue">
-          <p>
-            Define the algorithms for the <code>createDepthData()</code>,
-            <code>getDepthData()</code>, and <code>putDepthData()</code>
-            methods.
-          </p>
-          <p>
-            We may want to file bugs against [[!2DCONTEXT2]] to add extension
-            points this specification can hook into to facilitate reuse of
-            common algorithms and avoid monkey patching.
-          </p>
-        </div>
-      </section>
-    </section>
     <section class='appendix'>
       <h2>
         Acknowledgements
