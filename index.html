@@ -187,9 +187,9 @@
       <p>
         The <code><a href=
         "http://www.w3.org/html/wg/drafts/2dcontext/master/#imagedata"><dfn>ImageData</dfn></a></code>
-        interface and its <code><a href=
-        "http://www.w3.org/html/wg/drafts/2dcontext/master/#dom-imagedata-data">
-        <dfn>data</dfn></a></code> attribute are defined in [[!2DCONTEXT2]].
+        interface and <code><a href=
+        "http://www.w3.org/html/wg/drafts/2dcontext/master/#canvasimagesource">
+        <dfn>CanvasImageSource</dfn></a></code> typedef are defined in [[!2DCONTEXT2]].
       </p>
       <p>
         The <code><a href=
@@ -213,10 +213,6 @@
       <p>
         A <dfn>depth track</dfn> represents media sourced from a depth camera
         or other similar source.
-      </p>
-      <p>
-        A <dfn>depth data</dfn> represents the underlying depth data structure
-        of an area of a <code>canvas</code> element.
       </p>
     </section>
     <section>
@@ -289,6 +285,24 @@
       </section>
       <section>
         <h2>
+          <code>CanvasImageSource</code> typedef
+        </h2>
+        <div class="note">
+          <p>
+            Several methods in the <code>CanvasRenderingContext2D</code> API
+            take the union type <code>CanvasImageSource</code> as an argument.
+          </p>
+        </div>
+        <p>
+          A <code>video</code> element whose source is a <a><code>MediaStream</code></a>
+          object containing a <a>depth track</a> is said to be a <dfn>depth video element</dfn>.
+        </p>
+        <p>
+          A <a>depth video element</a> may be used as a <a><code>CanvasImageSource</code></a>.
+        </p>
+      </section>
+      <section>
+        <h2>
           <code>ImageData</code> interface
         </h2>
         <div class="note">
@@ -306,8 +320,9 @@
           </p>
         </div>
         <p>
-          A <code>video</code> element whose source is a <a><code>MediaStream</code></a>
-          object containing a <a>depth track</a> may be used as <a><code>CanvasImageSource</code></a>.
+          An <code>ImageData</code> object is said to <dfn>represent depth data</dfn>, when
+          the <code>CanvasImageSource</code> used as the image source for the
+          <code>CanvasRenderingContext2D</code> is a <a>depth video element</a>.
         </p>
         <p>
           When representing a depth image, the <dfn>Canvas Pixel <code>ArrayBuffer</code></dfn>
@@ -338,7 +353,8 @@
           </p>
         </div>
         <p>
-          Each <a>DepthData</a> interface is associated with a
+          Each <code><a>ImageData</a></code> interface that is said to
+          <a>represent depth data</a> is associated with a
           <a>CameraParameters</a> object. It represents the parameters of a
           pinhole camera model that describes the mathematical relationship
           between the coordinates of a 3D point and its projection onto the
@@ -377,6 +393,7 @@
           the vertical angle of view in degrees.
         </p>
       </section>
+    </section>
     <section class='appendix'>
       <h2>
         Acknowledgements
