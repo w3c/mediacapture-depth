@@ -398,6 +398,47 @@
         component is not defined.
       </p>
     </section>
+    <section class='informative'>
+      <h2>
+        Examples
+      </h2>
+      <h3>
+        2D Canvas Context based post-processing
+      </h3>
+      <pre class='example highlight'>
+var canvasContext = document.createElement("canvas").getContext("2d");
+var fps = 60;
+
+navigator.mediaDevices.getUserMedia({
+  video: true,
+  depth: true,
+}).then(function (stream) {
+  // wire the stream into a &lt;video&gt; element for playback
+  var video = document.querySelector('#video');
+  video.srcObject = stream;
+  video.play();
+  // wire the depth stream into another &lt;video&gt; element to convert kind
+  // NOTE: Only the R and G bytes are set to carry 16 bits of data
+  var depthVideo = document.querySelector('#depthVideo');
+  // construct a new MediaStream out of the existing depth track(stream)
+  var depthStream = new MediaStream(stream.getDepthTracks()[0]);
+  depthVideo.srcObject = depthStream;
+  depthVideo.play();
+
+  depthVideo.onloadedmetadata = function () {
+    setInterval(function () {
+      var pixels = canvasContext.drawImage(video);
+      var depthPixels = canvasContext.drawImage(depthVideo);
+      var dexels = new Uint16Array();
+      // iterate through depth pixels to convert 2 bytes into 1 Uint16
+      // do things with pixels and dexels here
+    }, 1000/fps);
+  };
+}).catch(function (reason) {
+  // handle gUM error here
+});
+      </pre>
+    </section>
     <section class='appendix'>
       <h2>
         Acknowledgements
