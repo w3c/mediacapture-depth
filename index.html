@@ -173,8 +173,11 @@
       </p>
       <p>
         The <code><a href=
+        "http://www.w3.org/html/wg/drafts/2dcontext/master/#canvasrenderingcontext2d">
+        <dfn>CanvasRenderingContext2D</dfn></a></code>
+        and <code><a href=
         "http://www.w3.org/html/wg/drafts/2dcontext/master/#imagedata"><dfn>ImageData</dfn></a></code>
-        interface and <code><a href=
+        interfaces, and the <code><a href=
         "http://www.w3.org/html/wg/drafts/2dcontext/master/#canvasimagesource">
         <dfn>CanvasImageSource</dfn></a></code> typedef are defined in [[!2DCONTEXT2]].
       </p>
@@ -270,8 +273,12 @@
         </h2>
         <div class="note">
           <p>
-            Several methods in the <code>CanvasRenderingContext2D</code> API
-            take the union type <code>CanvasImageSource</code> as an argument.
+            Several methods in the <a><code>CanvasRenderingContext2D</code></a> API
+            take the union type <a><code>CanvasImageSource</code></a> as an argument.
+            This specification extends the list of <a href="
+            http://www.w3.org/html/wg/drafts/2dcontext/master/#image-sources-for-2d-rendering-contexts">
+            image sources for 2D rendering contexts</a>
+            defined in [[!2DCONTEXT2]].
           </p>
         </div>
         <p>
@@ -302,8 +309,8 @@
         </div>
         <p>
           An <code>ImageData</code> object is said to <dfn>represent depth data</dfn>, when
-          the <code>CanvasImageSource</code> used as the image source for the
-          <code>CanvasRenderingContext2D</code> is a <a>depth video element</a>.
+          the <a><code>CanvasImageSource</code></a> used as the image source for the
+          <a><code>CanvasRenderingContext2D</code></a> is a <a>depth video element</a>.
         </p>
         <p>
           When representing a depth image, the <dfn>Canvas Pixel <code>ArrayBuffer</code></dfn>
