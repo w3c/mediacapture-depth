@@ -476,6 +476,47 @@ navigator.mediaDevices.getUserMedia({
   // handle gUM error here
 });
       </pre>
+      <h3>
+        WebGL Fragment Shader based post-processing
+      </h3>
+      <pre class='example highlight'>
+// This code sets up a video element from a depth stream, uploads it to a WebGL
+// texture, and samples that texture in the fragment shader, reconstructing the
+// 16-bit depth values from the red and green channels.
+navigator.mediaDevices.getUserMedia({
+  depth: true,
+}).then(function (stream) {
+  // wire the stream into a &lt;video&gt; element for playback
+  var depthVideo = document.querySelector('#depthVideo');
+  depthVideo.srcObject = stream;
+  depthVideo.play();
+}).catch(function (reason) {
+  // handle gUM error here
+});
+
+// ... later, in the rendering loop ...
+gl.texImage2D(
+   gl.TEXTURE_2D,
+   0,
+   gl.RGB,
+   gl.RGB,
+   gl.UNSIGNED_BYTE,
+   depthVideo
+);
+
+&lt;script id="fragment-shader" type="x-shader/x-fragment"&gt;
+  varying vec2 v_texCoord;
+  // u_tex points to the texture unit containing the depth texture.
+  uniform sampler2D u_tex;
+  void main() {
+    vec4 floatColor = texture2D(u_tex, v_texCoord);
+    vec3 rgb = floatColor.rgb;
+    // ...
+    float depth = rgb.r + 256. * rgb.g;
+    // ...
+  }
+&lt;/script&gt;
+      </pre>
     </section>
     <section class='appendix'>
       <h2>
