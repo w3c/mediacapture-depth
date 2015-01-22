@@ -398,6 +398,58 @@
         component is not defined.
       </p>
     </section>
+    <section class='informative'>
+      <h2>
+        Examples
+      </h2>
+      <h3>
+        2D Canvas Context based post-processing
+      </h3>
+      <pre class='example highlight'>
+var canvasContext = document.createElement("canvas").getContext("2d");
+var fps = 60;
+
+navigator.mediaDevices.getUserMedia({
+  video: true,
+  depth: true,
+}).then(function (stream) {
+  // wire the stream into a &lt;video&gt; element for playback
+  var video = document.querySelector('#video');
+  video.srcObject = stream;
+  video.play();
+  // wire the depth stream into another &lt;video&gt; element to convert kind
+  // NOTE: Only the R and G bytes are set to carry 16 bits of data
+  var depthVideo = document.querySelector('#depthVideo');
+  // construct a new MediaStream out of the existing depth track(stream)
+  var depthStream = new MediaStream(stream.getDepthTracks()[0]);
+  depthVideo.srcObject = depthStream;
+  depthVideo.play();
+
+  depthVideo.onloadedmetadata = function () {
+    setInterval(function () {
+      canvasContext.drawImage(video);
+      var rgbImageData = canvasContext.getImageData(0, 0, w, h);
+      var pixels = rgbImageData.data;
+      depthCanvasContext.drawImage(depthVideo);
+      var depthImageData = depthCanvasContext.getImageData(0, 0, w, h);
+      var dexels = depthImageData.data;
+
+      for (var x = 0; x < w ; ++x) {
+        for (var y = 0; y < h; ++y) {
+          var i = (x + y * w) * 4;
+          var depth = dexels[i] | dexels[i + 1] << 8;
+          // depth is the 16 bit depth value at (x, y)
+        }
+      }
+      // iterate through depth pixels to convert 2 bytes into 1 Uint16
+      // do things with pixels and dexels here
+    }, 1000/fps);
+  };
+}).catch(function (reason) {
+  // handle gUM error here
+});
+      </pre>
+    </section>
     <section class='appendix'>
       <h2>
         Acknowledgements
