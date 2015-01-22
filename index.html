@@ -256,6 +256,17 @@
           agent</a> defined and the order does not have to be stable between
           calls.
         </p>
+        <section>
+          <h3>Combined Video and Depth Tracks</h3>
+          <p>A <code><a>MediaStreamTrack</a></code> object representing a video
+          track and a <code><a>MediaStreamTrack</a></code> object representing a
+          <a>depth track</a> can be combined into one <code><a>MediaStream</a></code> 
+          object. The rendering of the two tracks are intended to be 
+          synchronized. The resolutions of the two track are intended to be 
+          same. And the coordinations of the two track are intended to be 
+          calibrated. These are not hard requirements, since it might not be 
+          possible to synchronize tracks from sources.</p>
+        </section>
       </section>
       <section>
         <h2>
