@@ -269,6 +269,22 @@
       </section>
       <section>
         <h2>
+          Direct Assignment to Media Elements
+        </h2>
+        <p>User Agents that support <code><a>MediaStream</a></code> 
+        <a
+        href="http://w3c.github.io/mediacapture-main/getusermedia.html#direct-assignment-to-media-elements">Direct Assignment to Media Elements</a>
+        MUST allow a <code><a>MediaStream</a></code> object containing
+        <a>depth track</a> to be assigned directly to a media element.</p>
+        <p>For each <code><a>MediaStreamTrack</a></code> representing a 
+        <a>depth track</a> in the <code><a>MediaStream</a></code>, 
+        the User Agent MUST create a corresponding <code>
+        <a
+        href="http://www.w3.org/TR/html5/embedded-content-0.html#videotrack">VideoTrack</a>
+        </code> as defined in [[HTML5]].</p>
+      </section>
+      <section>
+        <h2>
           <code>CanvasImageSource</code> typedef
         </h2>
         <div class="note">
