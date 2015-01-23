@@ -206,6 +206,10 @@
         A <dfn>depth track</dfn> represents media sourced from a depth camera
         or other similar source.
       </p>
+      <p>
+        A <dfn>video track</dfn> represents media sourced from an RGB camera
+        or other similar source.
+      </p>
     </section>
     <section>
       <h2>
@@ -266,8 +270,8 @@
         </p>
         <section class='informative'>
           <h3>Implementation considerations</h3>
-          <p>A <code><a>MediaStreamTrack</a></code> object representing a video
-          track and a <code><a>MediaStreamTrack</a></code> object representing a
+          <p>A <code><a>MediaStreamTrack</a></code> object representing a <a>video
+          track</a> and a <code><a>MediaStreamTrack</a></code> object representing a
           <a>depth track</a> can be combined into one <code><a>MediaStream</a></code> 
           object. The rendering of the two tracks are intended to be 
           synchronized. The resolutions of the two track are intended to be 
