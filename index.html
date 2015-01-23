@@ -84,6 +84,54 @@
     </section>
     <section id='sotd'>
       <p>
+        The following changes were made since the
+        <a href="http://www.w3.org/TR/2014/WD-mediacapture-depth-20141007/">
+        W3C First Public Working Draft 07 October 2014</a>:
+      </p>
+      <ul>
+        <li>
+          Removed the
+          <a href="http://www.w3.org/TR/2014/WD-mediacapture-depth-20141007/#depthdata-interface">
+          <code>DepthData</code></a> interface
+        </li>
+        <li>
+          Added depth value presentation into the
+          <a href="#imagedata-interface"><code>ImageData</code></a> interface
+        </li>
+        <li>
+          Added a <a>depth video element</a> as an image source in the
+          <a href="#canvasimagesource-typedef"><code>CanvasImageSource</code>
+          typedef</a>
+        <li>
+          Added support for <a href="#direct-assignment-to-media-elements">
+          direct assignment to media elements</a> for
+          <a><code>MediaStream</code></a> object containing a
+          <a>depth track</a>
+        </li>
+        <li>
+          Added new properties to the <a><code>Settings</code></a> dictionary
+        </li>
+        <li>
+          Added new definitions to the <a href="#terminology">terminology</a>
+          section
+        </li>
+        <li>
+          Added a non-normative section considering the
+          <a href="#webglrenderingcontext-interface">
+          <code>WebGLRenderingContext</code></a> interface
+        </li>
+        <li>
+          Added a non-normative <a href="#implementation-considerations">
+          implementation considerations</a> section regarding combining a
+          <a>depth track</a> and a <a>video track</a> into one
+          <a><code>MediaStream</code></a> object
+        </li>
+        <li>
+          Added <a href="#examples">examples</a> for 2D canvas context and
+          WebGL fragment shader based post-processing
+        </li>
+      </ul>
+      <p>
         <strong>This document is not complete and is subject to change. Early
         experimentations are encouraged to allow the Media Capture Task Force
         to evolve the specification based on technical discussions within the
@@ -473,12 +521,12 @@ navigator.mediaDevices.getUserMedia({
       var dexels = depthImageData.data;
 
       // iterate through depth pixels to convert 2 bytes into 1 Uint16
-      for (var x = 0; x < w ; ++x) {
-        for (var y = 0; y < h; ++y) {
+      for (var x = 0; x &lt; w ; ++x) {
+        for (var y = 0; y &lt; h; ++y) {
           var i = (x + y * w) * 4;
-          // combine the R & G pixels at (x, y) to get
+          // combine the R &amp; G pixels at (x, y) to get
           // the 16 bit depth pixel value
-          var depth = dexels[i] | dexels[i + 1] << 8;
+          var depth = dexels[i] | dexels[i + 1] &lt;&lt; 8;
         }
       }
       // do things with pixels and dexels here
