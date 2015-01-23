@@ -152,18 +152,26 @@
         Terminology
       </h2>
       <p>
-        The <code><a href=
-        "http://w3c.github.io/mediacapture-main/getusermedia.html#idl-def-Constraints">
-        <dfn>Constraints</dfn></a></code>, <code><a href=
-        "http://w3c.github.io/mediacapture-main/getusermedia.html#idl-def-MediaStreamConstraints">
-        <dfn>MediaStreamConstraints</dfn></a></code>, and <code><a href=
-        "http://w3c.github.io/mediacapture-main/getusermedia.html#idl-def-MediaTrackConstraints">
-        <dfn>MediaTrackConstraints</dfn></a></code> dictionaries,
-        <code><a href="http://w3c.github.io/mediacapture-main/getusermedia.html#idl-def-MediaStreamTrack">
+        The <code><a href="http://w3c.github.io/mediacapture-main/getusermedia.html#idl-def-MediaStreamTrack">
         <dfn>MediaStreamTrack</dfn></a></code> and <code><a href=
         "http://w3c.github.io/mediacapture-main/getusermedia.html#idl-def-MediaStream">
         <dfn>MediaStream</dfn></a></code> interfaces this specification extends
         are defined in [[!GETUSERMEDIA]].
+      </p>
+      <p>
+        The <code><a href=
+        "http://w3c.github.io/mediacapture-main/getusermedia.html#idl-def-Constraints">
+        <dfn>Constraints</dfn></a></code>, <code><a href=
+        "http://w3c.github.io/mediacapture-main/getusermedia.html#dfn-settings">
+        <dfn>Settings</dfn></a></code>, <code><a href=
+        "http://w3c.github.io/mediacapture-main/getusermedia.html#idl-def-MediaStreamConstraints">
+        <dfn>MediaStreamConstraints</dfn></a></code>, and <code><a href=
+        "http://w3c.github.io/mediacapture-main/getusermedia.html#idl-def-MediaTrackConstraints">
+        <dfn>MediaTrackConstraints</dfn></a></code> dictionaries this specification extends
+        are based upon the <code><a href=
+        "http://w3c.github.io/mediacapture-main/getusermedia.html#constrainable-interface">
+        <dfn>Constrainable Pattern</dfn></a></code>
+        defined in [[!GETUSERMEDIA]].
       </p>
       <p>
         The <code><a href=
@@ -330,7 +338,7 @@
             To address the issue, this specification defines a new
             data representation for current
             <code><a>Canvas Pixel ArrayBuffer</a></code> of
-            <code><a>ImageData</a></code> interface to represent 16bpp depth
+            <code><a>ImageData</a></code> interface to represent the 16bpp depth
             image produced by depth cameras.
           </p>
         </div>
@@ -354,28 +362,20 @@
       </section>
       <section>
         <h2>
-          <code>CameraParameters</code> interface
+          <code>CameraIntrinsics</code> dictionary 
         </h2>
-        <div class="issue">
-          <p>
-            What is the minimum set of metadata
-            <code><a>CameraParameters</a></code> should expose? At minimum, the
-            general pinhole camera model have to be calculable. For related
-            discussion, see the <a href=
-            "http://lists.w3.org/Archives/Public/public-media-capture/2014Jun/0113.html">
-            Focal length/fov capabilities and general camera intrinsics</a>
-            thread.
-          </p>
-        </div>
         <p>
-          Each <code><a>ImageData</a></code> interface that is said to
-          <a>represent depth data</a> is associated with a
-          <a>CameraParameters</a> object. It represents the parameters of a
-          pinhole camera model that describes the mathematical relationship
-          between the coordinates of a 3D point and its projection onto the
-          image plane.
+          Each <code><a>MediaStreamTrack</a></code> (including both Depth and 
+          Video) supports the <a><code>getSettings</code></a>
+          method which may return a partial dictionary
+          that describes the <a>CameraIntrinsics</a>. This represents 
+          the intrinsic parameters required to effectively construct or apply the 
+          pinhole camera model to this stream of sensor data. This model is commonly 
+          used in Computer Vision and Augmented Reality applications as it describes 
+          the mathematical relationship between the coordinates of a 3D point and its 
+          projection onto the image plane. 
         </p>
-        <dl class="idl" title="interface CameraParameters">
+        <dl class="idl" title="partial dictionary CameraIntrinsics">
           <dt>
             readonly attribute double focalLength
           </dt>
