@@ -461,14 +461,15 @@ navigator.mediaDevices.getUserMedia({
       var depthImageData = depthCanvasContext.getImageData(0, 0, w, h);
       var dexels = depthImageData.data;
 
+      // iterate through depth pixels to convert 2 bytes into 1 Uint16
       for (var x = 0; x < w ; ++x) {
         for (var y = 0; y < h; ++y) {
           var i = (x + y * w) * 4;
+          // combine the R & G pixels at (x, y) to get
+          // the 16 bit depth pixel value
           var depth = dexels[i] | dexels[i + 1] << 8;
-          // depth is the 16 bit depth value at (x, y)
         }
       }
-      // iterate through depth pixels to convert 2 bytes into 1 Uint16
       // do things with pixels and dexels here
     }, 1000/fps);
   };
