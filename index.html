@@ -162,6 +162,8 @@
         The <code><a href=
         "http://w3c.github.io/mediacapture-main/getusermedia.html#idl-def-Constraints">
         <dfn>Constraints</dfn></a></code>, <code><a href=
+        "http://w3c.github.io/mediacapture-main/getusermedia.html#dfn-settings">
+        <dfn>Settings</dfn></a></code>, <code><a href=
         "http://w3c.github.io/mediacapture-main/getusermedia.html#idl-def-MediaStreamConstraints">
         <dfn>MediaStreamConstraints</dfn></a></code>, and <code><a href=
         "http://w3c.github.io/mediacapture-main/getusermedia.html#idl-def-MediaTrackConstraints">
@@ -364,12 +366,14 @@
         </h2>
         <p>
           Each <code><a>MediaStreamTrack</a></code> (including both Depth and 
-          Video) is associated with a <a>CameraIntrinsics</a> object. This represents 
+          Video) supports the <a><code>getSettings</code></a>
+          method which may return a partial dictionary
+          that describes the <a>CameraIntrinsics</a>. This represents 
           the intrinsic parameters required to effectively construct or apply the 
           pinhole camera model to this stream of sensor data. This model is commonly 
           used in Computer Vision and Augmented Reality applications as it describes 
           the mathematical relationship between the coordinates of a 3D point and its 
-          projection onto the image plane.
+          projection onto the image plane. 
         </p>
         <dl class="idl" title="partial dictionary CameraIntrinsics">
           <dt>
