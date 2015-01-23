@@ -362,50 +362,52 @@
       </section>
       <section>
         <h2>
-          <code>CameraIntrinsics</code> dictionary 
+          <code>Settings</code> dictionary
         </h2>
         <p>
-          Each <code><a>MediaStreamTrack</a></code> (including both Depth and 
-          Video) supports the <a><code>getSettings</code></a>
-          method which may return a partial dictionary
-          that describes the <a>CameraIntrinsics</a>. This represents 
-          the intrinsic parameters required to effectively construct or apply the 
-          pinhole camera model to this stream of sensor data. This model is commonly 
-          used in Computer Vision and Augmented Reality applications as it describes 
-          the mathematical relationship between the coordinates of a 3D point and its 
-          projection onto the image plane. 
+          When the <code>getSettings()</code> method is invoked on a
+          <code>MediaStreamTrack</code> object that represents a
+          <a>depth track</a>, the user agent MUST return a
+          <code>Settings</code> dictionary with the following additional
+          properties:
         </p>
-        <dl class="idl" title="partial dictionary CameraIntrinsics">
+        <dl class="idl" title="partial dictionary Settings">
           <dt>
-            readonly attribute double focalLength
+            double focalLength = null
           </dt>
           <dd>
             -
           </dd>
           <dt>
-            readonly attribute double horizontalViewAngle
+            double horizontalViewAngle = null
           </dt>
           <dd>
             -
           </dd>
           <dt>
-            readonly attribute double verticalViewAngle
+            double verticalViewAngle = null
           </dt>
           <dd>
             -
           </dd>
         </dl>
         <p>
-          The <code>focalLength</code> attribute, on getting, MUST return the
-          focal length of the camera in millimeters.
+          The <code>focalLength</code> attribute MUST return the value it was
+          initialized to. When the object is created, this attribute MUST be
+          initialized to null. It represents the focal length of the camera
+          in millimeters.
         </p>
         <p>
-          The <code>horizontalViewAngle</code> attribute, on getting, MUST
-          return the horizontal angle of view in degrees.
+          The <code>horizontalViewAngle</code> attribute MUST return the value
+          it was initialized to. When the object is created, this attribute
+          MUST be initialized to null. It represents the horizontal angle of
+          view in degrees.
         </p>
         <p>
-          The <code>verticalViewAngle</code> attribute, on getting, MUST return
-          the vertical angle of view in degrees.
+          The <code>verticalViewAngle</code> attribute MUST return the value
+          it was initialized to. When the object is created, this attribute
+          MUST be initialized to null. It represents the vertical angle of
+          view in degrees.
         </p>
       </section>
     </section>
