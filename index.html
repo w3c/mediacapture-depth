@@ -354,28 +354,18 @@
       </section>
       <section>
         <h2>
-          <code>CameraParameters</code> interface
+          <code>CameraIntrinsics</code> dictionary 
         </h2>
-        <div class="issue">
-          <p>
-            What is the minimum set of metadata
-            <code><a>CameraParameters</a></code> should expose? At minimum, the
-            general pinhole camera model have to be calculable. For related
-            discussion, see the <a href=
-            "http://lists.w3.org/Archives/Public/public-media-capture/2014Jun/0113.html">
-            Focal length/fov capabilities and general camera intrinsics</a>
-            thread.
-          </p>
-        </div>
         <p>
-          Each <code><a>ImageData</a></code> interface that is said to
-          <a>represent depth data</a> is associated with a
-          <a>CameraParameters</a> object. It represents the parameters of a
-          pinhole camera model that describes the mathematical relationship
-          between the coordinates of a 3D point and its projection onto the
-          image plane.
+          Each <code><a>MediaStreamTrack</a></code> (including both Depth and 
+          Video) is associated with a <a>CameraIntrinsics</a> object. This represents 
+          the intrinsic parameters required to effectively construct or apply the 
+          pinhole camera model to this stream of sensor data. This model is commonly 
+          used in Computer Vision and Augmented Reality applications as it describes 
+          the mathematical relationship between the coordinates of a 3D point and its 
+          projection onto the image plane.
         </p>
-        <dl class="idl" title="interface CameraParameters">
+        <dl class="idl" title="partial dictionary CameraIntrinsics">
           <dt>
             readonly attribute double focalLength
           </dt>
