@@ -84,51 +84,43 @@
     </section>
     <section id='sotd'>
       <p>
-        The following changes were made since the
-        <a href="http://www.w3.org/TR/2014/WD-mediacapture-depth-20141007/">
-        W3C First Public Working Draft 07 October 2014</a>:
+        The following changes were made since the <a href=
+        "http://www.w3.org/TR/2014/WD-mediacapture-depth-20141007/">W3C First
+        Public Working Draft 07 October 2014</a>:
       </p>
       <ul>
-        <li>
-          Removed the
-          <a href="http://www.w3.org/TR/2014/WD-mediacapture-depth-20141007/#depthdata-interface">
+        <li>Removed the <a href=
+        "http://www.w3.org/TR/2014/WD-mediacapture-depth-20141007/#depthdata-interface">
           <code>DepthData</code></a> interface
         </li>
-        <li>
-          Added depth value presentation into the
-          <a href="#imagedata-interface"><code>ImageData</code></a> interface
+        <li>Added depth value presentation into the <a href=
+        "#imagedata-interface"><code>ImageData</code></a> interface
         </li>
-        <li>
-          Added a <a>depth video element</a> as an image source in the
-          <a href="#canvasimagesource-typedef"><code>CanvasImageSource</code>
-          typedef</a>
-        <li>
-          Added support for <a href="#direct-assignment-to-media-elements">
-          direct assignment to media elements</a> for
-          <a><code>MediaStream</code></a> object containing a
-          <a>depth track</a>
+        <li>Added a <a>depth video element</a> as an image source in the
+        <a href="#canvasimagesource-typedef"><code>CanvasImageSource</code>
+        typedef</a>
         </li>
-        <li>
-          Added new properties to the <a><code>Settings</code></a> dictionary
+        <li>Added support for <a href=
+        "#direct-assignment-to-media-elements">direct assignment to media
+        elements</a> for <a><code>MediaStream</code></a> object containing a
+        <a>depth track</a>
         </li>
-        <li>
-          Added new definitions to the <a href="#terminology">terminology</a>
-          section
+        <li>Added new properties to the <a><code>Settings</code></a> dictionary
         </li>
-        <li>
-          Added a non-normative section considering the
-          <a href="#webglrenderingcontext-interface">
-          <code>WebGLRenderingContext</code></a> interface
+        <li>Added new definitions to the <a href="#terminology">terminology</a>
+        section
         </li>
-        <li>
-          Added a non-normative <a href="#implementation-considerations">
-          implementation considerations</a> section regarding combining a
-          <a>depth track</a> and a <a>video track</a> into one
-          <a><code>MediaStream</code></a> object
+        <li>Added a non-normative section considering the <a href=
+        "#webglrenderingcontext-interface"><code>WebGLRenderingContext</code></a>
+        interface
         </li>
-        <li>
-          Added <a href="#examples">examples</a> for 2D canvas context and
-          WebGL fragment shader based post-processing
+        <li>Added a non-normative <a href=
+        "#implementation-considerations">implementation considerations</a>
+        section regarding combining a <a>depth track</a> and a <a>video
+        track</a> into one <a><code>MediaStream</code></a> object
+        </li>
+        <li>Added <a href="#examples">examples</a> for 2D canvas context and
+        WebGL fragment shader based post-processing
         </li>
       </ul>
       <p>
@@ -200,7 +192,8 @@
         Terminology
       </h2>
       <p>
-        The <code><a href="http://w3c.github.io/mediacapture-main/getusermedia.html#idl-def-MediaStreamTrack">
+        The <code><a href=
+        "http://w3c.github.io/mediacapture-main/getusermedia.html#idl-def-MediaStreamTrack">
         <dfn>MediaStreamTrack</dfn></a></code> and <code><a href=
         "http://w3c.github.io/mediacapture-main/getusermedia.html#idl-def-MediaStream">
         <dfn>MediaStream</dfn></a></code> interfaces this specification extends
@@ -215,11 +208,11 @@
         "http://w3c.github.io/mediacapture-main/getusermedia.html#idl-def-MediaStreamConstraints">
         <dfn>MediaStreamConstraints</dfn></a></code>, and <code><a href=
         "http://w3c.github.io/mediacapture-main/getusermedia.html#idl-def-MediaTrackConstraints">
-        <dfn>MediaTrackConstraints</dfn></a></code> dictionaries this specification extends
-        are based upon the <code><a href=
+        <dfn>MediaTrackConstraints</dfn></a></code> dictionaries this
+        specification extends are based upon the <code><a href=
         "http://w3c.github.io/mediacapture-main/getusermedia.html#constrainable-interface">
-        <dfn>Constrainable Pattern</dfn></a></code>
-        defined in [[!GETUSERMEDIA]].
+        <dfn>Constrainable Pattern</dfn></a></code> defined in
+        [[!GETUSERMEDIA]].
       </p>
       <p>
         The <code><a href=
@@ -230,12 +223,12 @@
       <p>
         The <code><a href=
         "http://www.w3.org/html/wg/drafts/2dcontext/master/#canvasrenderingcontext2d">
-        <dfn>CanvasRenderingContext2D</dfn></a></code>
-        and <code><a href=
+        <dfn>CanvasRenderingContext2D</dfn></a></code> and <code><a href=
         "http://www.w3.org/html/wg/drafts/2dcontext/master/#imagedata"><dfn>ImageData</dfn></a></code>
         interfaces, and the <code><a href=
-        "http://www.w3.org/html/wg/drafts/2dcontext/master/#canvasimagesource">
-        <dfn>CanvasImageSource</dfn></a></code> typedef are defined in [[!2DCONTEXT2]].
+        "http://www.w3.org/html/wg/drafts/2dcontext/master/#canvasimagesource"><dfn>
+        CanvasImageSource</dfn></a></code> typedef are defined in
+        [[!2DCONTEXT2]].
       </p>
       <p>
         The <code><a href=
@@ -255,8 +248,8 @@
         or other similar source.
       </p>
       <p>
-        A <dfn>video track</dfn> represents media sourced from an RGB camera
-        or other similar source.
+        A <dfn>video track</dfn> represents media sourced from an RGB camera or
+        other similar source.
       </p>
     </section>
     <section>
@@ -317,15 +310,20 @@
           calls.
         </p>
         <section class='informative'>
-          <h3>Implementation considerations</h3>
-          <p>A <code><a>MediaStreamTrack</a></code> object representing a <a>video
-          track</a> and a <code><a>MediaStreamTrack</a></code> object representing a
-          <a>depth track</a> can be combined into one <code><a>MediaStream</a></code> 
-          object. The rendering of the two tracks are intended to be 
-          synchronized. The resolutions of the two track are intended to be 
-          same. And the coordinations of the two track are intended to be 
-          calibrated. These are not hard requirements, since it might not be 
-          possible to synchronize tracks from sources.</p>
+          <h3>
+            Implementation considerations
+          </h3>
+          <p>
+            A <code><a>MediaStreamTrack</a></code> object representing a
+            <a>video track</a> and a <code><a>MediaStreamTrack</a></code>
+            object representing a <a>depth track</a> can be combined into one
+            <code><a>MediaStream</a></code> object. The rendering of the two
+            tracks are intended to be synchronized. The resolutions of the two
+            track are intended to be same. And the coordinations of the two
+            track are intended to be calibrated. These are not hard
+            requirements, since it might not be possible to synchronize tracks
+            from sources.
+          </p>
         </section>
       </section>
       <section>
@@ -342,17 +340,21 @@
         <h2>
           Direct assignment to media elements
         </h2>
-        <p><a>User agent</a>s that support <code><a>MediaStream</a></code> 
-        <a
-        href="http://w3c.github.io/mediacapture-main/getusermedia.html#direct-assignment-to-media-elements">direct assignment to media elements</a>
-        MUST allow a <code><a>MediaStream</a></code> object containing
-        <a>depth track</a> to be assigned directly to a media element.</p>
-        <p>For each <code><a>MediaStreamTrack</a></code> representing a 
-        <a>depth track</a> in the <code><a>MediaStream</a></code>, 
-        the <a>user agent</a> MUST create a corresponding <code>
-        <a
-        href="http://www.w3.org/TR/html5/embedded-content-0.html#videotrack">VideoTrack</a>
-        </code> as defined in [[HTML5]].</p>
+        <p>
+          <a>User agent</a>s that support <code><a>MediaStream</a></code>
+          <a href=
+          "http://w3c.github.io/mediacapture-main/getusermedia.html#direct-assignment-to-media-elements">
+          direct assignment to media elements</a> MUST allow a
+          <code><a>MediaStream</a></code> object containing <a>depth track</a>
+          to be assigned directly to a media element.
+        </p>
+        <p>
+          For each <code><a>MediaStreamTrack</a></code> representing a <a>depth
+          track</a> in the <code><a>MediaStream</a></code>, the <a>user
+          agent</a> MUST create a corresponding <code><a href=
+          "http://www.w3.org/TR/html5/embedded-content-0.html#videotrack">VideoTrack</a></code>
+          as defined in [[HTML5]].
+        </p>
       </section>
       <section>
         <h2>
@@ -360,20 +362,22 @@
         </h2>
         <div class="note">
           <p>
-            Several methods in the <a><code>CanvasRenderingContext2D</code></a> API
-            take the union type <a><code>CanvasImageSource</code></a> as an argument.
-            This specification extends the list of <a href="
-            http://www.w3.org/html/wg/drafts/2dcontext/master/#image-sources-for-2d-rendering-contexts">
-            image sources for 2D rendering contexts</a>
-            defined in [[!2DCONTEXT2]].
+            Several methods in the <a><code>CanvasRenderingContext2D</code></a>
+            API take the union type <a><code>CanvasImageSource</code></a> as an
+            argument. This specification extends the list of <a href=
+            "%20http://www.w3.org/html/wg/drafts/2dcontext/master/#image-sources-for-2d-rendering-contexts">
+            image sources for 2D rendering contexts</a> defined in
+            [[!2DCONTEXT2]].
           </p>
         </div>
         <p>
-          A <code>video</code> element whose source is a <a><code>MediaStream</code></a>
-          object containing a <a>depth track</a> is said to be a <dfn>depth video element</dfn>.
+          A <code>video</code> element whose source is a
+          <a><code>MediaStream</code></a> object containing a <a>depth
+          track</a> is said to be a <dfn>depth video element</dfn>.
         </p>
         <p>
-          A <a>depth video element</a> may be used as a <a><code>CanvasImageSource</code></a>.
+          A <a>depth video element</a> may be used as a
+          <a><code>CanvasImageSource</code></a>.
         </p>
       </section>
       <section>
@@ -387,46 +391,45 @@
             graphics on the web platform does not currently support 16bpp.
           </p>
           <p>
-            To address the issue, this specification defines a new
-            data representation for current
-            <code><a>Canvas Pixel ArrayBuffer</a></code> of
-            <code><a>ImageData</a></code> interface to represent the 16bpp depth
-            image produced by depth cameras.
+            To address the issue, this specification defines a new data
+            representation for current <code><a>Canvas Pixel
+            ArrayBuffer</a></code> of <code><a>ImageData</a></code> interface
+            to represent the 16bpp depth image produced by depth cameras.
           </p>
         </div>
         <p>
-          An <code>ImageData</code> object is said to <dfn>represent depth data</dfn>, when
-          the <a><code>CanvasImageSource</code></a> used as the image source for the
-          <a><code>CanvasRenderingContext2D</code></a> is a <a>depth video element</a>.
+          An <code>ImageData</code> object is said to <dfn>represent depth
+          data</dfn>, when the <a><code>CanvasImageSource</code></a> used as
+          the image source for the <a><code>CanvasRenderingContext2D</code></a>
+          is a <a>depth video element</a>.
         </p>
         <p>
-          When representing a depth image, the <dfn>Canvas Pixel <code>ArrayBuffer</code></dfn>
-          is an <a><code>ArrayBuffer</code></a> whose data is represented in
-          left-to-right order, row by row top to bottom, starting with the top
-          left, with each pixel's lower 8 bit of 16 bit depth value, upper 8
-          bit of 16 bit depth value, 8 bit reserved data, and another 8 bit
-          reserved data being given in that order for each pixel. Each component
-          of each pixel represented in this array must be in the range 0..255,
-          representing the 8 bit value for that component. The components must
-          be assigned consecutive indices starting with 0 for the top left
-          pixel's lower 8 bit of 16 bit depth value component.
+          When representing a depth image, the <dfn>Canvas Pixel
+          <code>ArrayBuffer</code></dfn> is an <a><code>ArrayBuffer</code></a>
+          whose data is represented in left-to-right order, row by row top to
+          bottom, starting with the top left, with each pixel's lower 8 bit of
+          16 bit depth value, upper 8 bit of 16 bit depth value, 8 bit reserved
+          data, and another 8 bit reserved data being given in that order for
+          each pixel. Each component of each pixel represented in this array
+          must be in the range 0..255, representing the 8 bit value for that
+          component. The components must be assigned consecutive indices
+          starting with 0 for the top left pixel's lower 8 bit of 16 bit depth
+          value component.
         </p>
       </section>
       <section>
         <h2>
-          <code>Settings</code> dictionary 
+          <code>Settings</code> dictionary
         </h2>
         <p>
           When the <code>getSettings()</code> method is invoked on a
-          <code>MediaStreamTrack</code> object that represents a
-          <a>depth track</a>, the <a>user agent</a> MUST return a
-          <code>Settings</code> dictionary with the additional
-          properties listed below.
-          When the <code>getSettings()</code> method is invoked on a
-          <code>MediaStreamTrack</code> object that represents a
-          <a>video track</a>, the <a>user agent</a> MAY return a
-          <code>Settings</code> dictionary with the additional
-          properties listed below:
+          <code>MediaStreamTrack</code> object that represents a <a>depth
+          track</a>, the <a>user agent</a> MUST return a <code>Settings</code>
+          dictionary with the additional properties listed below. When the
+          <code>getSettings()</code> method is invoked on a
+          <code>MediaStreamTrack</code> object that represents a <a>video
+          track</a>, the <a>user agent</a> MAY return a <code>Settings</code>
+          dictionary with the additional properties listed below:
         </p>
         <dl class="idl" title="partial dictionary Settings">
           <dt>
@@ -451,20 +454,20 @@
         <p>
           The <code>focalLength</code> attribute MUST return the value it was
           initialized to. When the object is created, this attribute MUST be
-          initialized to null. It represents the focal length of the camera
-          in millimeters.
+          initialized to null. It represents the focal length of the camera in
+          millimeters.
         </p>
         <p>
-          The <code>horizontalFieldOfView</code> attribute MUST return the value
-          it was initialized to. When the object is created, this attribute
-          MUST be initialized to null. It represents the horizontal angle of
-          view in degrees.
+          The <code>horizontalFieldOfView</code> attribute MUST return the
+          value it was initialized to. When the object is created, this
+          attribute MUST be initialized to null. It represents the horizontal
+          angle of view in degrees.
         </p>
         <p>
           The <code>verticalFieldOfView</code> attribute MUST return the value
           it was initialized to. When the object is created, this attribute
-          MUST be initialized to null. It represents the vertical angle of
-          view in degrees.
+          MUST be initialized to null. It represents the vertical angle of view
+          in degrees.
         </p>
       </section>
     </section>
@@ -473,15 +476,16 @@
         <code>WebGLRenderingContext</code> interface
       </h2>
       <p>
-        A <code>video</code> element whose source is a <a><code>MediaStream</code></a>
-        object containing a <a>depth track</a> may be uploaded to a WebGL
-        texture of format <code>RGB</code> and type <code>UNSIGNED_BYTE</code>.
+        A <code>video</code> element whose source is a
+        <a><code>MediaStream</code></a> object containing a <a>depth track</a>
+        may be uploaded to a WebGL texture of format <code>RGB</code> and type
+        <code>UNSIGNED_BYTE</code>. [[WEBGL]]
       </p>
       <p>
         For each pixel of this WebGL texture, the R component represents the
-        lower 8 bit value of 16 bit depth value, the G component represents
-        the upper 8 bit value of 16 bit depth value and the value in B
-        component is not defined.
+        lower 8 bit value of 16 bit depth value, the G component represents the
+        upper 8 bit value of 16 bit depth value and the value in B component is
+        not defined.
       </p>
     </section>
     <section class='informative'>
@@ -535,7 +539,8 @@ navigator.mediaDevices.getUserMedia({
 }).catch(function (reason) {
   // handle gUM error here
 });
-      </pre>
+      
+</pre>
       <h3>
         WebGL Fragment Shader based post-processing
       </h3>
@@ -576,7 +581,8 @@ gl.texImage2D(
     // ...
   }
 &lt;/script&gt;
-      </pre>
+      
+</pre>
     </section>
     <section class='appendix'>
       <h2>
