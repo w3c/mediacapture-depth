@@ -470,23 +470,28 @@
           in degrees.
         </p>
       </section>
-    </section>
-    <section class='informative'>
-      <h2>
-        <code>WebGLRenderingContext</code> interface
-      </h2>
-      <p>
-        A <code>video</code> element whose source is a
-        <a><code>MediaStream</code></a> object containing a <a>depth track</a>
-        may be uploaded to a WebGL texture of format <code>RGB</code> and type
-        <code>UNSIGNED_BYTE</code>. [[WEBGL]]
-      </p>
-      <p>
-        For each pixel of this WebGL texture, the R component represents the
-        lower 8 bit value of 16 bit depth value, the G component represents the
-        upper 8 bit value of 16 bit depth value and the value in B component is
-        not defined.
-      </p>
+      <section>
+        <h2>
+          <code>WebGLRenderingContext</code> interface
+        </h2>
+        <section class='informative'>
+          <h3>
+            Implementation considerations
+          </h3>
+          <p>
+            A <code>video</code> element whose source is a
+            <a><code>MediaStream</code></a> object containing a <a>depth
+            track</a> may be uploaded to a WebGL texture of format
+            <code>RGB</code> and type <code>UNSIGNED_BYTE</code>. [[WEBGL]]
+          </p>
+          <p>
+            For each pixel of this WebGL texture, the R component represents
+            the lower 8 bit value of 16 bit depth value, the G component
+            represents the upper 8 bit value of 16 bit depth value and the
+            value in B component is not defined.
+          </p>
+        </section>
+      </section>
     </section>
     <section class='informative'>
       <h2>
