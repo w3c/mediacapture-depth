@@ -241,6 +241,11 @@
         types are defined in [[!TYPEDARRAY]].
       </p>
       <p>
+        The <code><a href=
+        "http://www.w3.org/TR/html5/scripting-1.html#dom-canvas-getcontext"><dfn>
+        getContext</dfn>()</a></code> method is defined in [[!HTML5]].
+      </p>
+      <p>
         A <dfn>depth stream</dfn> is a <code><a>MediaStream</a></code> object
         that contains one or more <a>depth track</a>s.
       </p>
@@ -496,6 +501,133 @@
             value in B component is not defined.
           </p>
         </section>
+      </section>
+    </section>
+    <section>
+      <h2>
+        The depth context
+      </h2>
+      <div class="note">
+        <p>
+          This section is <strong>heavily work in progress</strong>.
+        </p>
+      </div>
+      <section>
+        <h3>
+          <code>DepthContext</code> interface
+        </h3>
+        <dl class="idl" title=
+        "[Constructor(optional unsigned long width, unsigned long height), Exposed=Window,Worker] interface DepthContext">
+        <dt>
+            DepthData getDepthData(double sx, double sy, double sw, double sh)
+          </dt>
+          <dd>
+            -
+          </dd>
+        </dl>
+        <p>
+          A <a><code>DepthContext</code></a> object can be obtained in two
+          ways: the <code><a>getContext</a>()</code> method on a
+          <code>canvas</code> element (which invokes the <a>depth context
+          creation algorithm</a>), and the <code><a>DepthContext</a>()</code>
+          constructor.
+        </p>
+        <p>
+          The <code><a>getContext</a>(contextId, arguments...)</code> method of
+          the <code>canvas</code> element, when invoked with its first argument
+          set to "<code>depth</code>", MUST run the following steps:
+        </p>
+        <ol>
+          <li>Set the <code>canvas</code> element's <a href=
+          "http://www.w3.org/TR/html5/scripting-1.html#concept-canvas-context-mode">
+            context mode</a> to <dfn>depth</dfn>.
+          </li>
+          <li>Obtain a <a><code>DepthContext</code></a> object as defined in
+          the <a>depth context creation algorithm</a>, set the obtained
+          <a><code>DepthContext</code></a> object's <a href=
+          "http://www.w3.org/TR/html5/scripting-1.html#concept-canvas-context-bitmap-mode">
+            context bitmap mode</a> to <a href=
+            "http://www.w3.org/TR/html5/scripting-1.html#concept-canvas-fixed">fixed</a>.
+          </li>
+          <li>Return the <a><code>DepthContext</code></a> object.
+          </li>
+        </ol>
+        <p>
+          The <dfn>depth context creation algorithm</dfn> ... is to be defined.
+        </p>
+      </section>
+      <section>
+        <h3>
+          <code>DepthMap</code> interface
+        </h3>
+        <dl class="idl" title=
+        "[Constructor(unsigned long sw, unsigned long sh), Constructor(Uint16Array data, unsigned long sw, optional unsigned long sh), Exposed=Window,Worker] interface DepthMap">
+        <dt>
+            readonly attribute unsigned long width
+          </dt>
+          <dd>
+            -
+          </dd>
+          <dt>
+            readonly attribute unsigned long height
+          </dt>
+          <dd>
+            -
+          </dd>
+          <dt>
+            readonly attribute string type
+          </dt>
+          <dd>
+            -
+          </dd>
+          <dt>
+            readonly attribute string format
+          </dt>
+          <dd>
+            -
+          </dd>
+          <dt>
+            readonly attribute string units
+          </dt>
+          <dd>
+            -
+          </dd>
+          <dt>
+            readonly attribute float near
+          </dt>
+          <dd>
+            -
+          </dd>
+          <dt>
+            readonly attribute float far
+          </dt>
+          <dd>
+            -
+          </dd>
+          <dt>
+            readonly attribute Uint16Array data
+          </dt>
+          <dd>
+            -
+          </dd>
+          <dt>
+            readonly attribute Uint16Array? confidence
+          </dt>
+          <dd>
+            -
+          </dd>
+        </dl>
+        <p>
+          The <code><a>DepthMap</a>()</code> constructor is used to instantiate
+          new <code>DepthMap</code> objects.
+        </p>
+        <div class="note">
+          <p>
+            We do not need to make <code>DepthMap</code> a constructor (aligned
+            with <code>ImageData</code>), unless there is a good supporting use
+            case.
+          </p>
+        </div>
       </section>
     </section>
     <section class='informative'>
