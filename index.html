@@ -507,7 +507,6 @@
       </h3>
       <pre class='example highlight'>
 var canvasContext = document.createElement("canvas").getContext("2d");
-var fps = 60;
 
 navigator.mediaDevices.getUserMedia({
   video: true,
@@ -526,7 +525,7 @@ navigator.mediaDevices.getUserMedia({
   depthVideo.play();
 
   depthVideo.onloadedmetadata = function () {
-    setInterval(function () {
+    function doSomething() {
       canvasContext.drawImage(video);
       var rgbImageData = canvasContext.getImageData(0, 0, w, h);
       var pixels = rgbImageData.data;
@@ -544,7 +543,9 @@ navigator.mediaDevices.getUserMedia({
         }
       }
       // do things with pixels and dexels here
-    }, 1000/fps);
+      window.requestAnimationFrame(doSomething);
+    }
+    window.requestAnimationFrame(doSomething);
   };
 }).catch(function (reason) {
   // handle gUM error here
