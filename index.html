@@ -530,8 +530,8 @@ navigator.mediaDevices.getUserMedia({
       canvasContext.drawImage(video);
       var rgbImageData = canvasContext.getImageData(0, 0, w, h);
       var pixels = rgbImageData.data;
-      depthCanvasContext.drawImage(depthVideo);
-      var depthImageData = depthCanvasContext.getImageData(0, 0, w, h);
+      canvasContext.drawImage(depthVideo);
+      var depthImageData = canvasContext.getImageData(0, 0, w, h);
       var dexels = depthImageData.data;
 
       // iterate through depth pixels to convert 2 bytes into 1 Uint16
