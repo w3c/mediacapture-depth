@@ -350,10 +350,12 @@
         </p>
         <p>
           For each <a><code>MediaStreamTrack</code></a> representing a <a>depth
-          track</a> in the <code><a>MediaStream</a></code>, the <a>user
-          agent</a> MUST create a corresponding <code><a href=
+          track</a> in the <code><a>MediaStream</a></code> assigned directly to
+          a media element, the <a>user agent</a> MUST create a corresponding
+          <code><a href=
           "http://www.w3.org/TR/html5/embedded-content-0.html#videotrack">VideoTrack</a></code>
-          as defined in [[HTML5]].
+          as defined in [[HTML5]] whose <code>kind</code> attribute MUST, on
+          getting, return the string "<code>depth</code>".
         </p>
       </section>
       <section>
