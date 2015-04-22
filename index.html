@@ -316,45 +316,6 @@
       </section>
       <section>
         <h2>
-          <code>ImageData</code> interface
-        </h2>
-        <div class="note">
-          <p>
-            Depth cameras usually produce 16-bit depth values per pixel.
-            However, the canvas drawing surface used to draw and manipulate 2D
-            graphics on the web platform does not currently support 16bpp.
-          </p>
-          <p>
-            To address the issue, this specification defines a new data
-            representation for current <a>Canvas Pixel
-            <code>ArrayBuffer</code></a> of <code><a>ImageData</a></code>
-            interface to represent the 16bpp depth image produced by depth
-            cameras.
-          </p>
-        </div>
-        <p>
-          An <code><a>ImageData</a></code> object is said to <dfn>represent
-          depth data</dfn>, when the <a><code>CanvasImageSource</code></a> used
-          as the image source for the
-          <a><code>CanvasRenderingContext2D</code></a> is a <a>depth video
-          element</a>.
-        </p>
-        <p>
-          When representing a depth image, the <dfn>Canvas Pixel
-          <code>ArrayBuffer</code></dfn> is an <a><code>ArrayBuffer</code></a>
-          whose data is represented in left-to-right order, row by row top to
-          bottom, starting with the top left, with each pixel's lower 8 bit of
-          16 bit depth value, upper 8 bit of 16 bit depth value, 8 bit reserved
-          data, and another 8 bit reserved data being given in that order for
-          each pixel. Each component of each pixel represented in this array
-          must be in the range 0..255, representing the 8 bit value for that
-          component. The components must be assigned consecutive indices
-          starting with 0 for the top left pixel's lower 8 bit of 16 bit depth
-          value component.
-        </p>
-      </section>
-      <section>
-        <h2>
           <code>Settings</code> dictionary
         </h2>
         <p>
