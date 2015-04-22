@@ -544,6 +544,36 @@
         Examples
       </h2>
       <h3>
+        Capture individual depth and RGB frames
+      </h3>
+      <pre class='example highlight'>
+navigator.mediaDevices.getUserMedia({
+  depth: true,
+  video: true
+}).then(function (mediaStream) {
+  // mediaStream carries both video track and depth track
+  var frameGrabber = new FrameGrabber(mediaStream);
+  if (frameGrabber) {
+    frameGrabber.start(processDepthData);
+  }
+});
+
+function processDepthData(frameData) {
+ var w = frameData.depthData.width, h = frameData.depthData.height;
+ var pixels = frameData.imageData.data, dexels = frameData.depthData.data;
+ for (var x = 0; x &lt; w ; ++x) {
+   for (var y = 0; y &lt; h; ++y) {
+     var i = x + y * w;
+     var r = pixels[i*4];
+     var g = pixels[i*4 + 1];
+     var b = pixels[i*4 + 2];
+     var depth = dexels[i]; // Uint16 depth value
+   }
+ }
+}
+      
+</pre>
+      <h3>
         WebGL Fragment Shader based post-processing
       </h3>
       <pre class='example highlight'>
