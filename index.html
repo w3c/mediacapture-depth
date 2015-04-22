@@ -544,56 +544,6 @@
         Examples
       </h2>
       <h3>
-        2D Canvas Context based post-processing
-      </h3>
-      <pre class='example highlight'>
-var canvasContext = document.createElement("canvas").getContext("2d");
-
-navigator.mediaDevices.getUserMedia({
-  video: true,
-  depth: true,
-}).then(function (stream) {
-  // wire the stream into a &lt;video&gt; element for playback
-  var video = document.querySelector('#video');
-  video.srcObject = stream;
-  video.play();
-  // wire the depth stream into another &lt;video&gt; element to convert kind
-  // NOTE: Only the R and G bytes are set to carry 16 bits of data
-  var depthVideo = document.querySelector('#depthVideo');
-  // construct a new MediaStream out of the existing depth track(stream)
-  var depthStream = new MediaStream(stream.getDepthTracks()[0]);
-  depthVideo.srcObject = depthStream;
-  depthVideo.play();
-
-  depthVideo.onloadedmetadata = function () {
-    function doSomething() {
-      canvasContext.drawImage(video);
-      var rgbImageData = canvasContext.getImageData(0, 0, w, h);
-      var pixels = rgbImageData.data;
-      canvasContext.drawImage(depthVideo);
-      var depthImageData = canvasContext.getImageData(0, 0, w, h);
-      var dexels = depthImageData.data;
-
-      // iterate through depth pixels to convert 2 bytes into 1 Uint16
-      for (var x = 0; x &lt; w ; ++x) {
-        for (var y = 0; y &lt; h; ++y) {
-          var i = (x + y * w) * 4;
-          // combine the R &amp; G pixels at (x, y) to get
-          // the 16 bit depth pixel value
-          var depth = dexels[i] | dexels[i + 1] &lt;&lt; 8;
-        }
-      }
-      // do things with pixels and dexels here
-      window.requestAnimationFrame(doSomething);
-    }
-    window.requestAnimationFrame(doSomething);
-  };
-}).catch(function (reason) {
-  // handle gUM error here
-});
-      
-</pre>
-      <h3>
         WebGL Fragment Shader based post-processing
       </h3>
       <pre class='example highlight'>
