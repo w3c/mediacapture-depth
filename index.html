@@ -316,6 +316,74 @@
       </section>
       <section>
         <h2>
+          <code>DepthData</code> interface
+        </h2>
+        <div class="note">
+          <p>
+            Depth cameras usually produce 16-bit depth values per pixel.
+            However, neither the canvas drawing surface used to draw and
+            manipulate 2D graphics on the web platform nor the
+            <code><a>ImageData</a></code> interface used to represent image
+            data support 16 bpp.
+          </p>
+          <p>
+            To address the issue, this specification defines a new
+            <code><a>DepthData</a></code> interface.
+          </p>
+        </div>
+        <dl class="idl" title="interface DepthData">
+          <dt>
+            readonly attribute unsigned long width
+          </dt>
+          <dd>
+            -
+          </dd>
+          <dt>
+            readonly attribute unsigned long height
+          </dt>
+          <dd>
+            -
+          </dd>
+          <dt>
+            readonly attribute string type
+          </dt>
+          <dd>
+            -
+          </dd>
+          <dt>
+            readonly attribute string format
+          </dt>
+          <dd>
+            -
+          </dd>
+          <dt>
+            readonly attribute string units
+          </dt>
+          <dd>
+            -
+          </dd>
+          <dt>
+            readonly attribute float near
+          </dt>
+          <dd>
+            -
+          </dd>
+          <dt>
+            readonly attribute float far
+          </dt>
+          <dd>
+            -
+          </dd>
+          <dt>
+            readonly attribute Uint16Array data
+          </dt>
+          <dd>
+            -
+          </dd>
+        </dl>
+      </section>
+      <section>
+        <h2>
           <code>Settings</code> dictionary
         </h2>
         <p>
