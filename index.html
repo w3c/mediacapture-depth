@@ -421,6 +421,47 @@
       </section>
       <section>
         <h2>
+          <code>FrameGrabber</code> interface
+        </h2>
+        <dl class="idl" title=
+        "[Constructor(MediaStream stream)] interface FrameGrabber">
+          <dt>
+            readonly attribute MediaStream stream
+          </dt>
+          <dd>
+            -
+          </dd>
+          <dt>
+            void start()
+          </dt>
+          <dd>
+            <dl class="parameters">
+              <dt>
+                FrameGrabberCallback callback
+              </dt>
+              <dd>
+                -
+              </dd>
+              <dt>
+                optional double fps
+              </dt>
+              <dd>
+                -
+              </dd>
+            </dl>
+          </dd>
+          <dt>
+            void stop()
+          </dt>
+          <dd>
+            -
+          </dd>
+        </dl>
+        <dl class="idl" title=
+        "callback FrameGrabberCallback = void (FrameData frameData)"></dl>
+      </section>
+      <section>
+        <h2>
           <code>Settings</code> dictionary
         </h2>
         <p>
