@@ -554,11 +554,11 @@ navigator.mediaDevices.getUserMedia({
   // mediaStream carries both video track and depth track
   var frameGrabber = new FrameGrabber(mediaStream);
   if (frameGrabber) {
-    frameGrabber.start(processDepthMap);
+    frameGrabber.start(processFrameData);
   }
 });
 
-function processDepthMap(frameData) {
+function processFrameData(frameData) {
  var w = frameData.depthMap.width, h = frameData.depthMap.height;
  var pixels = frameData.imageData.data, dexels = frameData.depthMap.data;
  for (var x = 0; x &lt; w ; ++x) {
