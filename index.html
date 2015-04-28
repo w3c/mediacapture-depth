@@ -316,7 +316,7 @@
       </section>
       <section>
         <h2>
-          <code>DepthData</code> interface
+          <code>DepthMap</code> interface
         </h2>
         <div class="note">
           <p>
@@ -328,10 +328,10 @@
           </p>
           <p>
             To address the issue, this specification defines a new
-            <code><a>DepthData</a></code> interface.
+            <code><a>DepthMap</a></code> interface.
           </p>
         </div>
-        <dl class="idl" title="interface DepthData">
+        <dl class="idl" title="interface DepthMap">
           <dt>
             readonly attribute unsigned long width
           </dt>
@@ -388,13 +388,13 @@
         </h2>
         <dl class="idl" title="interface FrameData">
           <dt>
-            readonly attribute DepthData? depthData
+            readonly attribute DepthMap? depthMap
           </dt>
           <dd>
             -
           </dd>
           <dt>
-            readonly attribute double? depthDataTimeStamp
+            readonly attribute double? depthMapTimeStamp
           </dt>
           <dd>
             -
@@ -554,13 +554,13 @@ navigator.mediaDevices.getUserMedia({
   // mediaStream carries both video track and depth track
   var frameGrabber = new FrameGrabber(mediaStream);
   if (frameGrabber) {
-    frameGrabber.start(processDepthData);
+    frameGrabber.start(processDepthMap);
   }
 });
 
-function processDepthData(frameData) {
- var w = frameData.depthData.width, h = frameData.depthData.height;
- var pixels = frameData.imageData.data, dexels = frameData.depthData.data;
+function processDepthMap(frameData) {
+ var w = frameData.depthMap.width, h = frameData.depthMap.height;
+ var pixels = frameData.imageData.data, dexels = frameData.depthMap.data;
  for (var x = 0; x &lt; w ; ++x) {
    for (var y = 0; y &lt; h; ++y) {
      var i = x + y * w;
