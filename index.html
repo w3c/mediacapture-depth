@@ -351,12 +351,6 @@
             -
           </dd>
           <dt>
-            readonly attribute string measureType
-          </dt>
-          <dd>
-            -
-          </dd>
-          <dt>
             readonly attribute string format
           </dt>
           <dd>
@@ -411,27 +405,6 @@
           0..65535, representing the 16 bit value for that <a>dexel</a>. The
           <a title="dexel">dexels</a> MUST be assigned consecutive indices
           starting with 0 for the top left <a>dexel</a>.
-        </p>
-        <p>
-          The <dfn><code id=
-          "widl-DepthMap-measureType">measureType</code></dfn> attribute
-          represents the type of depth measurement. It can have the following
-          values:
-        </p>
-        <ul>
-          <li>
-            <dfn><code>opticalaxis</code></dfn>
-          </li>
-          <li>
-            <dfn><code>opticray</code></dfn>
-          </li>
-        </ul>
-        <p>
-          When the object is created, its <code><a>measureType</a></code> MUST
-          be set to string "<code><a>opticalaxis</a></code>", if the depth data
-          represents <a title="dexel">dexels</a> measured along the optical
-          axis, and to "<code><a>opticray</a></code>", if measured along the
-          optic ray.
         </p>
       </section>
       <section>
