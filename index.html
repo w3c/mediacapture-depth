@@ -209,10 +209,6 @@
         other similar source.
       </p>
       <p>
-        A <dfn>depth map</dfn> is an image that contains information relating
-        to the distance of the surfaces of scene objects from a viewpoint.
-      </p>
-      <p>
         A <dfn>dexel</dfn> is a depth pixel in the <a>depth map</a>.
       </p>
     </section>
@@ -336,6 +332,72 @@
             <code><a>DepthMap</a></code> interface.
           </p>
         </div>
+        <p>
+          A <dfn>depth map</dfn> is an image that contains information relating
+          to the distance of the surfaces of scene objects from a viewpoint.
+        </p>
+        <p>
+          A <a>depth map</a> has an associated <dfn>focal length</dfn> which is
+          a double. It represents the focal length of the camera in
+          millimeters.
+        </p>
+        <p>
+          A <a>depth map</a> has an associated <dfn>horizontal field of
+          view</dfn> which is a double. It represents the horizontal angle of
+          view in degrees.
+        </p>
+        <p>
+          A <a>depth map</a> has an associated <dfn>vertical field of
+          view</dfn> which is a double. It represents the vertical angle of
+          view in degrees.
+        </p>
+        <p>
+          A <a>depth map</a> has an associated <dfn>format</dfn> which is a
+          DOMString. It represents the format of the <a>depth map</a>, and is
+          one of the following:
+        </p>
+        <dl>
+          <dt>
+            "<code><dfn>linear</dfn></code>"
+          </dt>
+          <dd>
+            TODO: describe
+          </dd>
+          <dt>
+            "<code><dfn>inverse</dfn></code>"
+          </dt>
+          <dd>
+            TODO: describe
+          </dd>
+        </dl>
+        <p>
+          A <a>depth map</a> has an associated <dfn>unit</dfn> which is a
+          DOMString. It represents the unit of the <a>depth map</a> and
+          associated <a>near value</a> and <a>far value</a>. It is one of the
+          following:
+        </p>
+        <dl>
+          <dt>
+            "<code><dfn>mm</dfn></code>"
+          </dt>
+          <dd>
+            Units represented in millimeters (mm).
+          </dd>
+          <dt>
+            "<code><dfn>m</dfn></code>"
+          </dt>
+          <dd>
+            Units represented in meters (m).
+          </dd>
+        </dl>
+        <p>
+          A <a>depth map</a> has an associated <dfn>near value</dfn> which is a
+          double. It represents the minimum range in <a>unit</a>s.
+        </p>
+        <p>
+          A <a>depth map</a> has an associated <dfn>far value</dfn> which is a
+          double. It represents the maximum range in <a>unit</a>s.
+        </p>
         <dl class="idl" title=
         " [Constructor(unsigned long sw, unsigned long sh), &nbsp;Constructor(Uint8ClampedArray data, unsigned long sw, optional unsigned long sh)] interface DepthMap">
         <dt>
@@ -496,13 +558,13 @@
             -
           </dd>
           <dt>
-            double format = null
+            DOMString format = null
           </dt>
           <dd>
             -
           </dd>
           <dt>
-            double units = null
+            DOMString unit = null
           </dt>
           <dd>
             -
@@ -521,24 +583,37 @@
           </dd>
         </dl>
         <p>
-          The <code id="widl-Settings-focalLength">focalLength</code> attribute
-          MUST return the value it was initialized to. When the object is
-          created, this attribute MUST be initialized to null. It represents
-          the focal length of the camera in millimeters.
+          The <code id="widl-Settings-focalLength">focalLength</code>
+          attribute's getter MUST return the <a>depth map</a>'s <a>focal
+          length</a>.
         </p>
         <p>
           The <code id=
           "widl-Settings-horizontalFieldOfView">horizontalFieldOfView</code>
-          attribute MUST return the value it was initialized to. When the
-          object is created, this attribute MUST be initialized to null. It
-          represents the horizontal angle of view in degrees.
+          attribute's getter MUST return the <a>depth map</a>'s <a>horizontal
+          field of view</a>.
         </p>
         <p>
           The <code id=
           "widl-Settings-verticalFieldOfView">verticalFieldOfView</code>
-          attribute MUST return the value it was initialized to. When the
-          object is created, this attribute MUST be initialized to null. It
-          represents the vertical angle of view in degrees.
+          attribute's getter MUST return the <a>depth map</a>'s <a>vertical
+          field of view</a>.
+        </p>
+        <p>
+          The <code id="widl-Settings-format">format</code> attribute's getter
+          MUST return the <a>depth map</a>'s <a>format</a>.
+        </p>
+        <p>
+          The <code id="widl-Settings-unit">unit</code> attribute's getter MUST
+          return the <a>depth map</a>'s <a>unit</a>.
+        </p>
+        <p>
+          The <code id="widl-Settings-near">near</code> attribute's getter MUST
+          return the <a>depth map</a>'s <a>near value</a>.
+        </p>
+        <p>
+          The <code id="widl-Settings-far">far</code> attribute's getter MUST
+          return the <a>depth map</a>'s <a>far value</a>.
         </p>
       </section>
       <section>
