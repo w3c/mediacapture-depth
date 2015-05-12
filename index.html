@@ -163,10 +163,10 @@
         The <code><a href=
         "http://w3c.github.io/mediacapture-main/getusermedia.html#idl-def-Constraints">
         <dfn>Constraints</dfn></a></code>, <code><a href=
-        "http://w3c.github.io/mediacapture-main/getusermedia.html#dfn-settings">
-        <dfn>Settings</dfn></a></code>, <code><a href=
         "http://w3c.github.io/mediacapture-main/getusermedia.html#idl-def-MediaStreamConstraints">
-        <dfn>MediaStreamConstraints</dfn></a></code>, and <code><a href=
+        <dfn>MediaStreamConstraints</dfn></a></code>, <code><a href=
+        "http://w3c.github.io/mediacapture-main/getusermedia.html#idl-def-MediaTrackSettings">
+        <dfn>MediaTrackSettings</dfn></a></code>, and <code><a href=
         "http://w3c.github.io/mediacapture-main/getusermedia.html#idl-def-MediaTrackConstraints">
         <dfn>MediaTrackConstraints</dfn></a></code> dictionaries this
         specification extends are based upon the <a href=
@@ -537,20 +537,16 @@
       </section>
       <section>
         <h2>
-          <code>Settings</code> dictionary
+          <code>MediaTrackSettings</code> dictionary
         </h2>
         <p>
           When the <code>getSettings()</code> method is invoked on a
           <a><code>MediaStreamTrack</code></a> object that represents a
-          <a>depth track</a>, the <a>user agent</a> MUST return a
-          <a><code>Settings</code></a> dictionary with the additional
-          properties listed below. When the <code>getSettings()</code> method
-          is invoked on a <a><code>MediaStreamTrack</code></a> object that
-          represents a <a>video track</a>, the <a>user agent</a> MAY return a
-          <code>Settings</code> dictionary with the additional properties
-          listed below:
+          <a>depth track</a>, the <a>user agent</a> MUST return the following
+          dictionary that extends the <a><code>MediaTrackSettings</code></a>
+          dictionary:
         </p>
-        <dl class="idl" title="partial dictionary Settings">
+        <dl class="idl" title="partial dictionary MediaTrackSettings">
           <dt>
             double focalLength = null
           </dt>
