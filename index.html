@@ -112,13 +112,13 @@
         extends the <code><a>MediaStream</a></code> interface [[!GETUSERMEDIA]]
         to enable it to also contain depth-based
         <a><code>MediaStreamTrack</code></a>s. A depth-based
-        <a><code>MediaStreamTrack</code></a>, referred to as a <a>depth
+        <a><code>MediaStreamTrack</code></a>, referred to as a <a>depth stream
         track</a>, represents an abstraction of a stream of frames that can
         each be converted to objects which contain an array of pixel data,
         where each pixel represents the distance between the camera and the
         objects in the scene for that point in the array. A
         <code><a>MediaStream</a></code> object that contains one or more
-        <a>depth track</a>s is referred to as a <a>depth stream</a>.
+        <a>depth stream track</a>s is referred to as a <a>depth stream</a>.
       </p>
     </section>
     <section>
@@ -198,18 +198,23 @@
       </p>
     </section>
     <section>
-      <h2>Terminology</h2>
+      <h2>
+        Terminology
+      </h2>
       <p>
-        A <dfn>depth stream</dfn> is a <code><a>MediaStream</a></code> object
-        that contains one or more <a>depth track</a>s.
+        The term <dfn>depth stream</dfn> means a
+        <code><a>MediaStream</a></code> object that contains one or more
+        <a>depth stream track</a>s.
       </p>
       <p>
-        A <dfn>depth track</dfn> represents media sourced from a depth camera
-        or other similar source.
+        The term <dfn>depth stream track</dfn> means a
+        <code><a>MediaStreamTrack</a></code> object that represents media
+        sourced from a depth camera.
       </p>
       <p>
-        A <dfn>video track</dfn> represents media sourced from an RGB camera or
-        other similar source.
+        The term <dfn>video stream track</dfn> means a
+        <code><a>MediaStreamTrack</a></code> object that represents media
+        sourced from an RGB camera.
       </p>
     </section>
     <section>
@@ -235,9 +240,9 @@
           true, the attribute represents a request that the
           <code><a>MediaStream</a></code> object returned as an argument of the
           <code><a>NavigatorUserMediaSuccessCallback</a></code> contains a
-          <a>depth track</a>. If a <a><code>Constraints</code></a> structure is
-          provided, it further specifies the nature and settings of the
-          <a>depth track</a>.
+          <a>depth stream track</a>. If a <a><code>Constraints</code></a>
+          structure is provided, it further specifies the nature and settings
+          of the <a>depth stream track</a>.
         </p>
       </section>
       <section>
@@ -300,9 +305,8 @@
         <p>
           The <code id=
           "widl-MediaStream-getDepthTracks-sequence-MediaStreamTrack"><dfn>getDepthTracks()</dfn></code>
-          method, when invoked, MUST return a sequence of
-          <a><code>MediaStreamTrack</code></a> objects representing the
-          <a>depth track</a>s in this stream.
+          method, when invoked, MUST return a sequence of <a>depth stream
+          track</a>s in this stream.
         </p>
         <p>
           The <code><a>getDepthTracks()</a></code> method MUST return a
@@ -318,10 +322,8 @@
             Implementation considerations
           </h3>
           <p>
-            A <a><code>MediaStreamTrack</code></a> object representing a
-            <a>video track</a> and a <a><code>MediaStreamTrack</code></a>
-            object representing a <a>depth track</a> can be combined into one
-            <code><a>MediaStream</a></code> object. The rendering of the two
+            A <a>video stream track</a> and a <a>depth stream track</a> can be
+            combined into one <a>depth stream</a>. The rendering of the two
             tracks are intended to be synchronized. The resolution of the two
             tracks are intended to be same. And the coordination of the two
             tracks are intended to be calibrated. These are not hard
@@ -337,7 +339,7 @@
         <p>
           The <code><dfn>kind</dfn></code> attribute MUST, on getting, return
           the string "<code>depth</code>" if the object represents a <a>depth
-          track</a>.
+          stream track</a>.
         </p>
       </section>
       <section>
@@ -348,14 +350,12 @@
           <a>User agent</a>s that support <code><a>MediaStream</a></code>
           <a href=
           "http://w3c.github.io/mediacapture-main/getusermedia.html#direct-assignment-to-media-elements">
-          direct assignment to media elements</a> MUST allow a
-          <code><a>MediaStream</a></code> object containing a <a>depth
-          track</a> to be assigned directly to a media element.
+          direct assignment to media elements</a> MUST allow a <a>depth
+          stream</a> to be assigned directly to a media element.
         </p>
         <p>
-          For each <a><code>MediaStreamTrack</code></a> representing a <a>depth
-          track</a> in the <code><a>MediaStream</a></code>, the <a>user
-          agent</a> MUST create a corresponding <code><a href=
+          For each <a>depth stream track</a> in the <a>depth stream</a>, the
+          <a>user agent</a> MUST create a corresponding <code><a href=
           "http://www.w3.org/TR/html5/embedded-content-0.html#videotrack">VideoTrack</a></code>
           as defined in [[HTML5]].
         </p>
@@ -543,9 +543,8 @@
           <code>MediaTrackSettings</code> dictionary
         </h2>
         <p>
-          When the <code>getSettings()</code> method is invoked on a
-          <a><code>MediaStreamTrack</code></a> object that represents a
-          <a>depth track</a>, the <a>user agent</a> MUST return the following
+          When the <code>getSettings()</code> method is invoked on a <a>depth
+          stream track</a>, the <a>user agent</a> MUST return the following
           dictionary that extends the <a><code>MediaTrackSettings</code></a>
           dictionary:
         </p>
@@ -627,7 +626,7 @@
           </h3>
           <p>
             A <code>video</code> element whose source is a
-            <code><a>MediaStream</a></code> object containing a <a>depth
+            <code><a>MediaStream</a></code> object containing a <a>depth stream
             track</a> may be uploaded to a WebGL texture of format
             <code>RGB</code> and type <code>UNSIGNED_BYTE</code>. [[WEBGL]]
           </p>
@@ -652,7 +651,7 @@ navigator.mediaDevices.getUserMedia({
   depth: true,
   video: true
 }).then(function (mediaStream) {
-  // mediaStream carries both video track and depth track
+  // mediaStream carries both video stream track and depth stream track
   var frameGrabber = new FrameGrabber(mediaStream);
   if (frameGrabber) {
     frameGrabber.start(processFrameData);
