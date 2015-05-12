@@ -208,9 +208,6 @@
         A <dfn>video track</dfn> represents media sourced from an RGB camera or
         other similar source.
       </p>
-      <p>
-        A <dfn>dexel</dfn> is a depth pixel in the <a>depth map</a>.
-      </p>
     </section>
     <section>
       <h2>
@@ -238,6 +235,51 @@
           <a>depth track</a>. If a <a><code>Constraints</code></a> structure is
           provided, it further specifies the nature and settings of the
           <a>depth track</a>.
+        </p>
+      </section>
+      <section>
+        <h2>
+          <code><a>MediaTrackConstraints</a></code> dictionary
+        </h2>
+        <dl class="idl" title="partial dictionary MediaTrackConstraints">
+          <dt>
+            DepthMapUnit unit = "mm"
+          </dt>
+          <dd>
+            -
+          </dd>
+        </dl>
+        <dl id="enum-basic" class="idl" title="enum DepthMapUnit">
+          <dt>
+            mm
+          </dt>
+          <dd>
+            &nbsp;
+          </dd>
+          <dt>
+            m
+          </dt>
+          <dd>
+            &nbsp;
+          </dd>
+        </dl>
+        <p>
+          The <code id="widl-MediaTrackConstraints-unit">unit</code> attribute
+          MUST return the value it was initialized to. When the object is
+          created, it MUST have its <a>depth map unit</a> set to the string
+          "<code>mm</code>".
+        </p>
+        <p>
+          The <code><a>DepthMapUnit</a></code> enumeration is used to select
+          the <dfn>depth map unit</dfn> that applies to <a>dexel</a>s, <a>near
+          value</a>, and <a>far value</a> associated with a <a>depth map</a>.
+          The "<code>mm</code>" value indicates millimeters, the
+          "<code>m</code>" value indicates meters.
+        </p>
+        <p>
+          The <a>depth map unit</a> is said to be an <dfn>active depth map
+          unit</dfn> if a new <a>Depth Map <code>ArrayBuffer</code></a> has
+          been created.
         </p>
       </section>
       <section>
@@ -353,31 +395,17 @@
         </p>
         <p>
           A <a>depth map</a> has an associated <dfn>unit</dfn> which is a
-          DOMString. It represents the unit of the <a>depth map</a> and
-          associated <a>near value</a> and <a>far value</a>. It is one of the
-          following:
+          DOMString. It represents the <a>active depth map unit</a>.
         </p>
-        <dl>
-          <dt>
-            "<code><dfn>mm</dfn></code>"
-          </dt>
-          <dd>
-            Units represented in millimeters (mm).
-          </dd>
-          <dt>
-            "<code><dfn>m</dfn></code>"
-          </dt>
-          <dd>
-            Units represented in meters (m).
-          </dd>
-        </dl>
         <p>
           A <a>depth map</a> has an associated <dfn>near value</dfn> which is a
-          double. It represents the minimum range in <a>unit</a>s.
+          double. It represents the minimum range in <a>active depth map
+          unit</a>s.
         </p>
         <p>
           A <a>depth map</a> has an associated <dfn>far value</dfn> which is a
-          double. It represents the maximum range in <a>unit</a>s.
+          double. It represents the maximum range in <a>active depth map
+          unit</a>s.
         </p>
         <dl class="idl" title=
         " [Constructor(unsigned long sw, unsigned long sh), &nbsp;Constructor(Uint8ClampedArray data, unsigned long sw, optional unsigned long sh)] interface DepthMap">
@@ -419,11 +447,14 @@
           A <dfn>Depth Map <code>ArrayBuffer</code></dfn> is an
           <code><a>ArrayBuffer</a></code> whose data is represented in
           left-to-right order, row by row top to bottom, starting with the top
-          left, with each value representing a <a>dexel</a>, in that order.
+          left, with each value representing a <dfn>dexel</dfn>, in that order.
           Each <a>dexel</a> represented in this array MUST be in range
-          0..65535, representing the 16 bit value for that <a>dexel</a>. The
-          <a title="dexel">dexels</a> MUST be assigned consecutive indices
-          starting with 0 for the top left <a>dexel</a>.
+          0..65535, representing the 16 bit value for that <a>dexel</a> in
+          <a>depth map unit</a>s indicated by the <code><a href=
+          "#widl-MediaTrackConstraints-unit">unit</a></code> attribute of the
+          <a><code>MediaTrackConstraints</code></a> object. The <a title=
+          "dexel">dexels</a> MUST be assigned consecutive indices starting with
+          0 for the top left <a>dexel</a>.
         </p>
       </section>
       <section>
@@ -539,7 +570,7 @@
             -
           </dd>
           <dt>
-            DOMString unit = null
+            DepthMapUnit? unit = null
           </dt>
           <dd>
             -
@@ -576,7 +607,7 @@
         </p>
         <p>
           The <code id="widl-Settings-unit">unit</code> attribute's getter MUST
-          return the <a>depth map</a>'s <a>unit</a>.
+          return the <a>active depth map unit</a>.
         </p>
         <p>
           The <code id="widl-Settings-near">near</code> attribute's getter MUST
