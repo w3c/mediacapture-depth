@@ -5,9 +5,9 @@
       Media Capture Depth Stream Extensions
     </title>
     <meta charset='utf-8'>
-    <script src='//www.w3.org/Tools/respec/respec-w3c-common' async="" class=
+    <script src='//www.w3.org/Tools/respec/respec-w3c-common' async class=
     "remove">
-</script>
+    </script>
     <script class='remove'>
 
       var respecConfig = {
@@ -434,7 +434,7 @@
         <p>
           New <code><a>DepthMap</a></code> objects MUST be initialized so that
           their <code id="widl-DepthMap-width">width</code> attribute is set to
-          the number of <a title="dexel">dexels</a> per row in the <a>depth
+          the number of <a data-lt="dexel">dexels</a> per row in the <a>depth
           map</a>, their <code id="widl-DepthMap-height">height</code>
           attribute is set to the number of rows in the <a>depth map</a>, and
           their <code id="widl-DepthMap-data">data</code> attribute is
@@ -443,8 +443,8 @@
           <code>ArrayBuffer</code></a> for its storage, and must have a zero
           start offset and a length equal to the length of its storage, in
           bytes. The <a>Depth Map <code>ArrayBuffer</code></a> MUST contain the
-          <a>depth map</a>. At least one <a title="dexel">dexel's</a> worth of
-          <a>depth map</a> MUST be returned.
+          <a>depth map</a>. At least one <a data-lt="dexel">dexel's</a> worth
+          of <a>depth map</a> MUST be returned.
         </p>
         <p>
           A <dfn>Depth Map <code>ArrayBuffer</code></dfn> is an
@@ -455,7 +455,7 @@
           0..65535, representing the 16 bit value for that <a>dexel</a> in
           <a>depth map unit</a>s indicated by the <code><a href=
           "#widl-MediaTrackConstraints-unit">unit</a></code> attribute of the
-          <a><code>MediaTrackConstraints</code></a> object. The <a title=
+          <a><code>MediaTrackConstraints</code></a> object. The <a data-lt=
           "dexel">dexels</a> MUST be assigned consecutive indices starting with
           0 for the top left <a>dexel</a>.
         </p>
