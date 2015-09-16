@@ -225,57 +225,40 @@
         <h2>
           <code><a>MediaStreamConstraints</a></code> dictionary
         </h2>
-        <dl class="idl" title="partial dictionary MediaStreamConstraints">
-          <dt>
-            (boolean or MediaTrackConstraints) depth = false
-          </dt>
-          <dd>
-            -
-          </dd>
-        </dl>
-        <p>
-          The <code id="widl-MediaStreamConstraints-depth">depth</code>
-          attribute MUST return the value it was initialized to. When the
-          object is created, this attribute MUST be initialized to false. If
-          true, the attribute represents a request that the
-          <code><a>MediaStream</a></code> object returned as an argument of the
-          <code><a>NavigatorUserMediaSuccessCallback</a></code> contains a
-          <a>depth stream track</a>. If a <a><code>Constraints</code></a>
-          structure is provided, it further specifies the nature and settings
-          of the <a>depth stream track</a>.
+        <pre class="idl">
+          partial dictionary MediaStreamConstraints {
+              (boolean or MediaTrackConstraints) depth = false;
+          };
+        </pre>
+        <p dfn-for="MediaStreamConstraints" link-for="MediaStreamConstraints">
+          The <dfn><code>depth</code></dfn> attribute MUST return the value it
+          was initialized to. When the object is created, this attribute MUST
+          be initialized to false. If true, the attribute represents a request
+          that the <code><a>MediaStream</a></code> object returned as an
+          argument of the <code><a>NavigatorUserMediaSuccessCallback</a></code>
+          contains a <a>depth stream track</a>. If a
+          <a><code>Constraints</code></a> structure is provided, it further
+          specifies the nature and settings of the <a>depth stream track</a>.
         </p>
       </section>
       <section>
         <h2>
           <code><a>MediaTrackConstraints</a></code> dictionary
         </h2>
-        <dl class="idl" title="partial dictionary MediaTrackConstraints">
-          <dt>
-            DepthMapUnit unit = "mm"
-          </dt>
-          <dd>
-            -
-          </dd>
-        </dl>
-        <dl id="enum-basic" class="idl" title="enum DepthMapUnit">
-          <dt>
-            mm
-          </dt>
-          <dd>
-            &nbsp;
-          </dd>
-          <dt>
-            m
-          </dt>
-          <dd>
-            &nbsp;
-          </dd>
-        </dl>
-        <p>
-          The <code id="widl-MediaTrackConstraints-unit">unit</code> attribute
-          MUST return the value it was initialized to. When the object is
-          created, it MUST have its <a>depth map unit</a> set to the string
-          "<code>mm</code>".
+        <pre class="idl">
+          enum DepthMapUnit {
+              "mm",
+              "m"
+          };
+          
+          partial dictionary MediaTrackConstraints {
+              DepthMapUnit unit = "mm";
+          };
+        </pre>
+        <p dfn-for="MediaTrackConstraints" link-for="MediaTrackConstraints">
+          The <dfn><code>unit</code></dfn> attribute MUST return the value it
+          was initialized to. When the object is created, it MUST have its
+          <a>depth map unit</a> set to the string "<code>mm</code>".
         </p>
         <p>
           The <code><a>DepthMapUnit</a></code> enumeration is used to select
@@ -294,25 +277,21 @@
         <h2>
           <code>MediaStream</code> interface
         </h2>
-        <dl class="idl" title="partial interface MediaStream">
-          <dt>
-            sequence&lt;MediaStreamTrack&gt; getDepthTracks ()
-          </dt>
-          <dd>
-            -
-          </dd>
-        </dl>
-        <p>
-          The <code id=
-          "widl-MediaStream-getDepthTracks-sequence-MediaStreamTrack"><dfn>getDepthTracks()</dfn></code>
-          method, when invoked, MUST return a sequence of <a>depth stream
-          track</a>s in this stream.
+        <pre class="idl">
+          partial interface MediaStream {
+              sequence&lt;MediaStreamTrack&gt; getDepthTracks();
+          };
+        </pre>
+        <p dfn-for="MediaStream" link-for="MediaStream">
+          The <code><dfn>getDepthTracks</dfn>()</code> method, when invoked,
+          MUST return a sequence of <a data-lt="depth stream track">depth
+          stream tracks</a> in this stream.
         </p>
         <p>
-          The <code><a>getDepthTracks()</a></code> method MUST return a
+          The <dfn><code>getDepthTracks()</code></dfn> method MUST return a
           sequence that represents a snapshot of all the
           <a><code>MediaStreamTrack</code></a> objects in this stream's track
-          set whose <code><a>kind</a></code> is equal to "<code>depth</code>".
+          set whose <a><code>kind</code></a> is equal to "<code>depth</code>".
           The conversion from the track set to the sequence is <a>user
           agent</a> defined and the order does not have to be stable between
           calls.
@@ -410,41 +389,28 @@
           double. It represents the maximum range in <a>active depth map
           unit</a>s.
         </p>
-        <dl class="idl" title=
-        " [Constructor(unsigned long sw, unsigned long sh), &nbsp;Constructor(Uint8ClampedArray data, unsigned long sw, optional unsigned long sh)] interface DepthMap">
-        <dt>
-            readonly attribute unsigned long width
-          </dt>
-          <dd>
-            -
-          </dd>
-          <dt>
-            readonly attribute unsigned long height
-          </dt>
-          <dd>
-            -
-          </dd>
-          <dt>
-            readonly attribute Uint16Array data
-          </dt>
-          <dd>
-            -
-          </dd>
-        </dl>
-        <p>
-          New <code><a>DepthMap</a></code> objects MUST be initialized so that
-          their <code id="widl-DepthMap-width">width</code> attribute is set to
-          the number of <a data-lt="dexel">dexels</a> per row in the <a>depth
-          map</a>, their <code id="widl-DepthMap-height">height</code>
-          attribute is set to the number of rows in the <a>depth map</a>, and
-          their <code id="widl-DepthMap-data">data</code> attribute is
-          initialized to a new <code><a>Uint16Array</a></code> object. The
-          <code><a>Uint16Array</a></code> object MUST use a new <a>Depth Map
-          <code>ArrayBuffer</code></a> for its storage, and must have a zero
-          start offset and a length equal to the length of its storage, in
-          bytes. The <a>Depth Map <code>ArrayBuffer</code></a> MUST contain the
-          <a>depth map</a>. At least one <a data-lt="dexel">dexel's</a> worth
-          of <a>depth map</a> MUST be returned.
+        <pre class="idl">
+          [Constructor(unsigned long sw, unsigned long sh),
+           Constructor(Uint8ClampedArray data, unsigned long sw, optional unsigned long sh)]
+          interface DepthMap {
+              readonly    attribute unsigned long width;
+              readonly    attribute unsigned long height;
+              readonly    attribute Uint16Array   data;
+          };
+        </pre>
+        <p dfn-for="DepthMap" link-for="DepthMap">
+          New <a><code>DepthMap</code></a> objects MUST be initialized so that
+          their <dfn><code>width</code></dfn> attribute is set to the number of
+          <a data-lt="dexel">dexels</a> per row in the <a>depth map</a>, their
+          <dfn><code>height</code></dfn> attribute is set to the number of rows
+          in the <a>depth map</a>, and their <dfn><code>data</code></dfn>
+          attribute is initialized to a new <a><code>Uint16Array</code></a>
+          object. The <a><code>Uint16Array</code></a> object MUST use a new
+          <a>Depth Map <code>ArrayBuffer</code></a> for its storage, and must
+          have a zero start offset and a length equal to the length of its
+          storage, in bytes. The <a>Depth Map <code>ArrayBuffer</code></a> MUST
+          contain the <a>depth map</a>. At least one <a data-lt=
+          "dexel">dexel's</a> worth of <a>depth map</a> MUST be returned.
         </p>
         <p>
           A <dfn>Depth Map <code>ArrayBuffer</code></dfn> is an
@@ -453,9 +419,9 @@
           left, with each value representing a <dfn>dexel</dfn>, in that order.
           Each <a>dexel</a> represented in this array MUST be in range
           0..65535, representing the 16 bit value for that <a>dexel</a> in
-          <a>depth map unit</a>s indicated by the <code><a href=
-          "#widl-MediaTrackConstraints-unit">unit</a></code> attribute of the
-          <a><code>MediaTrackConstraints</code></a> object. The <a data-lt=
+          <a>depth map unit</a>s indicated by the <a for=
+          "MediaTrackConstraints"><code>unit</code></a> attribute of the
+          <code>MediaTrackConstraints</code> object. The <a data-lt=
           "dexel">dexels</a> MUST be assigned consecutive indices starting with
           0 for the top left <a>dexel</a>.
         </p>
@@ -464,82 +430,33 @@
         <h2>
           <code>FrameData</code> interface
         </h2>
-        <dl class="idl" title="interface FrameData">
-          <dt>
-            readonly attribute DepthMap? depthMap
-          </dt>
-          <dd>
-            -
-          </dd>
-          <dt>
-            readonly attribute double? depthMapTimeStamp
-          </dt>
-          <dd>
-            -
-          </dd>
-          <dt>
-            readonly attribute ImageData? imageData
-          </dt>
-          <dd>
-            -
-          </dd>
-          <dt>
-            readonly attribute double? imageDataTimeStamp
-          </dt>
-          <dd>
-            -
-          </dd>
-          <dt>
-            readonly attribute double currentTime
-          </dt>
-          <dd>
-            -
-          </dd>
-        </dl>
+        <pre class="idl">
+          interface FrameData {
+              readonly    attribute DepthMap?  depthMap;
+              readonly    attribute double?    depthMapTimeStamp;
+              readonly    attribute ImageData? imageData;
+              readonly    attribute double?    imageDataTimeStamp;
+              readonly    attribute double     currentTime;
+          };
+        </pre>
       </section>
       <section>
         <h2>
           <code>FrameGrabber</code> interface
         </h2>
-        <dl class="idl" title=
-        "[Constructor(MediaStream stream)] interface FrameGrabber">
-          <dt>
-            readonly attribute MediaStream stream
-          </dt>
-          <dd>
-            -
-          </dd>
-          <dt>
-            void start()
-          </dt>
-          <dd>
-            <dl class="parameters">
-              <dt>
-                FrameGrabberCallback callback
-              </dt>
-              <dd>
-                -
-              </dd>
-              <dt>
-                optional double fps
-              </dt>
-              <dd>
-                -
-              </dd>
-            </dl>
-          </dd>
-          <dt>
-            void stop()
-          </dt>
-          <dd>
-            -
-          </dd>
-        </dl>
-        <dl class="idl" title=
-        "callback FrameGrabberCallback = void (FrameData frameData)"></dl>
+        <pre class="idl">
+          [Constructor(MediaStream stream)]
+          interface FrameGrabber {
+              readonly    attribute MediaStream stream;
+              void start (FrameGrabberCallback callback, optional double fps);
+              void stop ();
+          };
+          
+          callback FrameGrabberCallback = void (FrameData frameData);
+        </pre>
       </section>
       <div class="note">
-        The <code><a>FrameGrabber</a></code> behavior needs to be defined.
+        The <a><code>FrameGrabber</code></a> behavior needs to be defined.
       </div>
       <section>
         <h2>
@@ -551,73 +468,43 @@
           dictionary that extends the <a><code>MediaTrackSettings</code></a>
           dictionary:
         </p>
-        <dl class="idl" title="partial dictionary MediaTrackSettings">
-          <dt>
-            double focalLength = null
-          </dt>
-          <dd>
-            -
-          </dd>
-          <dt>
-            double horizontalFieldOfView = null
-          </dt>
-          <dd>
-            -
-          </dd>
-          <dt>
-            double verticalFieldOfView = null
-          </dt>
-          <dd>
-            -
-          </dd>
-          <dt>
-            DepthMapUnit? unit = null
-          </dt>
-          <dd>
-            -
-          </dd>
-          <dt>
-            double near = null
-          </dt>
-          <dd>
-            -
-          </dd>
-          <dt>
-            double far = null
-          </dt>
-          <dd>
-            -
-          </dd>
-        </dl>
-        <p>
-          The <code id="widl-Settings-focalLength">focalLength</code>
-          attribute's getter MUST return the <a>depth map</a>'s <a>focal
-          length</a>.
-        </p>
-        <p>
-          The <code id=
-          "widl-Settings-horizontalFieldOfView">horizontalFieldOfView</code>
-          attribute's getter MUST return the <a>depth map</a>'s <a>horizontal
-          field of view</a>.
-        </p>
-        <p>
-          The <code id=
-          "widl-Settings-verticalFieldOfView">verticalFieldOfView</code>
-          attribute's getter MUST return the <a>depth map</a>'s <a>vertical
-          field of view</a>.
-        </p>
-        <p>
-          The <code id="widl-Settings-unit">unit</code> attribute's getter MUST
-          return the <a>active depth map unit</a>.
-        </p>
-        <p>
-          The <code id="widl-Settings-near">near</code> attribute's getter MUST
-          return the <a>depth map</a>'s <a>near value</a>.
-        </p>
-        <p>
-          The <code id="widl-Settings-far">far</code> attribute's getter MUST
-          return the <a>depth map</a>'s <a>far value</a>.
-        </p>
+        <pre class="idl">
+          partial dictionary MediaTrackSettings {
+              double        focalLength = null;
+              double        horizontalFieldOfView = null;
+              double        verticalFieldOfView = null;
+              DepthMapUnit? unit = null;
+              double        near = null;
+              double        far = null;
+          };
+        </pre>
+        <div dfn-for="MediaTrackSettings" link-for="MediaTrackSettings">
+          <p>
+            The <dfn><code>focalLength</code></dfn> attribute's getter MUST
+            return the <a>depth map</a>'s <a>focal length</a>.
+          </p>
+          <p>
+            The <dfn><code>horizontalFieldOfView</code></dfn> attribute's
+            getter MUST return the <a>depth map</a>'s <a>horizontal field of
+            view</a>.
+          </p>
+          <p>
+            The <dfn><code>verticalFieldOfView</code></dfn> attribute's getter
+            MUST return the <a>depth map</a>'s <a>vertical field of view</a>.
+          </p>
+          <p>
+            The <dfn><code>unit</code></dfn> attribute's getter MUST return the
+            <a>active depth map unit</a>.
+          </p>
+          <p>
+            The <dfn><code>near</code></dfn> attribute's getter MUST return the
+            <a>depth map</a>'s <a>near value</a>.
+          </p>
+          <p>
+            The <dfn><code>far</code></dfn> attribute's getter MUST return the
+            <a>depth map</a>'s <a>far value</a>.
+          </p>
+        </div>
       </section>
       <section>
         <h2>
@@ -629,7 +516,7 @@
           </h3>
           <p>
             A <code>video</code> element whose source is a
-            <code><a>MediaStream</a></code> object containing a <a>depth stream
+            <a><code>MediaStream</code></a> object containing a <a>depth stream
             track</a> may be uploaded to a WebGL texture of format
             <code>RGB</code> and type <code>UNSIGNED_BYTE</code>. [[WEBGL]]
           </p>
