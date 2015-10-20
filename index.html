@@ -69,7 +69,21 @@
             href: "https://github.com/w3c/mediacapture-depth/commits/"
           }
         ]
-        }]
+        }],
+        localBiblio: {
+          "MEDIACAPTURE-WORKER": {
+              title:     "Media Capture Stream with Worker",
+              href:      "https://w3c.github.io/mediacapture-worker/",
+              authors:  [
+                         "Chia-hung Tai",
+                         "Robert O'Callahan",
+                         "Tzuhao Kuo",
+                         "Anssi Kostiainen"
+              ],
+              status:    "ED",
+              publisher: "W3C"
+          }
+        }
     };
 
     </script>
@@ -91,6 +105,29 @@
         implementations, and feedback from other groups and
         individuals.</strong>
       </p>
+      <div class="warning">
+        <p>
+          Implementers need to be aware that the following sections are not
+          stable and are expected to change in incompatible ways:
+        </p>
+        <ul>
+          <li>
+            <a href="#depthmap-interface"><code>DepthMap</code> interface</a>
+          </li>
+          <li>
+            <a href="#framedata-interface"><code>FrameData</code> interface</a>
+          </li>
+          <li>
+            <a href="#framegrabber-interface"><code>FrameGrabber</code>
+            interface</a>
+          </li>
+        </ul>
+        <p>
+          The functionality defined in the above sections will be reworked to
+          be based on the processing model defined in the Media Capture Stream
+          with Worker specification [[!MEDIACAPTURE-WORKER]].
+        </p>
+      </div>
     </section>
     <section>
       <h2>
