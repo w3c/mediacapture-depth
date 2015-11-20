@@ -221,9 +221,11 @@
         "https://html.spec.whatwg.org/#canvasrenderingcontext2d"><dfn>CanvasRenderingContext2D</dfn></a></code>
         and <code><a href=
         "https://html.spec.whatwg.org/#imagedata"><dfn>ImageData</dfn></a></code>
-        interfaces, and the <code><a href=
+        interfaces, <code><a href=
         "https://html.spec.whatwg.org/#canvasimagesource"><dfn>CanvasImageSource</dfn></a></code>
-        typedef are defined in [[!HTML]].
+        typedef, and <code><a href=
+        "https://html.spec.whatwg.org/#videotrack"><dfn>VideoTrack</dfn></a></code>
+        interface are defined in [[!HTML]].
       </p>
       <p>
         The <code><a href=
@@ -359,18 +361,25 @@
       </section>
       <section>
         <h2>
-          Direct assignment to media elements
+          Media provider object
         </h2>
         <p>
-          <a>User agent</a>s which support <a href=
-          "http://w3c.github.io/mediacapture-main/getusermedia.html#mediastreams-in-media-elements">
-          MediaStreams in Media Elements</a> MUST allow a <a>depth stream</a>
-          to be assigned directly to a media element.
+          A <a href="https://html.spec.whatwg.org/#media-provider-object">media
+          provider object</a> can represent a <a>depth stream</a>. The <a>user
+          agent</a> MUST allow a <a href=
+          "https://html.spec.whatwg.org/#media-element">media element</a> with
+          an <a href=
+          "https://html.spec.whatwg.org/#assigned-media-provider-object">assigned
+          media provider object</a> that is a <a>depth stream</a>.
         </p>
+      </section>
+      <section>
+        <h2>
+          <code>VideoTrack</code> interface
+        </h2>
         <p>
           For each <a>depth stream track</a> in the <a>depth stream</a>, the
-          <a>user agent</a> MUST create a corresponding <code><a href=
-          "https://html.spec.whatwg.org/#videotrack">VideoTrack</a></code> as
+          <a>user agent</a> MUST create a corresponding <a>VideoTrack</a> as
           defined in [[HTML]].
         </p>
       </section>
