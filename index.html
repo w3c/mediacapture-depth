@@ -366,7 +366,7 @@
         <p>
           A <a href="https://html.spec.whatwg.org/#media-provider-object">media
           provider object</a> can represent a <a>depth stream</a>. The <a>user
-          agent</a> MUST allow a <a href=
+          agent</a> MUST support a <a href=
           "https://html.spec.whatwg.org/#media-element">media element</a> with
           an <a href=
           "https://html.spec.whatwg.org/#assigned-media-provider-object">assigned
@@ -375,13 +375,63 @@
       </section>
       <section>
         <h2>
-          <code>VideoTrack</code> interface
+          The <code>video</code> element
         </h2>
         <p>
-          For each <a>depth stream track</a> in the <a>depth stream</a>, the
-          <a>user agent</a> MUST create a corresponding <a>VideoTrack</a> as
-          defined in [[HTML]].
+          For a <a href=
+          "https://html.spec.whatwg.org/#the-video-element"><code>video</code>
+          element</a> whose <a href=
+          "https://html.spec.whatwg.org/#assigned-media-provider-object">assigned
+          media provider object</a> is a <a>depth stream</a>, the <a>user
+          agent</a> MUST, for each pixel of the <a href=
+          "https://html.spec.whatwg.org/#media-data">media data</a> that is
+          represented by depth map, <a>convert the depth map value to
+          grayscale</a> prior to when the <code>video</code> element is
+          <a href="https://html.spec.whatwg.org/#potentially-playing">potentially
+          playing</a>.
         </p>
+        <p>
+          The algorithm to <dfn>convert the depth map value to grayscale</dfn>,
+          given a depth map value <var>d</var>, is as follows:
+        </p>
+        <ol>
+          <li>Let <var>bit depth</var> be the bit depth of the depth map.
+          </li>
+          <li>Let <var>near</var> be the the <a>near value</a>.
+          </li>
+          <li>Let <var>far</var> be the the <a>far value</a>.
+          </li>
+          <li>If <var>bit depth</var> is greater than 8, then apply the
+          <a>rules to convert using range inverse</a> to <var>d</var> to obtain
+          quantized value <var>d<sub>8bit</sub>.</var>
+          </li>
+          <li>Otherwise, apply the <a>rules to convert using range linear</a>
+          to <var>d</var> to obtain quantized value
+          <var>d<sub>8bit</sub></var>.
+          </li>
+          <li>Return <var>d<sub>8bit</sub></var>.
+          </li>
+        </ol>
+        <p>
+          The <dfn>rules to convert using range inverse</dfn> are as given in
+          the following formula:
+        </p><img src="images/range-inverse.png" alt="Range inverse"><br>
+        <img src="images/quantization.png" alt="Quantization">
+        <p>
+          The <dfn>rules to convert using range linear</dfn> are as given in
+          the following formula:
+        </p><img src="images/range-linear.png" alt="Range linear"><br>
+        <img src="images/quantization.png" alt="Quantization">
+        <section>
+          <h2>
+            <code>VideoTrack</code> interface
+          </h2>
+          <p>
+            For each <a>depth stream track</a> in the <a>depth stream</a>, the
+            <a>user agent</a> MUST create a corresponding <a>VideoTrack</a> as
+            defined in [[HTML]].
+          </p>
+        </section>
       </section>
       <section>
         <h2>
@@ -605,7 +655,6 @@ function processFrameData(frameData) {
    }
  }
 }
-      
 </pre>
       <h3>
         WebGL Fragment Shader based post-processing
@@ -647,7 +696,6 @@ gl.texImage2D(
     // ...
   }
 &lt;/script&gt;
-      
 </pre>
     </section>
     <section class='appendix'>
