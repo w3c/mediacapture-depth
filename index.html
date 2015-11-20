@@ -563,40 +563,53 @@
           dictionary:
         </p>
         <pre class="idl">
+          enum RangeFormat {
+              "inverse",
+              "linear"
+          };
+          
           partial dictionary MediaTrackSettings {
-              double        focalLength = null;
-              double        horizontalFieldOfView = null;
-              double        verticalFieldOfView = null;
-              DepthMapUnit? unit = null;
-              double        near = null;
-              double        far = null;
+              double        focalLength;
+              RangeFormat   format;
+              double        horizontalFieldOfView;
+              double        verticalFieldOfView;
+              DepthMapUnit? unit;
+              double        near;
+              double        far;
           };
         </pre>
         <div dfn-for="MediaTrackSettings" link-for="MediaTrackSettings">
           <p>
-            The <dfn><code>focalLength</code></dfn> attribute's getter MUST
-            return the <a>depth map</a>'s <a>focal length</a>.
+            The <dfn><code>focalLength</code></dfn> attribute represents the
+            <a>depth map</a>'s <a>focal length</a>.
           </p>
           <p>
-            The <dfn><code>horizontalFieldOfView</code></dfn> attribute's
-            getter MUST return the <a>depth map</a>'s <a>horizontal field of
-            view</a>.
+            The <dfn><code>format</code></dfn> attribute represents the depth
+            to grayscale conversion method applied. The value MUST be
+            initialized to the string "<code>inverse</code>", if the <a>rules
+            to convert using range inverse</a> apply, and to the string
+            "<code>linear</code>", if the <a>rules to convert using range
+            linear</a> apply.
           </p>
           <p>
-            The <dfn><code>verticalFieldOfView</code></dfn> attribute's getter
-            MUST return the <a>depth map</a>'s <a>vertical field of view</a>.
+            The <dfn><code>horizontalFieldOfView</code></dfn> attribute
+            represents the <a>depth map</a>'s <a>horizontal field of view</a>.
           </p>
           <p>
-            The <dfn><code>unit</code></dfn> attribute's getter MUST return the
-            <a>active depth map unit</a>.
+            The <dfn><code>verticalFieldOfView</code></dfn> attribute
+            represents the <a>depth map</a>'s <a>vertical field of view</a>.
           </p>
           <p>
-            The <dfn><code>near</code></dfn> attribute's getter MUST return the
-            <a>depth map</a>'s <a>near value</a>.
+            The <dfn><code>unit</code></dfn> attribute represents the <a>active
+            depth map unit</a>.
           </p>
           <p>
-            The <dfn><code>far</code></dfn> attribute's getter MUST return the
-            <a>depth map</a>'s <a>far value</a>.
+            The <dfn><code>near</code></dfn> attribute represents the <a>depth
+            map</a>'s <a>near value</a>.
+          </p>
+          <p>
+            The <dfn><code>far</code></dfn> attribute represents the <a>depth
+            map</a>'s <a>far value</a>.
           </p>
         </div>
       </section>
