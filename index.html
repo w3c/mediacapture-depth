@@ -92,8 +92,9 @@
     <section id='abstract'>
       <p>
         This specification extends the <em>Media Capture and Streams</em>
-        specification [[!GETUSERMEDIA]] to allow a <a>depth stream</a> to be
-        requested from the web platform using APIs familiar to web authors.
+        specification [[!GETUSERMEDIA]] to allow a <a>depth-only stream</a> or
+        combined <a>depth+video stream</a> to be requested from the web
+        platform using APIs familiar to web authors.
       </p>
     </section>
     <section id='sotd'>
@@ -155,7 +156,8 @@
         where each pixel represents the distance between the camera and the
         objects in the scene for that point in the array. A
         <code><a>MediaStream</a></code> object that contains one or more
-        <a>depth stream track</a>s is referred to as a <a>depth stream</a>.
+        <a>depth stream track</a>s is referred to as a <a>depth-only stream</a>
+        or <a>depth+video stream</a>.
       </p>
     </section>
     <section>
@@ -240,19 +242,36 @@
         Terminology
       </h2>
       <p>
-        The term <dfn>depth stream</dfn> means a
-        <code><a>MediaStream</a></code> object that contains one or more
-        <a>depth stream track</a>s.
+        The term <dfn>depth+video stream</dfn> means a <a>MediaStream</a>
+        object that contains one or more <a>MediaStreamTrack</a> objects of
+        kind "<code>depth</code>" (<a>depth stream track</a>) and one or more
+        <a>MediaStreamTrack</a> objects of kind "<code>video</code>" (<a>video
+        stream track</a>).
       </p>
       <p>
-        The term <dfn>depth stream track</dfn> means a
-        <code><a>MediaStreamTrack</a></code> object that represents media
-        sourced from a depth camera.
+        The term <dfn>depth-only stream</dfn> means a <a>MediaStream</a> object
+        that contains one or more <a>MediaStreamTrack</a> objects of kind
+        "<code>depth</code>" (<a>depth stream track</a>) only.
       </p>
       <p>
-        The term <dfn>video stream track</dfn> means a
-        <code><a>MediaStreamTrack</a></code> object that represents media
-        sourced from an RGB camera.
+        The term <dfn>video-only stream</dfn> means a <a>MediaStream</a> object
+        that contains one or more <a>MediaStreamTrack</a> objects of kind
+        "<code>video</code>" (<a>video stream track</a>) only, and optionally
+        of kind "<code>audio</code>".
+      </p>
+      <p>
+        The term <dfn>depth stream track</dfn> means a <a>MediaStreamTrack</a>
+        object whose kind is "<code>depth</code>". It represents a media stream
+        track whose <a href=
+        "http://w3c.github.io/mediacapture-main/#dfn-source">source</a> is a
+        depth camera.
+      </p>
+      <p>
+        The term <dfn>video stream track</dfn> means a <a>MediaStreamTrack</a>
+        object whose kind is "<code>video</code>". It represents a media stream
+        track whose <a href=
+        "http://w3c.github.io/mediacapture-main/#dfn-source">source</a> is a
+        video camera.
       </p>
     </section>
     <section>
@@ -340,9 +359,9 @@
           </h3>
           <p>
             A <a>video stream track</a> and a <a>depth stream track</a> can be
-            combined into one <a>depth stream</a>. The rendering of the two
-            tracks are intended to be synchronized. The resolution of the two
-            tracks are intended to be same. And the coordination of the two
+            combined into one <a>depth+video stream</a>. The rendering of the
+            two tracks are intended to be synchronized. The resolution of the
+            two tracks are intended to be same. And the coordination of the two
             tracks are intended to be calibrated. These are not hard
             requirements, since it might not be possible to synchronize tracks
             from sources.
@@ -365,12 +384,21 @@
         </h2>
         <p>
           A <a href="https://html.spec.whatwg.org/#media-provider-object">media
-          provider object</a> can represent a <a>depth stream</a>. The <a>user
-          agent</a> MUST support a <a href=
+          provider object</a> can represent a <a>depth-only stream</a> (and
+          specifically, not a <a>depth+video stream</a>). The <a>user agent</a>
+          MUST support a <a href=
           "https://html.spec.whatwg.org/#media-element">media element</a> with
           an <a href=
           "https://html.spec.whatwg.org/#assigned-media-provider-object">assigned
-          media provider object</a> that is a <a>depth stream</a>.
+          media provider object</a> that is a <a>depth-only stream</a>, and in
+          particular, the <a href=
+          "https://html.spec.whatwg.org/#dom-media-srcobject"><code>srcObject</code></a>
+          IDL attribute that allows the <a href=
+          "https://html.spec.whatwg.org/#media-element">media element</a> to be
+          assigned a <a href=
+          "https://html.spec.whatwg.org/#media-provider-object">media provider
+          object</a> MUST, on setting and getting, behave as specified in
+          [[!HTML]].
         </p>
       </section>
       <section>
@@ -382,12 +410,24 @@
           "https://html.spec.whatwg.org/#the-video-element"><code>video</code>
           element</a> whose <a href=
           "https://html.spec.whatwg.org/#assigned-media-provider-object">assigned
-          media provider object</a> is a <a>depth stream</a>, the <a>user
+          media provider object</a> is a <a>depth-only stream</a>, the <a>user
           agent</a> MUST, for each pixel of the <a href=
           "https://html.spec.whatwg.org/#media-data">media data</a> that is
           represented by depth map, <a>convert the depth map value to
           grayscale</a> prior to when the <code>video</code> element is
           <a href="https://html.spec.whatwg.org/#potentially-playing">potentially
+          playing</a>.
+        </p>
+        <p>
+          For a <a href=
+          "https://html.spec.whatwg.org/#the-video-element"><code>video</code>
+          element</a> whose <a href=
+          "https://html.spec.whatwg.org/#assigned-media-provider-object">assigned
+          media provider object</a> is a <a>depth+video stream</a>, the <a>user
+          agent</a> MUST act as if all the <a>MediaStreamTrack</a>s of kind
+          "<code>depth</code>" were removed prior to when the
+          <code>video</code> element is <a href=
+          "https://html.spec.whatwg.org/#potentially-playing">potentially
           playing</a>.
         </p>
         <p>
@@ -427,9 +467,9 @@
             <code>VideoTrack</code> interface
           </h2>
           <p>
-            For each <a>depth stream track</a> in the <a>depth stream</a>, the
-            <a>user agent</a> MUST create a corresponding <a>VideoTrack</a> as
-            defined in [[HTML]].
+            For each <a>depth stream track</a> in the <a>depth-only stream</a>,
+            the <a>user agent</a> MUST create a corresponding <a>VideoTrack</a>
+            as defined in [[HTML]].
           </p>
         </section>
       </section>
