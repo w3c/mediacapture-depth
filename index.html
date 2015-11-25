@@ -17,7 +17,7 @@
         // copyrightStart: "2005"
         // previousPublishDate: "1977-03-15",
         // previousMaturity: "WD",
-        edDraftURI: "http://w3c.github.io/mediacapture-depth/",
+        edDraftURI: "https://w3c.github.io/mediacapture-depth/",
         // lcEnd: "2009-08-05",
         noLegacyStyle: true,
         editors: [
@@ -92,8 +92,9 @@
     <section id='abstract'>
       <p>
         This specification extends the <em>Media Capture and Streams</em>
-        specification [[!GETUSERMEDIA]] to allow a <a>depth stream</a> to be
-        requested from the web platform using APIs familiar to web authors.
+        specification [[!GETUSERMEDIA]] to allow a <a>depth-only stream</a> or
+        combined <a>depth+video stream</a> to be requested from the web
+        platform using APIs familiar to web authors.
       </p>
     </section>
     <section id='sotd'>
@@ -155,7 +156,8 @@
         where each pixel represents the distance between the camera and the
         objects in the scene for that point in the array. A
         <code><a>MediaStream</a></code> object that contains one or more
-        <a>depth stream track</a>s is referred to as a <a>depth stream</a>.
+        <a>depth stream track</a>s is referred to as a <a>depth-only stream</a>
+        or <a>depth+video stream</a>.
       </p>
     </section>
     <section>
@@ -218,13 +220,14 @@
       </p>
       <p>
         The <code><a href=
-        "http://www.w3.org/html/wg/drafts/2dcontext/master/#canvasrenderingcontext2d">
-        <dfn>CanvasRenderingContext2D</dfn></a></code> and <code><a href=
-        "http://www.w3.org/html/wg/drafts/2dcontext/master/#imagedata"><dfn>ImageData</dfn></a></code>
-        interfaces, and the <code><a href=
-        "http://www.w3.org/html/wg/drafts/2dcontext/master/#canvasimagesource"><dfn>
-        CanvasImageSource</dfn></a></code> typedef are defined in
-        [[!2DCONTEXT2]].
+        "https://html.spec.whatwg.org/#canvasrenderingcontext2d"><dfn>CanvasRenderingContext2D</dfn></a></code>
+        and <code><a href=
+        "https://html.spec.whatwg.org/#imagedata"><dfn>ImageData</dfn></a></code>
+        interfaces, <code><a href=
+        "https://html.spec.whatwg.org/#canvasimagesource"><dfn>CanvasImageSource</dfn></a></code>
+        typedef, and <code><a href=
+        "https://html.spec.whatwg.org/#videotrack"><dfn>VideoTrack</dfn></a></code>
+        interface are defined in [[!HTML]].
       </p>
       <p>
         The <code><a href=
@@ -239,19 +242,36 @@
         Terminology
       </h2>
       <p>
-        The term <dfn>depth stream</dfn> means a
-        <code><a>MediaStream</a></code> object that contains one or more
-        <a>depth stream track</a>s.
+        The term <dfn>depth+video stream</dfn> means a <a>MediaStream</a>
+        object that contains one or more <a>MediaStreamTrack</a> objects of
+        kind "<code>depth</code>" (<a>depth stream track</a>) and one or more
+        <a>MediaStreamTrack</a> objects of kind "<code>video</code>" (<a>video
+        stream track</a>).
       </p>
       <p>
-        The term <dfn>depth stream track</dfn> means a
-        <code><a>MediaStreamTrack</a></code> object that represents media
-        sourced from a depth camera.
+        The term <dfn>depth-only stream</dfn> means a <a>MediaStream</a> object
+        that contains one or more <a>MediaStreamTrack</a> objects of kind
+        "<code>depth</code>" (<a>depth stream track</a>) only.
       </p>
       <p>
-        The term <dfn>video stream track</dfn> means a
-        <code><a>MediaStreamTrack</a></code> object that represents media
-        sourced from an RGB camera.
+        The term <dfn>video-only stream</dfn> means a <a>MediaStream</a> object
+        that contains one or more <a>MediaStreamTrack</a> objects of kind
+        "<code>video</code>" (<a>video stream track</a>) only, and optionally
+        of kind "<code>audio</code>".
+      </p>
+      <p>
+        The term <dfn>depth stream track</dfn> means a <a>MediaStreamTrack</a>
+        object whose kind is "<code>depth</code>". It represents a media stream
+        track whose <a href=
+        "http://w3c.github.io/mediacapture-main/#dfn-source">source</a> is a
+        depth camera.
+      </p>
+      <p>
+        The term <dfn>video stream track</dfn> means a <a>MediaStreamTrack</a>
+        object whose kind is "<code>video</code>". It represents a media stream
+        track whose <a href=
+        "http://w3c.github.io/mediacapture-main/#dfn-source">source</a> is a
+        video camera.
       </p>
     </section>
     <section>
@@ -339,9 +359,9 @@
           </h3>
           <p>
             A <a>video stream track</a> and a <a>depth stream track</a> can be
-            combined into one <a>depth stream</a>. The rendering of the two
-            tracks are intended to be synchronized. The resolution of the two
-            tracks are intended to be same. And the coordination of the two
+            combined into one <a>depth+video stream</a>. The rendering of the
+            two tracks are intended to be synchronized. The resolution of the
+            two tracks are intended to be same. And the coordination of the two
             tracks are intended to be calibrated. These are not hard
             requirements, since it might not be possible to synchronize tracks
             from sources.
@@ -360,21 +380,98 @@
       </section>
       <section>
         <h2>
-          Direct assignment to media elements
+          Media provider object
         </h2>
         <p>
-          <a>User agent</a>s that support <code><a>MediaStream</a></code>
-          <a href=
-          "http://w3c.github.io/mediacapture-main/getusermedia.html#direct-assignment-to-media-elements">
-          direct assignment to media elements</a> MUST allow a <a>depth
-          stream</a> to be assigned directly to a media element.
+          A <a href="https://html.spec.whatwg.org/#media-provider-object">media
+          provider object</a> can represent a <a>depth-only stream</a> (and
+          specifically, not a <a>depth+video stream</a>). The <a>user agent</a>
+          MUST support a <a href=
+          "https://html.spec.whatwg.org/#media-element">media element</a> with
+          an <a href=
+          "https://html.spec.whatwg.org/#assigned-media-provider-object">assigned
+          media provider object</a> that is a <a>depth-only stream</a>, and in
+          particular, the <a href=
+          "https://html.spec.whatwg.org/#dom-media-srcobject"><code>srcObject</code></a>
+          IDL attribute that allows the <a href=
+          "https://html.spec.whatwg.org/#media-element">media element</a> to be
+          assigned a <a href=
+          "https://html.spec.whatwg.org/#media-provider-object">media provider
+          object</a> MUST, on setting and getting, behave as specified in
+          [[!HTML]].
+        </p>
+      </section>
+      <section>
+        <h2>
+          The <code>video</code> element
+        </h2>
+        <p>
+          For a <a href=
+          "https://html.spec.whatwg.org/#the-video-element"><code>video</code>
+          element</a> whose <a href=
+          "https://html.spec.whatwg.org/#assigned-media-provider-object">assigned
+          media provider object</a> is a <a>depth-only stream</a>, the <a>user
+          agent</a> MUST, for each pixel of the <a href=
+          "https://html.spec.whatwg.org/#media-data">media data</a> that is
+          represented by depth map, <a>convert the depth map value to
+          grayscale</a> prior to when the <code>video</code> element is
+          <a href="https://html.spec.whatwg.org/#potentially-playing">potentially
+          playing</a>.
         </p>
         <p>
-          For each <a>depth stream track</a> in the <a>depth stream</a>, the
-          <a>user agent</a> MUST create a corresponding <code><a href=
-          "http://www.w3.org/TR/html5/embedded-content-0.html#videotrack">VideoTrack</a></code>
-          as defined in [[HTML5]].
+          For a <a href=
+          "https://html.spec.whatwg.org/#the-video-element"><code>video</code>
+          element</a> whose <a href=
+          "https://html.spec.whatwg.org/#assigned-media-provider-object">assigned
+          media provider object</a> is a <a>depth+video stream</a>, the <a>user
+          agent</a> MUST act as if all the <a>MediaStreamTrack</a>s of kind
+          "<code>depth</code>" were removed prior to when the
+          <code>video</code> element is <a href=
+          "https://html.spec.whatwg.org/#potentially-playing">potentially
+          playing</a>.
         </p>
+        <p>
+          The algorithm to <dfn>convert the depth map value to grayscale</dfn>,
+          given a depth map value <var>d</var>, is as follows:
+        </p>
+        <ol>
+          <li>Let <var>bit depth</var> be the bit depth of the depth map.
+          </li>
+          <li>Let <var>near</var> be the the <a>near value</a>.
+          </li>
+          <li>Let <var>far</var> be the the <a>far value</a>.
+          </li>
+          <li>If <var>bit depth</var> is greater than 8, then apply the
+          <a>rules to convert using range inverse</a> to <var>d</var> to obtain
+          quantized value <var>d<sub>8bit</sub>.</var>
+          </li>
+          <li>Otherwise, apply the <a>rules to convert using range linear</a>
+          to <var>d</var> to obtain quantized value
+          <var>d<sub>8bit</sub></var>.
+          </li>
+          <li>Return <var>d<sub>8bit</sub></var>.
+          </li>
+        </ol>
+        <p>
+          The <dfn>rules to convert using range inverse</dfn> are as given in
+          the following formula:
+        </p><img src="images/range-inverse.png" alt="Range inverse"><br>
+        <img src="images/quantization.png" alt="Quantization">
+        <p>
+          The <dfn>rules to convert using range linear</dfn> are as given in
+          the following formula:
+        </p><img src="images/range-linear.png" alt="Range linear"><br>
+        <img src="images/quantization.png" alt="Quantization">
+        <section>
+          <h2>
+            <code>VideoTrack</code> interface
+          </h2>
+          <p>
+            For each <a>depth stream track</a> in the <a>depth-only stream</a>,
+            the <a>user agent</a> MUST create a corresponding <a>VideoTrack</a>
+            as defined in [[HTML]].
+          </p>
+        </section>
       </section>
       <section>
         <h2>
@@ -506,40 +603,53 @@
           dictionary:
         </p>
         <pre class="idl">
+          enum RangeFormat {
+              "inverse",
+              "linear"
+          };
+          
           partial dictionary MediaTrackSettings {
-              double        focalLength = null;
-              double        horizontalFieldOfView = null;
-              double        verticalFieldOfView = null;
-              DepthMapUnit? unit = null;
-              double        near = null;
-              double        far = null;
+              double        focalLength;
+              RangeFormat   format;
+              double        horizontalFieldOfView;
+              double        verticalFieldOfView;
+              DepthMapUnit? unit;
+              double        near;
+              double        far;
           };
         </pre>
         <div dfn-for="MediaTrackSettings" link-for="MediaTrackSettings">
           <p>
-            The <dfn><code>focalLength</code></dfn> attribute's getter MUST
-            return the <a>depth map</a>'s <a>focal length</a>.
+            The <dfn><code>focalLength</code></dfn> attribute represents the
+            <a>depth map</a>'s <a>focal length</a>.
           </p>
           <p>
-            The <dfn><code>horizontalFieldOfView</code></dfn> attribute's
-            getter MUST return the <a>depth map</a>'s <a>horizontal field of
-            view</a>.
+            The <dfn><code>format</code></dfn> attribute represents the depth
+            to grayscale conversion method applied. The value MUST be
+            initialized to the string "<code>inverse</code>", if the <a>rules
+            to convert using range inverse</a> apply, and to the string
+            "<code>linear</code>", if the <a>rules to convert using range
+            linear</a> apply.
           </p>
           <p>
-            The <dfn><code>verticalFieldOfView</code></dfn> attribute's getter
-            MUST return the <a>depth map</a>'s <a>vertical field of view</a>.
+            The <dfn><code>horizontalFieldOfView</code></dfn> attribute
+            represents the <a>depth map</a>'s <a>horizontal field of view</a>.
           </p>
           <p>
-            The <dfn><code>unit</code></dfn> attribute's getter MUST return the
-            <a>active depth map unit</a>.
+            The <dfn><code>verticalFieldOfView</code></dfn> attribute
+            represents the <a>depth map</a>'s <a>vertical field of view</a>.
           </p>
           <p>
-            The <dfn><code>near</code></dfn> attribute's getter MUST return the
-            <a>depth map</a>'s <a>near value</a>.
+            The <dfn><code>unit</code></dfn> attribute represents the <a>active
+            depth map unit</a>.
           </p>
           <p>
-            The <dfn><code>far</code></dfn> attribute's getter MUST return the
-            <a>depth map</a>'s <a>far value</a>.
+            The <dfn><code>near</code></dfn> attribute represents the <a>depth
+            map</a>'s <a>near value</a>.
+          </p>
+          <p>
+            The <dfn><code>far</code></dfn> attribute represents the <a>depth
+            map</a>'s <a>far value</a>.
           </p>
         </div>
       </section>
@@ -598,7 +708,6 @@ function processFrameData(frameData) {
    }
  }
 }
-      
 </pre>
       <h3>
         WebGL Fragment Shader based post-processing
@@ -640,7 +749,6 @@ gl.texImage2D(
     // ...
   }
 &lt;/script&gt;
-      
 </pre>
     </section>
     <section class='appendix'>
