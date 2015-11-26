@@ -106,26 +106,6 @@
         implementations, and feedback from other groups and
         individuals.</strong>
       </p>
-      <div class="warning">
-        <p>
-          Implementers need to be aware that the following sections are not
-          stable and are expected to change in incompatible ways:
-        </p>
-        <ul>
-          <li>
-            <a href="#framedata-interface"><code>FrameData</code> interface</a>
-          </li>
-          <li>
-            <a href="#framegrabber-interface"><code>FrameGrabber</code>
-            interface</a>
-          </li>
-        </ul>
-        <p>
-          The functionality defined in the above sections will be reworked to
-          be based on the processing model defined in the Media Capture Stream
-          with Worker specification [[!MEDIACAPTURE-WORKER]].
-        </p>
-      </div>
     </section>
     <section>
       <h2>
@@ -283,12 +263,18 @@
             However, neither the canvas drawing surface used to draw and
             manipulate 2D graphics on the web platform nor the
             <code><a>ImageData</a></code> interface used to represent image
-            data support 16 bpp.
+            data support 16 bits per pixel.
           </p>
           <p>
             To address the issue, this specification defines a conversion into
-            a 8-bit grayscale representation of a depth map for consumption by
-            APIs that are limited to 8 bpp.
+            a 8-bit grayscale representation of a <a>depth map</a> for
+            consumption by APIs that are limited to 8 bits per pixel.
+          </p>
+          <p>
+            The Media Capture Stream with Worker specification
+            [[MEDIACAPTURE-WORKER]] that complements this specification enables
+            processing of 16-bit depth values per pixel required by more
+            advanced use cases.
           </p>
         </div>
         <p>
@@ -521,38 +507,6 @@
           </p>
         </section>
       </section>
-      <section>
-        <h2>
-          <code>FrameData</code> interface
-        </h2>
-        <pre class="idl">
-          interface FrameData {
-              readonly    attribute DepthMap?  depthMap;
-              readonly    attribute double?    depthMapTimeStamp;
-              readonly    attribute ImageData? imageData;
-              readonly    attribute double?    imageDataTimeStamp;
-              readonly    attribute double     currentTime;
-          };
-        </pre>
-      </section>
-      <section>
-        <h2>
-          <code>FrameGrabber</code> interface
-        </h2>
-        <pre class="idl">
-          [Constructor(MediaStream stream)]
-          interface FrameGrabber {
-              readonly    attribute MediaStream stream;
-              void start (FrameGrabberCallback callback, optional double fps);
-              void stop ();
-          };
-          
-          callback FrameGrabberCallback = void (FrameData frameData);
-        </pre>
-      </section>
-      <div class="note">
-        The <a><code>FrameGrabber</code></a> behavior needs to be defined.
-      </div>
       <section>
         <h2>
           <code>MediaTrackSettings</code> dictionary
