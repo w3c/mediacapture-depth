@@ -596,33 +596,29 @@
         Examples
       </h2>
       <h3>
-        Capture individual depth and RGB frames
+        Playback of depth+video stream
       </h3>
       <pre class='example highlight'>
 navigator.mediaDevices.getUserMedia({
   depth: true,
   video: true
-}).then(function (mediaStream) {
-  // mediaStream carries both video stream track and depth stream track
-  var frameGrabber = new FrameGrabber(mediaStream);
-  if (frameGrabber) {
-    frameGrabber.start(processFrameData);
-  }
-});
+}).then(function (stream) {
+    // Wire the media stream into a &lt;video&gt; element for playback.
+    // The RGB video is rendered.
+    var video = document.querySelector('#video');
+    video.srcObject = stream;
+    video.play();
 
-function processFrameData(frameData) {
- var w = frameData.depthMap.width, h = frameData.depthMap.height;
- var pixels = frameData.imageData.data, dexels = frameData.depthMap.data;
- for (var x = 0; x &lt; w ; ++x) {
-   for (var y = 0; y &lt; h; ++y) {
-     var i = x + y * w;
-     var r = pixels[i*4];
-     var g = pixels[i*4 + 1];
-     var b = pixels[i*4 + 2];
-     var depth = dexels[i]; // Uint16 depth value
-   }
- }
-}
+    // Construct a depth-only stream out of the existing depth stream track.
+    var depthOnlyStream = new MediaStream(s.getDepthTracks()[0]);
+
+    // Wire the depth-only stream into another &lt;video&gt; element for playback.
+    // The depth information is rendered in its grayscale representation.
+    var depthVideo = document.querySelector('#depthVideo');
+    depthVideo.srcObject = depthOnlyStream;
+    depthVideo.play();
+  }
+);
 </pre>
       <h3>
         WebGL Fragment Shader based post-processing
