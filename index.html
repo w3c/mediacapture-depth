@@ -214,8 +214,10 @@
       </p>
       <p>
         The <code><a href=
+        "http://w3c.github.io/mediacapture-main/#dom-mediadevices-getusermedia">
+        <dfn>getUserMedia()</dfn></a></code> method and the <code><a href=
         "http://w3c.github.io/mediacapture-main/#idl-def-NavigatorUserMediaSuccessCallback">
-        <dfn>NavigatorUserMediaSuccessCallback</dfn></a></code> callback is
+        <dfn>NavigatorUserMediaSuccessCallback</dfn></a></code> callback are
         defined in [[!GETUSERMEDIA]].
       </p>
       <p>
@@ -288,14 +290,12 @@
           };
         </pre>
         <p dfn-for="MediaStreamConstraints" link-for="MediaStreamConstraints">
-          The <dfn><code>depth</code></dfn> attribute MUST return the value it
-          was initialized to. When the object is created, this attribute MUST
-          be initialized to false. If true, the attribute represents a request
-          that the <code><a>MediaStream</a></code> object returned as an
-          argument of the <code><a>NavigatorUserMediaSuccessCallback</a></code>
-          contains a <a>depth stream track</a>. If a
-          <a><code>Constraints</code></a> structure is provided, it further
-          specifies the nature and settings of the <a>depth stream track</a>.
+          If the <dfn><code>depth</code></dfn> dictionary member has the value
+          true, the <a>MediaStream</a> returned by the <a>getUserMedia()</a>
+          method MUST contain a <a>depth stream track</a>. If the <a>depth</a>
+          dictionary member is set to false, is not provided, or is set to
+          null, the <a>MediaStream</a> MUST NOT contain a <a>depth stream
+          track</a>.
         </p>
       </section>
       <section>
@@ -307,27 +307,23 @@
               "mm",
               "m"
           };
-          
+        </pre>
+        <p>
+          The <code><a>DepthMapUnit</a></code> enumeration represents the
+          possible <dfn>depth map unit</dfn>s for a <a>depth map</a>. The
+          "<code>mm</code>" value indicates millimeters, the "<code>m</code>"
+          value indicates meters.
+        </p>
+        <pre class="idl">
           partial dictionary MediaTrackConstraints {
               DepthMapUnit unit = "mm";
           };
         </pre>
         <p dfn-for="MediaTrackConstraints" link-for="MediaTrackConstraints">
-          The <dfn><code>unit</code></dfn> attribute MUST return the value it
-          was initialized to. When the object is created, it MUST have its
-          <a>depth map unit</a> set to the string "<code>mm</code>".
-        </p>
-        <p>
-          The <code><a>DepthMapUnit</a></code> enumeration is used to select
-          the <dfn>depth map unit</dfn> that applies to <a>dexel</a>s, <a>near
-          value</a>, and <a>far value</a> associated with a <a>depth map</a>.
-          The "<code>mm</code>" value indicates millimeters, the
-          "<code>m</code>" value indicates meters.
-        </p>
-        <p>
-          The <a>depth map unit</a> is said to be an <dfn>active depth map
-          unit</dfn> if a new <a>Depth Map <code>ArrayBuffer</code></a> has
-          been created.
+          If the <dfn><code>unit</code></dfn> dictionary member value is one of
+          the possible <a>depth map unit</a>s, it becomes the <dfn>active depth
+          map unit</dfn> for the <a>depth stream track</a>. Otherwise, the
+          <a>active depth map unit</a> is "<code>mm</code>".
         </p>
       </section>
       <section>
@@ -620,36 +616,36 @@
         </pre>
         <div dfn-for="MediaTrackSettings" link-for="MediaTrackSettings">
           <p>
-            The <dfn><code>focalLength</code></dfn> attribute represents the
-            <a>depth map</a>'s <a>focal length</a>.
+            The <dfn><code>focalLength</code></dfn> dictionary member
+            represents the <a>depth map</a>'s <a>focal length</a>.
           </p>
           <p>
-            The <dfn><code>format</code></dfn> attribute represents the depth
-            to grayscale conversion method applied. The value MUST be
-            initialized to the string "<code>inverse</code>", if the <a>rules
-            to convert using range inverse</a> apply, and to the string
-            "<code>linear</code>", if the <a>rules to convert using range
-            linear</a> apply.
+            The <dfn><code>format</code></dfn> dictionary member represents the
+            depth to grayscale conversion method applied to the <a>depth
+            map</a>. If the value is "<code>inverse</code>", the <a>rules to
+            convert using range inverse</a> are applied, and if the value is
+            "<code>linear</code>", the <a>rules to convert using range
+            linear</a> are applied.
           </p>
           <p>
-            The <dfn><code>horizontalFieldOfView</code></dfn> attribute
+            The <dfn><code>horizontalFieldOfView</code></dfn> dictionary member
             represents the <a>depth map</a>'s <a>horizontal field of view</a>.
           </p>
           <p>
-            The <dfn><code>verticalFieldOfView</code></dfn> attribute
+            The <dfn><code>verticalFieldOfView</code></dfn> dictionary member
             represents the <a>depth map</a>'s <a>vertical field of view</a>.
           </p>
           <p>
-            The <dfn><code>unit</code></dfn> attribute represents the <a>active
-            depth map unit</a>.
+            The <dfn><code>unit</code></dfn> dictionary member represents the
+            <a>active depth map unit</a>.
           </p>
           <p>
-            The <dfn><code>near</code></dfn> attribute represents the <a>depth
-            map</a>'s <a>near value</a>.
+            The <dfn><code>near</code></dfn> dictionary member represents the
+            <a>depth map</a>'s <a>near value</a>.
           </p>
           <p>
-            The <dfn><code>far</code></dfn> attribute represents the <a>depth
-            map</a>'s <a>far value</a>.
+            The <dfn><code>far</code></dfn> dictionary member represents the
+            <a>depth map</a>'s <a>far value</a>.
           </p>
         </div>
       </section>
