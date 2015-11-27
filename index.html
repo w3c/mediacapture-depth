@@ -137,6 +137,21 @@
         <a>depth stream track</a>s is referred to as a <a>depth-only stream</a>
         or <a>depth+video stream</a>.
       </p>
+      <p>
+        Depth cameras usually produce 16-bit depth values per pixel. However,
+        neither the canvas drawing surface used to draw and manipulate 2D
+        graphics on the web platform nor the <code><a>ImageData</a></code>
+        interface used to represent image data support 16 bits per pixel. To
+        address the issue, this specification defines a conversion into a 8-bit
+        grayscale representation of a <a>depth map</a> for consumption by APIs
+        that are limited to 8 bits per pixel.
+      </p>
+      <p>
+        The Media Capture Stream with Worker specification
+        [[MEDIACAPTURE-WORKER]] that complements this specification enables
+        processing of 16-bit depth values per pixel required by more advanced
+        use cases.
+      </p>
     </section>
     <section>
       <h2>
@@ -257,26 +272,6 @@
         <h2>
           Depth map
         </h2>
-        <div class="note">
-          <p>
-            Depth cameras usually produce 16-bit depth values per pixel.
-            However, neither the canvas drawing surface used to draw and
-            manipulate 2D graphics on the web platform nor the
-            <code><a>ImageData</a></code> interface used to represent image
-            data support 16 bits per pixel.
-          </p>
-          <p>
-            To address the issue, this specification defines a conversion into
-            a 8-bit grayscale representation of a <a>depth map</a> for
-            consumption by APIs that are limited to 8 bits per pixel.
-          </p>
-          <p>
-            The Media Capture Stream with Worker specification
-            [[MEDIACAPTURE-WORKER]] that complements this specification enables
-            processing of 16-bit depth values per pixel required by more
-            advanced use cases.
-          </p>
-        </div>
         <p>
           A <dfn>depth map</dfn> is an abstract representation of a frame of a
           <a>depth stream track</a>. A <a>depth map</a> is an image that
