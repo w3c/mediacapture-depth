@@ -106,29 +106,6 @@
         implementations, and feedback from other groups and
         individuals.</strong>
       </p>
-      <div class="warning">
-        <p>
-          Implementers need to be aware that the following sections are not
-          stable and are expected to change in incompatible ways:
-        </p>
-        <ul>
-          <li>
-            <a href="#depthmap-interface"><code>DepthMap</code> interface</a>
-          </li>
-          <li>
-            <a href="#framedata-interface"><code>FrameData</code> interface</a>
-          </li>
-          <li>
-            <a href="#framegrabber-interface"><code>FrameGrabber</code>
-            interface</a>
-          </li>
-        </ul>
-        <p>
-          The functionality defined in the above sections will be reworked to
-          be based on the processing model defined in the Media Capture Stream
-          with Worker specification [[!MEDIACAPTURE-WORKER]].
-        </p>
-      </div>
     </section>
     <section>
       <h2>
@@ -136,14 +113,15 @@
       </h2>
       <p>
         Depth cameras are increasingly being integrated into devices such as
-        phones, tablets, and laptops. Depth cameras provide a depth map, which
-        conveys the distance information between points on an object's surface
-        and the camera. With depth information, web content and applications
-        can be enhanced by, for example, the use of hand gestures as an input
-        mechanism, or by creating 3D models of real-world objects that can
-        interact and integrate with the web platform. Concrete applications of
-        this technology include more immersive gaming experiences, more
-        accessible 3D video conferences, and augmented reality, to name a few.
+        phones, tablets, and laptops. Depth cameras provide a <a>depth map</a>,
+        which conveys the distance information between points on an object's
+        surface and the camera. With depth information, web content and
+        applications can be enhanced by, for example, the use of hand gestures
+        as an input mechanism, or by creating 3D models of real-world objects
+        that can interact and integrate with the web platform. Concrete
+        applications of this technology include more immersive gaming
+        experiences, more accessible 3D video conferences, and augmented
+        reality, to name a few.
       </p>
       <p>
         To bring depth capability to the web platform, this specification
@@ -214,8 +192,10 @@
       </p>
       <p>
         The <code><a href=
+        "http://w3c.github.io/mediacapture-main/#dom-mediadevices-getusermedia">
+        <dfn>getUserMedia()</dfn></a></code> method and the <code><a href=
         "http://w3c.github.io/mediacapture-main/#idl-def-NavigatorUserMediaSuccessCallback">
-        <dfn>NavigatorUserMediaSuccessCallback</dfn></a></code> callback is
+        <dfn>NavigatorUserMediaSuccessCallback</dfn></a></code> callback are
         defined in [[!GETUSERMEDIA]].
       </p>
       <p>
@@ -273,6 +253,66 @@
         "http://w3c.github.io/mediacapture-main/#dfn-source">source</a> is a
         video camera.
       </p>
+      <section>
+        <h2>
+          Depth map
+        </h2>
+        <div class="note">
+          <p>
+            Depth cameras usually produce 16-bit depth values per pixel.
+            However, neither the canvas drawing surface used to draw and
+            manipulate 2D graphics on the web platform nor the
+            <code><a>ImageData</a></code> interface used to represent image
+            data support 16 bits per pixel.
+          </p>
+          <p>
+            To address the issue, this specification defines a conversion into
+            a 8-bit grayscale representation of a <a>depth map</a> for
+            consumption by APIs that are limited to 8 bits per pixel.
+          </p>
+          <p>
+            The Media Capture Stream with Worker specification
+            [[MEDIACAPTURE-WORKER]] that complements this specification enables
+            processing of 16-bit depth values per pixel required by more
+            advanced use cases.
+          </p>
+        </div>
+        <p>
+          A <dfn>depth map</dfn> is an abstract representation of a frame of a
+          <a>depth stream track</a>. A <a>depth map</a> is an image that
+          contains information relating to the distance of the surfaces of
+          scene objects from a viewpoint.
+        </p>
+        <p>
+          A <a>depth map</a> has an associated <dfn>focal length</dfn> which is
+          a double. It represents the focal length of the camera in
+          millimeters.
+        </p>
+        <p>
+          A <a>depth map</a> has an associated <dfn>horizontal field of
+          view</dfn> which is a double. It represents the horizontal angle of
+          view in degrees.
+        </p>
+        <p>
+          A <a>depth map</a> has an associated <dfn>vertical field of
+          view</dfn> which is a double. It represents the vertical angle of
+          view in degrees.
+        </p>
+        <p>
+          A <a>depth map</a> has an associated <dfn>unit</dfn> which is a
+          string. It represents the <a>active depth map unit</a>.
+        </p>
+        <p>
+          A <a>depth map</a> has an associated <dfn>near value</dfn> which is a
+          double. It represents the minimum range in <a>active depth map
+          unit</a>s.
+        </p>
+        <p>
+          A <a>depth map</a> has an associated <dfn>far value</dfn> which is a
+          double. It represents the maximum range in <a>active depth map
+          unit</a>s.
+        </p>
+      </section>
     </section>
     <section>
       <h2>
@@ -288,14 +328,12 @@
           };
         </pre>
         <p dfn-for="MediaStreamConstraints" link-for="MediaStreamConstraints">
-          The <dfn><code>depth</code></dfn> attribute MUST return the value it
-          was initialized to. When the object is created, this attribute MUST
-          be initialized to false. If true, the attribute represents a request
-          that the <code><a>MediaStream</a></code> object returned as an
-          argument of the <code><a>NavigatorUserMediaSuccessCallback</a></code>
-          contains a <a>depth stream track</a>. If a
-          <a><code>Constraints</code></a> structure is provided, it further
-          specifies the nature and settings of the <a>depth stream track</a>.
+          If the <dfn><code>depth</code></dfn> dictionary member has the value
+          true, the <a>MediaStream</a> returned by the <a>getUserMedia()</a>
+          method MUST contain a <a>depth stream track</a>. If the <a>depth</a>
+          dictionary member is set to false, is not provided, or is set to
+          null, the <a>MediaStream</a> MUST NOT contain a <a>depth stream
+          track</a>.
         </p>
       </section>
       <section>
@@ -307,27 +345,23 @@
               "mm",
               "m"
           };
-          
+        </pre>
+        <p>
+          The <code><a>DepthMapUnit</a></code> enumeration represents the
+          possible <dfn>depth map unit</dfn>s for a <a>depth map</a>. The
+          "<code>mm</code>" value indicates millimeters, the "<code>m</code>"
+          value indicates meters.
+        </p>
+        <pre class="idl">
           partial dictionary MediaTrackConstraints {
               DepthMapUnit unit = "mm";
           };
         </pre>
         <p dfn-for="MediaTrackConstraints" link-for="MediaTrackConstraints">
-          The <dfn><code>unit</code></dfn> attribute MUST return the value it
-          was initialized to. When the object is created, it MUST have its
-          <a>depth map unit</a> set to the string "<code>mm</code>".
-        </p>
-        <p>
-          The <code><a>DepthMapUnit</a></code> enumeration is used to select
-          the <dfn>depth map unit</dfn> that applies to <a>dexel</a>s, <a>near
-          value</a>, and <a>far value</a> associated with a <a>depth map</a>.
-          The "<code>mm</code>" value indicates millimeters, the
-          "<code>m</code>" value indicates meters.
-        </p>
-        <p>
-          The <a>depth map unit</a> is said to be an <dfn>active depth map
-          unit</dfn> if a new <a>Depth Map <code>ArrayBuffer</code></a> has
-          been created.
+          If the <dfn><code>unit</code></dfn> dictionary member value is one of
+          the possible <a>depth map unit</a>s, it becomes the <dfn>active depth
+          map unit</dfn> for the <a>depth stream track</a>. Otherwise, the
+          <a>active depth map unit</a> is "<code>mm</code>".
         </p>
       </section>
       <section>
@@ -413,7 +447,7 @@
           media provider object</a> is a <a>depth-only stream</a>, the <a>user
           agent</a> MUST, for each pixel of the <a href=
           "https://html.spec.whatwg.org/#media-data">media data</a> that is
-          represented by depth map, <a>convert the depth map value to
+          represented by a <a>depth map</a>, <a>convert the depth map value to
           grayscale</a> prior to when the <code>video</code> element is
           <a href="https://html.spec.whatwg.org/#potentially-playing">potentially
           playing</a>.
@@ -475,125 +509,6 @@
       </section>
       <section>
         <h2>
-          <code>DepthMap</code> interface
-        </h2>
-        <div class="note">
-          <p>
-            Depth cameras usually produce 16-bit depth values per pixel.
-            However, neither the canvas drawing surface used to draw and
-            manipulate 2D graphics on the web platform nor the
-            <code><a>ImageData</a></code> interface used to represent image
-            data support 16 bpp.
-          </p>
-          <p>
-            To address the issue, this specification defines a new
-            <code><a>DepthMap</a></code> interface.
-          </p>
-        </div>
-        <p>
-          A <dfn>depth map</dfn> is an image that contains information relating
-          to the distance of the surfaces of scene objects from a viewpoint.
-        </p>
-        <p>
-          A <a>depth map</a> has an associated <dfn>focal length</dfn> which is
-          a double. It represents the focal length of the camera in
-          millimeters.
-        </p>
-        <p>
-          A <a>depth map</a> has an associated <dfn>horizontal field of
-          view</dfn> which is a double. It represents the horizontal angle of
-          view in degrees.
-        </p>
-        <p>
-          A <a>depth map</a> has an associated <dfn>vertical field of
-          view</dfn> which is a double. It represents the vertical angle of
-          view in degrees.
-        </p>
-        <p>
-          A <a>depth map</a> has an associated <dfn>unit</dfn> which is a
-          DOMString. It represents the <a>active depth map unit</a>.
-        </p>
-        <p>
-          A <a>depth map</a> has an associated <dfn>near value</dfn> which is a
-          double. It represents the minimum range in <a>active depth map
-          unit</a>s.
-        </p>
-        <p>
-          A <a>depth map</a> has an associated <dfn>far value</dfn> which is a
-          double. It represents the maximum range in <a>active depth map
-          unit</a>s.
-        </p>
-        <pre class="idl">
-          [Constructor(unsigned long sw, unsigned long sh),
-           Constructor(Uint8ClampedArray data, unsigned long sw, optional unsigned long sh)]
-          interface DepthMap {
-              readonly    attribute unsigned long width;
-              readonly    attribute unsigned long height;
-              readonly    attribute Uint16Array   data;
-          };
-        </pre>
-        <p dfn-for="DepthMap" link-for="DepthMap">
-          New <a><code>DepthMap</code></a> objects MUST be initialized so that
-          their <dfn><code>width</code></dfn> attribute is set to the number of
-          <a data-lt="dexel">dexels</a> per row in the <a>depth map</a>, their
-          <dfn><code>height</code></dfn> attribute is set to the number of rows
-          in the <a>depth map</a>, and their <dfn><code>data</code></dfn>
-          attribute is initialized to a new <a><code>Uint16Array</code></a>
-          object. The <a><code>Uint16Array</code></a> object MUST use a new
-          <a>Depth Map <code>ArrayBuffer</code></a> for its storage, and must
-          have a zero start offset and a length equal to the length of its
-          storage, in bytes. The <a>Depth Map <code>ArrayBuffer</code></a> MUST
-          contain the <a>depth map</a>. At least one <a data-lt=
-          "dexel">dexel's</a> worth of <a>depth map</a> MUST be returned.
-        </p>
-        <p>
-          A <dfn>Depth Map <code>ArrayBuffer</code></dfn> is an
-          <code><a>ArrayBuffer</a></code> whose data is represented in
-          left-to-right order, row by row top to bottom, starting with the top
-          left, with each value representing a <dfn>dexel</dfn>, in that order.
-          Each <a>dexel</a> represented in this array MUST be in range
-          0..65535, representing the 16 bit value for that <a>dexel</a> in
-          <a>depth map unit</a>s indicated by the <a for=
-          "MediaTrackConstraints"><code>unit</code></a> attribute of the
-          <code>MediaTrackConstraints</code> object. The <a data-lt=
-          "dexel">dexels</a> MUST be assigned consecutive indices starting with
-          0 for the top left <a>dexel</a>.
-        </p>
-      </section>
-      <section>
-        <h2>
-          <code>FrameData</code> interface
-        </h2>
-        <pre class="idl">
-          interface FrameData {
-              readonly    attribute DepthMap?  depthMap;
-              readonly    attribute double?    depthMapTimeStamp;
-              readonly    attribute ImageData? imageData;
-              readonly    attribute double?    imageDataTimeStamp;
-              readonly    attribute double     currentTime;
-          };
-        </pre>
-      </section>
-      <section>
-        <h2>
-          <code>FrameGrabber</code> interface
-        </h2>
-        <pre class="idl">
-          [Constructor(MediaStream stream)]
-          interface FrameGrabber {
-              readonly    attribute MediaStream stream;
-              void start (FrameGrabberCallback callback, optional double fps);
-              void stop ();
-          };
-          
-          callback FrameGrabberCallback = void (FrameData frameData);
-        </pre>
-      </section>
-      <div class="note">
-        The <a><code>FrameGrabber</code></a> behavior needs to be defined.
-      </div>
-      <section>
-        <h2>
           <code>MediaTrackSettings</code> dictionary
         </h2>
         <p>
@@ -620,36 +535,36 @@
         </pre>
         <div dfn-for="MediaTrackSettings" link-for="MediaTrackSettings">
           <p>
-            The <dfn><code>focalLength</code></dfn> attribute represents the
-            <a>depth map</a>'s <a>focal length</a>.
+            The <dfn><code>focalLength</code></dfn> dictionary member
+            represents the <a>depth map</a>'s <a>focal length</a>.
           </p>
           <p>
-            The <dfn><code>format</code></dfn> attribute represents the depth
-            to grayscale conversion method applied. The value MUST be
-            initialized to the string "<code>inverse</code>", if the <a>rules
-            to convert using range inverse</a> apply, and to the string
-            "<code>linear</code>", if the <a>rules to convert using range
-            linear</a> apply.
+            The <dfn><code>format</code></dfn> dictionary member represents the
+            depth to grayscale conversion method applied to the <a>depth
+            map</a>. If the value is "<code>inverse</code>", the <a>rules to
+            convert using range inverse</a> are applied, and if the value is
+            "<code>linear</code>", the <a>rules to convert using range
+            linear</a> are applied.
           </p>
           <p>
-            The <dfn><code>horizontalFieldOfView</code></dfn> attribute
+            The <dfn><code>horizontalFieldOfView</code></dfn> dictionary member
             represents the <a>depth map</a>'s <a>horizontal field of view</a>.
           </p>
           <p>
-            The <dfn><code>verticalFieldOfView</code></dfn> attribute
+            The <dfn><code>verticalFieldOfView</code></dfn> dictionary member
             represents the <a>depth map</a>'s <a>vertical field of view</a>.
           </p>
           <p>
-            The <dfn><code>unit</code></dfn> attribute represents the <a>active
-            depth map unit</a>.
+            The <dfn><code>unit</code></dfn> dictionary member represents the
+            <a>active depth map unit</a>.
           </p>
           <p>
-            The <dfn><code>near</code></dfn> attribute represents the <a>depth
-            map</a>'s <a>near value</a>.
+            The <dfn><code>near</code></dfn> dictionary member represents the
+            <a>depth map</a>'s <a>near value</a>.
           </p>
           <p>
-            The <dfn><code>far</code></dfn> attribute represents the <a>depth
-            map</a>'s <a>far value</a>.
+            The <dfn><code>far</code></dfn> dictionary member represents the
+            <a>depth map</a>'s <a>far value</a>.
           </p>
         </div>
       </section>
@@ -681,33 +596,29 @@
         Examples
       </h2>
       <h3>
-        Capture individual depth and RGB frames
+        Playback of depth+video stream
       </h3>
       <pre class='example highlight'>
 navigator.mediaDevices.getUserMedia({
   depth: true,
   video: true
-}).then(function (mediaStream) {
-  // mediaStream carries both video stream track and depth stream track
-  var frameGrabber = new FrameGrabber(mediaStream);
-  if (frameGrabber) {
-    frameGrabber.start(processFrameData);
-  }
-});
+}).then(function (stream) {
+    // Wire the media stream into a &lt;video&gt; element for playback.
+    // The RGB video is rendered.
+    var video = document.querySelector('#video');
+    video.srcObject = stream;
+    video.play();
 
-function processFrameData(frameData) {
- var w = frameData.depthMap.width, h = frameData.depthMap.height;
- var pixels = frameData.imageData.data, dexels = frameData.depthMap.data;
- for (var x = 0; x &lt; w ; ++x) {
-   for (var y = 0; y &lt; h; ++y) {
-     var i = x + y * w;
-     var r = pixels[i*4];
-     var g = pixels[i*4 + 1];
-     var b = pixels[i*4 + 2];
-     var depth = dexels[i]; // Uint16 depth value
-   }
- }
-}
+    // Construct a depth-only stream out of the existing depth stream track.
+    var depthOnlyStream = new MediaStream(s.getDepthTracks()[0]);
+
+    // Wire the depth-only stream into another &lt;video&gt; element for playback.
+    // The depth information is rendered in its grayscale representation.
+    var depthVideo = document.querySelector('#depthVideo');
+    depthVideo.srcObject = depthOnlyStream;
+    depthVideo.play();
+  }
+);
 </pre>
       <h3>
         WebGL Fragment Shader based post-processing
