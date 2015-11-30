@@ -149,8 +149,12 @@
       <p>
         The Media Capture Stream with Worker specification
         [[MEDIACAPTURE-WORKER]] that complements this specification enables
-        processing of 16-bit depth values per pixel required by more advanced
-        use cases.
+        processing of 16-bit depth values per pixel directly in a worker
+        environment and makes the <code>&lt;video&gt;</code> and
+        <code>&lt;canvas&gt;</code> indirection and depth-to-grayscale
+        conversion redundant. This alternative pipeline that supports greater
+        bit depth and does not incur the performance penalty of the indirection
+        and conversion enables more advanced use cases.
       </p>
     </section>
     <section>
