@@ -651,11 +651,19 @@ gl.texImage2D(
   varying vec2 v_texCoord;
   // u_tex points to the texture unit containing the depth texture.
   uniform sampler2D u_tex;
+  uniform float far;
+  uniform float near;
+  uniform bool isRangeInverse;
   void main() {
     vec4 floatColor = texture2D(u_tex, v_texCoord);
-    vec3 rgb = floatColor.rgb;
-    // ...
-    float depth = rgb.r + 256. * rgb.g;
+    float dn = floatColor.r;
+    float depth = 0.;
+    if (isRangeInverse) {
+      depth = far * near / ( far - dn * ( far - near));
+    } else {
+      // Otherwise, using range linear
+      depth = dn * ( far - near ) + near;
+    }
     // ...
   }
 &lt;/script&gt;
