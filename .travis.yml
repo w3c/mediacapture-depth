@@ -1,11 +1,19 @@
-language: python
-install:
- - git clone https://github.com/w3c/respec.git
- - git clone https://github.com/dontcallmedom/webidl-checker.git
- - git clone https://github.com/dontcallmedom/widlproc
- - cd widlproc && make obj/widlproc && cd ..
- - pip install html5lib lxml
+language: node_js
+
+sudo: false
+
+branches:
+  only:
+    - TR
+
+env:
+  global:
+    - URL="https://rawgit.com/w3c/mediacapture-depth/TR/ECHIDNA"
+    - DECISION="https://lists.w3.org/Archives/Public/public-media-capture/2015Dec/0031.html"
+    - secure: "NOnRV3zs4zT3OFN5lSnuzc//VxvRKcUmGH/4YPQM2Xqm/LorP4D35GtREJL3o/n273CxyCV6IRtx/LPOSQQymZVSwfMHfIB+QA+llaGw6eItVGq0thxXGncXv5z8L6XV6cT7B0Y5UEK5GaHUdzyCHT5L8YvnadeXlVsASBAMinI="
+ 
 script:
- - phantomjs --ignore-ssl-errors=true --ssl-protocol=tlsv1 respec/tools/respec2html.js -e -w index.html output.html
- - python webidl-checker/webidl-check output.html
-env: WIDLPROC_PATH=$TRAVIS_BUILD_DIR/widlproc/obj/widlproc
+  - echo "ok"
+
+after_success:
+  - curl "https://labs.w3.org/echidna/api/request" --data "url=$URL" --data "decision=$DECISION" --data "token=$TOKEN"
