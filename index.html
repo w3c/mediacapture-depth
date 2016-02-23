@@ -370,6 +370,12 @@
           null, the <a>MediaStream</a> MUST NOT contain a <a>depth stream
           track</a>.
         </p>
+        <div class="note">
+          If the user agent requests a combined <a>depth+video stream</a>, the
+          devices in the constraint should be satisfied as belonging to the
+          same group or physical device. The decision to select and satisfy
+          which device pair is left up to the implementation.
+        </div>
       </section>
       <section>
         <h2>
