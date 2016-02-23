@@ -225,31 +225,39 @@
       </h2>
       <p>
         The <code><a href=
-        "http://w3c.github.io/mediacapture-main/getusermedia.html#idl-def-MediaStreamTrack">
+        "https://w3c.github.io/mediacapture-main/getusermedia.html#idl-def-MediaStreamTrack">
         <dfn>MediaStreamTrack</dfn></a></code> and <code><a href=
-        "http://w3c.github.io/mediacapture-main/getusermedia.html#idl-def-MediaStream">
+        "https://w3c.github.io/mediacapture-main/getusermedia.html#idl-def-MediaStream">
         <dfn>MediaStream</dfn></a></code> interfaces this specification extends
         are defined in [[!GETUSERMEDIA]].
       </p>
       <p>
         The <code><a href=
-        "http://w3c.github.io/mediacapture-main/getusermedia.html#idl-def-Constraints">
+        "https://w3c.github.io/mediacapture-main/getusermedia.html#idl-def-Constraints">
         <dfn>Constraints</dfn></a></code>, <code><a href=
-        "http://w3c.github.io/mediacapture-main/getusermedia.html#idl-def-MediaStreamConstraints">
+        "https://w3c.github.io/mediacapture-main/getusermedia.html#idl-def-MediaStreamConstraints">
         <dfn>MediaStreamConstraints</dfn></a></code>, <code><a href=
-        "http://w3c.github.io/mediacapture-main/getusermedia.html#idl-def-MediaTrackSettings">
-        <dfn>MediaTrackSettings</dfn></a></code>, and <code><a href=
-        "http://w3c.github.io/mediacapture-main/getusermedia.html#idl-def-MediaTrackConstraints">
-        <dfn>MediaTrackConstraints</dfn></a></code> dictionaries this
-        specification extends are based upon the <a href=
-        "http://w3c.github.io/mediacapture-main/getusermedia.html#constrainable-interface">
-        <dfn>Constrainable pattern</dfn></a> defined in [[!GETUSERMEDIA]].
+        "https://w3c.github.io/mediacapture-main/getusermedia.html#idl-def-MediaTrackSettings">
+        <dfn>MediaTrackSettings</dfn></a></code>, <code><a href=
+        "https://w3c.github.io/mediacapture-main/getusermedia.html#idl-def-MediaTrackConstraints">
+        <dfn>MediaTrackConstraints</dfn></a></code>, <code><a href=
+        "https://w3c.github.io/mediacapture-main/#idl-def-MediaTrackSupportedConstraints">
+        <dfn>MediaTrackSupportedConstraints</dfn></a></code>, <code><a href=
+        "https://w3c.github.io/mediacapture-main/#idl-def-MediaTrackCapabilities">
+        <dfn>MediaTrackCapabilities</dfn></a></code>, and <code><a href=
+        "https://w3c.github.io/mediacapture-main/#idl-def-MediaTrackConstraintSet">
+        <dfn>MediaTrackConstraintSet</dfn></a></code> dictionaries this
+        specification extends are defined in [[!GETUSERMEDIA]].
       </p>
       <p>
         The <code><a href=
-        "http://w3c.github.io/mediacapture-main/#dom-mediadevices-getusermedia">
-        <dfn>getUserMedia()</dfn></a></code> method and the <code><a href=
-        "http://w3c.github.io/mediacapture-main/#idl-def-NavigatorUserMediaSuccessCallback">
+        "https://w3c.github.io/mediacapture-main/#dom-mediadevices-getusermedia">
+        <dfn>getUserMedia()</dfn></a></code>, <code><a href=
+        "https://w3c.github.io/mediacapture-main/#dfn-applyconstraints"><dfn>applyConstraints()</dfn></a></code>,
+        <code><a href=
+        "https://w3c.github.io/mediacapture-main/#dfn-getsettings"><dfn>getSettings()</dfn></a></code>
+        methods and the <code><a href=
+        "https://w3c.github.io/mediacapture-main/#idl-def-NavigatorUserMediaSuccessCallback">
         <dfn>NavigatorUserMediaSuccessCallback</dfn></a></code> callback are
         defined in [[!GETUSERMEDIA]].
       </p>
@@ -370,40 +378,17 @@
           null, the <a>MediaStream</a> MUST NOT contain a <a>depth stream
           track</a>.
         </p>
+        <p>
+          If <a>active depth map unit</a> is provided in
+          <a>MediaTrackConstraints</a>, let that unit be the <a>active depth
+          map unit</a> for the returned <a>depth stream track</a>.
+        </p>
         <div class="note">
           If the user agent requests a combined <a>depth+video stream</a>, the
           devices in the constraint should be satisfied as belonging to the
           same group or physical device. The decision to select and satisfy
           which device pair is left up to the implementation.
         </div>
-      </section>
-      <section>
-        <h2>
-          <code><a>MediaTrackConstraints</a></code> dictionary
-        </h2>
-        <pre class="idl">
-          enum DepthMapUnit {
-              "mm",
-              "m"
-          };
-        </pre>
-        <p>
-          The <code><a>DepthMapUnit</a></code> enumeration represents the
-          possible <dfn>depth map unit</dfn>s for a <a>depth map</a>. The
-          "<code>mm</code>" value indicates millimeters, the "<code>m</code>"
-          value indicates meters.
-        </p>
-        <pre class="idl">
-          partial dictionary MediaTrackConstraints {
-              DepthMapUnit unit = "mm";
-          };
-        </pre>
-        <p dfn-for="MediaTrackConstraints" link-for="MediaTrackConstraints">
-          If the <dfn><code>unit</code></dfn> dictionary member value is one of
-          the possible <a>depth map unit</a>s, it becomes the <dfn>active depth
-          map unit</dfn> for the <a>depth stream track</a>. Otherwise, the
-          <a>active depth map unit</a> is "<code>mm</code>".
-        </p>
       </section>
       <section>
         <h2>
@@ -553,10 +538,9 @@
           <code>MediaTrackSettings</code> dictionary
         </h2>
         <p>
-          When the <code>getSettings()</code> method is invoked on a <a>depth
-          stream track</a>, the <a>user agent</a> MUST return the following
-          dictionary that extends the <a><code>MediaTrackSettings</code></a>
-          dictionary:
+          When the <a>getSettings()</a> method is invoked on a <a>depth stream
+          track</a>, the <a>user agent</a> MUST return the following dictionary
+          that extends the <a><code>MediaTrackSettings</code></a> dictionary:
         </p>
         <pre class="idl">
           enum RangeFormat {
@@ -569,7 +553,7 @@
               RangeFormat   format;
               double        horizontalFieldOfView;
               double        verticalFieldOfView;
-              DepthMapUnit? unit;
+              DepthMapUnit? depthMapUnit;
               double        near;
               double        far;
           };
@@ -596,8 +580,8 @@
             represents the <a>depth map</a>'s <a>vertical field of view</a>.
           </p>
           <p>
-            The <dfn><code>unit</code></dfn> dictionary member represents the
-            <a>active depth map unit</a>.
+            The <a><code>depthMapUnit</code></a> dictionary member represents
+            the <a>active depth map unit</a>.
           </p>
           <p>
             The <dfn><code>near</code></dfn> dictionary member represents the
@@ -630,6 +614,86 @@
             value in B component is not defined.
           </p>
         </section>
+      </section>
+      <section>
+        <h2>
+          <a><code>depthMapUnit</code></a> constrainable property
+        </h2>
+        <p>
+          The <a>depthMapUnit</a> constrainable property is defined to apply
+          only to <a>depth stream track</a>s.
+        </p>
+        <table class="simple">
+          <thead>
+            <tr>
+              <th>
+                Property name
+              </th>
+              <th>
+                Values
+              </th>
+              <th>
+                Notes
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <code><dfn>depthMapUnit</dfn></code>
+              </td>
+              <td>
+                <code>DOMString</code>
+              </td>
+              <td>
+                This property is used for setting the initial <a>active depth
+                map unit</a> when the <a>getUserMedia()</a> method is invoked,
+                and is not applicable for subsequent media control.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <p>
+          The <a>applyConstraints()</a> method MUST reject the promise with
+          <code>OverconstrainedError</code>, when invoked with
+          <a>depthMapUnit</a> property.
+        </p>
+        <pre class="idl">
+          enum DepthMapUnit {
+              "mm",
+              "m"
+          };
+        </pre>
+        <p>
+          The <code><a>DepthMapUnit</a></code> enumeration represents the
+          possible <a>unit</a>s for a <a>depth map</a>. The "<code>mm</code>"
+          value indicates millimeters, the "<code>m</code>" value indicates
+          meters.
+        </p>
+        <pre class="idl">
+          partial dictionary MediaTrackConstraints {
+              DepthMapUnit unit = "mm";
+          };
+          
+          partial dictionary MediaTrackConstraintSet {
+            ConstrainBoolean unit;
+          };
+        </pre>
+        <p dfn-for="MediaTrackConstraints" link-for="MediaTrackConstraints">
+          The <a><code>depthMapUnit</code></a> of <a>MediaTrackConstraints</a>
+          is said to be the <dfn>active depth map unit</dfn> for the <a>depth
+          stream track</a>, when <a>getUserMedia()</a> invocation has
+          succeeded.
+        </p>
+        <pre class="idl">
+          partial dictionary MediaTrackSupportedConstraints {
+            boolean unit = true;
+          };
+
+          partial dictionary MediaTrackCapabilities {
+            DepthMapUnit unit;
+          };
+        </pre>
       </section>
     </section>
     <section class='informative'>
