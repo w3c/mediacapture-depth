@@ -269,6 +269,16 @@
         as applied to <a>MediaStreamTrack</a> are defined in [[!GETUSERMEDIA]].
       </p>
       <p>
+        The term <a href=
+        "https://w3c.github.io/mediacapture-main/#dfn-source"><dfn>source</dfn></a>
+        is defined in [[!GETUSERMEDIA]].
+      </p>
+      <p>
+        The <code><a href=
+        "https://w3c.github.io/mediacapture-main/#idl-def-SourceTypeEnum"><dfn>SourceTypeEnum</dfn></a></code>
+        enumeration is defined in [[!GETUSERMEDIA]].
+      </p>
+      <p>
         The <code><a href=
         "https://html.spec.whatwg.org/#canvasrenderingcontext2d"><dfn>CanvasRenderingContext2D</dfn></a></code>
         and <code><a href=
@@ -312,16 +322,12 @@
       <p>
         The term <dfn>depth stream track</dfn> means a <a>MediaStreamTrack</a>
         object whose kind is "<code>depth</code>". It represents a media stream
-        track whose <a href=
-        "http://w3c.github.io/mediacapture-main/#dfn-source">source</a> is a
-        depth camera.
+        track whose <a>source</a> is a depth camera.
       </p>
       <p>
         The term <dfn>video stream track</dfn> means a <a>MediaStreamTrack</a>
         object whose kind is "<code>video</code>". It represents a media stream
-        track whose <a href=
-        "http://w3c.github.io/mediacapture-main/#dfn-source">source</a> is a
-        video camera.
+        track whose <a>source</a> is a video camera.
       </p>
       <section>
         <h2>
@@ -448,6 +454,10 @@
           If a <a>MediaStreamTrack</a> of <a>kind</a> "<code>depth</code>" is
           <a>muted</a> or <a>disabled</a>, it MUST render black frames, or a
           zero-information-content equivalent.
+        </p>
+        <p>
+          The string <code>depth</code> is the <a>SourceTypeEnum</a> value for
+          the <a>source</a> that is a local depth camera source.
         </p>
       </section>
       <section>
