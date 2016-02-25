@@ -262,6 +262,13 @@
         defined in [[!GETUSERMEDIA]].
       </p>
       <p>
+        The concepts <a href=
+        "https://w3c.github.io/mediacapture-main/#track-muted"><dfn>muted</dfn></a>
+        and <a href=
+        "https://w3c.github.io/mediacapture-main/#track-enabled"><dfn>disabled</dfn></a>
+        as applied to <a>MediaStreamTrack</a> are defined in [[!GETUSERMEDIA]].
+      </p>
+      <p>
         The <code><a href=
         "https://html.spec.whatwg.org/#canvasrenderingcontext2d"><dfn>CanvasRenderingContext2D</dfn></a></code>
         and <code><a href=
@@ -436,6 +443,11 @@
           The <code><dfn>kind</dfn></code> attribute MUST, on getting, return
           the string "<code>depth</code>" if the object represents a <a>depth
           stream track</a>.
+        </p>
+        <p>
+          If a <a>MediaStreamTrack</a> of <a>kind</a> "<code>depth</code>" is
+          <a>muted</a> or <a>disabled</a>, it MUST render black frames, or a
+          zero-information-content equivalent.
         </p>
       </section>
       <section>
