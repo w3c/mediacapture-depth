@@ -269,9 +269,11 @@
         as applied to <a>MediaStreamTrack</a> are defined in [[!GETUSERMEDIA]].
       </p>
       <p>
-        The term <a href=
+        The terms <a href=
         "https://w3c.github.io/mediacapture-main/#dfn-source"><dfn>source</dfn></a>
-        is defined in [[!GETUSERMEDIA]].
+        and <a href=
+        "https://w3c.github.io/mediacapture-main/#dfn-consumer"><dfn>consumer</dfn></a>
+        are defined are [[!GETUSERMEDIA]].
       </p>
       <p>
         The <code><a href=
@@ -429,6 +431,15 @@
           agent</a> defined and the order does not have to be stable between
           calls.
         </p>
+        <p>
+          The <a>MediaStream</a> <a>consumer</a> for the <a>depth-only
+          stream</a> and <a>depth+video stream</a> is <a href=
+          "#the-video-element">the <code>video</code> element</a> [[!HTML]].
+        </p>
+        <div class="note">
+          New <a>consumer</a>s may be added in a future version of this
+          specification.
+        </div>
         <section class='informative'>
           <h3>
             Implementation considerations
