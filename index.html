@@ -94,53 +94,22 @@
   <body>
     <section id='abstract'>
       <p>
-        This specification extends the <em>Media Capture and Streams</em>
-        specification [[!GETUSERMEDIA]] to allow a <a>depth-only stream</a> or
-        combined <a>depth+video stream</a> to be requested from the web
-        platform using APIs familiar to web authors.
+        This specification <a href=
+        "https://w3c.github.io/mediacapture-main/#extensibility">extends</a>
+        the <em>Media Capture and Streams</em> specification [[!GETUSERMEDIA]]
+        to allow a <a>depth-only stream</a> or combined <a>depth+video
+        stream</a> to be requested from the web platform using APIs familiar to
+        web authors.
       </p>
     </section>
     <section id='sotd'>
       <p>
-        The following substantial changes were made since the <a href=
-        "http://www.w3.org/TR/2015/WD-mediacapture-depth-20150129/">W3C Working
-        Draft 29 January 2015</a>:
-      </p>
-      <ul>
-        <li>Clarified <a href="#terminology">Terminology</a> and <a href=
-        "#dependencies">Dependencies</a>
-        </li>
-        <li>Added <a href=
-        "#mediastreamconstraints-dictionary"><code>MediaTrackConstraints</code></a>
-        dictionary
-        </li>
-        <li>Defined <a href="#media-provider-object">Media provider object</a>
-        behavior for a <a>depth-only stream</a>
-        </li>
-        <li>Removed <code>CanvasImageSource</code> typedef extensions
-        </li>
-        <li>Removed <code>ImageData</code> interface extensions
-        </li>
-        <li>Defined <a href="#the-video-element">the video element</a> behavior
-        for a <a>depth-only stream</a> and <a>depth+video stream</a>
-        </li>
-        <li>Defined the algorithm to <a>convert the depth map value to
-        grayscale</a>
-        </li>
-        <li>Added <a href=
-        "#mediatracksettings-dictionary"><code>MediaTrackSettings</code></a>
-        dictionary and removed the <code>Settings</code> dictionary
-        </li>
-        <li>Updated <a href="#examples">Examples</a>
-        </li>
-      </ul>
-      <p>
-        <strong>This document is not complete and is subject to change. Early
-        experimentations are encouraged to allow the Media Capture Task Force
-        to evolve the specification based on technical discussions within the
-        Task Force, implementation experience gained from early
-        implementations, and feedback from other groups and
-        individuals.</strong>
+        This extensions specification defines a new media type and
+        constrainable property per <a href=
+        "https://w3c.github.io/mediacapture-main/#extensibility">Extensibility</a>
+        guidelines of the <em>Media Capture and Streams</em> specification
+        [[!GETUSERMEDIA]]. Horizontal reviews and feedback from early
+        implementations of this specification are encouraged.
       </p>
     </section>
     <section>
@@ -161,8 +130,10 @@
       </p>
       <p>
         To bring depth capability to the web platform, this specification
-        extends the <code><a>MediaStream</a></code> interface [[!GETUSERMEDIA]]
-        to enable it to also contain depth-based
+        <a href=
+        "https://w3c.github.io/mediacapture-main/#extensibility">extends</a>
+        the <code><a>MediaStream</a></code> interface [[!GETUSERMEDIA]] to
+        enable it to also contain depth-based
         <a><code>MediaStreamTrack</code></a>s. A depth-based
         <a><code>MediaStreamTrack</code></a>, referred to as a <a>depth stream
         track</a>, represents an abstraction of a stream of frames that can
@@ -262,6 +233,28 @@
         defined in [[!GETUSERMEDIA]].
       </p>
       <p>
+        The concepts <a href=
+        "https://w3c.github.io/mediacapture-main/#track-muted"><dfn>muted</dfn></a>
+        and <a href=
+        "https://w3c.github.io/mediacapture-main/#track-enabled"><dfn>disabled</dfn></a>
+        as applied to <a>MediaStreamTrack</a> are defined in [[!GETUSERMEDIA]].
+      </p>
+      <p>
+        The terms <a href=
+        "https://w3c.github.io/mediacapture-main/#dfn-source"><dfn>source</dfn></a>
+        and <a href=
+        "https://w3c.github.io/mediacapture-main/#dfn-consumer"><dfn>consumer</dfn></a>
+        are defined are [[!GETUSERMEDIA]].
+      </p>
+      <p>
+        The <code><a href=
+        "https://w3c.github.io/mediacapture-main/#idl-def-SourceTypeEnum"><dfn>SourceTypeEnum</dfn></a></code>
+        and <code><a href=
+        "https://w3c.github.io/mediacapture-main/#idl-def-MediaDeviceKind"><dfn>
+        MediaDeviceKind</dfn></a></code> enumerations are defined in
+        [[!GETUSERMEDIA]].
+      </p>
+      <p>
         The <code><a href=
         "https://html.spec.whatwg.org/#canvasrenderingcontext2d"><dfn>CanvasRenderingContext2D</dfn></a></code>
         and <code><a href=
@@ -305,16 +298,12 @@
       <p>
         The term <dfn>depth stream track</dfn> means a <a>MediaStreamTrack</a>
         object whose kind is "<code>depth</code>". It represents a media stream
-        track whose <a href=
-        "http://w3c.github.io/mediacapture-main/#dfn-source">source</a> is a
-        depth camera.
+        track whose <a>source</a> is a depth camera.
       </p>
       <p>
         The term <dfn>video stream track</dfn> means a <a>MediaStreamTrack</a>
         object whose kind is "<code>video</code>". It represents a media stream
-        track whose <a href=
-        "http://w3c.github.io/mediacapture-main/#dfn-source">source</a> is a
-        video camera.
+        track whose <a>source</a> is a video camera.
       </p>
       <section>
         <h2>
@@ -413,6 +402,15 @@
           agent</a> defined and the order does not have to be stable between
           calls.
         </p>
+        <p>
+          The <a>MediaStream</a> <a>consumer</a> for the <a>depth-only
+          stream</a> and <a>depth+video stream</a> is <a href=
+          "#the-video-element">the <code>video</code> element</a> [[!HTML]].
+        </p>
+        <div class="note">
+          New <a>consumer</a>s may be added in a future version of this
+          specification.
+        </div>
         <section class='informative'>
           <h3>
             Implementation considerations
@@ -436,6 +434,24 @@
           The <code><dfn>kind</dfn></code> attribute MUST, on getting, return
           the string "<code>depth</code>" if the object represents a <a>depth
           stream track</a>.
+        </p>
+        <p>
+          If a <a>MediaStreamTrack</a> of <a>kind</a> "<code>depth</code>" is
+          <a>muted</a> or <a>disabled</a>, it MUST render black frames, or a
+          zero-information-content equivalent.
+        </p>
+        <p>
+          The string "<code>depth</code>" is the <a>SourceTypeEnum</a> value
+          for the <a>source</a> that is a local depth camera source.
+        </p>
+      </section>
+      <section>
+        <h2>
+          <code>MediaDeviceInfo</code> interface
+        </h2>
+        <p>
+          The string "<code>depthinput</code>" is the <a>MediaDeviceKind</a>
+          value for the depth camera input device.
         </p>
       </section>
       <section>
@@ -774,6 +790,17 @@ gl.texImage2D(
   }
 &lt;/script&gt;
 </pre>
+    </section>
+    <section class='informative'>
+      <h2>
+        Privacy and security considerations
+      </h2>
+      <p>
+        The <a href=
+        "https://w3c.github.io/mediacapture-main/#privacy-and-security-considerations">
+        privacy and security considerations</a> discussed in [[!GETUSERMEDIA]]
+        apply to this extension specification.
+      </p>
     </section>
     <section class='appendix'>
       <h2>
