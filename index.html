@@ -354,7 +354,10 @@
           method MUST contain a <a>depth stream track</a>. If the <a>depth</a>
           dictionary member is set to false, is not provided, or is set to
           null, the <a>MediaStream</a> MUST NOT contain a <a>depth stream
-          track</a>.
+          track</a>. If the <a>depth</a> dictionary member is set to a valid
+          <a>Constraints</a> dictionary, the <a>MediaStream</a> returned by the
+          <a>getUserMedia()</a> method MUST contain a <a>depth stream track</a>
+          that fulfills the specified mandatory constraints.
         </p>
         <p>
           If <a>active depth map unit</a> is provided in
