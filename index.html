@@ -551,36 +551,36 @@
           that extends the <a><code>MediaTrackSettings</code></a> dictionary:
         </p>
         <pre class="idl">
-          enum RangeFormat {
+          enum DepthConversionEnum {
               "inverse",
               "linear"
           };
-          
+
           partial dictionary MediaTrackSettings {
-              double        focalLength;
-              RangeFormat   format;
-              double        horizontalFieldOfView;
-              double        verticalFieldOfView;
-              DepthMapUnit? depthMapUnit;
-              double        near;
-              double        far;
+              double              focalLength;
+              DepthConversionEnum depthConversion;
+              double              horizontalFieldOfView;
+              double              verticalFieldOfView;
+              DepthMapUnitEnum?   depthMapUnit;
+              double              depthNear;
+              double              depthFar;
           };
         </pre>
-        <div dfn-for="MediaTrackSettings" link-for="MediaTrackSettings">
+        <div dfn-for="MediaTrackSettings">
           <p>
             The <dfn><code>focalLength</code></dfn> dictionary member
             represents the <a>depth map</a>'s <a>focal length</a>.
           </p>
           <p>
-            The <dfn><code>format</code></dfn> dictionary member represents the
-            depth to grayscale conversion method applied to the <a>depth
-            map</a> in the <a>convert the depth map value to grayscale</a>
-            algorithm. The <dfn>RangeFormat</dfn> enumeration represents the
-            possible values. If the value is "<dfn for=
-            "RangeFormat">inverse</dfn>", the <a>rules to convert using range
-            inverse</a> have been applied, and if the value is "<dfn for=
-            "RangeFormat">linear</dfn>", the <a>rules to convert using range
-            linear</a> have been applied.
+            The <dfn><code>depthConversion</code></dfn> dictionary member
+            represents the depth to grayscale conversion applied to the
+            <a>depth map</a> in the <a>convert the depth map value to
+            grayscale</a> algorithm. The <a>DepthConversionEnum</a> enumeration
+            represents the possible values. If the value is "<dfn for=
+            "DepthConversion">inverse</dfn>", the <a>rules to convert using
+            range inverse</a> have been applied, and if the value is "<dfn for=
+            "DepthConversion">linear</dfn>", the <a>rules to convert using
+            range linear</a> have been applied.
           </p>
           <p>
             The <dfn><code>horizontalFieldOfView</code></dfn> dictionary member
@@ -591,16 +591,16 @@
             represents the <a>depth map</a>'s <a>vertical field of view</a>.
           </p>
           <p>
-            The <a><code>depthMapUnit</code></a> dictionary member represents
-            the <a>active depth map unit</a>.
+            The <dfn><code>depthMapUnit</code></dfn> dictionary member
+            represents the <a>active depth map unit</a>.
           </p>
           <p>
-            The <dfn><code>near</code></dfn> dictionary member represents the
-            <a>depth map</a>'s <a>near value</a>.
+            The <dfn><code>depthNear</code></dfn> dictionary member represents
+            the <a>depth map</a>'s <a>near value</a>.
           </p>
           <p>
-            The <dfn><code>far</code></dfn> dictionary member represents the
-            <a>depth map</a>'s <a>far value</a>.
+            The <dfn><code>depthFar</code></dfn> dictionary member represents
+            the <a>depth map</a>'s <a>far value</a>.
           </p>
         </div>
       </section>
@@ -670,20 +670,20 @@
           <a>depthMapUnit</a> property.
         </p>
         <pre class="idl">
-          enum DepthMapUnit {
+          enum DepthMapUnitEnum {
               "mm",
               "m"
           };
         </pre>
         <p>
-          The <code><a>DepthMapUnit</a></code> enumeration represents the
-          possible <a>unit</a>s for a <a>depth map</a>. The "<dfn for=
-          "DepthMapUnit">mm</dfn>" value indicates millimeters, the "<dfn for=
-          "DepthMapUnit">m</dfn>" value indicates meters.
+          The <dfn>DepthMapUnitEnum</dfn> enumeration represents the possible
+          <a>unit</a>s for a <a>depth map</a>. The "<dfn for=
+          "DepthMapUnitEnum">mm</dfn>" value indicates millimeters, the
+          "<dfn for="DepthMapUnitEnum">m</dfn>" value indicates meters.
         </p>
         <pre class="idl">
           partial dictionary MediaTrackConstraints {
-              DepthMapUnit unit = "mm";
+              DepthMapUnitEnum unit = "mm";
           };
           
           partial dictionary MediaTrackConstraintSet {
@@ -702,7 +702,7 @@
           };
 
           partial dictionary MediaTrackCapabilities {
-            DepthMapUnit unit;
+            DepthMapUnitEnum unit;
           };
         </pre>
       </section>
