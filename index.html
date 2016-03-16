@@ -320,7 +320,7 @@
           view in degrees.
         </p>
         <p>
-          A <a>depth map</a> has an associated <dfn>unit</dfn> which is a
+          A <a>depth map</a> has an associated <dfn>precision</dfn> which is a
           string. It represents the <a>depth precision</a>.
         </p>
         <p>
@@ -359,8 +359,8 @@
         </p>
         <p>
           If <a>depth precision</a> is provided in
-          <a>MediaTrackConstraints</a>, let that unit be the <a>depth
-          precision</a> for the returned <a>depth stream track</a>.
+          <a>MediaTrackConstraints</a>, let that <a>precision</a> be the
+          <a>depth precision</a> for the returned <a>depth stream track</a>.
         </p>
         <div class="note">
           If the user agent requests a combined <a>depth+video stream</a>, the
@@ -675,17 +675,17 @@
         </pre>
         <p>
           The <dfn>DepthMapUnitEnum</dfn> enumeration represents the possible
-          <a>unit</a>s for a <a>depth map</a>. The "<dfn for=
+          <a>precision</a>s for a <a>depth map</a>. The "<dfn for=
           "DepthMapUnitEnum">mm</dfn>" value indicates millimeters, the
           "<dfn for="DepthMapUnitEnum">m</dfn>" value indicates meters.
         </p>
         <pre class="idl">
           partial dictionary MediaTrackConstraints {
-              DepthMapUnitEnum unit = "mm";
+              DepthMapUnitEnum depthPrecision = "mm";
           };
           
           partial dictionary MediaTrackConstraintSet {
-            ConstrainBoolean unit;
+            ConstrainBoolean depthPrecision;
           };
         </pre>
         <p dfn-for="MediaTrackConstraints" link-for="MediaTrackConstraints">
@@ -695,11 +695,11 @@
         </p>
         <pre class="idl">
           partial dictionary MediaTrackSupportedConstraints {
-            boolean unit = true;
+            boolean depthPrecision = true;
           };
 
           partial dictionary MediaTrackCapabilities {
-            DepthMapUnitEnum unit;
+            DepthMapUnitEnum depthPrecision;
           };
         </pre>
       </section>
