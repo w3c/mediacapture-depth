@@ -321,7 +321,8 @@
         </p>
         <p>
           A <a>depth map</a> has an associated <dfn>precision</dfn> which is a
-          string. It represents the <a>depth precision</a>.
+          string. It represents the <a>depth precision</a> (one of the
+          <a>possible depth precisions</a>).
         </p>
         <p>
           A <a>depth map</a> has an associated <dfn>near value</dfn> which is a
@@ -656,8 +657,9 @@
               </td>
               <td>
                 This property is used for setting the initial <a>depth
-                precision</a> when the <a>getUserMedia()</a> method is invoked,
-                and is not applicable for subsequent media control.
+                precision</a> (one of the <a>possible depth precisions</a>)
+                when the <a>getUserMedia()</a> method is invoked, and is not
+                applicable for subsequent media control.
               </td>
             </tr>
           </tbody>
@@ -674,10 +676,12 @@
           };
         </pre>
         <p>
-          The <dfn>DepthPrecisionEnum</dfn> enumeration represents the possible
-          <a>precision</a>s for a <a>depth map</a>. The "<dfn for=
-          "DepthPrecisionEnum">mm</dfn>" value indicates millimeters, the
-          "<dfn for="DepthPrecisionEnum">m</dfn>" value indicates meters.
+          The <dfn>DepthPrecisionEnum</dfn> enumeration represents the
+          <dfn>possible depth precisions</dfn> for a <a>depth map</a>. The
+          "<dfn for="DepthPrecisionEnum">mm</dfn>" value indicates the <a>depth
+          precision</a> is millimeters, the "<dfn for=
+          "DepthPrecisionEnum">m</dfn>" value indicates the <a>depth
+          precision</a> is meters.
         </p>
         <pre class="idl">
           partial dictionary MediaTrackConstraints {
