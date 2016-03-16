@@ -559,7 +559,7 @@
               DepthConversionEnum depthConversion;
               double              horizontalFieldOfView;
               double              verticalFieldOfView;
-              DepthMapUnitEnum?   depthMapUnit;
+              DepthPrecisionEnum? depthPrecision;
               double              depthNear;
               double              depthFar;
           };
@@ -589,7 +589,7 @@
             represents the <a>depth map</a>'s <a>vertical field of view</a>.
           </p>
           <p>
-            The <dfn><code>depthMapUnit</code></dfn> dictionary member
+            The <dfn><code>depthPrecision</code></dfn> dictionary member
             represents the <a>depth precision</a>.
           </p>
           <p>
@@ -626,11 +626,11 @@
       </section>
       <section>
         <h2>
-          <a><code>depthMapUnit</code></a> constrainable property
+          <code>depthPrecision</code> constrainable property
         </h2>
         <p>
-          The <a>depthMapUnit</a> constrainable property is defined to apply
-          only to <a>depth stream track</a>s.
+          The <code>depthPrecision</code> constrainable property is defined to
+          apply only to <a>depth stream track</a>s.
         </p>
         <table class="simple">
           <thead>
@@ -649,7 +649,7 @@
           <tbody>
             <tr>
               <td>
-                <code><dfn>depthMapUnit</dfn></code>
+                <code>depthPrecision</code>
               </td>
               <td>
                 <code>DOMString</code>
@@ -665,23 +665,23 @@
         <p>
           The <a>applyConstraints()</a> method MUST reject the promise with
           <code>OverconstrainedError</code>, when invoked with
-          <a>depthMapUnit</a> property.
+          <code>depthPrecision</code> property.
         </p>
         <pre class="idl">
-          enum DepthMapUnitEnum {
+          enum DepthPrecisionEnum {
               "mm",
               "m"
           };
         </pre>
         <p>
-          The <dfn>DepthMapUnitEnum</dfn> enumeration represents the possible
+          The <dfn>DepthPrecisionEnum</dfn> enumeration represents the possible
           <a>precision</a>s for a <a>depth map</a>. The "<dfn for=
-          "DepthMapUnitEnum">mm</dfn>" value indicates millimeters, the
-          "<dfn for="DepthMapUnitEnum">m</dfn>" value indicates meters.
+          "DepthPrecisionEnum">mm</dfn>" value indicates millimeters, the
+          "<dfn for="DepthPrecisionEnum">m</dfn>" value indicates meters.
         </p>
         <pre class="idl">
           partial dictionary MediaTrackConstraints {
-              DepthMapUnitEnum depthPrecision = "mm";
+              DepthPrecisionEnum depthPrecision = "mm";
           };
           
           partial dictionary MediaTrackConstraintSet {
@@ -689,9 +689,10 @@
           };
         </pre>
         <p dfn-for="MediaTrackConstraints" link-for="MediaTrackConstraints">
-          The <a><code>depthMapUnit</code></a> of <a>MediaTrackConstraints</a>
-          is said to be the <dfn>depth precision</dfn> for the <a>depth stream
-          track</a>, when <a>getUserMedia()</a> invocation has succeeded.
+          The <a><code>depthPrecision</code></a> of
+          <a>MediaTrackConstraints</a> is said to be the <dfn>depth
+          precision</dfn> for the <a>depth stream track</a>, when
+          <a>getUserMedia()</a> invocation has succeeded.
         </p>
         <pre class="idl">
           partial dictionary MediaTrackSupportedConstraints {
@@ -699,7 +700,7 @@
           };
 
           partial dictionary MediaTrackCapabilities {
-            DepthMapUnitEnum depthPrecision;
+            DepthPrecisionEnum depthPrecision;
           };
         </pre>
       </section>
