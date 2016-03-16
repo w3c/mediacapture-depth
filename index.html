@@ -321,7 +321,7 @@
         </p>
         <p>
           A <a>depth map</a> has an associated <dfn>unit</dfn> which is a
-          string. It represents the <a>active depth map unit</a>.
+          string. It represents the <a>depth precision</a>.
         </p>
         <p>
           A <a>depth map</a> has an associated <dfn>near value</dfn> which is a
@@ -358,9 +358,9 @@
           that fulfills the specified mandatory constraints.
         </p>
         <p>
-          If <a>active depth map unit</a> is provided in
-          <a>MediaTrackConstraints</a>, let that unit be the <a>active depth
-          map unit</a> for the returned <a>depth stream track</a>.
+          If <a>depth precision</a> is provided in
+          <a>MediaTrackConstraints</a>, let that unit be the <a>depth
+          precision</a> for the returned <a>depth stream track</a>.
         </p>
         <div class="note">
           If the user agent requests a combined <a>depth+video stream</a>, the
@@ -590,7 +590,7 @@
           </p>
           <p>
             The <dfn><code>depthMapUnit</code></dfn> dictionary member
-            represents the <a>active depth map unit</a>.
+            represents the <a>depth precision</a>.
           </p>
           <p>
             The <dfn><code>depthNear</code></dfn> dictionary member represents
@@ -655,8 +655,8 @@
                 <code>DOMString</code>
               </td>
               <td>
-                This property is used for setting the initial <a>active depth
-                map unit</a> when the <a>getUserMedia()</a> method is invoked,
+                This property is used for setting the initial <a>depth
+                precision</a> when the <a>getUserMedia()</a> method is invoked,
                 and is not applicable for subsequent media control.
               </td>
             </tr>
@@ -690,9 +690,8 @@
         </pre>
         <p dfn-for="MediaTrackConstraints" link-for="MediaTrackConstraints">
           The <a><code>depthMapUnit</code></a> of <a>MediaTrackConstraints</a>
-          is said to be the <dfn>active depth map unit</dfn> for the <a>depth
-          stream track</a>, when <a>getUserMedia()</a> invocation has
-          succeeded.
+          is said to be the <dfn>depth precision</dfn> for the <a>depth stream
+          track</a>, when <a>getUserMedia()</a> invocation has succeeded.
         </p>
         <pre class="idl">
           partial dictionary MediaTrackSupportedConstraints {
