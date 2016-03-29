@@ -507,8 +507,28 @@
         <p>
           The <dfn>rules to convert using range inverse</dfn> are as given in
           the following formula:
-        </p><img src="images/range-inverse.png" alt="Range inverse"><br>
-        <img src="images/quantization.png" alt="Quantization">
+        </p><img src="images/range-inverse.png" alt=
+        "d_(n) = (far * (d - near)) / (d * (far - near))"><br>
+        <img src="images/quantization.png" alt="d_(8bit) = floor(d_(n) * 255)">
+        <div class="note">
+          <p>
+            The depth measurement <var>d</var> (in millimeter units) is
+            recovered by solving the <a>rules to convert using range
+            inverse</a> for <var>d</var> as follows:
+          </p>
+          <ol>
+            <li>Given <var>d<sub>8bit</sub></var>, <var>near</var> <a>near
+            value</a> and <var>far</var> <a>far value</a>, normalize
+            <var>d<sub>8bit</sub></var> to [0, 1] range:<br>
+              <img src="images/normalize.png" alt="d_(n) = d_(8bit) / 255">
+            </li>
+            <li>Solve the <a>rules to convert using range inverse</a> for <var>
+              d</var>:<br>
+              <img src="images/range-inverse-reconstruct.png" alt=
+              "d = (far * near) / (far - d_(n) * (far - near))">
+            </li>
+          </ol>
+        </div>
         <section>
           <h2>
             <code>VideoTrack</code> interface
