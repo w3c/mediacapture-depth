@@ -498,13 +498,8 @@
           </li>
           <li>Let <var>far</var> be the the <a>far value</a>.
           </li>
-          <li>If <var>bit depth</var> is greater than 8, then apply the
-          <a>rules to convert using range inverse</a> to <var>d</var> to obtain
-          quantized value <var>d<sub>8bit</sub>.</var>
-          </li>
-          <li>Otherwise, apply the <a>rules to convert using range linear</a>
-          to <var>d</var> to obtain quantized value
-          <var>d<sub>8bit</sub></var>.
+          <li>Apply the <a>rules to convert using range inverse</a> to
+          <var>d</var> to obtain quantized value <var>d<sub>8bit</sub>.</var>
           </li>
           <li>Return <var>d<sub>8bit</sub></var>.
           </li>
@@ -513,11 +508,6 @@
           The <dfn>rules to convert using range inverse</dfn> are as given in
           the following formula:
         </p><img src="images/range-inverse.png" alt="Range inverse"><br>
-        <img src="images/quantization.png" alt="Quantization">
-        <p>
-          The <dfn>rules to convert using range linear</dfn> are as given in
-          the following formula:
-        </p><img src="images/range-linear.png" alt="Range linear"><br>
         <img src="images/quantization.png" alt="Quantization">
         <section>
           <h2>
@@ -540,14 +530,8 @@
           that extends the <a><code>MediaTrackSettings</code></a> dictionary:
         </p>
         <pre class="idl">
-          enum DepthConversionEnum {
-              "inverse",
-              "linear"
-          };
-
           partial dictionary MediaTrackSettings {
               double              focalLength;
-              DepthConversionEnum depthConversion;
               double              horizontalFieldOfView;
               double              verticalFieldOfView;
               double              depthNear;
@@ -558,17 +542,6 @@
           <p>
             The <dfn><code>focalLength</code></dfn> dictionary member
             represents the <a>depth map</a>'s <a>focal length</a>.
-          </p>
-          <p>
-            The <dfn><code>depthConversion</code></dfn> dictionary member
-            represents the depth to grayscale conversion applied to the
-            <a>depth map</a> in the <a>convert the depth map value to
-            grayscale</a> algorithm. The <a>DepthConversionEnum</a> enumeration
-            represents the possible values. If the value is "<dfn for=
-            "DepthConversion">inverse</dfn>", the <a>rules to convert using
-            range inverse</a> have been applied, and if the value is "<dfn for=
-            "DepthConversion">linear</dfn>", the <a>rules to convert using
-            range linear</a> have been applied.
           </p>
           <p>
             The <dfn><code>horizontalFieldOfView</code></dfn> dictionary member
@@ -679,12 +652,7 @@ gl.texImage2D(
     vec4 floatColor = texture2D(u_tex, v_texCoord);
     float dn = floatColor.r;
     float depth = 0.;
-    if (isRangeInverse) {
-      depth = far * near / ( far - dn * ( far - near));
-    } else {
-      // Otherwise, using range linear
-      depth = dn * ( far - near ) + near;
-    }
+    depth = far * near / ( far - dn * ( far - near));
     // ...
   }
 &lt;/script&gt;
