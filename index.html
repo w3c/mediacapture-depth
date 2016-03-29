@@ -320,18 +320,12 @@
           view in degrees.
         </p>
         <p>
-          A <a>depth map</a> has an associated <dfn>unit</dfn> which is a
-          string. It represents the <a>active depth map unit</a>.
-        </p>
-        <p>
           A <a>depth map</a> has an associated <dfn>near value</dfn> which is a
-          double. It represents the minimum range in <a>active depth map
-          unit</a>s.
+          double. It represents the minimum range in millimeters.
         </p>
         <p>
           A <a>depth map</a> has an associated <dfn>far value</dfn> which is a
-          double. It represents the maximum range in <a>active depth map
-          unit</a>s.
+          double. It represents the maximum range in millimeters.
         </p>
       </section>
     </section>
@@ -358,11 +352,6 @@
           <a>Constraints</a> dictionary, the <a>MediaStream</a> returned by the
           <a>getUserMedia()</a> method MUST contain a <a>depth stream track</a>
           that fulfills the specified mandatory constraints.
-        </p>
-        <p>
-          If <a>active depth map unit</a> is provided in
-          <a>MediaTrackConstraints</a>, let that unit be the <a>active depth
-          map unit</a> for the returned <a>depth stream track</a>.
         </p>
         <div class="note">
           If the user agent requests a combined <a>depth+video stream</a>, the
@@ -561,7 +550,6 @@
               DepthConversionEnum depthConversion;
               double              horizontalFieldOfView;
               double              verticalFieldOfView;
-              DepthMapUnitEnum?   depthMapUnit;
               double              depthNear;
               double              depthFar;
           };
@@ -589,10 +577,6 @@
           <p>
             The <dfn><code>verticalFieldOfView</code></dfn> dictionary member
             represents the <a>depth map</a>'s <a>vertical field of view</a>.
-          </p>
-          <p>
-            The <dfn><code>depthMapUnit</code></dfn> dictionary member
-            represents the <a>active depth map unit</a>.
           </p>
           <p>
             The <dfn><code>depthNear</code></dfn> dictionary member represents
@@ -625,86 +609,6 @@
             value in B component is not defined.
           </p>
         </section>
-      </section>
-      <section>
-        <h2>
-          <a><code>depthMapUnit</code></a> constrainable property
-        </h2>
-        <p>
-          The <a>depthMapUnit</a> constrainable property is defined to apply
-          only to <a>depth stream track</a>s.
-        </p>
-        <table class="simple">
-          <thead>
-            <tr>
-              <th>
-                Property name
-              </th>
-              <th>
-                Values
-              </th>
-              <th>
-                Notes
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <code><dfn>depthMapUnit</dfn></code>
-              </td>
-              <td>
-                <code>DOMString</code>
-              </td>
-              <td>
-                This property is used for setting the initial <a>active depth
-                map unit</a> when the <a>getUserMedia()</a> method is invoked,
-                and is not applicable for subsequent media control.
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <p>
-          The <a>applyConstraints()</a> method MUST reject the promise with
-          <code>OverconstrainedError</code>, when invoked with
-          <a>depthMapUnit</a> property.
-        </p>
-        <pre class="idl">
-          enum DepthMapUnitEnum {
-              "mm",
-              "m"
-          };
-        </pre>
-        <p>
-          The <dfn>DepthMapUnitEnum</dfn> enumeration represents the possible
-          <a>unit</a>s for a <a>depth map</a>. The "<dfn for=
-          "DepthMapUnitEnum">mm</dfn>" value indicates millimeters, the
-          "<dfn for="DepthMapUnitEnum">m</dfn>" value indicates meters.
-        </p>
-        <pre class="idl">
-          partial dictionary MediaTrackConstraints {
-              DepthMapUnitEnum unit = "mm";
-          };
-          
-          partial dictionary MediaTrackConstraintSet {
-            ConstrainBoolean unit;
-          };
-        </pre>
-        <p dfn-for="MediaTrackConstraints" link-for="MediaTrackConstraints">
-          The <a><code>depthMapUnit</code></a> of <a>MediaTrackConstraints</a>
-          is said to be the <dfn>active depth map unit</dfn> for the <a>depth
-          stream track</a>, when <a>getUserMedia()</a> invocation has
-          succeeded.
-        </p>
-        <pre class="idl">
-          partial dictionary MediaTrackSupportedConstraints {
-            boolean unit = true;
-          };
-
-          partial dictionary MediaTrackCapabilities {
-            DepthMapUnitEnum unit;
-          };
-        </pre>
       </section>
     </section>
     <section class='informative'>
