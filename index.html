@@ -320,11 +320,6 @@
           view in degrees.
         </p>
         <p>
-          A <a>depth map</a> has an associated <dfn>precision</dfn> which is a
-          string. It represents the <a>depth precision</a> (one of the
-          <a>possible depth precisions</a>).
-        </p>
-        <p>
           A <a>depth map</a> has an associated <dfn>near value</dfn> which is a
           double. It represents the minimum range in millimeters.
         </p>
@@ -357,11 +352,6 @@
           <a>Constraints</a> dictionary, the <a>MediaStream</a> returned by the
           <a>getUserMedia()</a> method MUST contain a <a>depth stream track</a>
           that fulfills the specified mandatory constraints.
-        </p>
-        <p>
-          If <a>depth precision</a> is provided in
-          <a>MediaTrackConstraints</a>, let that <a>precision</a> be the
-          <a>depth precision</a> for the returned <a>depth stream track</a>.
         </p>
         <div class="note">
           If the user agent requests a combined <a>depth+video stream</a>, the
@@ -560,7 +550,6 @@
               DepthConversionEnum depthConversion;
               double              horizontalFieldOfView;
               double              verticalFieldOfView;
-              DepthPrecisionEnum? depthPrecision;
               double              depthNear;
               double              depthFar;
           };
@@ -588,10 +577,6 @@
           <p>
             The <dfn><code>verticalFieldOfView</code></dfn> dictionary member
             represents the <a>depth map</a>'s <a>vertical field of view</a>.
-          </p>
-          <p>
-            The <dfn><code>depthPrecision</code></dfn> dictionary member
-            represents the <a>depth precision</a>.
           </p>
           <p>
             The <dfn><code>depthNear</code></dfn> dictionary member represents
@@ -624,89 +609,6 @@
             value in B component is not defined.
           </p>
         </section>
-      </section>
-      <section>
-        <h2>
-          <code>depthPrecision</code> constrainable property
-        </h2>
-        <p>
-          The <code>depthPrecision</code> constrainable property is defined to
-          apply only to <a>depth stream track</a>s.
-        </p>
-        <table class="simple">
-          <thead>
-            <tr>
-              <th>
-                Property name
-              </th>
-              <th>
-                Values
-              </th>
-              <th>
-                Notes
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <code>depthPrecision</code>
-              </td>
-              <td>
-                <code>DOMString</code>
-              </td>
-              <td>
-                This property is used for setting the initial <a>depth
-                precision</a> (one of the <a>possible depth precisions</a>)
-                when the <a>getUserMedia()</a> method is invoked, and is not
-                applicable for subsequent media control.
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <p>
-          The <a>applyConstraints()</a> method MUST reject the promise with
-          <code>OverconstrainedError</code>, when invoked with
-          <code>depthPrecision</code> property.
-        </p>
-        <pre class="idl">
-          enum DepthPrecisionEnum {
-              "mm",
-              "m"
-          };
-        </pre>
-        <p>
-          The <dfn>DepthPrecisionEnum</dfn> enumeration represents the
-          <dfn>possible depth precisions</dfn> for a <a>depth map</a>. The
-          "<dfn for="DepthPrecisionEnum">mm</dfn>" value indicates the <a>depth
-          precision</a> is millimeters, the "<dfn for=
-          "DepthPrecisionEnum">m</dfn>" value indicates the <a>depth
-          precision</a> is meters.
-        </p>
-        <pre class="idl">
-          partial dictionary MediaTrackConstraints {
-              DepthPrecisionEnum depthPrecision = "mm";
-          };
-          
-          partial dictionary MediaTrackConstraintSet {
-            ConstrainBoolean depthPrecision;
-          };
-        </pre>
-        <p dfn-for="MediaTrackConstraints" link-for="MediaTrackConstraints">
-          The <a><code>depthPrecision</code></a> of
-          <a>MediaTrackConstraints</a> is said to be the <dfn>depth
-          precision</dfn> for the <a>depth stream track</a>, when
-          <a>getUserMedia()</a> invocation has succeeded.
-        </p>
-        <pre class="idl">
-          partial dictionary MediaTrackSupportedConstraints {
-            boolean depthPrecision = true;
-          };
-
-          partial dictionary MediaTrackCapabilities {
-            DepthPrecisionEnum depthPrecision;
-          };
-        </pre>
       </section>
     </section>
     <section class='informative'>
