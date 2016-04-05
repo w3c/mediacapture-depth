@@ -321,11 +321,11 @@
         </p>
         <p>
           A <a>depth map</a> has an associated <dfn>near value</dfn> which is a
-          double. It represents the minimum range in millimeters.
+          double. It represents the minimum range in meters.
         </p>
         <p>
           A <a>depth map</a> has an associated <dfn>far value</dfn> which is a
-          double. It represents the maximum range in millimeters.
+          double. It represents the maximum range in meters.
         </p>
       </section>
     </section>
@@ -512,9 +512,9 @@
         <img src="images/quantization.png" alt="d_(8bit) = floor(d_(n) * 255)">
         <div class="note">
           <p>
-            The depth measurement <var>d</var> (in millimeter units) is
-            recovered by solving the <a>rules to convert using range
-            inverse</a> for <var>d</var> as follows:
+            The depth measurement <var>d</var> (in meter units) is recovered by
+            solving the <a>rules to convert using range inverse</a> for
+            <var>d</var> as follows:
           </p>
           <ol>
             <li>Given <var>d<sub>8bit</sub></var>, <var>near</var> <a>near
@@ -580,6 +580,85 @@
             the <a>depth map</a>'s <a>far value</a>.
           </p>
         </div>
+      </section>
+      <section>
+        <h2>
+          Constrainable properties
+        </h2>
+        <p>
+          The <code>depthNear</code> and <code>depthFar</code> constrainable
+          properties are defined to apply only to <a>depth stream track</a>s.
+        </p>
+        <div class="note">
+          The <code>depthNear</code> and <code>depthFar</code> constrainable
+          properties, when set, allow the implementation to pick the best depth
+          camera mode optimized for the range <code>[depthNear,
+          depthFar]</code> and help minimize the error introduced by the lossy
+          conversion from the depth value <var>d</var> to a quantized
+          d<sub>8bit</sub> and back to an approximation of the depth value
+          <var>d</var>.
+        </div>
+        <table class="simple">
+          <thead>
+            <tr>
+              <th>
+                Property name
+              </th>
+              <th>
+                Values
+              </th>
+              <th>
+                Notes
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <code>depthNear</code>
+              </td>
+              <td>
+                <code>ConstrainDouble</code>
+              </td>
+              <td>
+                The <a>near value</a>, in meters.
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <code>depthFar</code>
+              </td>
+              <td>
+                <code>ConstrainDouble</code>
+              </td>
+              <td>
+                The <a>far value</a>, in meters.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <p>
+          The <a>applyConstraints()</a> method MUST reject the promise with
+          <code>OverconstrainedError</code>, when invoked with
+          <code>depthNear</code> or <code>depthFar</code> property.
+        </p>
+        <pre class="idl">
+          partial dictionary MediaTrackConstraintSet {
+            ConstrainDouble depthNear;
+            ConstrainDouble depthFar;
+          };
+        </pre>
+        <pre class="idl">
+          partial dictionary MediaTrackSupportedConstraints {
+            boolean depthNear = true;
+            boolean depthFar = true;
+          };
+
+          partial dictionary MediaTrackCapabilities {
+            ConstrainDouble depthNear;
+            ConstrainDouble depthFar;
+          };
+        </pre>
       </section>
       <section>
         <h2>
