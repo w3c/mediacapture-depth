@@ -232,10 +232,13 @@
       </p>
       <p>
         The concepts <a href=
-        "https://w3c.github.io/mediacapture-main/#track-muted"><dfn>muted</dfn></a>
-        and <a href=
-        "https://w3c.github.io/mediacapture-main/#track-enabled"><dfn>disabled</dfn></a>
-        as applied to <a>MediaStreamTrack</a> are defined in [[!GETUSERMEDIA]].
+        "https://w3c.github.io/mediacapture-main/#track-muted"><dfn>muted</dfn></a>,
+        <a href=
+        "https://w3c.github.io/mediacapture-main/#track-enabled"><dfn>disabled</dfn></a>,
+        and <code><a href=
+        "https://w3c.github.io/mediacapture-main/archives/20160222/getusermedia.html#event-mediastreamtrack-overconstrained">
+        <dfn>overconstrained</dfn></a></code> as applied to
+        <a>MediaStreamTrack</a> are defined in [[!GETUSERMEDIA]].
       </p>
       <p>
         The terms <a href=
@@ -633,6 +636,11 @@
             </tr>
           </tbody>
         </table>
+        <p>
+          If the <code>depthFar</code> property's value is less than the
+          <code>depthNear</code> property's value, the <a>depth stream
+          track</a> is <a>overconstrained</a>.
+        </p>
         <pre class="idl">
           partial dictionary MediaTrackConstraintSet {
             ConstrainDouble depthNear;
