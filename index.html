@@ -224,8 +224,6 @@
         The <code><a href=
         "https://w3c.github.io/mediacapture-main/#dom-mediadevices-getusermedia">
         <dfn>getUserMedia()</dfn></a></code>, <code><a href=
-        "https://w3c.github.io/mediacapture-main/#dfn-applyconstraints"><dfn>applyConstraints()</dfn></a></code>,
-        <code><a href=
         "https://w3c.github.io/mediacapture-main/#dfn-getsettings"><dfn>getSettings()</dfn></a></code>
         methods and the <code><a href=
         "https://w3c.github.io/mediacapture-main/#idl-def-NavigatorUserMediaSuccessCallback">
@@ -635,11 +633,6 @@
             </tr>
           </tbody>
         </table>
-        <p>
-          The <a>applyConstraints()</a> method MUST reject the promise with
-          <code>OverconstrainedError</code>, when invoked with
-          <code>depthNear</code> or <code>depthFar</code> property.
-        </p>
         <pre class="idl">
           partial dictionary MediaTrackConstraintSet {
             ConstrainDouble depthNear;
