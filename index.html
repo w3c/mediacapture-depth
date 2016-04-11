@@ -224,8 +224,6 @@
         The <code><a href=
         "https://w3c.github.io/mediacapture-main/#dom-mediadevices-getusermedia">
         <dfn>getUserMedia()</dfn></a></code>, <code><a href=
-        "https://w3c.github.io/mediacapture-main/#dfn-applyconstraints"><dfn>applyConstraints()</dfn></a></code>,
-        <code><a href=
         "https://w3c.github.io/mediacapture-main/#dfn-getsettings"><dfn>getSettings()</dfn></a></code>
         methods and the <code><a href=
         "https://w3c.github.io/mediacapture-main/#idl-def-NavigatorUserMediaSuccessCallback">
@@ -240,9 +238,7 @@
         and <code><a href=
         "https://w3c.github.io/mediacapture-main/archives/20160406/getusermedia.html#event-mediastreamtrack-overconstrained">
         <dfn>overconstrained</dfn></a></code> as applied to
-        <a>MediaStreamTrack</a> as well as the concept <a href=
-        "https://w3c.github.io/mediacapture-main/#dfn-fitness-distance"><dfn>fitness
-        distance</dfn></a> are defined in [[!GETUSERMEDIA]].
+        <a>MediaStreamTrack</a> are defined in [[!GETUSERMEDIA]].
       </p>
       <p>
         The terms <a href=
@@ -564,18 +560,15 @@
         <div dfn-for="MediaTrackSettings">
           <p>
             The <dfn><code>focalLength</code></dfn> dictionary member
-            represents the <a>depth map</a>'s <a>focal length</a>. It is a
-            <a>non-constrainable property</a>.
+            represents the <a>depth map</a>'s <a>focal length</a>.
           </p>
           <p>
             The <dfn><code>horizontalFieldOfView</code></dfn> dictionary member
             represents the <a>depth map</a>'s <a>horizontal field of view</a>.
-            It is a <a>non-constrainable property</a>.
           </p>
           <p>
             The <dfn><code>verticalFieldOfView</code></dfn> dictionary member
-            represents the <a>depth map</a>'s <a>vertical field of view</a>. It
-            is a <a>non-constrainable property</a>.
+            represents the <a>depth map</a>'s <a>vertical field of view</a>.
           </p>
           <p>
             The <dfn><code>depthNear</code></dfn> dictionary member represents
@@ -665,33 +658,6 @@
             ConstrainDouble depthFar;
           };
         </pre>
-      </section>
-      <section>
-        <h2>
-          Non-constrainable properties
-        </h2>
-        <p>
-          A <dfn lt=
-          "non-constrainable property|non-constrainable properties">non-constrainable
-          property</dfn> is ignored in the context of the
-          <a>applyConstraints()</a> algorithm. Its value can be obtained via
-          the <a>getSettings()</a> accessor. A <a>non-constrainable
-          property</a>'s <a>fitness distance</a> is always 0.
-        </p>
-        <p>
-          The following are the <a>non-constrainable properties</a>:
-        </p>
-        <ul link-for="MediaTrackSettings">
-          <li>
-            <a>focalLength</a>
-          </li>
-          <li>
-            <a>horizontalFieldOfView</a>
-          </li>
-          <li>
-            <a>verticalFieldOfView</a>
-          </li>
-        </ul>
       </section>
       <section>
         <h2>
