@@ -710,11 +710,11 @@
           };
 
           partial dictionary MediaTrackCapabilities {
-            double depthNear;
-            double depthFar;
-            double focalLength;
-            double horizontalFieldOfView;
-            double verticalFieldOfView;
+            (double or DoubleRange) depthNear;
+            (double or DoubleRange) depthFar;
+            (double or DoubleRange) focalLength;
+            (double or DoubleRange) horizontalFieldOfView;
+            (double or DoubleRange) verticalFieldOfView;
           };
         </pre>
       </section>
