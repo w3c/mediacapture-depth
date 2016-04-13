@@ -90,6 +90,15 @@
     };
 
     </script>
+    <style>
+      .MathJax_Preview { font-size: 1.3em !important; }
+    </style>
+    <script class="remove">
+      window.MathJax = { jax: ["input/MathML", "output/HTML-CSS"] };
+    </script>
+    <script class="remove" src=
+    "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=AM_HTMLorMML">
+    </script>
   </head>
   <body>
     <section id='abstract'>
@@ -517,9 +526,13 @@
         <p>
           The <dfn>rules to convert using range inverse</dfn> are as given in
           the following formula:
-        </p><img src="images/range-inverse.png" alt=
-        "d_(n) = (far * (d - near)) / (d * (far - near))"><br>
-        <img src="images/quantization.png" alt="d_(8bit) = floor(d_(n) * 255)">
+        </p>
+        <p>
+          `d_(n) = (far * (d - n ear)) / (d * (far - n ear))`
+        </p>
+        <p>
+          `d_(8bit) = floor(d_(n) * 255)`
+        </p>
         <div class="note">
           <p>
             The depth measurement <var>d</var> (in meter units) is recovered by
@@ -529,13 +542,16 @@
           <ol>
             <li>Given <var>d<sub>8bit</sub></var>, <var>near</var> <a>near
             value</a> and <var>far</var> <a>far value</a>, normalize
-            <var>d<sub>8bit</sub></var> to [0, 1] range:<br>
-              <img src="images/normalize.png" alt="d_(n) = d_(8bit) / 255">
+            <var>d<sub>8bit</sub></var> to [0, 1] range:
+              <p>
+                `d_(n) = d_(8bit) / 255`
+              </p>
             </li>
             <li>Solve the <a>rules to convert using range inverse</a> for <var>
-              d</var>:<br>
-              <img src="images/range-inverse-reconstruct.png" alt=
-              "d = (far * near) / (far - d_(n) * (far - near))">
+              d</var>:
+              <p>
+                `d = (far * n ear) / (far - d_(n) * (far - n ear))`
+              </p>
             </li>
           </ol>
         </div>
