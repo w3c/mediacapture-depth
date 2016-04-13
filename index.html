@@ -262,6 +262,13 @@
         "https://html.spec.whatwg.org/#videotrack"><dfn>VideoTrack</dfn></a></code>
         interfaces are defined in [[!HTML]].
       </p>
+      <p>
+        The term <a href=
+        "https://w3c.github.io/permissions/#permission"><dfn>permission</dfn></a>
+        and the permission name <code><a href=
+        "https://w3c.github.io/permissions/#dom-permissionname-camera">"<dfn>camera</dfn>"</a></code>
+        are defined in [[!PERMISSIONS]].
+      </p>
     </section>
     <section>
       <h2>
@@ -353,6 +360,10 @@
           <a>Constraints</a> dictionary, the <a>MediaStream</a> returned by the
           <a>getUserMedia()</a> method MUST contain a <a>depth stream track</a>
           that fulfills the specified mandatory constraints.
+        </p>
+        <p>
+          The <a>permission</a> associated with a depth camera <a>source</a> is
+          "<a>camera</a>",
         </p>
         <div class="note">
           If the user agent requests a combined <a>depth+video stream</a>, the
