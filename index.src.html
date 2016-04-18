@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+      Media Capture Depth Stream Extensions
+    </title>
+    <meta charset="utf-8">
+    <script src="//www.w3.org/Tools/respec/respec-w3c-common" class="remove">
+</script>
+    <script class="remove">
+
+      var respecConfig = {
+        specStatus: "ED",
+        shortName: "mediacapture-depth",
+        previousPublishDate: "2015-12-08",
+        previousMaturity: "WD",
+        edDraftURI: "https://w3c.github.io/mediacapture-depth/",
+        editors: [
+            {
+              w3cid:      "41974",
+              name:       "Anssi Kostiainen",
+              company:    "Intel",
+              companyURL: "http://www.intel.com/"
+            },
+            {
+              w3cid:      "68202",
+              name:       "Ningxin Hu",
+              company:    "Intel",
+              companyURL: "http://www.intel.com/"
+            },
+            {
+              w3cid:      "76096",
+              name:       "Rob Manson",
+              company:    "Invited Expert"
+            }
+        ],
+        wg: [
+          "Device and Sensors Working Group",
+          "Web Real-Time Communications Working Group"
+        ],
+        wgURI: [
+          "http://www.w3.org/2009/dap/",
+          "http://www.w3.org/2011/04/webrtc/"
+        ],
+        wgPublicList: "public-media-capture",
+        wgPatentURI: [
+          "http://www.w3.org/2004/01/pp-impl/47318/status",
+          "http://www.w3.org/2004/01/pp-impl/43696/status"
+        ],
+        otherLinks: [{
+        key: "Participate",
+        data: [
+          {
+            value: "public-media-capture@w3.org",
+            href: "http://lists.w3.org/Archives/Public/public-media-capture/"
+          },
+          {
+            value: "GitHub w3c/mediacapture-depth",
+            href: "https://github.com/w3c/mediacapture-depth/"
+          },
+          {
+            value: "GitHub w3c/mediacapture-depth/issues",
+            href: "https://github.com/w3c/mediacapture-depth/issues"
+          },
+          {
+            value: "GitHub w3c/mediacapture-depth/commits",
+            href: "https://github.com/w3c/mediacapture-depth/commits/"
+          }
+        ]
+        }],
+        localBiblio: {
+          "MEDIACAPTURE-WORKER": {
+              title:     "Media Capture Stream with Worker",
+              href:      "https://w3c.github.io/mediacapture-worker/",
+              authors:  [
+                         "Chia-hung Tai",
+                         "Robert O'Callahan",
+                         "Tzuhao Kuo",
+                         "Anssi Kostiainen"
+              ],
+              status:    "ED",
+              publisher: "W3C"
+          }
+        }
+    };
+
+    </script>
+    <script class="remove" src=
+    "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=AM_CHTML">
+</script>
+  </head>
+  <body>
+    <section id="abstract">
+      <p>
+        This specification <a href=
+        "https://w3c.github.io/mediacapture-main/#extensibility">extends</a>
+        the <em>Media Capture and Streams</em> specification [[!GETUSERMEDIA]]
+        to allow a <a>depth-only stream</a> or combined <a>depth+video
+        stream</a> to be requested from the web platform using APIs familiar to
+        web authors.
+      </p>
+    </section>
+    <section id="sotd">
+      <p>
+        This extensions specification defines a new media type and
+        constrainable property per <a href=
+        "https://w3c.github.io/mediacapture-main/#extensibility">Extensibility</a>
+        guidelines of the <em>Media Capture and Streams</em> specification
+        [[!GETUSERMEDIA]]. Horizontal reviews and feedback from early
+        implementations of this specification are encouraged.
+      </p>
+    </section>
+    <section>
+      <h2>
+        Introduction
+      </h2>
+      <p>
+        Depth cameras are increasingly being integrated into devices such as
+        phones, tablets, and laptops. Depth cameras provide a <a>depth map</a>,
+        which conveys the distance information between points on an object's
+        surface and the camera. With depth information, web content and
+        applications can be enhanced by, for example, the use of hand gestures
+        as an input mechanism, or by creating 3D models of real-world objects
+        that can interact and integrate with the web platform. Concrete
+        applications of this technology include more immersive gaming
+        experiences, more accessible 3D video conferences, and augmented
+        reality, to name a few.
+      </p>
+      <p>
+        To bring depth capability to the web platform, this specification
+        <a href=
+        "https://w3c.github.io/mediacapture-main/#extensibility">extends</a>
+        the <code><a>MediaStream</a></code> interface [[!GETUSERMEDIA]] to
+        enable it to also contain depth-based
+        <a><code>MediaStreamTrack</code></a>s. A depth-based
+        <a><code>MediaStreamTrack</code></a>, referred to as a <a>depth stream
+        track</a>, represents an abstraction of a stream of frames that can
+        each be converted to objects which contain an array of pixel data,
+        where each pixel represents the distance between the camera and the
+        objects in the scene for that point in the array. A
+        <code><a>MediaStream</a></code> object that contains one or more
+        <a>depth stream track</a>s is referred to as a <a>depth-only stream</a>
+        or <a>depth+video stream</a>.
+      </p>
+      <p>
+        Depth cameras usually produce 16-bit depth values per pixel. However,
+        neither the canvas drawing surface used to draw and manipulate 2D
+        graphics on the web platform nor the <code><a>ImageData</a></code>
+        interface used to represent image data support 16 bits per pixel. To
+        address the issue, this specification defines a conversion into a 8-bit
+        grayscale representation of a <a>depth map</a> for consumption by APIs
+        that are limited to 8 bits per pixel.
+      </p>
+      <p>
+        The Media Capture Stream with Worker specification
+        [[MEDIACAPTURE-WORKER]] that complements this specification enables
+        processing of 16-bit depth values per pixel directly in a worker
+        environment and makes the <code>&lt;video&gt;</code> and
+        <code>&lt;canvas&gt;</code> indirection and depth-to-grayscale
+        conversion redundant. This alternative pipeline that supports greater
+        bit depth and does not incur the performance penalty of the indirection
+        and conversion enables more advanced use cases.
+      </p>
+    </section>
+    <section>
+      <h2>
+        Use cases and requirements
+      </h2>
+      <p>
+        This specification attempts to address the <a href=
+        "https://www.w3.org/wiki/Media_Capture_Depth_Stream_Extension">Use
+        Cases and Requirements</a> for accessing depth stream from a depth
+        camera. See also the <a href=
+        "https://www.w3.org/wiki/Media_Capture_Depth_Stream_Extension#Examples">
+        Examples</a> section for concrete usage examples.
+      </p>
+    </section>
+    <section id="conformance">
+      <p>
+        This specification defines conformance criteria that apply to a single
+        product: the <dfn>user agent</dfn> that implements the interfaces that
+        it contains.
+      </p>
+      <p>
+        Implementations that use ECMAScript to implement the APIs defined in
+        this specification must implement them in a manner consistent with the
+        ECMAScript Bindings defined in the Web IDL specification [[!WEBIDL]],
+        as this specification uses that specification and terminology.
+      </p>
+    </section>
+    <section>
+      <h2>
+        Dependencies
+      </h2>
+      <p>
+        The <code><a href=
+        "https://w3c.github.io/mediacapture-main/archives/20160406/getusermedia.html#idl-def-MediaStreamTrack">
+        <dfn>MediaStreamTrack</dfn></a></code> and <code><a href=
+        "https://w3c.github.io/mediacapture-main/archives/20160406/getusermedia.html#idl-def-MediaStream">
+        <dfn>MediaStream</dfn></a></code> interfaces this specification extends
+        are defined in [[!GETUSERMEDIA]].
+      </p>
+      <p>
+        The <code><a href=
+        "https://w3c.github.io/mediacapture-main/archives/20160406/getusermedia.html#idl-def-Constraints">
+        <dfn>Constraints</dfn></a></code>, <code><a href=
+        "https://w3c.github.io/mediacapture-main/archives/20160406/getusermedia.html#idl-def-MediaStreamConstraints">
+        <dfn>MediaStreamConstraints</dfn></a></code>, <code><a href=
+        "https://w3c.github.io/mediacapture-main/archives/20160406/getusermedia.html#idl-def-MediaTrackSettings">
+        <dfn>MediaTrackSettings</dfn></a></code>, <code><a href=
+        "https://w3c.github.io/mediacapture-main/archives/20160406/getusermedia.html#idl-def-MediaTrackConstraints">
+        <dfn>MediaTrackConstraints</dfn></a></code>, <code><a href=
+        "https://w3c.github.io/mediacapture-main/archives/20160406/getusermedia.html#idl-def-MediaTrackSupportedConstraints">
+        <dfn>MediaTrackSupportedConstraints</dfn></a></code>, <code><a href=
+        "https://w3c.github.io/mediacapture-main/archives/20160406/getusermedia.html#idl-def-MediaTrackCapabilities">
+        <dfn>MediaTrackCapabilities</dfn></a></code>, and <code><a href=
+        "https://w3c.github.io/mediacapture-main/archives/20160406/getusermedia.html#idl-def-MediaTrackConstraintSet">
+        <dfn>MediaTrackConstraintSet</dfn></a></code> dictionaries this
+        specification extends are defined in [[!GETUSERMEDIA]].
+      </p>
+      <p>
+        The <code><a href=
+        "https://w3c.github.io/mediacapture-main/#dom-mediadevices-getusermedia">
+        <dfn>getUserMedia()</dfn></a></code>, <code><a href=
+        "https://w3c.github.io/mediacapture-main/#dfn-getsettings"><dfn>getSettings()</dfn></a></code>
+        methods and the <code><a href=
+        "https://w3c.github.io/mediacapture-main/#idl-def-NavigatorUserMediaSuccessCallback">
+        <dfn>NavigatorUserMediaSuccessCallback</dfn></a></code> callback are
+        defined in [[!GETUSERMEDIA]].
+      </p>
+      <p>
+        The concepts <a href=
+        "https://w3c.github.io/mediacapture-main/#track-muted"><dfn>muted</dfn></a>,
+        <a href=
+        "https://w3c.github.io/mediacapture-main/#track-enabled"><dfn>disabled</dfn></a>,
+        and <code><a href=
+        "https://w3c.github.io/mediacapture-main/archives/20160406/getusermedia.html#event-mediastreamtrack-overconstrained">
+        <dfn>overconstrained</dfn></a></code> as applied to
+        <a>MediaStreamTrack</a> are defined in [[!GETUSERMEDIA]].
+      </p>
+      <p>
+        The terms <a href=
+        "https://w3c.github.io/mediacapture-main/#dfn-source"><dfn>source</dfn></a>
+        and <a href=
+        "https://w3c.github.io/mediacapture-main/#dfn-consumer"><dfn>consumer</dfn></a>
+        are defined in [[!GETUSERMEDIA]].
+      </p>
+      <p>
+        The <code><a href=
+        "https://w3c.github.io/mediacapture-main/#idl-def-SourceTypeEnum"><dfn>SourceTypeEnum</dfn></a></code>
+        and <code><a href=
+        "https://w3c.github.io/mediacapture-main/#idl-def-MediaDeviceKind"><dfn>
+        MediaDeviceKind</dfn></a></code> enumerations are defined in
+        [[!GETUSERMEDIA]].
+      </p>
+      <p>
+        The <code><a href=
+        "https://html.spec.whatwg.org/#imagedata"><dfn>ImageData</dfn></a></code>
+        and <code><a href=
+        "https://html.spec.whatwg.org/#videotrack"><dfn>VideoTrack</dfn></a></code>
+        interfaces are defined in [[!HTML]].
+      </p>
+      <p>
+        The term <a href=
+        "https://w3c.github.io/permissions/#permission"><dfn>permission</dfn></a>
+        and the permission name <code><a href=
+        "https://w3c.github.io/permissions/#dom-permissionname-camera">"<dfn>camera</dfn>"</a></code>
+        are defined in [[!PERMISSIONS]].
+      </p>
+    </section>
+    <section>
+      <h2>
+        Terminology
+      </h2>
+      <p>
+        The term <dfn>depth+video stream</dfn> means a <a>MediaStream</a>
+        object that contains one or more <a>MediaStreamTrack</a> objects of
+        kind "<code>depth</code>" (<a>depth stream track</a>) and one or more
+        <a>MediaStreamTrack</a> objects of kind "<code>video</code>" (<a>video
+        stream track</a>).
+      </p>
+      <p>
+        The term <dfn>depth-only stream</dfn> means a <a>MediaStream</a> object
+        that contains one or more <a>MediaStreamTrack</a> objects of kind
+        "<code>depth</code>" (<a>depth stream track</a>) only.
+      </p>
+      <p>
+        The term <dfn>video-only stream</dfn> means a <a>MediaStream</a> object
+        that contains one or more <a>MediaStreamTrack</a> objects of kind
+        "<code>video</code>" (<a>video stream track</a>) only, and optionally
+        of kind "<code>audio</code>".
+      </p>
+      <p>
+        The term <dfn>depth stream track</dfn> means a <a>MediaStreamTrack</a>
+        object whose kind is "<code>depth</code>". It represents a media stream
+        track whose <a>source</a> is a depth camera.
+      </p>
+      <p>
+        The term <dfn>video stream track</dfn> means a <a>MediaStreamTrack</a>
+        object whose kind is "<code>video</code>". It represents a media stream
+        track whose <a>source</a> is a video camera.
+      </p>
+      <section>
+        <h2>
+          Depth map
+        </h2>
+        <p>
+          A <dfn>depth map</dfn> is an abstract representation of a frame of a
+          <a>depth stream track</a>. A <a>depth map</a> is an image that
+          contains information relating to the distance of the surfaces of
+          scene objects from a viewpoint.
+        </p>
+        <p>
+          A <a>depth map</a> has an associated <dfn>near value</dfn> which is a
+          double. It represents the minimum range in meters.
+        </p>
+        <p>
+          A <a>depth map</a> has an associated <dfn>far value</dfn> which is a
+          double. It represents the maximum range in meters.
+        </p>
+        <p>
+          A <a>depth map</a> has an associated <dfn>focal length</dfn> which is
+          a double. It represents the focal length of the camera in
+          millimeters.
+        </p>
+        <p>
+          A <a>depth map</a> has an associated <dfn>horizontal field of
+          view</dfn> which is a double. It represents the horizontal angle of
+          view in degrees.
+        </p>
+        <p>
+          A <a>depth map</a> has an associated <dfn>vertical field of
+          view</dfn> which is a double. It represents the vertical angle of
+          view in degrees.
+        </p>
+      </section>
+    </section>
+    <section>
+      <h2>
+        Extensions
+      </h2>
+      <section>
+        <h2>
+          <code><a>MediaStreamConstraints</a></code> dictionary
+        </h2>
+        <pre class="idl">
+          partial dictionary MediaStreamConstraints {
+              (boolean or MediaTrackConstraints) depth = false;
+          };
+        
+</pre>
+        <p dfn-for="MediaStreamConstraints" link-for="MediaStreamConstraints">
+          If the <dfn><code>depth</code></dfn> dictionary member has the value
+          true, the <a>MediaStream</a> returned by the <a>getUserMedia()</a>
+          method MUST contain a <a>depth stream track</a>. If the <a>depth</a>
+          dictionary member is set to false, is not provided, or is set to
+          null, the <a>MediaStream</a> MUST NOT contain a <a>depth stream
+          track</a>. If the <a>depth</a> dictionary member is set to a valid
+          <a>Constraints</a> dictionary, the <a>MediaStream</a> returned by the
+          <a>getUserMedia()</a> method MUST contain a <a>depth stream track</a>
+          that fulfills the specified mandatory constraints.
+        </p>
+        <p>
+          The <a>permission</a> associated with a depth camera <a>source</a> is
+          "<a>camera</a>",
+        </p>
+        <div class="note">
+          If the user agent requests a combined <a>depth+video stream</a>, the
+          devices in the constraint should be satisfied as belonging to the
+          same group or physical device. The decision to select and satisfy
+          which device pair is left up to the implementation.
+        </div>
+      </section>
+      <section>
+        <h2>
+          <code>MediaStream</code> interface
+        </h2>
+        <pre class="idl">
+          partial interface MediaStream {
+              sequence&lt;MediaStreamTrack&gt; getDepthTracks();
+          };
+        
+</pre>
+        <p dfn-for="MediaStream" link-for="MediaStream">
+          The <code><dfn>getDepthTracks</dfn>()</code> method, when invoked,
+          MUST return a sequence of <a data-lt="depth stream track">depth
+          stream tracks</a> in this stream.
+        </p>
+        <p>
+          The <dfn><code>getDepthTracks()</code></dfn> method MUST return a
+          sequence that represents a snapshot of all the
+          <a><code>MediaStreamTrack</code></a> objects in this stream's track
+          set whose <a><code>kind</code></a> is equal to "<code>depth</code>".
+          The conversion from the track set to the sequence is <a>user
+          agent</a> defined and the order does not have to be stable between
+          calls.
+        </p>
+        <p>
+          The <a>MediaStream</a> <a>consumer</a> for the <a>depth-only
+          stream</a> and <a>depth+video stream</a> is <a href=
+          "#the-video-element">the <code>video</code> element</a> [[!HTML]].
+        </p>
+        <div class="note">
+          New <a>consumer</a>s may be added in a future version of this
+          specification.
+        </div>
+        <section class="informative">
+          <h3>
+            Implementation considerations
+          </h3>
+          <p>
+            A <a>video stream track</a> and a <a>depth stream track</a> can be
+            combined into one <a>depth+video stream</a>. The rendering of the
+            two tracks are intended to be synchronized. The resolution of the
+            two tracks are intended to be same. And the coordination of the two
+            tracks are intended to be calibrated. These are not hard
+            requirements, since it might not be possible to synchronize tracks
+            from sources.
+          </p>
+        </section>
+      </section>
+      <section>
+        <h2>
+          <code>MediaStreamTrack</code> interface
+        </h2>
+        <p>
+          The <code><dfn>kind</dfn></code> attribute MUST, on getting, return
+          the string "<code>depth</code>" if the object represents a <a>depth
+          stream track</a>.
+        </p>
+        <p>
+          If a <a>MediaStreamTrack</a> of <a>kind</a> "<code>depth</code>" is
+          <a>muted</a> or <a>disabled</a>, it MUST render black frames, or a
+          zero-information-content equivalent.
+        </p>
+        <p>
+          The string "<code>depth</code>" is the <a>SourceTypeEnum</a> value
+          for the <a>source</a> that is a local depth camera source.
+        </p>
+      </section>
+      <section>
+        <h2>
+          <code>MediaDeviceInfo</code> interface
+        </h2>
+        <p>
+          The string "<code>depthinput</code>" is the <a>MediaDeviceKind</a>
+          value for the depth camera input device.
+        </p>
+      </section>
+      <section>
+        <h2>
+          Media provider object
+        </h2>
+        <p>
+          A <a href="https://html.spec.whatwg.org/#media-provider-object">media
+          provider object</a> can represent a <a>depth-only stream</a> (and
+          specifically, not a <a>depth+video stream</a>). The <a>user agent</a>
+          MUST support a <a href=
+          "https://html.spec.whatwg.org/#media-element">media element</a> with
+          an <a href=
+          "https://html.spec.whatwg.org/#assigned-media-provider-object">assigned
+          media provider object</a> that is a <a>depth-only stream</a>, and in
+          particular, the <a href=
+          "https://html.spec.whatwg.org/#dom-media-srcobject"><code>srcObject</code></a>
+          IDL attribute that allows the <a href=
+          "https://html.spec.whatwg.org/#media-element">media element</a> to be
+          assigned a <a href=
+          "https://html.spec.whatwg.org/#media-provider-object">media provider
+          object</a> MUST, on setting and getting, behave as specified in
+          [[!HTML]].
+        </p>
+      </section>
+      <section>
+        <h2>
+          The <code>video</code> element
+        </h2>
+        <p>
+          For a <a href=
+          "https://html.spec.whatwg.org/#the-video-element"><code>video</code>
+          element</a> whose <a href=
+          "https://html.spec.whatwg.org/#assigned-media-provider-object">assigned
+          media provider object</a> is a <a>depth-only stream</a>, the <a>user
+          agent</a> MUST, for each pixel of the <a href=
+          "https://html.spec.whatwg.org/#media-data">media data</a> that is
+          represented by a <a>depth map</a>, <a>convert the depth map value to
+          grayscale</a> prior to when the <code>video</code> element is
+          <a href="https://html.spec.whatwg.org/#potentially-playing">potentially
+          playing</a>.
+        </p>
+        <p>
+          For a <a href=
+          "https://html.spec.whatwg.org/#the-video-element"><code>video</code>
+          element</a> whose <a href=
+          "https://html.spec.whatwg.org/#assigned-media-provider-object">assigned
+          media provider object</a> is a <a>depth+video stream</a>, the <a>user
+          agent</a> MUST act as if all the <a>MediaStreamTrack</a>s of kind
+          "<code>depth</code>" were removed prior to when the
+          <code>video</code> element is <a href=
+          "https://html.spec.whatwg.org/#potentially-playing">potentially
+          playing</a>.
+        </p>
+        <p>
+          The algorithm to <dfn>convert the depth map value to grayscale</dfn>,
+          given a depth map value <var>d</var>, is as follows:
+        </p>
+        <ol>
+          <li>Let <var>near</var> be the the <a>near value</a>.
+          </li>
+          <li>Let <var>far</var> be the the <a>far value</a>.
+          </li>
+          <li>Apply the <a>rules to convert using range inverse</a> to
+          <var>d</var> to obtain quantized value <var>d<sub>8bit</sub>.</var>
+          </li>
+          <li>Return <var>d<sub>8bit</sub></var>.
+          </li>
+        </ol>
+        <p>
+          The <dfn>rules to convert using range inverse</dfn> are as given in
+          the following formula:
+        </p>
+        <p>
+          `d_(n) = (far * (d - n ear)) / (d * (far - n ear))`
+        </p>
+        <p>
+          `d_(8bit) = floor(d_(n) * 255)`
+        </p>
+        <div class="note">
+          <p>
+            The depth measurement <var>d</var> (in meter units) is recovered by
+            solving the <a>rules to convert using range inverse</a> for
+            <var>d</var> as follows:
+          </p>
+          <ol>
+            <li>Given <var>d<sub>8bit</sub></var>, <var>near</var> <a>near
+            value</a> and <var>far</var> <a>far value</a>, normalize
+            <var>d<sub>8bit</sub></var> to [0, 1] range:
+              <p>
+                `d_(n) = d_(8bit) / 255`
+              </p>
+            </li>
+            <li>Solve the <a>rules to convert using range inverse</a> for <var>
+              d</var>:
+              <p>
+                `d = (far * n ear) / (far - d_(n) * (far - n ear))`
+              </p>
+            </li>
+          </ol>
+        </div>
+        <section>
+          <h2>
+            <code>VideoTrack</code> interface
+          </h2>
+          <p>
+            For each <a>depth stream track</a> in the <a>depth-only stream</a>,
+            the <a>user agent</a> MUST create a corresponding <a>VideoTrack</a>
+            as defined in [[HTML]].
+          </p>
+        </section>
+      </section>
+      <section>
+        <h2>
+          <code>MediaTrackSettings</code> dictionary
+        </h2>
+        <p>
+          When the <a>getSettings()</a> method is invoked on a <a>depth stream
+          track</a>, the <a>user agent</a> MUST return the following dictionary
+          that extends the <a><code>MediaTrackSettings</code></a> dictionary:
+        </p>
+        <pre class="idl">
+          partial dictionary MediaTrackSettings {
+              double              near;
+              double              far;
+              double              focalLength;
+              double              horizontalFieldOfView;
+              double              verticalFieldOfView;
+          };
+        
+</pre>
+        <div dfn-for="MediaTrackSettings">
+          <p>
+            The <dfn><code>near</code></dfn> dictionary member represents the
+            <a>depth map</a>'s <a>near value</a>.
+          </p>
+          <p>
+            The <dfn><code>far</code></dfn> dictionary member represents the
+            <a>depth map</a>'s <a>far value</a>.
+          </p>
+          <p>
+            The <dfn><code>focalLength</code></dfn> dictionary member
+            represents the <a>depth map</a>'s <a>focal length</a>.
+          </p>
+          <p>
+            The <dfn><code>horizontalFieldOfView</code></dfn> dictionary member
+            represents the <a>depth map</a>'s <a>horizontal field of view</a>.
+          </p>
+          <p>
+            The <dfn><code>verticalFieldOfView</code></dfn> dictionary member
+            represents the <a>depth map</a>'s <a>vertical field of view</a>.
+          </p>
+        </div>
+      </section>
+      <section>
+        <h2>
+          Constrainable properties
+        </h2>
+        <table class="simple">
+          <thead>
+            <tr>
+              <th>
+                Property name
+              </th>
+              <th>
+                Values
+              </th>
+              <th>
+                Notes
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <code>near</code>
+              </td>
+              <td>
+                <code>ConstrainDouble</code>
+              </td>
+              <td>
+                The <a>near value</a>, in meters.
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <code>far</code>
+              </td>
+              <td>
+                <code>ConstrainDouble</code>
+              </td>
+              <td>
+                The <a>far value</a>, in meters.
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <code>focalLength</code>
+              </td>
+              <td>
+                <code>ConstrainDouble</code>
+              </td>
+              <td>
+                The <a>focal length</a>, in millimeters.
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <code>horizontalFieldOfView</code>
+              </td>
+              <td>
+                <code>ConstrainDouble</code>
+              </td>
+              <td>
+                The <a>horizontal field of view</a>, in degrees.
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <code>verticalFieldOfView</code>
+              </td>
+              <td>
+                <code>ConstrainDouble</code>
+              </td>
+              <td>
+                The <a>vertical field of view</a>, in degrees.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <p>
+          The <code>near</code>, <code>far</code>, <code>focalLength</code>,
+          <code>horizontalFieldOfView</code>, and
+          <code>verticalFieldOfView</code> constrainable properties are defined
+          to apply only to <a>depth stream track</a>s.
+        </p>
+        <div class="note">
+          The <code>focalLength</code>, <code>horizontalFieldOfView</code>, and
+          <code>verticalFieldOfView</code> properties could be upstreamed to a
+          future version of the the <em>Media Capture and Streams</em>
+          specification [[!GETUSERMEDIA]] to allow them to be applied to video
+          <a>MediaStreamTrack</a> objects as well.
+        </div>
+        <p>
+          The <code>near</code> and <code>far</code> constrainable properties,
+          when set, allow the implementation to pick the best depth camera mode
+          optimized for the range <code>[near, far]</code> and help minimize
+          the error introduced by the lossy conversion from the depth value
+          <var>d</var> to a quantized d<sub>8bit</sub> and back to an
+          approximation of the depth value <var>d</var>.
+        </p>
+        <p>
+          If the <code>far</code> property's value is less than the
+          <code>near</code> property's value, the <a>depth stream track</a> is
+          <a>overconstrained</a>.
+        </p>
+        <p>
+          If the <a>near value</a>, <a>far value</a>, <a>focal length</a>,
+          <a>horizontal field of view</a>, or <a>vertical field of view</a> is
+          fixed due to a hardware or software limitation, the corresponding
+          constrainable property's value MUST be set to the value reported by
+          the underlying implementation. (For example, the focal length of the
+          lens may be fixed, or the underlying platform may not expose the
+          focal length information.)
+        </p>
+        <pre class="idl">
+          partial dictionary MediaTrackConstraintSet {
+            ConstrainDouble near;
+            ConstrainDouble far;
+            ConstrainDouble focalLength;
+            ConstrainDouble horizontalFieldOfView;
+            ConstrainDouble verticalFieldOfView;
+          };
+
+          partial dictionary MediaTrackSupportedConstraints {
+            boolean near = true;
+            boolean far = true;
+            boolean focalLength = true;
+            boolean horizontalFieldOfView = true;
+            boolean verticalFieldOfView = true;
+          };
+
+          partial dictionary MediaTrackCapabilities {
+            (double or DoubleRange) near;
+            (double or DoubleRange) far;
+            (double or DoubleRange) focalLength;
+            (double or DoubleRange) horizontalFieldOfView;
+            (double or DoubleRange) verticalFieldOfView;
+          };
+        
+</pre>
+      </section>
+      <section>
+        <h2>
+          <code>WebGLRenderingContext</code> interface
+        </h2>
+        <section class="informative">
+          <h3>
+            Implementation considerations
+          </h3>
+          <p>
+            A <code>video</code> element whose source is a
+            <a><code>MediaStream</code></a> object containing a <a>depth stream
+            track</a> may be uploaded to a WebGL texture of format
+            <code>RGB</code> and type <code>UNSIGNED_BYTE</code>. [[WEBGL]]
+          </p>
+          <p>
+            For each pixel of this WebGL texture, the R component represents
+            the lower 8 bit value of 16 bit depth value, the G component
+            represents the upper 8 bit value of 16 bit depth value and the
+            value in B component is not defined.
+          </p>
+        </section>
+      </section>
+    </section>
+    <section class="informative">
+      <h2>
+        Examples
+      </h2>
+      <h3>
+        Playback of depth+video stream
+      </h3>
+      <pre class="example highlight">
+navigator.mediaDevices.getUserMedia({
+  depth: true,
+  video: true
+}).then(function (stream) {
+    // Wire the media stream into a &lt;video&gt; element for playback.
+    // The RGB video is rendered.
+    var video = document.querySelector('#video');
+    video.srcObject = stream;
+    video.play();
+
+    // Construct a depth-only stream out of the existing depth stream track.
+    var depthOnlyStream = new MediaStream(s.getDepthTracks()[0]);
+
+    // Wire the depth-only stream into another &lt;video&gt; element for playback.
+    // The depth information is rendered in its grayscale representation.
+    var depthVideo = document.querySelector('#depthVideo');
+    depthVideo.srcObject = depthOnlyStream;
+    depthVideo.play();
+  }
+);
+</pre>
+      <h3>
+        WebGL Fragment Shader based post-processing
+      </h3>
+      <pre class="example highlight">
+// This code sets up a video element from a depth stream, uploads it to a WebGL
+// texture, and samples that texture in the fragment shader, reconstructing the
+// 16-bit depth values from the red and green channels.
+navigator.mediaDevices.getUserMedia({
+  depth: true,
+}).then(function (stream) {
+  // wire the stream into a &lt;video&gt; element for playback
+  var depthVideo = document.querySelector('#depthVideo');
+  depthVideo.srcObject = stream;
+  depthVideo.play();
+}).catch(function (reason) {
+  // handle gUM error here
+});
+
+// ... later, in the rendering loop ...
+gl.texImage2D(
+   gl.TEXTURE_2D,
+   0,
+   gl.RGB,
+   gl.RGB,
+   gl.UNSIGNED_BYTE,
+   depthVideo
+);
+
+&lt;script id="fragment-shader" type="x-shader/x-fragment"&gt;
+  varying vec2 v_texCoord;
+  // u_tex points to the texture unit containing the depth texture.
+  uniform sampler2D u_tex;
+  uniform float far;
+  uniform float near;
+  uniform bool isRangeInverse;
+  void main() {
+    vec4 floatColor = texture2D(u_tex, v_texCoord);
+    float dn = floatColor.r;
+    float depth = 0.;
+    depth = far * near / ( far - dn * ( far - near));
+    // ...
+  }
+&lt;/script&gt;
+</pre>
+    </section>
+    <section class="informative">
+      <h2>
+        Privacy and security considerations
+      </h2>
+      <p>
+        The <a href=
+        "https://w3c.github.io/mediacapture-main/#privacy-and-security-considerations">
+        privacy and security considerations</a> discussed in [[!GETUSERMEDIA]]
+        apply to this extension specification.
+      </p>
+    </section>
+    <section class="appendix">
+      <h2>
+        Acknowledgements
+      </h2>
+      <p>
+        Thanks to everyone who contributed to the <a href=
+        "https://www.w3.org/wiki/Media_Capture_Depth_Stream_Extension">Use
+        Cases and Requirements</a>, sent feedback and comments. Special thanks
+        to Ningxin Hu for experimental implementations, as well as to the
+        Project Tango for their experiments.
+      </p>
+    </section><script>
+// remove redundant MathJax style blocks that fail css-validator
+    window.addEventListener('load', function () {
+      [].forEach.call(document.querySelectorAll('style[type]'), function(el) {
+        if (el.innerHTML.indexOf('MathJax') != -1 || el.innerHTML.indexOf('MJX') != -1) {
+          el.parentNode.removeChild(el);
+        }
+      });
+    });
+    </script>
+  </body>
+</html>
