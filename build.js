@@ -7,13 +7,15 @@
 //
 // The script touches the following files:
 //
-// ReSpec Source (index.src.html):
+// ReSpec source (index.src.html):
 // - tidy w/ tidyConfig
 //
 // Generated output (index.html):
 // - convert AsciiMath to MathJax CommonHTML
 // - move all <style> blocks to <head>
 // - remove <style> blocks that fail css-validator
+// - remove MathJax.js <script>
+// - remove @font-face CSS at-rules
 // - tidy w/ tidyConfig
 
 var mjAPI = require("mathjax-node/lib/mj-page.js");
@@ -56,10 +58,17 @@ mjAPI.typeset({
               document.documentElement.outerHTML.replace(/^(\n|\s)*/, "");
 
   // remove <style> blocks that fail css-validator
-  var re1 = /.mjx-menclose > svg {fill: none; stroke: currentColor}/gi;
-  var re2 = /.mjx-span {display: span}/gi;
-  var HTML = HTML.replace(re1, "").replace(re2, "");
+  var re1 = /.mjx-menclose > svg {fill: none; stroke: currentColor}\n/gi;
+  var re2 = /.mjx-span {display: span}\n/gi;
+  
+  // remove the MathJax.js <script>
+  var re3 = /\<script src="https:\/\/cdn.mathjax.org\/mathjax\/latest\/MathJax.js\?config=AM_CHTML"\>/gi;
 
+  // remove the MathJax @font-face CSS at-rules
+  var re4 = /@font-face {font-family: MJX(.*?)}\n/gi;
+
+  var HTML = HTML.replace(re1, "").replace(re2, "").replace(re3, "").replace(re4, "");
+    
   // tidy the generated output and write to index.html
   var HTML = tidy(HTML, tidyConfig);
   fs.writeFileSync('index.html', HTML, 'utf8');
