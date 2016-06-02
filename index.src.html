@@ -161,23 +161,9 @@
         or <a>depth+video stream</a>.
       </p>
       <p>
-        Depth cameras usually produce 16-bit depth values per pixel. However,
-        neither the canvas drawing surface used to draw and manipulate 2D
-        graphics on the web platform nor the <code><a>ImageData</a></code>
-        interface used to represent image data support 16 bits per pixel. To
-        address the issue, this specification defines a conversion into a 8-bit
-        grayscale representation of a <a>depth map</a> for consumption by APIs
-        that are limited to 8 bits per pixel.
-      </p>
-      <p>
-        The Media Capture Stream with Worker specification
-        [[MEDIACAPTURE-WORKER]] that complements this specification enables
-        processing of 16-bit depth values per pixel directly in a worker
-        environment and makes the <code>&lt;video&gt;</code> and
-        <code>&lt;canvas&gt;</code> indirection and depth-to-grayscale
-        conversion redundant. This alternative pipeline that supports greater
-        bit depth and does not incur the performance penalty of the indirection
-        and conversion enables more advanced use cases.
+        Depth cameras usually produce 16-bit depth values per pixel, so this
+        specification defines a 16-bit grayscale representation of a <a>depth
+        map</a>.
       </p>
     </section>
     <section>
@@ -349,6 +335,54 @@
           view</dfn> which is a double. It represents the vertical angle of
           view in degrees.
         </p>
+        <p>
+          The data type of a <a>depth map</a> is 16-bit unsigned integer. The
+          algorithm to <dfn>convert the depth map value to grayscale</dfn>,
+          given a depth map value <var>d</var>, is as follows:
+        </p>
+        <ol>
+          <li>Let <var>near</var> be the the <a>near value</a>.
+          </li>
+          <li>Let <var>far</var> be the the <a>far value</a>.
+          </li>
+          <li>Apply the <a>rules to convert using range inverse</a> to
+          <var>d</var> to obtain quantized value <var>d<sub>8bit</sub>.</var>
+          </li>
+          <li>Return <var>d<sub>16bit</sub></var>.
+          </li>
+        </ol>
+        <p>
+          The <dfn>rules to convert using range inverse</dfn> are as given in
+          the following formula:
+        </p>
+        <p>
+          `d_(n) = (far * (d - n ear)) / (d * (far - n ear))`
+        </p>
+        <p>
+          `d_(16bit) = floor(d_(n) * 65535)`
+        </p>
+        <div class="note">
+          <p>
+            The depth measurement <var>d</var> (in meter units) is recovered by
+            solving the <a>rules to convert using range inverse</a> for
+            <var>d</var> as follows:
+          </p>
+          <ol>
+            <li>Given <var>d<sub>16bit</sub></var>, <var>near</var> <a>near
+            value</a> and <var>far</var> <a>far value</a>, normalize
+            <var>d<sub>16bit</sub></var> to [0, 1] range:
+              <p>
+                `d_(n) = d_(16bit) / 65535`
+              </p>
+            </li>
+            <li>Solve the <a>rules to convert using range inverse</a> for <var>
+              d</var>:
+              <p>
+                `d = (far * n ear) / (far - d_(n) * (far - n ear))`
+              </p>
+            </li>
+          </ol>
+        </div>
       </section>
     </section>
     <section>
@@ -433,6 +467,25 @@
             requirements, since it might not be possible to synchronize tracks
             from sources.
           </p>
+          <p>
+            There are two ways to access the 16 bit depth values.
+          </p>
+          <ol>
+            <li>
+              <code>16bit</code> texture in [[WEBGL]] after uploading a
+              <a>depth map</a> to the texture. For instance, <code>RGB</code>
+              and <code>LUMINANCE_ALPHA</code> are <code>16bit</code> texture.
+            </li>
+            <li>the Media Capture Stream with Worker specification
+            [[MEDIACAPTURE-WORKER]] that complements this specification enables
+            processing of 16-bit depth values per pixel directly in a worker
+            environment and makes the <code>&lt;video&gt;</code> and
+            <code>&lt;canvas&gt;</code> indirection and depth-to-grayscale
+            conversion redundant. This alternative pipeline that supports
+            greater bit depth and does not incur the performance penalty of the
+            indirection and conversion enables more advanced use cases.
+            </li>
+          </ol>
         </section>
       </section>
       <section>
@@ -512,51 +565,16 @@
           playing</a>.
         </p>
         <p>
-          The algorithm to <dfn>convert the depth map value to grayscale</dfn>,
-          given a depth map value <var>d</var>, is as follows:
-        </p>
-        <ol>
-          <li>Let <var>near</var> be the the <a>near value</a>.
-          </li>
-          <li>Let <var>far</var> be the the <a>far value</a>.
-          </li>
-          <li>Apply the <a>rules to convert using range inverse</a> to
-          <var>d</var> to obtain quantized value <var>d<sub>8bit</sub>.</var>
-          </li>
-          <li>Return <var>d<sub>8bit</sub></var>.
-          </li>
-        </ol>
-        <p>
-          The <dfn>rules to convert using range inverse</dfn> are as given in
-          the following formula:
+          The <code>video</code> element draws the depth map after conversion
+          as follows:
         </p>
         <p>
-          `d_(n) = (far * (d - n ear)) / (d * (far - n ear))`
-        </p>
-        <p>
-          `d_(8bit) = floor(d_(n) * 255)`
+          `red_(8bit) = d_(16bit) / 255`
         </p>
         <div class="note">
-          <p>
-            The depth measurement <var>d</var> (in meter units) is recovered by
-            solving the <a>rules to convert using range inverse</a> for
-            <var>d</var> as follows:
-          </p>
-          <ol>
-            <li>Given <var>d<sub>8bit</sub></var>, <var>near</var> <a>near
-            value</a> and <var>far</var> <a>far value</a>, normalize
-            <var>d<sub>8bit</sub></var> to [0, 1] range:
-              <p>
-                `d_(n) = d_(8bit) / 255`
-              </p>
-            </li>
-            <li>Solve the <a>rules to convert using range inverse</a> for <var>
-              d</var>:
-              <p>
-                `d = (far * n ear) / (far - d_(n) * (far - n ear))`
-              </p>
-            </li>
-          </ol>
+          It is an implementation detail how the frames are rendered to the
+          screen. For example, the implementation may use a grayscale or red
+          channel representation.
         </div>
         <section>
           <h2>

@@ -226,23 +226,9 @@
         or <a>depth+video stream</a>.
       </p>
       <p>
-        Depth cameras usually produce 16-bit depth values per pixel. However,
-        neither the canvas drawing surface used to draw and manipulate 2D
-        graphics on the web platform nor the <code><a>ImageData</a></code>
-        interface used to represent image data support 16 bits per pixel. To
-        address the issue, this specification defines a conversion into a 8-bit
-        grayscale representation of a <a>depth map</a> for consumption by APIs
-        that are limited to 8 bits per pixel.
-      </p>
-      <p>
-        The Media Capture Stream with Worker specification
-        [[MEDIACAPTURE-WORKER]] that complements this specification enables
-        processing of 16-bit depth values per pixel directly in a worker
-        environment and makes the <code>&lt;video&gt;</code> and
-        <code>&lt;canvas&gt;</code> indirection and depth-to-grayscale
-        conversion redundant. This alternative pipeline that supports greater
-        bit depth and does not incur the performance penalty of the indirection
-        and conversion enables more advanced use cases.
+        Depth cameras usually produce 16-bit depth values per pixel, so this
+        specification defines a 16-bit grayscale representation of a <a>depth
+        map</a>.
       </p>
     </section>
     <section>
@@ -414,170 +400,9 @@
           view</dfn> which is a double. It represents the vertical angle of
           view in degrees.
         </p>
-      </section>
-    </section>
-    <section>
-      <h2>
-        Extensions
-      </h2>
-      <section>
-        <h2>
-          <code><a>MediaStreamConstraints</a></code> dictionary
-        </h2>
-        <pre class="idl">
-          partial dictionary MediaStreamConstraints {
-              (boolean or MediaTrackConstraints) depth = false;
-          };
-        
-</pre>
-        <p dfn-for="MediaStreamConstraints" link-for="MediaStreamConstraints">
-          If the <dfn><code>depth</code></dfn> dictionary member has the value
-          true, the <a>MediaStream</a> returned by the <a>getUserMedia()</a>
-          method MUST contain a <a>depth stream track</a>. If the <a>depth</a>
-          dictionary member is set to false, is not provided, or is set to
-          null, the <a>MediaStream</a> MUST NOT contain a <a>depth stream
-          track</a>. If the <a>depth</a> dictionary member is set to a valid
-          <a>Constraints</a> dictionary, the <a>MediaStream</a> returned by the
-          <a>getUserMedia()</a> method MUST contain a <a>depth stream track</a>
-          that fulfills the specified mandatory constraints.
-        </p>
         <p>
-          The <a>permission</a> associated with a depth camera <a>source</a> is
-          "<a>camera</a>",
-        </p>
-        <div class="note">
-          If the user agent requests a combined <a>depth+video stream</a>, the
-          devices in the constraint should be satisfied as belonging to the
-          same group or physical device. The decision to select and satisfy
-          which device pair is left up to the implementation.
-        </div>
-      </section>
-      <section>
-        <h2>
-          <code>MediaStream</code> interface
-        </h2>
-        <pre class="idl">
-          partial interface MediaStream {
-              sequence&lt;MediaStreamTrack&gt; getDepthTracks();
-          };
-        
-</pre>
-        <p dfn-for="MediaStream" link-for="MediaStream">
-          The <code><dfn>getDepthTracks</dfn>()</code> method, when invoked,
-          MUST return a sequence of <a data-lt="depth stream track">depth
-          stream tracks</a> in this stream.
-        </p>
-        <p>
-          The <dfn><code>getDepthTracks()</code></dfn> method MUST return a
-          sequence that represents a snapshot of all the
-          <a><code>MediaStreamTrack</code></a> objects in this stream's track
-          set whose <a><code>kind</code></a> is equal to "<code>depth</code>".
-          The conversion from the track set to the sequence is <a>user
-          agent</a> defined and the order does not have to be stable between
-          calls.
-        </p>
-        <p>
-          The <a>MediaStream</a> <a>consumer</a> for the <a>depth-only
-          stream</a> and <a>depth+video stream</a> is <a href=
-          "#the-video-element">the <code>video</code> element</a> [[!HTML]].
-        </p>
-        <div class="note">
-          New <a>consumer</a>s may be added in a future version of this
-          specification.
-        </div>
-        <section class="informative">
-          <h3>
-            Implementation considerations
-          </h3>
-          <p>
-            A <a>video stream track</a> and a <a>depth stream track</a> can be
-            combined into one <a>depth+video stream</a>. The rendering of the
-            two tracks are intended to be synchronized. The resolution of the
-            two tracks are intended to be same. And the coordination of the two
-            tracks are intended to be calibrated. These are not hard
-            requirements, since it might not be possible to synchronize tracks
-            from sources.
-          </p>
-        </section>
-      </section>
-      <section>
-        <h2>
-          <code>MediaStreamTrack</code> interface
-        </h2>
-        <p>
-          The <code><dfn>kind</dfn></code> attribute MUST, on getting, return
-          the string "<code>depth</code>" if the object represents a <a>depth
-          stream track</a>.
-        </p>
-        <p>
-          If a <a>MediaStreamTrack</a> of <a>kind</a> "<code>depth</code>" is
-          <a>muted</a> or <a>disabled</a>, it MUST render black frames, or a
-          zero-information-content equivalent.
-        </p>
-      </section>
-      <section>
-        <h2>
-          <code>MediaDeviceInfo</code> interface
-        </h2>
-        <p>
-          The string "<code>depthinput</code>" is the <a>MediaDeviceKind</a>
-          value for the depth camera input device.
-        </p>
-      </section>
-      <section>
-        <h2>
-          Media provider object
-        </h2>
-        <p>
-          A <a href="https://html.spec.whatwg.org/#media-provider-object">media
-          provider object</a> can represent a <a>depth-only stream</a> (and
-          specifically, not a <a>depth+video stream</a>). The <a>user agent</a>
-          MUST support a <a href=
-          "https://html.spec.whatwg.org/#media-element">media element</a> with
-          an <a href=
-          "https://html.spec.whatwg.org/#assigned-media-provider-object">assigned
-          media provider object</a> that is a <a>depth-only stream</a>, and in
-          particular, the <a href=
-          "https://html.spec.whatwg.org/#dom-media-srcobject"><code>srcObject</code></a>
-          IDL attribute that allows the <a href=
-          "https://html.spec.whatwg.org/#media-element">media element</a> to be
-          assigned a <a href=
-          "https://html.spec.whatwg.org/#media-provider-object">media provider
-          object</a> MUST, on setting and getting, behave as specified in
-          [[!HTML]].
-        </p>
-      </section>
-      <section>
-        <h2>
-          The <code>video</code> element
-        </h2>
-        <p>
-          For a <a href=
-          "https://html.spec.whatwg.org/#the-video-element"><code>video</code>
-          element</a> whose <a href=
-          "https://html.spec.whatwg.org/#assigned-media-provider-object">assigned
-          media provider object</a> is a <a>depth-only stream</a>, the <a>user
-          agent</a> MUST, for each pixel of the <a href=
-          "https://html.spec.whatwg.org/#media-data">media data</a> that is
-          represented by a <a>depth map</a>, <a>convert the depth map value to
-          grayscale</a> prior to when the <code>video</code> element is
-          <a href="https://html.spec.whatwg.org/#potentially-playing">potentially
-          playing</a>.
-        </p>
-        <p>
-          For a <a href=
-          "https://html.spec.whatwg.org/#the-video-element"><code>video</code>
-          element</a> whose <a href=
-          "https://html.spec.whatwg.org/#assigned-media-provider-object">assigned
-          media provider object</a> is a <a>depth+video stream</a>, the <a>user
-          agent</a> MUST act as if all the <a>MediaStreamTrack</a>s of kind
-          "<code>depth</code>" were removed prior to when the
-          <code>video</code> element is <a href=
-          "https://html.spec.whatwg.org/#potentially-playing">potentially
-          playing</a>.
-        </p>
-        <p>
-          The algorithm to <dfn>convert the depth map value to grayscale</dfn>,
+          The data type of a <a>depth map</a> is 16-bit unsigned integer. The
+          algorithm to <dfn>convert the depth map value to grayscale</dfn>,
           given a depth map value <var>d</var>, is as follows:
         </p>
         <ol>
@@ -588,7 +413,7 @@
           <li>Apply the <a>rules to convert using range inverse</a> to
           <var>d</var> to obtain quantized value <var>d<sub>8bit</sub>.</var>
           </li>
-          <li>Return <var>d<sub>8bit</sub></var>.
+          <li>Return <var>d<sub>16bit</sub></var>.
           </li>
         </ol>
         <p>
@@ -694,7 +519,7 @@
           "font-size: 70.7%; vertical-align: -0.219em; padding-right: 0.071em;"><span id="MJXc-Node-45"
           class="mjx-mrow" style=""><span id="MJXc-Node-46" class=
           "mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style=
-          "padding-top: 0.372em; padding-bottom: 0.372em;">8</span></span><span id="MJXc-Node-47"
+          "padding-top: 0.372em; padding-bottom: 0.372em;">16</span></span><span id="MJXc-Node-47"
           class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
           "padding-top: 0.446em; padding-bottom: 0.298em;">b</span></span><span id="MJXc-Node-48"
           class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
@@ -723,7 +548,7 @@
           "mjx-char MJXc-TeX-main-R" style=
           "padding-top: 0.004em; padding-bottom: 0.298em;">⋅</span></span><span id="MJXc-Node-59"
           class="mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style=
-          "padding-top: 0.372em; padding-bottom: 0.372em;">255</span></span></span><span id="MJXc-Node-60"
+          "padding-top: 0.372em; padding-bottom: 0.372em;">65535</span></span></span><span id="MJXc-Node-60"
           class="mjx-mo"><span class="mjx-char MJXc-TeX-main-R" style=
           "padding-top: 0.446em; padding-bottom: 0.593em;">⌋</span></span></span></span></span></span></span></span>
         </p>
@@ -734,9 +559,9 @@
             <var>d</var> as follows:
           </p>
           <ol>
-            <li>Given <var>d<sub>8bit</sub></var>, <var>near</var> <a>near
+            <li>Given <var>d<sub>16bit</sub></var>, <var>near</var> <a>near
             value</a> and <var>far</var> <a>far value</a>, normalize
-            <var>d<sub>8bit</sub></var> to [0, 1] range:
+            <var>d<sub>16bit</sub></var> to [0, 1] range:
               <p>
                 <span id="MathJax-Element-3-Frame" class="mjx-chtml"><span id=
                 "MJXc-Node-61" class="mjx-math" role="math"><span id=
@@ -756,10 +581,9 @@
                 "mjx-char MJXc-TeX-main-R" style=
                 "padding-top: 0.077em; padding-bottom: 0.298em;">=</span></span><span id="MJXc-Node-70"
                 class="mjx-mfrac"><span class="mjx-box MJXc-stacked" style=
-                "width: 1.911em; padding: 0px 0.12em;"><span class=
-                "mjx-numerator" style=
-                "width: 1.911em; top: -1.447em;"><span id="MJXc-Node-71" class=
-                "mjx-msub"><span class="mjx-base" style=
+                "width: 2.7em; padding: 0px 0.12em;"><span class=
+                "mjx-numerator" style="width: 2.7em; top: -1.447em;"><span id=
+                "MJXc-Node-71" class="mjx-msub"><span class="mjx-base" style=
                 "margin-right: -0.003em;"><span id="MJXc-Node-72" class=
                 "mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
                 "padding-top: 0.446em; padding-bottom: 0.298em; padding-right: 0.003em;">d</span></span></span><span class="mjx-sub"
@@ -767,17 +591,16 @@
                 "font-size: 70.7%; vertical-align: -0.219em; padding-right: 0.071em;"><span id="MJXc-Node-73"
                 class="mjx-mrow" style=""><span id="MJXc-Node-74" class=
                 "mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style=
-                "padding-top: 0.372em; padding-bottom: 0.372em;">8</span></span><span id="MJXc-Node-75"
+                "padding-top: 0.372em; padding-bottom: 0.372em;">16</span></span><span id="MJXc-Node-75"
                 class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
                 "padding-top: 0.446em; padding-bottom: 0.298em;">b</span></span><span id="MJXc-Node-76"
                 class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
                 "padding-top: 0.446em; padding-bottom: 0.298em;">i</span></span><span id="MJXc-Node-77"
                 class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
                 "padding-top: 0.372em; padding-bottom: 0.298em;">t</span></span></span></span></span></span><span class="mjx-denominator"
-                style="width: 1.911em; bottom: -0.778em;"><span id=
-                "MJXc-Node-78" class="mjx-mn"><span class=
-                "mjx-char MJXc-TeX-main-R" style=
-                "padding-top: 0.372em; padding-bottom: 0.372em;">255</span></span></span><span style="border-bottom: 1.3px solid; top: -0.296em; width: 1.911em;"
+                style="width: 2.7em; bottom: -0.778em;"><span id="MJXc-Node-78"
+                class="mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style=
+                "padding-top: 0.372em; padding-bottom: 0.372em;">65535</span></span></span><span style="border-bottom: 1.3px solid; top: -0.296em; width: 2.7em;"
                 class="mjx-line"></span></span><span style=
                 "height: 2.225em; vertical-align: -0.778em;" class=
                 "mjx-vsize"></span></span></span></span></span></span></span>
@@ -873,6 +696,250 @@
               </p>
             </li>
           </ol>
+        </div>
+      </section>
+    </section>
+    <section>
+      <h2>
+        Extensions
+      </h2>
+      <section>
+        <h2>
+          <code><a>MediaStreamConstraints</a></code> dictionary
+        </h2>
+        <pre class="idl">
+          partial dictionary MediaStreamConstraints {
+              (boolean or MediaTrackConstraints) depth = false;
+          };
+        
+</pre>
+        <p dfn-for="MediaStreamConstraints" link-for="MediaStreamConstraints">
+          If the <dfn><code>depth</code></dfn> dictionary member has the value
+          true, the <a>MediaStream</a> returned by the <a>getUserMedia()</a>
+          method MUST contain a <a>depth stream track</a>. If the <a>depth</a>
+          dictionary member is set to false, is not provided, or is set to
+          null, the <a>MediaStream</a> MUST NOT contain a <a>depth stream
+          track</a>. If the <a>depth</a> dictionary member is set to a valid
+          <a>Constraints</a> dictionary, the <a>MediaStream</a> returned by the
+          <a>getUserMedia()</a> method MUST contain a <a>depth stream track</a>
+          that fulfills the specified mandatory constraints.
+        </p>
+        <p>
+          The <a>permission</a> associated with a depth camera <a>source</a> is
+          "<a>camera</a>",
+        </p>
+        <div class="note">
+          If the user agent requests a combined <a>depth+video stream</a>, the
+          devices in the constraint should be satisfied as belonging to the
+          same group or physical device. The decision to select and satisfy
+          which device pair is left up to the implementation.
+        </div>
+      </section>
+      <section>
+        <h2>
+          <code>MediaStream</code> interface
+        </h2>
+        <pre class="idl">
+          partial interface MediaStream {
+              sequence&lt;MediaStreamTrack&gt; getDepthTracks();
+          };
+        
+</pre>
+        <p dfn-for="MediaStream" link-for="MediaStream">
+          The <code><dfn>getDepthTracks</dfn>()</code> method, when invoked,
+          MUST return a sequence of <a data-lt="depth stream track">depth
+          stream tracks</a> in this stream.
+        </p>
+        <p>
+          The <dfn><code>getDepthTracks()</code></dfn> method MUST return a
+          sequence that represents a snapshot of all the
+          <a><code>MediaStreamTrack</code></a> objects in this stream's track
+          set whose <a><code>kind</code></a> is equal to "<code>depth</code>".
+          The conversion from the track set to the sequence is <a>user
+          agent</a> defined and the order does not have to be stable between
+          calls.
+        </p>
+        <p>
+          The <a>MediaStream</a> <a>consumer</a> for the <a>depth-only
+          stream</a> and <a>depth+video stream</a> is <a href=
+          "#the-video-element">the <code>video</code> element</a> [[!HTML]].
+        </p>
+        <div class="note">
+          New <a>consumer</a>s may be added in a future version of this
+          specification.
+        </div>
+        <section class="informative">
+          <h3>
+            Implementation considerations
+          </h3>
+          <p>
+            A <a>video stream track</a> and a <a>depth stream track</a> can be
+            combined into one <a>depth+video stream</a>. The rendering of the
+            two tracks are intended to be synchronized. The resolution of the
+            two tracks are intended to be same. And the coordination of the two
+            tracks are intended to be calibrated. These are not hard
+            requirements, since it might not be possible to synchronize tracks
+            from sources.
+          </p>
+          <p>
+            There are two ways to access the 16 bit depth values.
+          </p>
+          <ol>
+            <li>
+              <code>16bit</code> texture in [[WEBGL]] after uploading a
+              <a>depth map</a> to the texture. For instance, <code>RGB</code>
+              and <code>LUMINANCE_ALPHA</code> are <code>16bit</code> texture.
+            </li>
+            <li>the Media Capture Stream with Worker specification
+            [[MEDIACAPTURE-WORKER]] that complements this specification enables
+            processing of 16-bit depth values per pixel directly in a worker
+            environment and makes the <code>&lt;video&gt;</code> and
+            <code>&lt;canvas&gt;</code> indirection and depth-to-grayscale
+            conversion redundant. This alternative pipeline that supports
+            greater bit depth and does not incur the performance penalty of the
+            indirection and conversion enables more advanced use cases.
+            </li>
+          </ol>
+        </section>
+      </section>
+      <section>
+        <h2>
+          <code>MediaStreamTrack</code> interface
+        </h2>
+        <p>
+          The <code><dfn>kind</dfn></code> attribute MUST, on getting, return
+          the string "<code>depth</code>" if the object represents a <a>depth
+          stream track</a>.
+        </p>
+        <p>
+          If a <a>MediaStreamTrack</a> of <a>kind</a> "<code>depth</code>" is
+          <a>muted</a> or <a>disabled</a>, it MUST render black frames, or a
+          zero-information-content equivalent.
+        </p>
+      </section>
+      <section>
+        <h2>
+          <code>MediaDeviceInfo</code> interface
+        </h2>
+        <p>
+          The string "<code>depthinput</code>" is the <a>MediaDeviceKind</a>
+          value for the depth camera input device.
+        </p>
+      </section>
+      <section>
+        <h2>
+          Media provider object
+        </h2>
+        <p>
+          A <a href="https://html.spec.whatwg.org/#media-provider-object">media
+          provider object</a> can represent a <a>depth-only stream</a> (and
+          specifically, not a <a>depth+video stream</a>). The <a>user agent</a>
+          MUST support a <a href=
+          "https://html.spec.whatwg.org/#media-element">media element</a> with
+          an <a href=
+          "https://html.spec.whatwg.org/#assigned-media-provider-object">assigned
+          media provider object</a> that is a <a>depth-only stream</a>, and in
+          particular, the <a href=
+          "https://html.spec.whatwg.org/#dom-media-srcobject"><code>srcObject</code></a>
+          IDL attribute that allows the <a href=
+          "https://html.spec.whatwg.org/#media-element">media element</a> to be
+          assigned a <a href=
+          "https://html.spec.whatwg.org/#media-provider-object">media provider
+          object</a> MUST, on setting and getting, behave as specified in
+          [[!HTML]].
+        </p>
+      </section>
+      <section>
+        <h2>
+          The <code>video</code> element
+        </h2>
+        <p>
+          For a <a href=
+          "https://html.spec.whatwg.org/#the-video-element"><code>video</code>
+          element</a> whose <a href=
+          "https://html.spec.whatwg.org/#assigned-media-provider-object">assigned
+          media provider object</a> is a <a>depth-only stream</a>, the <a>user
+          agent</a> MUST, for each pixel of the <a href=
+          "https://html.spec.whatwg.org/#media-data">media data</a> that is
+          represented by a <a>depth map</a>, <a>convert the depth map value to
+          grayscale</a> prior to when the <code>video</code> element is
+          <a href="https://html.spec.whatwg.org/#potentially-playing">potentially
+          playing</a>.
+        </p>
+        <p>
+          For a <a href=
+          "https://html.spec.whatwg.org/#the-video-element"><code>video</code>
+          element</a> whose <a href=
+          "https://html.spec.whatwg.org/#assigned-media-provider-object">assigned
+          media provider object</a> is a <a>depth+video stream</a>, the <a>user
+          agent</a> MUST act as if all the <a>MediaStreamTrack</a>s of kind
+          "<code>depth</code>" were removed prior to when the
+          <code>video</code> element is <a href=
+          "https://html.spec.whatwg.org/#potentially-playing">potentially
+          playing</a>.
+        </p>
+        <p>
+          The <code>video</code> element draws the depth map after conversion
+          as follows:
+        </p>
+        <p>
+          <span id="MathJax-Element-5-Frame" class="mjx-chtml"><span id=
+          "MJXc-Node-116" class="mjx-math" role="math"><span id="MJXc-Node-117"
+          class="mjx-mrow"><span id="MJXc-Node-118" class=
+          "mjx-mstyle"><span id="MJXc-Node-119" class="mjx-mrow"><span id=
+          "MJXc-Node-120" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I"
+          style=
+          "padding-top: 0.225em; padding-bottom: 0.298em;">r</span></span><span id="MJXc-Node-121"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.225em; padding-bottom: 0.298em;">e</span></span><span id="MJXc-Node-122"
+          class="mjx-msub"><span class="mjx-base" style=
+          "margin-right: -0.003em;"><span id="MJXc-Node-123" class=
+          "mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.446em; padding-bottom: 0.298em; padding-right: 0.003em;">d</span></span></span><span class="mjx-sub"
+          style=
+          "font-size: 70.7%; vertical-align: -0.219em; padding-right: 0.071em;"><span id="MJXc-Node-124"
+          class="mjx-mrow" style=""><span id="MJXc-Node-125" class=
+          "mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style=
+          "padding-top: 0.372em; padding-bottom: 0.372em;">8</span></span><span id="MJXc-Node-126"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.446em; padding-bottom: 0.298em;">b</span></span><span id="MJXc-Node-127"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.446em; padding-bottom: 0.298em;">i</span></span><span id="MJXc-Node-128"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.372em; padding-bottom: 0.298em;">t</span></span></span></span></span><span id="MJXc-Node-129"
+          class="mjx-mo" style=
+          "padding-left: 0.333em; padding-right: 0.333em;"><span class=
+          "mjx-char MJXc-TeX-main-R" style=
+          "padding-top: 0.077em; padding-bottom: 0.298em;">=</span></span><span id="MJXc-Node-130"
+          class="mjx-mfrac"><span class="mjx-box MJXc-stacked" style=
+          "width: 2.265em; padding: 0px 0.12em;"><span class="mjx-numerator"
+          style="width: 2.265em; top: -1.447em;"><span id="MJXc-Node-131"
+          class="mjx-msub"><span class="mjx-base" style=
+          "margin-right: -0.003em;"><span id="MJXc-Node-132" class=
+          "mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.446em; padding-bottom: 0.298em; padding-right: 0.003em;">d</span></span></span><span class="mjx-sub"
+          style=
+          "font-size: 70.7%; vertical-align: -0.219em; padding-right: 0.071em;"><span id="MJXc-Node-133"
+          class="mjx-mrow" style=""><span id="MJXc-Node-134" class=
+          "mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style=
+          "padding-top: 0.372em; padding-bottom: 0.372em;">16</span></span><span id="MJXc-Node-135"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.446em; padding-bottom: 0.298em;">b</span></span><span id="MJXc-Node-136"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.446em; padding-bottom: 0.298em;">i</span></span><span id="MJXc-Node-137"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.372em; padding-bottom: 0.298em;">t</span></span></span></span></span></span><span class="mjx-denominator"
+          style="width: 2.265em; bottom: -0.778em;"><span id="MJXc-Node-138"
+          class="mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style=
+          "padding-top: 0.372em; padding-bottom: 0.372em;">255</span></span></span><span style="border-bottom: 1.3px solid; top: -0.296em; width: 2.265em;"
+          class="mjx-line"></span></span><span style=
+          "height: 2.225em; vertical-align: -0.778em;" class=
+          "mjx-vsize"></span></span></span></span></span></span></span>
+        </p>
+        <div class="note">
+          It is an implementation detail how the frames are rendered to the
+          screen. For example, the implementation may use a grayscale or red
+          channel representation.
         </div>
         <section>
           <h2>
