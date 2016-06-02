@@ -1,0 +1,14 @@
+{
+  "name": "mediacapture-depth",
+  "description": "Media Capture Depth Stream Extensions: This repository contains the Media Capture Depth Stream Extensions specification that is being worked on in the W3C Media Capture Task Force.",
+  "license" : "SEE LICENSE IN LICENSE.md",
+  "homepage": "https://github.com/w3c/mediacapture-depth",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/w3c/mediacapture-depth.git"
+  },
+  "dependencies": {
+    "mathjax-node": ">=0.4.0",
+    "tidy-html5": ">=0.1.0"
+  }
+}
