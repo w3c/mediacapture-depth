@@ -345,18 +345,18 @@
           </li>
           <li>Let <var>far</var> be the the <a>far value</a>.
           </li>
-          <li>Apply the <a>rules to convert using range inverse</a> to
-          <var>d</var> to obtain quantized value <var>d<sub>8bit</sub>.</var>
+          <li>Apply the <a>rules to convert using range linear</a> to
+          <var>d</var> to obtain quantized value <var>d<sub>16bit</sub>.</var>
           </li>
           <li>Return <var>d<sub>16bit</sub></var>.
           </li>
         </ol>
         <p>
-          The <dfn>rules to convert using range inverse</dfn> are as given in
+          The <dfn>rules to convert using range linear</dfn> are as given in
           the following formula:
         </p>
         <p>
-          `d_(n) = (far * (d - n ear)) / (d * (far - n ear))`
+          `d_(n) = (d - n ear) / (far - n ear)`
         </p>
         <p>
           `d_(16bit) = floor(d_(n) * 65535)`
@@ -364,7 +364,7 @@
         <div class="note">
           <p>
             The depth measurement <var>d</var> (in meter units) is recovered by
-            solving the <a>rules to convert using range inverse</a> for
+            solving the <a>rules to convert using range linear</a> for
             <var>d</var> as follows:
           </p>
           <ol>
@@ -375,10 +375,10 @@
                 `d_(n) = d_(16bit) / 65535`
               </p>
             </li>
-            <li>Solve the <a>rules to convert using range inverse</a> for <var>
+            <li>Solve the <a>rules to convert using range linear</a> for <var>
               d</var>:
               <p>
-                `d = (far * n ear) / (far - d_(n) * (far - n ear))`
+                `d = (d_(n) * (far - n ear)) + n ear`
               </p>
             </li>
           </ol>
@@ -853,7 +853,6 @@ gl.texImage2D(
   uniform sampler2D u_tex;
   uniform float far;
   uniform float near;
-  uniform bool isRangeInverse;
   void main() {
     vec4 floatColor = texture2D(u_tex, v_texCoord);
     float dn = floatColor.r;
@@ -887,7 +886,7 @@ gl.texImage2D(
         Project Tango for their experiments.
       </p>
       <p>
-        The range inverse format [[!XDM]] is licensed under <a href=
+        The range linear format [[!XDM]] is licensed under <a href=
         "http://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.
       </p>
     </section>
