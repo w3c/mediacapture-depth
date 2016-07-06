@@ -322,10 +322,35 @@
       </p>
       <p>
         The <code><a href=
-        "https://html.spec.whatwg.org/#imagedata"><dfn>ImageData</dfn></a></code>
-        and <code><a href=
-        "https://html.spec.whatwg.org/#videotrack"><dfn>VideoTrack</dfn></a></code>
-        interfaces are defined in [[!HTML]].
+        "https://html.spec.whatwg.org/multipage/embedded-content.html#the-video-element">
+        <dfn>video</dfn></a></code> element and <code><a href=
+        "https://html.spec.whatwg.org/multipage/scripting.html#imagedata"><dfn>ImageData</dfn></a></code>
+        (and its <code><a href=
+        "%20https://html.spec.whatwg.org/multipage/scripting.html#dom-imagedata-data">
+        <dfn>data</dfn></a></code> attribute and <a href=
+        "https://html.spec.whatwg.org/multipage/scripting.html#canvas-pixel-arraybuffer">
+        <dfn>Canvas Pixel <code>ArrayBuffer</code></dfn></a>), <code><a href=
+        "https://html.spec.whatwg.org/multipage/embedded-content.html#videotrack">
+        <dfn>VideoTrack</dfn></a></code>, <code><a href=
+        "%20https://html.spec.whatwg.org/multipage/embedded-content.html#htmlmediaelement">
+        <dfn>HTMLMediaElement</dfn></a></code> (and its <code><a href=
+        "%20https://html.spec.whatwg.org/multipage/embedded-content.html#dom-media-srcobject">
+        <dfn>srcObject</dfn></a></code> attribute), <code><a href=
+        "%20https://html.spec.whatwg.org/multipage/embedded-content.html#htmlvideoelement">
+        <dfn>HTMLVideoElement</dfn></a></code> interfaces and the
+        <code><a href="%20https://html.spec.whatwg.org/multipage/scripting.html#canvasimagesource">
+        <dfn>CanvasImageSource</dfn></a></code> enum are defined in [[!HTML]].
+      </p>
+      <p>
+        The terms <a href=
+        "https://html.spec.whatwg.org/multipage/embedded-content.html#media-data">
+        <dfn>media data</dfn></a>, <a href=
+        "%20https://html.spec.whatwg.org/multipage/embedded-content.html#media-provider-object">
+        <dfn>media provider object</dfn></a> , <a href=
+        "https://html.spec.whatwg.org/multipage/embedded-content.html#assigned-media-provider-object">
+        <dfn>assigned media provider object</dfn></a>, and the concept <a href=
+        "https://html.spec.whatwg.org/multipage/embedded-content.html#potentially-playing">
+        <dfn>potentially playing</dfn></a> are defined in [[!HTML]].
       </p>
       <p>
         The term <a href=
@@ -333,6 +358,15 @@
         and the permission name <code><a href=
         "https://w3c.github.io/permissions/#dom-permissionname-camera">"<dfn>camera</dfn>"</a></code>
         are defined in [[!PERMISSIONS]].
+      </p>
+      <p>
+        The <code><a href=
+        "http://heycam.github.io/webidl/#idl-DataView"><dfn>DataView</dfn></a></code>,
+        <code><a href=
+        "http://heycam.github.io/webidl/#idl-Uint8ClampedArray"><dfn>Uint8ClampedArray</dfn></a></code>,
+        and <code><a href=
+        "http://heycam.github.io/webidl/#idl-Uint16Array"><dfn>Uint16Array</dfn></a></code>
+        buffer source types are defined in [[WEBIDL]].
       </p>
     </section>
     <section>
@@ -403,7 +437,7 @@
         <p>
           The data type of a <a>depth map</a> is 16-bit unsigned integer. The
           algorithm to <dfn>convert the depth map value to grayscale</dfn>,
-          given a depth map value <var>d</var>, is as follows:
+          given a <dfn>depth map value</dfn> <var>d</var>, is as follows:
         </p>
         <ol>
           <li>Let <var>near</var> be the the <a>near value</a>.
@@ -735,25 +769,6 @@
             requirements, since it might not be possible to synchronize tracks
             from sources.
           </p>
-          <p>
-            There are two ways to access the 16 bit depth values.
-          </p>
-          <ol>
-            <li>
-              <code>16bit</code> texture in [[WEBGL]] after uploading a
-              <a>depth map</a> to the texture. For instance, <code>RGB</code>
-              and <code>LUMINANCE_ALPHA</code> are <code>16bit</code> texture.
-            </li>
-            <li>the Media Capture Stream with Worker specification
-            [[MEDIACAPTURE-WORKER]] that complements this specification enables
-            processing of 16-bit depth values per pixel directly in a worker
-            environment and makes the <code>&lt;video&gt;</code> and
-            <code>&lt;canvas&gt;</code> indirection and depth-to-grayscale
-            conversion redundant. This alternative pipeline that supports
-            greater bit depth and does not incur the performance penalty of the
-            indirection and conversion enables more advanced use cases.
-            </li>
-          </ol>
         </section>
       </section>
       <section>
@@ -785,22 +800,14 @@
           Media provider object
         </h2>
         <p>
-          A <a href="https://html.spec.whatwg.org/#media-provider-object">media
-          provider object</a> can represent a <a>depth-only stream</a> (and
-          specifically, not a <a>depth+video stream</a>). The <a>user agent</a>
-          MUST support a <a href=
-          "https://html.spec.whatwg.org/#media-element">media element</a> with
-          an <a href=
-          "https://html.spec.whatwg.org/#assigned-media-provider-object">assigned
-          media provider object</a> that is a <a>depth-only stream</a>, and in
-          particular, the <a href=
-          "https://html.spec.whatwg.org/#dom-media-srcobject"><code>srcObject</code></a>
-          IDL attribute that allows the <a href=
-          "https://html.spec.whatwg.org/#media-element">media element</a> to be
-          assigned a <a href=
-          "https://html.spec.whatwg.org/#media-provider-object">media provider
-          object</a> MUST, on setting and getting, behave as specified in
-          [[!HTML]].
+          A <a>media provider object</a> can represent a <a>depth-only
+          stream</a> (and specifically, not a <a>depth+video stream</a>). The
+          <a>user agent</a> MUST support a <a>HTMLMediaElement</a> with an
+          <a>assigned media provider object</a> that is a <a>depth-only
+          stream</a>, and in particular, the <a>srcObject</a> IDL attribute
+          that allows the <a>HTMLMediaElement</a> to be assigned a <a>media
+          provider object</a> MUST, on setting and getting, behave as specified
+          in [[!HTML]].
         </p>
       </section>
       <section>
@@ -808,92 +815,25 @@
           The <code>video</code> element
         </h2>
         <p>
-          For a <a href=
-          "https://html.spec.whatwg.org/#the-video-element"><code>video</code>
-          element</a> whose <a href=
-          "https://html.spec.whatwg.org/#assigned-media-provider-object">assigned
-          media provider object</a> is a <a>depth-only stream</a>, the <a>user
-          agent</a> MUST, for each pixel of the <a href=
-          "https://html.spec.whatwg.org/#media-data">media data</a> that is
-          represented by a <a>depth map</a>, <a>convert the depth map value to
-          grayscale</a> prior to when the <code>video</code> element is
-          <a href="https://html.spec.whatwg.org/#potentially-playing">potentially
-          playing</a>.
-        </p>
-        <p>
-          For a <a href=
-          "https://html.spec.whatwg.org/#the-video-element"><code>video</code>
-          element</a> whose <a href=
-          "https://html.spec.whatwg.org/#assigned-media-provider-object">assigned
-          media provider object</a> is a <a>depth+video stream</a>, the <a>user
-          agent</a> MUST act as if all the <a>MediaStreamTrack</a>s of kind
-          "<code>depth</code>" were removed prior to when the
-          <code>video</code> element is <a href=
-          "https://html.spec.whatwg.org/#potentially-playing">potentially
-          playing</a>.
-        </p>
-        <p>
-          The <code>video</code> element draws the depth map after conversion
-          as follows:
-        </p>
-        <p>
-          <span id="MathJax-Element-5-Frame" class="mjx-chtml"><span id=
-          "MJXc-Node-97" class="mjx-math" role="math"><span id="MJXc-Node-98"
-          class="mjx-mrow"><span id="MJXc-Node-99" class="mjx-mstyle"><span id=
-          "MJXc-Node-100" class="mjx-mrow"><span id="MJXc-Node-101" class=
-          "mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.225em; padding-bottom: 0.298em;">r</span></span><span id="MJXc-Node-102"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.225em; padding-bottom: 0.298em;">e</span></span><span id="MJXc-Node-103"
-          class="mjx-msub"><span class="mjx-base" style=
-          "margin-right: -0.003em;"><span id="MJXc-Node-104" class=
-          "mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.446em; padding-bottom: 0.298em; padding-right: 0.003em;">d</span></span></span><span class="mjx-sub"
-          style=
-          "font-size: 70.7%; vertical-align: -0.219em; padding-right: 0.071em;"><span id="MJXc-Node-105"
-          class="mjx-mrow" style=""><span id="MJXc-Node-106" class=
-          "mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style=
-          "padding-top: 0.372em; padding-bottom: 0.372em;">8</span></span><span id="MJXc-Node-107"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.446em; padding-bottom: 0.298em;">b</span></span><span id="MJXc-Node-108"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.446em; padding-bottom: 0.298em;">i</span></span><span id="MJXc-Node-109"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.372em; padding-bottom: 0.298em;">t</span></span></span></span></span><span id="MJXc-Node-110"
-          class="mjx-mo" style=
-          "padding-left: 0.333em; padding-right: 0.333em;"><span class=
-          "mjx-char MJXc-TeX-main-R" style=
-          "padding-top: 0.077em; padding-bottom: 0.298em;">=</span></span><span id="MJXc-Node-111"
-          class="mjx-mfrac"><span class="mjx-box MJXc-stacked" style=
-          "width: 2.265em; padding: 0px 0.12em;"><span class="mjx-numerator"
-          style="width: 2.265em; top: -1.447em;"><span id="MJXc-Node-112"
-          class="mjx-msub"><span class="mjx-base" style=
-          "margin-right: -0.003em;"><span id="MJXc-Node-113" class=
-          "mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.446em; padding-bottom: 0.298em; padding-right: 0.003em;">d</span></span></span><span class="mjx-sub"
-          style=
-          "font-size: 70.7%; vertical-align: -0.219em; padding-right: 0.071em;"><span id="MJXc-Node-114"
-          class="mjx-mrow" style=""><span id="MJXc-Node-115" class=
-          "mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style=
-          "padding-top: 0.372em; padding-bottom: 0.372em;">16</span></span><span id="MJXc-Node-116"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.446em; padding-bottom: 0.298em;">b</span></span><span id="MJXc-Node-117"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.446em; padding-bottom: 0.298em;">i</span></span><span id="MJXc-Node-118"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.372em; padding-bottom: 0.298em;">t</span></span></span></span></span></span><span class="mjx-denominator"
-          style="width: 2.265em; bottom: -0.778em;"><span id="MJXc-Node-119"
-          class="mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style=
-          "padding-top: 0.372em; padding-bottom: 0.372em;">255</span></span></span><span style="border-bottom: 1.3px solid; top: -0.296em; width: 2.265em;"
-          class="mjx-line"></span></span><span style=
-          "height: 2.225em; vertical-align: -0.778em;" class=
-          "mjx-vsize"></span></span></span></span></span></span></span>
+          When a <a>video</a> element is <a>potentially playing</a> and its
+          <a>assigned media provider object</a> is a <a>depth-only stream</a>,
+          the <a>user agent</a> MUST, for each pixel of the <a>media data</a>
+          that is represented by a <a>depth map</a>, given a depth map value
+          <em>d</em>, <a>convert the depth map value to grayscale</a> and
+          render the returned value to the screen.
         </p>
         <div class="note">
           It is an implementation detail how the frames are rendered to the
           screen. For example, the implementation may use a grayscale or red
-          channel representation.
+          representation, with either 8-bit or 16-bit precision.
         </div>
+        <p>
+          For a <a>video</a> element whose <a>assigned media provider
+          object</a> is a <a>depth+video stream</a>, the <a>user agent</a> MUST
+          act as if all the <a>MediaStreamTrack</a>s of kind
+          "<code>depth</code>" were removed prior to when the
+          <code>video</code> element is <a>potentially playing</a>.
+        </p>
         <section>
           <h2>
             <code>VideoTrack</code> interface
@@ -904,6 +844,279 @@
             as defined in [[HTML]].
           </p>
         </section>
+      </section>
+      <section>
+        <h2>
+          <code>ImageData</code> interface
+        </h2>
+        <p>
+          When an <a>ImageData</a> object's pixel values represent a <a>depth
+          map</a> (that is, the image source for the 2D rendering context
+          <a>CanvasImageSource</a> is a <a>HTMLVideoElement</a> whose <a>media
+          data</a> represents a <a>depth map</a>), its <a>Uint8ClampedArray</a>
+          source assigned to the <a>data</a> attribute represents the
+          <dfn>16-bit depth value</dfn> by assigning the low 8-bit of the
+          <a>16-bit depth value</a> <span id="MathJax-Element-5-Frame" class=
+          "mjx-chtml"><span id="MJXc-Node-97" class="mjx-math" role=
+          "math"><span id="MJXc-Node-98" class="mjx-mrow"><span id=
+          "MJXc-Node-99" class="mjx-mstyle"><span id="MJXc-Node-100" class=
+          "mjx-mrow"><span id="MJXc-Node-101" class="mjx-msub"><span class=
+          "mjx-base" style="margin-right: -0.003em;"><span id="MJXc-Node-102"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.446em; padding-bottom: 0.298em; padding-right: 0.003em;">
+          d</span></span></span><span class="mjx-sub" style=
+          "font-size: 70.7%; vertical-align: -0.219em; padding-right: 0.071em;"><span id="MJXc-Node-103"
+          class="mjx-mrow" style=""><span id="MJXc-Node-104" class=
+          "mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.446em; padding-bottom: 0.298em;">l</span></span><span id="MJXc-Node-105"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.225em; padding-bottom: 0.298em;">o</span></span><span id="MJXc-Node-106"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.225em; padding-bottom: 0.298em;">w</span></span><span id="MJXc-Node-107"
+          class="mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style=
+          "padding-top: 0.372em; padding-bottom: 0.372em;">8</span></span><span id="MJXc-Node-108"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.446em; padding-bottom: 0.298em;">b</span></span><span id="MJXc-Node-109"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.446em; padding-bottom: 0.298em;">i</span></span><span id="MJXc-Node-110"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.372em; padding-bottom: 0.298em;">t</span></span></span></span></span></span></span></span></span></span>
+          on its red component, and high 8-bit of the <a>16-bit depth value</a>
+          <span id="MathJax-Element-6-Frame" class="mjx-chtml"><span id=
+          "MJXc-Node-111" class="mjx-math" role="math"><span id="MJXc-Node-112"
+          class="mjx-mrow"><span id="MJXc-Node-113" class=
+          "mjx-mstyle"><span id="MJXc-Node-114" class="mjx-mrow"><span id=
+          "MJXc-Node-115" class="mjx-msub"><span class="mjx-base" style=
+          "margin-right: -0.003em;"><span id="MJXc-Node-116" class=
+          "mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.446em; padding-bottom: 0.298em; padding-right: 0.003em;">
+          d</span></span></span><span class="mjx-sub" style=
+          "font-size: 70.7%; vertical-align: -0.219em; padding-right: 0.071em;"><span id="MJXc-Node-117"
+          class="mjx-mrow" style=""><span id="MJXc-Node-118" class=
+          "mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.446em; padding-bottom: 0.298em;">h</span></span><span id="MJXc-Node-119"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.446em; padding-bottom: 0.298em;">i</span></span><span id="MJXc-Node-120"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.225em; padding-bottom: 0.519em; padding-right: 0.003em;">g</span></span><span id="MJXc-Node-121"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.446em; padding-bottom: 0.298em;">h</span></span><span id="MJXc-Node-122"
+          class="mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style=
+          "padding-top: 0.372em; padding-bottom: 0.372em;">8</span></span><span id="MJXc-Node-123"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.446em; padding-bottom: 0.298em;">b</span></span><span id="MJXc-Node-124"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.446em; padding-bottom: 0.298em;">i</span></span><span id="MJXc-Node-125"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.372em; padding-bottom: 0.298em;">t</span></span></span></span></span></span></span></span></span></span>
+          on its green component.
+        </p>
+        <p>
+          If the values are read from the default <a>Uint8ClampedArray</a>
+          view, they are represented as <a>Canvas Pixel
+          <code>ArrayBuffer</code></a> data as follows:
+        </p>
+        <p>
+          <span id="MathJax-Element-7-Frame" class="mjx-chtml"><span id=
+          "MJXc-Node-126" class="mjx-math" role="math"><span id="MJXc-Node-127"
+          class="mjx-mrow"><span id="MJXc-Node-128" class=
+          "mjx-mstyle"><span id="MJXc-Node-129" class="mjx-mrow"><span id=
+          "MJXc-Node-130" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I"
+          style=
+          "padding-top: 0.225em; padding-bottom: 0.298em;">r</span></span><span id="MJXc-Node-131"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.225em; padding-bottom: 0.298em;">e</span></span><span id="MJXc-Node-132"
+          class="mjx-msub"><span class="mjx-base" style=
+          "margin-right: -0.003em;"><span id="MJXc-Node-133" class=
+          "mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.446em; padding-bottom: 0.298em; padding-right: 0.003em;">d</span></span></span><span class="mjx-sub"
+          style=
+          "font-size: 70.7%; vertical-align: -0.219em; padding-right: 0.071em;"><span id="MJXc-Node-134"
+          class="mjx-mrow" style=""><span id="MJXc-Node-135" class=
+          "mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style=
+          "padding-top: 0.372em; padding-bottom: 0.372em;">8</span></span><span id="MJXc-Node-136"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.446em; padding-bottom: 0.298em;">b</span></span><span id="MJXc-Node-137"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.446em; padding-bottom: 0.298em;">i</span></span><span id="MJXc-Node-138"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.372em; padding-bottom: 0.298em;">t</span></span></span></span></span><span id="MJXc-Node-139"
+          class="mjx-mo" style=
+          "padding-left: 0.333em; padding-right: 0.333em;"><span class=
+          "mjx-char MJXc-TeX-main-R" style=
+          "padding-top: 0.077em; padding-bottom: 0.298em;">=</span></span><span id="MJXc-Node-140"
+          class="mjx-msub"><span class="mjx-base" style=
+          "margin-right: -0.003em;"><span id="MJXc-Node-141" class=
+          "mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.446em; padding-bottom: 0.298em; padding-right: 0.003em;">d</span></span></span><span class="mjx-sub"
+          style=
+          "font-size: 70.7%; vertical-align: -0.219em; padding-right: 0.071em;"><span id="MJXc-Node-142"
+          class="mjx-mrow" style=""><span id="MJXc-Node-143" class=
+          "mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.446em; padding-bottom: 0.298em;">l</span></span><span id="MJXc-Node-144"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.225em; padding-bottom: 0.298em;">o</span></span><span id="MJXc-Node-145"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.225em; padding-bottom: 0.298em;">w</span></span><span id="MJXc-Node-146"
+          class="mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style=
+          "padding-top: 0.372em; padding-bottom: 0.372em;">8</span></span><span id="MJXc-Node-147"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.446em; padding-bottom: 0.298em;">b</span></span><span id="MJXc-Node-148"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.446em; padding-bottom: 0.298em;">i</span></span><span id="MJXc-Node-149"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.372em; padding-bottom: 0.298em;">t</span></span></span></span></span></span></span></span></span></span>
+        </p>
+        <p>
+          <span id="MathJax-Element-8-Frame" class="mjx-chtml"><span id=
+          "MJXc-Node-150" class="mjx-math" role="math"><span id="MJXc-Node-151"
+          class="mjx-mrow"><span id="MJXc-Node-152" class=
+          "mjx-mstyle"><span id="MJXc-Node-153" class="mjx-mrow"><span id=
+          "MJXc-Node-154" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I"
+          style=
+          "padding-top: 0.225em; padding-bottom: 0.519em; padding-right: 0.003em;">
+          g</span></span><span id="MJXc-Node-155" class="mjx-mi"><span class=
+          "mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.225em; padding-bottom: 0.298em;">r</span></span><span id="MJXc-Node-156"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.225em; padding-bottom: 0.298em;">e</span></span><span id="MJXc-Node-157"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.225em; padding-bottom: 0.298em;">e</span></span><span id="MJXc-Node-158"
+          class="mjx-msub"><span class="mjx-base"><span id="MJXc-Node-159"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.225em; padding-bottom: 0.298em;">n</span></span></span><span class="mjx-sub"
+          style=
+          "font-size: 70.7%; vertical-align: -0.219em; padding-right: 0.071em;"><span id="MJXc-Node-160"
+          class="mjx-mrow" style=""><span id="MJXc-Node-161" class=
+          "mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style=
+          "padding-top: 0.372em; padding-bottom: 0.372em;">8</span></span><span id="MJXc-Node-162"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.446em; padding-bottom: 0.298em;">b</span></span><span id="MJXc-Node-163"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.446em; padding-bottom: 0.298em;">i</span></span><span id="MJXc-Node-164"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.372em; padding-bottom: 0.298em;">t</span></span></span></span></span><span id="MJXc-Node-165"
+          class="mjx-mo" style=
+          "padding-left: 0.333em; padding-right: 0.333em;"><span class=
+          "mjx-char MJXc-TeX-main-R" style=
+          "padding-top: 0.077em; padding-bottom: 0.298em;">=</span></span><span id="MJXc-Node-166"
+          class="mjx-msub"><span class="mjx-base" style=
+          "margin-right: -0.003em;"><span id="MJXc-Node-167" class=
+          "mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.446em; padding-bottom: 0.298em; padding-right: 0.003em;">d</span></span></span><span class="mjx-sub"
+          style=
+          "font-size: 70.7%; vertical-align: -0.219em; padding-right: 0.071em;"><span id="MJXc-Node-168"
+          class="mjx-mrow" style=""><span id="MJXc-Node-169" class=
+          "mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.446em; padding-bottom: 0.298em;">h</span></span><span id="MJXc-Node-170"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.446em; padding-bottom: 0.298em;">i</span></span><span id="MJXc-Node-171"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.225em; padding-bottom: 0.519em; padding-right: 0.003em;">g</span></span><span id="MJXc-Node-172"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.446em; padding-bottom: 0.298em;">h</span></span><span id="MJXc-Node-173"
+          class="mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style=
+          "padding-top: 0.372em; padding-bottom: 0.372em;">8</span></span><span id="MJXc-Node-174"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.446em; padding-bottom: 0.298em;">b</span></span><span id="MJXc-Node-175"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.446em; padding-bottom: 0.298em;">i</span></span><span id="MJXc-Node-176"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.372em; padding-bottom: 0.298em;">t</span></span></span></span></span></span></span></span></span></span>
+        </p>
+        <p>
+          <span id="MathJax-Element-9-Frame" class="mjx-chtml"><span id=
+          "MJXc-Node-177" class="mjx-math" role="math"><span id="MJXc-Node-178"
+          class="mjx-mrow"><span id="MJXc-Node-179" class=
+          "mjx-mstyle"><span id="MJXc-Node-180" class="mjx-mrow"><span id=
+          "MJXc-Node-181" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I"
+          style=
+          "padding-top: 0.446em; padding-bottom: 0.298em;">b</span></span><span id="MJXc-Node-182"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.446em; padding-bottom: 0.298em;">l</span></span><span id="MJXc-Node-183"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.225em; padding-bottom: 0.298em;">u</span></span><span id="MJXc-Node-184"
+          class="mjx-msub"><span class="mjx-base"><span id="MJXc-Node-185"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.225em; padding-bottom: 0.298em;">e</span></span></span><span class="mjx-sub"
+          style=
+          "font-size: 70.7%; vertical-align: -0.219em; padding-right: 0.071em;"><span id="MJXc-Node-186"
+          class="mjx-mrow" style=""><span id="MJXc-Node-187" class=
+          "mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style=
+          "padding-top: 0.372em; padding-bottom: 0.372em;">8</span></span><span id="MJXc-Node-188"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.446em; padding-bottom: 0.298em;">b</span></span><span id="MJXc-Node-189"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.446em; padding-bottom: 0.298em;">i</span></span><span id="MJXc-Node-190"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.372em; padding-bottom: 0.298em;">t</span></span></span></span></span><span id="MJXc-Node-191"
+          class="mjx-mo" style=
+          "padding-left: 0.333em; padding-right: 0.333em;"><span class=
+          "mjx-char MJXc-TeX-main-R" style=
+          "padding-top: 0.077em; padding-bottom: 0.298em;">=</span></span><span id="MJXc-Node-192"
+          class="mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style=
+          "padding-top: 0.372em; padding-bottom: 0.372em;">0</span></span></span></span></span></span></span>
+        </p>
+        <p>
+          <span id="MathJax-Element-10-Frame" class="mjx-chtml"><span id=
+          "MJXc-Node-193" class="mjx-math" role="math"><span id="MJXc-Node-194"
+          class="mjx-mrow"><span id="MJXc-Node-195" class=
+          "mjx-mstyle"><span id="MJXc-Node-196" class="mjx-mrow"><span id=
+          "MJXc-Node-197" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I"
+          style=
+          "padding-top: 0.225em; padding-bottom: 0.298em;">a</span></span><span id="MJXc-Node-198"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.446em; padding-bottom: 0.298em;">l</span></span><span id="MJXc-Node-199"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.225em; padding-bottom: 0.446em;">p</span></span><span id="MJXc-Node-200"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.446em; padding-bottom: 0.298em;">h</span></span><span id="MJXc-Node-201"
+          class="mjx-msub"><span class="mjx-base"><span id="MJXc-Node-202"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.225em; padding-bottom: 0.298em;">a</span></span></span><span class="mjx-sub"
+          style=
+          "font-size: 70.7%; vertical-align: -0.219em; padding-right: 0.071em;"><span id="MJXc-Node-203"
+          class="mjx-mrow" style=""><span id="MJXc-Node-204" class=
+          "mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style=
+          "padding-top: 0.372em; padding-bottom: 0.372em;">8</span></span><span id="MJXc-Node-205"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.446em; padding-bottom: 0.298em;">b</span></span><span id="MJXc-Node-206"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.446em; padding-bottom: 0.298em;">i</span></span><span id="MJXc-Node-207"
+          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+          "padding-top: 0.372em; padding-bottom: 0.298em;">t</span></span></span></span></span><span id="MJXc-Node-208"
+          class="mjx-mo" style=
+          "padding-left: 0.333em; padding-right: 0.333em;"><span class=
+          "mjx-char MJXc-TeX-main-R" style=
+          "padding-top: 0.077em; padding-bottom: 0.298em;">=</span></span><span id="MJXc-Node-209"
+          class="mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style=
+          "padding-top: 0.372em; padding-bottom: 0.372em;">0</span></span></span></span></span></span></span>
+        </p>
+        <pre class="example highlight">
+          var depthVideo = document.querySelector('video');
+          var canvas = document.querySelector('canvas');
+          var context = canvas.getContext('2d');
+          var w = depthVideo.videoWidth, h = depthVideo.videoHeight;
+
+          context.drawImage(depthVideo, 0, 0, w, h);
+          var imageData = context.getImageData(0, 0, w, h);
+
+          // Create a new DataView dv on to an ArrayBuffer buffer
+          // that exposes it as an array of unsigned 16-bit integers.
+          var dv = new DataView(imageData.data.buffer);
+
+          // Read every fourth unsigned 16-bit value in little endian representation.
+          for (var i = 0; i &lt; imageData.data.length; i += 4) {
+            console.log(dv.getUint16(i, true));
+          }
+
+          // Alternatively, reconstruct unsigned 16-bit value. The result
+          // is the same as if DataView and getUint16() was used.
+          for (var i = 0; i &lt; imageData.data.length; i += 4) {
+            console.log(imageData.data[i] + (imageData.data[i+1] &lt;&lt; 8));
+          }
+        
+</pre>
       </section>
       <section>
         <h2>
@@ -1093,6 +1306,9 @@
           <h3>
             Implementation considerations
           </h3>
+          <div class="note">
+            This section is currently work in progress, and subject to change.
+          </div>
           <p>
             A <code>video</code> element whose source is a
             <a><code>MediaStream</code></a> object containing a <a>depth stream
