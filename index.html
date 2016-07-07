@@ -856,60 +856,9 @@
           data</a> represents a <a>depth map</a>), its <a>Uint8ClampedArray</a>
           source assigned to the <a>data</a> attribute represents the
           <dfn>16-bit depth value</dfn> by assigning the low 8-bit of the
-          <a>16-bit depth value</a> <span id="MathJax-Element-5-Frame" class=
-          "mjx-chtml"><span id="MJXc-Node-97" class="mjx-math" role=
-          "math"><span id="MJXc-Node-98" class="mjx-mrow"><span id=
-          "MJXc-Node-99" class="mjx-mstyle"><span id="MJXc-Node-100" class=
-          "mjx-mrow"><span id="MJXc-Node-101" class="mjx-msub"><span class=
-          "mjx-base" style="margin-right: -0.003em;"><span id="MJXc-Node-102"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.446em; padding-bottom: 0.298em; padding-right: 0.003em;">
-          d</span></span></span><span class="mjx-sub" style=
-          "font-size: 70.7%; vertical-align: -0.219em; padding-right: 0.071em;"><span id="MJXc-Node-103"
-          class="mjx-mrow" style=""><span id="MJXc-Node-104" class=
-          "mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.446em; padding-bottom: 0.298em;">l</span></span><span id="MJXc-Node-105"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.225em; padding-bottom: 0.298em;">o</span></span><span id="MJXc-Node-106"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.225em; padding-bottom: 0.298em;">w</span></span><span id="MJXc-Node-107"
-          class="mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style=
-          "padding-top: 0.372em; padding-bottom: 0.372em;">8</span></span><span id="MJXc-Node-108"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.446em; padding-bottom: 0.298em;">b</span></span><span id="MJXc-Node-109"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.446em; padding-bottom: 0.298em;">i</span></span><span id="MJXc-Node-110"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.372em; padding-bottom: 0.298em;">t</span></span></span></span></span></span></span></span></span></span>
-          on its red component, and high 8-bit of the <a>16-bit depth value</a>
-          <span id="MathJax-Element-6-Frame" class="mjx-chtml"><span id=
-          "MJXc-Node-111" class="mjx-math" role="math"><span id="MJXc-Node-112"
-          class="mjx-mrow"><span id="MJXc-Node-113" class=
-          "mjx-mstyle"><span id="MJXc-Node-114" class="mjx-mrow"><span id=
-          "MJXc-Node-115" class="mjx-msub"><span class="mjx-base" style=
-          "margin-right: -0.003em;"><span id="MJXc-Node-116" class=
-          "mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.446em; padding-bottom: 0.298em; padding-right: 0.003em;">
-          d</span></span></span><span class="mjx-sub" style=
-          "font-size: 70.7%; vertical-align: -0.219em; padding-right: 0.071em;"><span id="MJXc-Node-117"
-          class="mjx-mrow" style=""><span id="MJXc-Node-118" class=
-          "mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.446em; padding-bottom: 0.298em;">h</span></span><span id="MJXc-Node-119"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.446em; padding-bottom: 0.298em;">i</span></span><span id="MJXc-Node-120"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.225em; padding-bottom: 0.519em; padding-right: 0.003em;">g</span></span><span id="MJXc-Node-121"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.446em; padding-bottom: 0.298em;">h</span></span><span id="MJXc-Node-122"
-          class="mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style=
-          "padding-top: 0.372em; padding-bottom: 0.372em;">8</span></span><span id="MJXc-Node-123"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.446em; padding-bottom: 0.298em;">b</span></span><span id="MJXc-Node-124"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.446em; padding-bottom: 0.298em;">i</span></span><span id="MJXc-Node-125"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.372em; padding-bottom: 0.298em;">t</span></span></span></span></span></span></span></span></span></span>
-          on its green component.
+          <a>16-bit depth value</a> <em>d<sub>low8bit</sub></em> on its red
+          component, and high 8-bit of the <a>16-bit depth value</a>
+          <em>d<sub>high8bit</sub></em> on its green component.
         </p>
         <p>
           If the values are read from the default <a>Uint8ClampedArray</a>
@@ -917,180 +866,16 @@
           <code>ArrayBuffer</code></a> data as follows:
         </p>
         <p>
-          <span id="MathJax-Element-7-Frame" class="mjx-chtml"><span id=
-          "MJXc-Node-126" class="mjx-math" role="math"><span id="MJXc-Node-127"
-          class="mjx-mrow"><span id="MJXc-Node-128" class=
-          "mjx-mstyle"><span id="MJXc-Node-129" class="mjx-mrow"><span id=
-          "MJXc-Node-130" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I"
-          style=
-          "padding-top: 0.225em; padding-bottom: 0.298em;">r</span></span><span id="MJXc-Node-131"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.225em; padding-bottom: 0.298em;">e</span></span><span id="MJXc-Node-132"
-          class="mjx-msub"><span class="mjx-base" style=
-          "margin-right: -0.003em;"><span id="MJXc-Node-133" class=
-          "mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.446em; padding-bottom: 0.298em; padding-right: 0.003em;">d</span></span></span><span class="mjx-sub"
-          style=
-          "font-size: 70.7%; vertical-align: -0.219em; padding-right: 0.071em;"><span id="MJXc-Node-134"
-          class="mjx-mrow" style=""><span id="MJXc-Node-135" class=
-          "mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style=
-          "padding-top: 0.372em; padding-bottom: 0.372em;">8</span></span><span id="MJXc-Node-136"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.446em; padding-bottom: 0.298em;">b</span></span><span id="MJXc-Node-137"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.446em; padding-bottom: 0.298em;">i</span></span><span id="MJXc-Node-138"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.372em; padding-bottom: 0.298em;">t</span></span></span></span></span><span id="MJXc-Node-139"
-          class="mjx-mo" style=
-          "padding-left: 0.333em; padding-right: 0.333em;"><span class=
-          "mjx-char MJXc-TeX-main-R" style=
-          "padding-top: 0.077em; padding-bottom: 0.298em;">=</span></span><span id="MJXc-Node-140"
-          class="mjx-msub"><span class="mjx-base" style=
-          "margin-right: -0.003em;"><span id="MJXc-Node-141" class=
-          "mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.446em; padding-bottom: 0.298em; padding-right: 0.003em;">d</span></span></span><span class="mjx-sub"
-          style=
-          "font-size: 70.7%; vertical-align: -0.219em; padding-right: 0.071em;"><span id="MJXc-Node-142"
-          class="mjx-mrow" style=""><span id="MJXc-Node-143" class=
-          "mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.446em; padding-bottom: 0.298em;">l</span></span><span id="MJXc-Node-144"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.225em; padding-bottom: 0.298em;">o</span></span><span id="MJXc-Node-145"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.225em; padding-bottom: 0.298em;">w</span></span><span id="MJXc-Node-146"
-          class="mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style=
-          "padding-top: 0.372em; padding-bottom: 0.372em;">8</span></span><span id="MJXc-Node-147"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.446em; padding-bottom: 0.298em;">b</span></span><span id="MJXc-Node-148"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.446em; padding-bottom: 0.298em;">i</span></span><span id="MJXc-Node-149"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.372em; padding-bottom: 0.298em;">t</span></span></span></span></span></span></span></span></span></span>
+          <em>red<sub>8bit</sub> = d<sub>low8bit</sub></em>
         </p>
         <p>
-          <span id="MathJax-Element-8-Frame" class="mjx-chtml"><span id=
-          "MJXc-Node-150" class="mjx-math" role="math"><span id="MJXc-Node-151"
-          class="mjx-mrow"><span id="MJXc-Node-152" class=
-          "mjx-mstyle"><span id="MJXc-Node-153" class="mjx-mrow"><span id=
-          "MJXc-Node-154" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I"
-          style=
-          "padding-top: 0.225em; padding-bottom: 0.519em; padding-right: 0.003em;">
-          g</span></span><span id="MJXc-Node-155" class="mjx-mi"><span class=
-          "mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.225em; padding-bottom: 0.298em;">r</span></span><span id="MJXc-Node-156"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.225em; padding-bottom: 0.298em;">e</span></span><span id="MJXc-Node-157"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.225em; padding-bottom: 0.298em;">e</span></span><span id="MJXc-Node-158"
-          class="mjx-msub"><span class="mjx-base"><span id="MJXc-Node-159"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.225em; padding-bottom: 0.298em;">n</span></span></span><span class="mjx-sub"
-          style=
-          "font-size: 70.7%; vertical-align: -0.219em; padding-right: 0.071em;"><span id="MJXc-Node-160"
-          class="mjx-mrow" style=""><span id="MJXc-Node-161" class=
-          "mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style=
-          "padding-top: 0.372em; padding-bottom: 0.372em;">8</span></span><span id="MJXc-Node-162"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.446em; padding-bottom: 0.298em;">b</span></span><span id="MJXc-Node-163"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.446em; padding-bottom: 0.298em;">i</span></span><span id="MJXc-Node-164"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.372em; padding-bottom: 0.298em;">t</span></span></span></span></span><span id="MJXc-Node-165"
-          class="mjx-mo" style=
-          "padding-left: 0.333em; padding-right: 0.333em;"><span class=
-          "mjx-char MJXc-TeX-main-R" style=
-          "padding-top: 0.077em; padding-bottom: 0.298em;">=</span></span><span id="MJXc-Node-166"
-          class="mjx-msub"><span class="mjx-base" style=
-          "margin-right: -0.003em;"><span id="MJXc-Node-167" class=
-          "mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.446em; padding-bottom: 0.298em; padding-right: 0.003em;">d</span></span></span><span class="mjx-sub"
-          style=
-          "font-size: 70.7%; vertical-align: -0.219em; padding-right: 0.071em;"><span id="MJXc-Node-168"
-          class="mjx-mrow" style=""><span id="MJXc-Node-169" class=
-          "mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.446em; padding-bottom: 0.298em;">h</span></span><span id="MJXc-Node-170"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.446em; padding-bottom: 0.298em;">i</span></span><span id="MJXc-Node-171"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.225em; padding-bottom: 0.519em; padding-right: 0.003em;">g</span></span><span id="MJXc-Node-172"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.446em; padding-bottom: 0.298em;">h</span></span><span id="MJXc-Node-173"
-          class="mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style=
-          "padding-top: 0.372em; padding-bottom: 0.372em;">8</span></span><span id="MJXc-Node-174"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.446em; padding-bottom: 0.298em;">b</span></span><span id="MJXc-Node-175"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.446em; padding-bottom: 0.298em;">i</span></span><span id="MJXc-Node-176"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.372em; padding-bottom: 0.298em;">t</span></span></span></span></span></span></span></span></span></span>
+          <em>green<sub>8bit</sub> = d<sub>high8bit</sub></em>
         </p>
         <p>
-          <span id="MathJax-Element-9-Frame" class="mjx-chtml"><span id=
-          "MJXc-Node-177" class="mjx-math" role="math"><span id="MJXc-Node-178"
-          class="mjx-mrow"><span id="MJXc-Node-179" class=
-          "mjx-mstyle"><span id="MJXc-Node-180" class="mjx-mrow"><span id=
-          "MJXc-Node-181" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I"
-          style=
-          "padding-top: 0.446em; padding-bottom: 0.298em;">b</span></span><span id="MJXc-Node-182"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.446em; padding-bottom: 0.298em;">l</span></span><span id="MJXc-Node-183"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.225em; padding-bottom: 0.298em;">u</span></span><span id="MJXc-Node-184"
-          class="mjx-msub"><span class="mjx-base"><span id="MJXc-Node-185"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.225em; padding-bottom: 0.298em;">e</span></span></span><span class="mjx-sub"
-          style=
-          "font-size: 70.7%; vertical-align: -0.219em; padding-right: 0.071em;"><span id="MJXc-Node-186"
-          class="mjx-mrow" style=""><span id="MJXc-Node-187" class=
-          "mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style=
-          "padding-top: 0.372em; padding-bottom: 0.372em;">8</span></span><span id="MJXc-Node-188"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.446em; padding-bottom: 0.298em;">b</span></span><span id="MJXc-Node-189"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.446em; padding-bottom: 0.298em;">i</span></span><span id="MJXc-Node-190"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.372em; padding-bottom: 0.298em;">t</span></span></span></span></span><span id="MJXc-Node-191"
-          class="mjx-mo" style=
-          "padding-left: 0.333em; padding-right: 0.333em;"><span class=
-          "mjx-char MJXc-TeX-main-R" style=
-          "padding-top: 0.077em; padding-bottom: 0.298em;">=</span></span><span id="MJXc-Node-192"
-          class="mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style=
-          "padding-top: 0.372em; padding-bottom: 0.372em;">0</span></span></span></span></span></span></span>
+          <em>blue<sub>8bit</sub> = 0</em>
         </p>
         <p>
-          <span id="MathJax-Element-10-Frame" class="mjx-chtml"><span id=
-          "MJXc-Node-193" class="mjx-math" role="math"><span id="MJXc-Node-194"
-          class="mjx-mrow"><span id="MJXc-Node-195" class=
-          "mjx-mstyle"><span id="MJXc-Node-196" class="mjx-mrow"><span id=
-          "MJXc-Node-197" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I"
-          style=
-          "padding-top: 0.225em; padding-bottom: 0.298em;">a</span></span><span id="MJXc-Node-198"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.446em; padding-bottom: 0.298em;">l</span></span><span id="MJXc-Node-199"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.225em; padding-bottom: 0.446em;">p</span></span><span id="MJXc-Node-200"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.446em; padding-bottom: 0.298em;">h</span></span><span id="MJXc-Node-201"
-          class="mjx-msub"><span class="mjx-base"><span id="MJXc-Node-202"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.225em; padding-bottom: 0.298em;">a</span></span></span><span class="mjx-sub"
-          style=
-          "font-size: 70.7%; vertical-align: -0.219em; padding-right: 0.071em;"><span id="MJXc-Node-203"
-          class="mjx-mrow" style=""><span id="MJXc-Node-204" class=
-          "mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style=
-          "padding-top: 0.372em; padding-bottom: 0.372em;">8</span></span><span id="MJXc-Node-205"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.446em; padding-bottom: 0.298em;">b</span></span><span id="MJXc-Node-206"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.446em; padding-bottom: 0.298em;">i</span></span><span id="MJXc-Node-207"
-          class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.372em; padding-bottom: 0.298em;">t</span></span></span></span></span><span id="MJXc-Node-208"
-          class="mjx-mo" style=
-          "padding-left: 0.333em; padding-right: 0.333em;"><span class=
-          "mjx-char MJXc-TeX-main-R" style=
-          "padding-top: 0.077em; padding-bottom: 0.298em;">=</span></span><span id="MJXc-Node-209"
-          class="mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style=
-          "padding-top: 0.372em; padding-bottom: 0.372em;">0</span></span></span></span></span></span></span>
+          <em>alpha<sub>8bit</sub> = 0</em>
         </p>
         <pre class="example highlight">
           var depthVideo = document.querySelector('video');

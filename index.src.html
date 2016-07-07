@@ -588,9 +588,9 @@
           data</a> represents a <a>depth map</a>), its <a>Uint8ClampedArray</a>
           source assigned to the <a>data</a> attribute represents the
           <dfn>16-bit depth value</dfn> by assigning the low 8-bit of the
-          <a>16-bit depth value</a> `d_(low8bit)` on its red component, and
-          high 8-bit of the <a>16-bit depth value</a> `d_(high8bit)` on its
-          green component.
+          <a>16-bit depth value</a> <em>d<sub>low8bit</sub></em> on its red
+          component, and high 8-bit of the <a>16-bit depth value</a>
+          <em>d<sub>high8bit</sub></em> on its green component.
         </p>
         <p>
           If the values are read from the default <a>Uint8ClampedArray</a>
@@ -598,16 +598,16 @@
           <code>ArrayBuffer</code></a> data as follows:
         </p>
         <p>
-          `red_(8bit) = d_(low8bit)`
+          <em>red<sub>8bit</sub> = d<sub>low8bit</sub></em>
         </p>
         <p>
-          `green_(8bit) = d_(high8bit)`
+          <em>green<sub>8bit</sub> = d<sub>high8bit</sub></em>
         </p>
         <p>
-          `blue_(8bit) = 0`
+          <em>blue<sub>8bit</sub> = 0</em>
         </p>
         <p>
-          `a lpha_(8bit) = 0`
+          <em>alpha<sub>8bit</sub> = 0</em>
         </p>
         <pre class="example highlight">
           var depthVideo = document.querySelector('video');
