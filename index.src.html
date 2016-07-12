@@ -161,23 +161,9 @@
         or <a>depth+video stream</a>.
       </p>
       <p>
-        Depth cameras usually produce 16-bit depth values per pixel. However,
-        neither the canvas drawing surface used to draw and manipulate 2D
-        graphics on the web platform nor the <code><a>ImageData</a></code>
-        interface used to represent image data support 16 bits per pixel. To
-        address the issue, this specification defines a conversion into a 8-bit
-        grayscale representation of a <a>depth map</a> for consumption by APIs
-        that are limited to 8 bits per pixel.
-      </p>
-      <p>
-        The Media Capture Stream with Worker specification
-        [[MEDIACAPTURE-WORKER]] that complements this specification enables
-        processing of 16-bit depth values per pixel directly in a worker
-        environment and makes the <code>&lt;video&gt;</code> and
-        <code>&lt;canvas&gt;</code> indirection and depth-to-grayscale
-        conversion redundant. This alternative pipeline that supports greater
-        bit depth and does not incur the performance penalty of the indirection
-        and conversion enables more advanced use cases.
+        Depth cameras usually produce 16-bit depth values per pixel, so this
+        specification defines a 16-bit grayscale representation of a <a>depth
+        map</a>.
       </p>
     </section>
     <section>
@@ -271,10 +257,35 @@
       </p>
       <p>
         The <code><a href=
-        "https://html.spec.whatwg.org/#imagedata"><dfn>ImageData</dfn></a></code>
-        and <code><a href=
-        "https://html.spec.whatwg.org/#videotrack"><dfn>VideoTrack</dfn></a></code>
-        interfaces are defined in [[!HTML]].
+        "https://html.spec.whatwg.org/multipage/embedded-content.html#the-video-element">
+        <dfn>video</dfn></a></code> element and <code><a href=
+        "https://html.spec.whatwg.org/multipage/scripting.html#imagedata"><dfn>ImageData</dfn></a></code>
+        (and its <code><a href=
+        "%20https://html.spec.whatwg.org/multipage/scripting.html#dom-imagedata-data">
+        <dfn>data</dfn></a></code> attribute and <a href=
+        "https://html.spec.whatwg.org/multipage/scripting.html#canvas-pixel-arraybuffer">
+        <dfn>Canvas Pixel <code>ArrayBuffer</code></dfn></a>), <code><a href=
+        "https://html.spec.whatwg.org/multipage/embedded-content.html#videotrack">
+        <dfn>VideoTrack</dfn></a></code>, <code><a href=
+        "%20https://html.spec.whatwg.org/multipage/embedded-content.html#htmlmediaelement">
+        <dfn>HTMLMediaElement</dfn></a></code> (and its <code><a href=
+        "%20https://html.spec.whatwg.org/multipage/embedded-content.html#dom-media-srcobject">
+        <dfn>srcObject</dfn></a></code> attribute), <code><a href=
+        "%20https://html.spec.whatwg.org/multipage/embedded-content.html#htmlvideoelement">
+        <dfn>HTMLVideoElement</dfn></a></code> interfaces and the
+        <code><a href="%20https://html.spec.whatwg.org/multipage/scripting.html#canvasimagesource">
+        <dfn>CanvasImageSource</dfn></a></code> enum are defined in [[!HTML]].
+      </p>
+      <p>
+        The terms <a href=
+        "https://html.spec.whatwg.org/multipage/embedded-content.html#media-data">
+        <dfn>media data</dfn></a>, <a href=
+        "%20https://html.spec.whatwg.org/multipage/embedded-content.html#media-provider-object">
+        <dfn>media provider object</dfn></a> , <a href=
+        "https://html.spec.whatwg.org/multipage/embedded-content.html#assigned-media-provider-object">
+        <dfn>assigned media provider object</dfn></a>, and the concept <a href=
+        "https://html.spec.whatwg.org/multipage/embedded-content.html#potentially-playing">
+        <dfn>potentially playing</dfn></a> are defined in [[!HTML]].
       </p>
       <p>
         The term <a href=
@@ -282,6 +293,15 @@
         and the permission name <code><a href=
         "https://w3c.github.io/permissions/#dom-permissionname-camera">"<dfn>camera</dfn>"</a></code>
         are defined in [[!PERMISSIONS]].
+      </p>
+      <p>
+        The <code><a href=
+        "http://heycam.github.io/webidl/#idl-DataView"><dfn>DataView</dfn></a></code>,
+        <code><a href=
+        "http://heycam.github.io/webidl/#idl-Uint8ClampedArray"><dfn>Uint8ClampedArray</dfn></a></code>,
+        and <code><a href=
+        "http://heycam.github.io/webidl/#idl-Uint16Array"><dfn>Uint16Array</dfn></a></code>
+        buffer source types are defined in [[WEBIDL]].
       </p>
     </section>
     <section>
@@ -349,6 +369,54 @@
           view</dfn> which is a double. It represents the vertical angle of
           view in degrees.
         </p>
+        <p>
+          The data type of a <a>depth map</a> is 16-bit unsigned integer. The
+          algorithm to <dfn>convert the depth map value to grayscale</dfn>,
+          given a <dfn>depth map value</dfn> <var>d</var>, is as follows:
+        </p>
+        <ol>
+          <li>Let <var>near</var> be the the <a>near value</a>.
+          </li>
+          <li>Let <var>far</var> be the the <a>far value</a>.
+          </li>
+          <li>Apply the <a>rules to convert using range linear</a> to
+          <var>d</var> to obtain quantized value <var>d<sub>16bit</sub>.</var>
+          </li>
+          <li>Return <var>d<sub>16bit</sub></var>.
+          </li>
+        </ol>
+        <p>
+          The <dfn>rules to convert using range linear</dfn> are as given in
+          the following formula:
+        </p>
+        <p>
+          `d_(n) = (d - n ear) / (far - n ear)`
+        </p>
+        <p>
+          `d_(16bit) = floor(d_(n) * 65535)`
+        </p>
+        <div class="note">
+          <p>
+            The depth measurement <var>d</var> (in meter units) is recovered by
+            solving the <a>rules to convert using range linear</a> for
+            <var>d</var> as follows:
+          </p>
+          <ol>
+            <li>Given <var>d<sub>16bit</sub></var>, <var>near</var> <a>near
+            value</a> and <var>far</var> <a>far value</a>, normalize
+            <var>d<sub>16bit</sub></var> to [0, 1] range:
+              <p>
+                `d_(n) = d_(16bit) / 65535`
+              </p>
+            </li>
+            <li>Solve the <a>rules to convert using range linear</a> for <var>
+              d</var>:
+              <p>
+                `d = (d_(n) * (far - n ear)) + n ear`
+              </p>
+            </li>
+          </ol>
+        </div>
       </section>
     </section>
     <section>
@@ -464,22 +532,14 @@
           Media provider object
         </h2>
         <p>
-          A <a href="https://html.spec.whatwg.org/#media-provider-object">media
-          provider object</a> can represent a <a>depth-only stream</a> (and
-          specifically, not a <a>depth+video stream</a>). The <a>user agent</a>
-          MUST support a <a href=
-          "https://html.spec.whatwg.org/#media-element">media element</a> with
-          an <a href=
-          "https://html.spec.whatwg.org/#assigned-media-provider-object">assigned
-          media provider object</a> that is a <a>depth-only stream</a>, and in
-          particular, the <a href=
-          "https://html.spec.whatwg.org/#dom-media-srcobject"><code>srcObject</code></a>
-          IDL attribute that allows the <a href=
-          "https://html.spec.whatwg.org/#media-element">media element</a> to be
-          assigned a <a href=
-          "https://html.spec.whatwg.org/#media-provider-object">media provider
-          object</a> MUST, on setting and getting, behave as specified in
-          [[!HTML]].
+          A <a>media provider object</a> can represent a <a>depth-only
+          stream</a> (and specifically, not a <a>depth+video stream</a>). The
+          <a>user agent</a> MUST support a <a>HTMLMediaElement</a> with an
+          <a>assigned media provider object</a> that is a <a>depth-only
+          stream</a>, and in particular, the <a>srcObject</a> IDL attribute
+          that allows the <a>HTMLMediaElement</a> to be assigned a <a>media
+          provider object</a> MUST, on setting and getting, behave as specified
+          in [[!HTML]].
         </p>
       </section>
       <section>
@@ -487,77 +547,25 @@
           The <code>video</code> element
         </h2>
         <p>
-          For a <a href=
-          "https://html.spec.whatwg.org/#the-video-element"><code>video</code>
-          element</a> whose <a href=
-          "https://html.spec.whatwg.org/#assigned-media-provider-object">assigned
-          media provider object</a> is a <a>depth-only stream</a>, the <a>user
-          agent</a> MUST, for each pixel of the <a href=
-          "https://html.spec.whatwg.org/#media-data">media data</a> that is
-          represented by a <a>depth map</a>, <a>convert the depth map value to
-          grayscale</a> prior to when the <code>video</code> element is
-          <a href="https://html.spec.whatwg.org/#potentially-playing">potentially
-          playing</a>.
-        </p>
-        <p>
-          For a <a href=
-          "https://html.spec.whatwg.org/#the-video-element"><code>video</code>
-          element</a> whose <a href=
-          "https://html.spec.whatwg.org/#assigned-media-provider-object">assigned
-          media provider object</a> is a <a>depth+video stream</a>, the <a>user
-          agent</a> MUST act as if all the <a>MediaStreamTrack</a>s of kind
-          "<code>depth</code>" were removed prior to when the
-          <code>video</code> element is <a href=
-          "https://html.spec.whatwg.org/#potentially-playing">potentially
-          playing</a>.
-        </p>
-        <p>
-          The algorithm to <dfn>convert the depth map value to grayscale</dfn>,
-          given a depth map value <var>d</var>, is as follows:
-        </p>
-        <ol>
-          <li>Let <var>near</var> be the the <a>near value</a>.
-          </li>
-          <li>Let <var>far</var> be the the <a>far value</a>.
-          </li>
-          <li>Apply the <a>rules to convert using range inverse</a> to
-          <var>d</var> to obtain quantized value <var>d<sub>8bit</sub>.</var>
-          </li>
-          <li>Return <var>d<sub>8bit</sub></var>.
-          </li>
-        </ol>
-        <p>
-          The <dfn>rules to convert using range inverse</dfn> are as given in
-          the following formula:
-        </p>
-        <p>
-          `d_(n) = (far * (d - n ear)) / (d * (far - n ear))`
-        </p>
-        <p>
-          `d_(8bit) = floor(d_(n) * 255)`
+          When a <a>video</a> element is <a>potentially playing</a> and its
+          <a>assigned media provider object</a> is a <a>depth-only stream</a>,
+          the <a>user agent</a> MUST, for each pixel of the <a>media data</a>
+          that is represented by a <a>depth map</a>, given a depth map value
+          <em>d</em>, <a>convert the depth map value to grayscale</a> and
+          render the returned value to the screen.
         </p>
         <div class="note">
-          <p>
-            The depth measurement <var>d</var> (in meter units) is recovered by
-            solving the <a>rules to convert using range inverse</a> for
-            <var>d</var> as follows:
-          </p>
-          <ol>
-            <li>Given <var>d<sub>8bit</sub></var>, <var>near</var> <a>near
-            value</a> and <var>far</var> <a>far value</a>, normalize
-            <var>d<sub>8bit</sub></var> to [0, 1] range:
-              <p>
-                `d_(n) = d_(8bit) / 255`
-              </p>
-            </li>
-            <li>Solve the <a>rules to convert using range inverse</a> for <var>
-              d</var>:
-              <p>
-                `d = (far * n ear) / (far - d_(n) * (far - n ear))`
-              </p>
-            </li>
-          </ol>
+          It is an implementation detail how the frames are rendered to the
+          screen. For example, the implementation may use a grayscale or red
+          representation, with either 8-bit or 16-bit precision.
         </div>
+        <p>
+          For a <a>video</a> element whose <a>assigned media provider
+          object</a> is a <a>depth+video stream</a>, the <a>user agent</a> MUST
+          act as if all the <a>MediaStreamTrack</a>s of kind
+          "<code>depth</code>" were removed prior to when the
+          <code>video</code> element is <a>potentially playing</a>.
+        </p>
         <section>
           <h2>
             <code>VideoTrack</code> interface
@@ -568,6 +576,64 @@
             as defined in [[HTML]].
           </p>
         </section>
+      </section>
+      <section>
+        <h2>
+          <code>ImageData</code> interface
+        </h2>
+        <p>
+          When an <a>ImageData</a> object's pixel values represent a <a>depth
+          map</a> (that is, the image source for the 2D rendering context
+          <a>CanvasImageSource</a> is a <a>HTMLVideoElement</a> whose <a>media
+          data</a> represents a <a>depth map</a>), its <a>Uint8ClampedArray</a>
+          source assigned to the <a>data</a> attribute represents the
+          <dfn>16-bit depth value</dfn> by assigning the low 8-bit of the
+          <a>16-bit depth value</a> <em>d<sub>low8bit</sub></em> on its red
+          component, and high 8-bit of the <a>16-bit depth value</a>
+          <em>d<sub>high8bit</sub></em> on its green component.
+        </p>
+        <p>
+          If the values are read from the default <a>Uint8ClampedArray</a>
+          view, they are represented as <a>Canvas Pixel
+          <code>ArrayBuffer</code></a> data as follows:
+        </p>
+        <p>
+          <em>red<sub>8bit</sub> = d<sub>low8bit</sub></em>
+        </p>
+        <p>
+          <em>green<sub>8bit</sub> = d<sub>high8bit</sub></em>
+        </p>
+        <p>
+          <em>blue<sub>8bit</sub> = 0</em>
+        </p>
+        <p>
+          <em>alpha<sub>8bit</sub> = 0</em>
+        </p>
+        <pre class="example highlight">
+          var depthVideo = document.querySelector('video');
+          var canvas = document.querySelector('canvas');
+          var context = canvas.getContext('2d');
+          var w = depthVideo.videoWidth, h = depthVideo.videoHeight;
+
+          context.drawImage(depthVideo, 0, 0, w, h);
+          var imageData = context.getImageData(0, 0, w, h);
+
+          // Create a new DataView dv on to an ArrayBuffer buffer
+          // that exposes it as an array of unsigned 16-bit integers.
+          var dv = new DataView(imageData.data.buffer);
+
+          // Read every fourth unsigned 16-bit value in little endian representation.
+          for (var i = 0; i &lt; imageData.data.length; i += 4) {
+            console.log(dv.getUint16(i, true));
+          }
+
+          // Alternatively, reconstruct unsigned 16-bit value. The result
+          // is the same as if DataView and getUint16() was used.
+          for (var i = 0; i &lt; imageData.data.length; i += 4) {
+            console.log(imageData.data[i] + (imageData.data[i+1] &lt;&lt; 8));
+          }
+        
+</pre>
       </section>
       <section>
         <h2>
@@ -757,6 +823,9 @@
           <h3>
             Implementation considerations
           </h3>
+          <div class="note">
+            This section is currently work in progress, and subject to change.
+          </div>
           <p>
             A <code>video</code> element whose source is a
             <a><code>MediaStream</code></a> object containing a <a>depth stream
@@ -835,7 +904,6 @@ gl.texImage2D(
   uniform sampler2D u_tex;
   uniform float far;
   uniform float near;
-  uniform bool isRangeInverse;
   void main() {
     vec4 floatColor = texture2D(u_tex, v_texCoord);
     float dn = floatColor.r;
@@ -869,7 +937,7 @@ gl.texImage2D(
         Project Tango for their experiments.
       </p>
       <p>
-        The range inverse format [[!XDM]] is licensed under <a href=
+        The range linear format [[!XDM]] is licensed under <a href=
         "http://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.
       </p>
     </section>
