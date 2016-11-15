@@ -62,15 +62,14 @@ mjAPI.typeset({
   var re2 = /.mjx-span {display: span}\n/gi;
   
   // remove the MathJax.js <script>
-  var re3 = /\<script src="https:\/\/cdn.mathjax.org\/mathjax\/latest\/MathJax.js\?config=AM_CHTML"\>/gi;
-
-  // remove the MathJax @font-face CSS at-rules
-  // var re4 = /@font-face {font-family: MJX(.*?)}\n/gi;
+  var re3 = /\<script src="https:\/\/cdn.mathjax.org\/mathjax\/latest\/MathJax.js\?config=AM_CHTML"\>\n<\/script>/gi;
 
   var HTML = HTML.replace(re1, "").replace(re2, "").replace(re3, "");
     
   // tidy the generated output and write to index.html
-  var HTML = tidy(HTML, tidyConfig);
+  // Breaks (mostly indention) complex MathJax formulas. Disabled for now. 
+  // var HTML = tidy(HTML, tidyConfig);
+
   fs.writeFileSync('index.html', HTML, 'utf8');
   
   process.exit();

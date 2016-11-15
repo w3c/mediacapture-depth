@@ -265,6 +265,11 @@
         "!WEBIDL#idl-Uint16Array">Uint16Array</dfn></code> buffer source types
         are defined in [[WEBIDL]].
       </p>
+      <p>
+        The meaning of dictionary member being <dfn data-cite=
+        "!WEBIDL#dfn-present">present</dfn> or <dfn data-cite=
+        "!WEBIDL#dfn-present">not present</dfn> is defined in [[WEBIDL]].
+      </p>
     </section>
     <section>
       <h2>
@@ -326,13 +331,50 @@
         </p>
         <p>
           A <a>depth map</a> has an associated <dfn>horizontal focal
-          length</dfn> which is a double. It represents the horizontal focal
-          length of the depth camera, in pixels.
+          length</dfn> which is a double. It represents the horizontal
+          <dfn>focal length</dfn> of the depth camera, in pixels.
         </p>
         <p>
           A <a>depth map</a> has an associated <dfn>vertical focal length</dfn>
           which is a double. It represents the vertical focal length of the
           depth camera, in pixels.
+        </p>
+        <p>
+          A <a>depth map</a> has an associated <dfn>principal point</dfn>,
+          specified by <dfn>principal point x</dfn> and <dfn>principal point
+          y</dfn> coordinates which are double. It is a concept defined in the
+          pinhole camera model; a projection of perspective center to the image
+          plane.
+        </p>
+        <p>
+          A <a>depth map</a> has an associated <dfn>transformation from depth
+          to video</dfn>, which is a <dfn>transformation matrix</dfn>
+          represented by a <a>DepthToVideoTransform</a> dictionary. It is used
+          to translate position in depth camera 3D coordinate system to RGB
+          video stream's camera (identified by <dfn>videoDeviceId</dfn>) 3D
+          coordinate system. After projecting depth 2D pixel coordinates to 3D
+          space, we use this matrix to transform depth camera 3D space
+          coordinates to RGB video camera 3D space.
+        </p>
+        <p>
+          Both depth and color cameras usually introduce significant distortion
+          caused by the camera and lens. While in some cases, the effects are
+          not noticeable, these distortions cause errors in image analysis. To
+          map <a>depth map</a> pixel values to corresponding color video track
+          pixels, we use two <a>DistortionCoefficients</a> dictionaries:
+          <dfn>deprojection distortion coefficients</dfn> and <dfn>projection
+          distortion coefficients</dfn>.
+        </p>
+        <p>
+          <a>Deprojection distortion coefficients</a> are used for compensating
+          camera distortion when deprojecting 2D pixel coordinates to 3D space
+          coordinates. <a>Projection distortion coefficients</a> are used in
+          the opposite case, when projecting camera 3D space points to pixels.
+          One track doesn't have both of the coefficients specified. The most
+          common scenario is that the depth track has <a>deprojection
+          distortion coefficients</a> or that the color video track has
+          <a>projection distortion coefficients</a>. For the details, see
+          <a>algorithm to map depth pixels to color pixels</a>.
         </p>
         <p>
           The data type of a <a>depth map</a> is 16-bit unsigned integer. The
@@ -407,6 +449,11 @@
               boolean depthFar = true;
               boolean focalLengthX = true;
               boolean focalLengthY = true;
+              boolean principalPointX = true;
+              boolean principalPointY = true;
+              boolean deprojectionDistortionCoefficients = false;
+              boolean projectionDistortionCoefficients = false;
+              boolean depthToVideoTransform = false;
           };
 </pre>
         <section>
@@ -468,6 +515,61 @@
               "#def-constraint-focalLengthY">focalLengthY</a></code> for
               details.
             </dd>
+            <dt>
+              <dfn data-dfn-for=
+              "MediaTrackSupportedConstraints"><code>principalPointX</code></dfn>
+              of type <span class="idlMemberType"><a>boolean</a></span>,
+              defaulting to <code>true</code>
+            </dt>
+            <dd>
+              See <code><a href=
+              "#def-constraint-principalPointX">principalPointX</a></code> for
+              details.
+            </dd>
+            <dt>
+              <dfn data-dfn-for=
+              "MediaTrackSupportedConstraints"><code>principalPointY</code></dfn>
+              of type <span class="idlMemberType"><a>boolean</a></span>,
+              defaulting to <code>true</code>
+            </dt>
+            <dd>
+              See <code><a href=
+              "#def-constraint-principalPointY">principalPointY</a></code> for
+              details.
+            </dd>
+            <dt>
+              <dfn data-dfn-for=
+              "MediaTrackSupportedConstraints"><code>deprojectionDistortionCoefficients</code></dfn>
+              of type <span class="idlMemberType"><a>boolean</a></span> ,
+              defaulting to <code>false</code>
+            </dt>
+            <dd>
+              See <code><a href=
+              "#def-constraint-deprojectionDistortionCoefficients">deprojectionDistortionCoefficients</a></code>
+              for details.
+            </dd>
+            <dt>
+              <dfn data-dfn-for=
+              "MediaTrackSupportedConstraints"><code>projectionDistortionCoefficients</code></dfn>
+              of type <span class="idlMemberType"><a>boolean</a></span> ,
+              defaulting to <code>false</code>
+            </dt>
+            <dd>
+              See <code><a href=
+              "#def-constraint-projectionDistortionCoefficients">projectionDistortionCoefficients</a></code>
+              for details.
+            </dd>
+            <dt>
+              <dfn data-dfn-for=
+              "MediaTrackSupportedConstraints"><code>depthToVideoTransform</code></dfn>
+              of type <span class="idlMemberType"><a>boolean</a></span> ,
+              defaulting to <code>false</code>
+            </dt>
+            <dd>
+              See <code><a href=
+              "#def-constraint-depthToVideoTransform">depthToVideoTransform</a></code>
+              for details.
+            </dd>
           </dl>
         </section>
       </section>
@@ -482,6 +584,11 @@
               (double or DoubleRange) depthFar;
               (double or DoubleRange) focalLengthX;
               (double or DoubleRange) focalLengthY;
+              (double or DoubleRange) principalPointX;
+              (double or DoubleRange) principalPointY;
+              boolean deprojectionDistortionCoefficients;
+              boolean projectionDistortionCoefficients;
+              boolean depthToVideoTransform;
           };
 </pre>
         <section>
@@ -532,6 +639,54 @@
               "#def-constraint-focalLengthY">focalLengthY</a></code> for
               details.
             </dd>
+            <dt>
+              <dfn><code>principalPointX</code></dfn> of type <span class=
+              "idlMemberType"><a>(double or DoubleRange)</a></span>
+            </dt>
+            <dd>
+              See <code><a href=
+              "#def-constraint-principalPointX">principalPointX</a></code> for
+              details.
+            </dd>
+            <dt>
+              <dfn><code>principalPointY</code></dfn> of type <span class=
+              "idlMemberType"><a>(double or DoubleRange)</a></span>
+            </dt>
+            <dd>
+              See <code><a href=
+              "#def-constraint-principalPointY">principalPointY</a></code> for
+              details.
+            </dd>
+            <dt>
+              <dfn><code>deprojectionDistortionCoefficients</code></dfn> of
+              type <span class="idlMemberType"><a>boolean</a></span>
+            </dt>
+            <dd>
+              See <code><a href=
+              "#def-constraint-deprojectionDistortionCoefficients">deprojectionDistortionCoefficients</a></code>
+              for details. Returns false if the source cannot provide this
+              information.
+            </dd>
+            <dt>
+              <dfn><code>projectionDistortionCoefficients</code></dfn> of type
+              <span class="idlMemberType"><a>boolean</a></span>
+            </dt>
+            <dd>
+              See <code><a href=
+              "#def-constraint-projectionDistortionCoefficients">projectionDistortionCoefficients</a></code>
+              for details. Returns false if the source cannot provide this
+              information.
+            </dd>
+            <dt>
+              <dfn><code>depthToVideoTransform</code></dfn> of type
+              <span class="idlMemberType"><a>boolean</a></span>
+            </dt>
+            <dd>
+              See <code><a href=
+              "#def-constraint-depthToVideoTransform">depthToVideoTransform</a></code>
+              for details. Returns false if the source cannot provide this
+              information.
+            </dd>
           </dl>
         </section>
       </section>
@@ -546,6 +701,11 @@
               ConstrainDouble depthFar;
               ConstrainDouble focalLengthX;
               ConstrainDouble focalLengthY;
+              ConstrainDouble principalPointX;
+              ConstrainDouble principalPointY;
+              ConstrainBoolean deprojectionDistortionCoefficients;
+              ConstrainBoolean projectionDistortionCoefficients;
+              ConstrainBoolean depthToVideoTransform;
           };
 </pre>
         <section>
@@ -596,6 +756,51 @@
               "#def-constraint-focalLengthY">focalLengthY</a></code> for
               details.
             </dd>
+            <dt>
+              <dfn><code>principalPointX</code></dfn> of type <span class=
+              "idlMemberType"><a>ConstrainDouble</a></span>
+            </dt>
+            <dd>
+              See <code><a href=
+              "#def-constraint-principalPointX">principalPointX</a></code> for
+              details.
+            </dd>
+            <dt>
+              <dfn><code>principalPointY</code></dfn> of type <span class=
+              "idlMemberType"><a>ConstrainDouble</a></span>
+            </dt>
+            <dd>
+              See <code><a href=
+              "#def-constraint-principalPointY">principalPointY</a></code> for
+              details.
+            </dd>
+            <dt>
+              <dfn><code>deprojectionDistortionCoefficients</code></dfn> of
+              type <span class="idlMemberType"><a>ConstrainBoolean</a></span>
+            </dt>
+            <dd>
+              See <code><a href=
+              "#def-constraint-deprojectionDistortionCoefficients">deprojectionDistortionCoefficients</a></code>
+              for details.
+            </dd>
+            <dt>
+              <dfn><code>projectionDistortionCoefficients</code></dfn> of type
+              <span class="idlMemberType"><a>ConstrainBoolean</a></span>
+            </dt>
+            <dd>
+              See <code><a href=
+              "#def-constraint-projectionDistortionCoefficients">projectionDistortionCoefficients</a></code>
+              for details.
+            </dd>
+            <dt>
+              <dfn><code>depthToVideoTransform</code></dfn> of type
+              <span class="idlMemberType"><a>ConstrainBoolean</a></span>
+            </dt>
+            <dd>
+              See <code><a href=
+              "#def-constraint-depthToVideoTransform">depthToVideoTransform</a></code>
+              for details.
+            </dd>
           </dl>
         </section>
       </section>
@@ -610,6 +815,24 @@
               double              depthFar;
               double              focalLengthX;
               double              focalLengthY;
+              double              principalPointX;
+              double              principalPointY;
+              DistortionCoefficients deprojectionDistortionCoefficients;
+              DistortionCoefficients projectionDistortionCoefficients;
+              DepthToVideoTransform depthToVideoTransform;
+          };
+
+          dictionary DistortionCoefficients {
+              double              k1;
+              double              k2;
+              double              p1;
+              double              p2;
+              double              k3;
+          };
+
+          dictionary DepthToVideoTransform {
+            Float32Array       transformationMatrix;
+            DOMString          videoDeviceId;
           };
 </pre>
         <section>
@@ -660,8 +883,113 @@
               "#def-constraint-focalLengthY">focalLengthY</a></code> for
               details.
             </dd>
+            <dt>
+              <dfn><code>principalPointX</code></dfn> of type <span class=
+              "idlMemberType"><a>double</a></span>
+            </dt>
+            <dd>
+              See <code><a href=
+              "#def-constraint-principalPointX">principalPointX</a></code> for
+              details.
+            </dd>
+            <dt>
+              <dfn><code>principalPointY</code></dfn> of type <span class=
+              "idlMemberType"><a>double</a></span>
+            </dt>
+            <dd>
+              See <code><a href=
+              "#def-constraint-principalPointY">principalPointY</a></code> for
+              details.
+            </dd>
+            <dt>
+              The <dfn><code>deprojectionDistortionCoefficients</code></dfn>
+              dictionary member represents the <a>depth map</a>'s <a>distortion
+              coefficients</a> used when deprojecting from 2D to 3D space.
+            </dt>
+            <dd>
+              See <code><a href=
+              "#def-constraint-deprojectionDistortionCoefficients">deprojectionDistortionCoefficients</a></code>
+              for details.
+            </dd>
+            <dt>
+              The <dfn><code>projectionDistortionCoefficients</code></dfn>
+              dictionary member represents the media tracks's <a>distortion
+              coefficients</a> used when projecting from 3D to 2D space.
+            </dt>
+            <dd>
+              See <code><a href=
+              "#def-constraint-projectionDistortionCoefficients">projectionDistortionCoefficients</a></code>
+              for details.
+            </dd>
+            <dt>
+              The <dfn><code>depthToVideoTransform</code></dfn> dictionary
+              member represents the <a>depth map</a>'s camera's
+              <a>transformation from depth to video</a> camera 3D coordinate
+              system.
+            </dt>
+            <dd>
+              See <code><a href=
+              "#def-constraint-depthToVideoTransform">depthToVideoTransform</a></code>
+              for details.
+            </dd>
           </dl>
         </section>
+        <h3>
+          <dfn><code>DistortionCoefficients</code></dfn> dictionary
+        </h3>
+        <div data-dfn-for="DistortionCoefficients">
+          <dl class="dictionary-members">
+            <dt>
+              The <dfn>k1</dfn>, <dfn>k2</dfn>, <dfn>p1</dfn>, <dfn>p2</dfn>
+              and <dfn>k3</dfn> dictionary members represent the
+              <a>deprojection distortion coefficients</a> or <a>projection
+              distortion coefficients</a>.<br>
+              <dfn data-dfn-for="k1">k1</dfn>, <dfn data-dfn-for="k2">k2</dfn>
+              and <dfn data-dfn-for="k3">k3</dfn> are <dfn>radial distortion
+              coefficients</dfn> while <dfn data-dfn-for="p1">p1</dfn> and
+              <dfn data-dfn-for="p2">p2</dfn> are <dfn>tangential distortion
+              coefficients</dfn>.<br>
+            </dt>
+            <dt class="note">
+              <a>Radial distortion coefficients</a> and <a>tangential
+              distortion coefficients</a> are used when there's need to
+              <a>deproject</a> depth value to 3D space or to <a>project</a> 3D
+              value to 2D video frame coordinates.<br>
+              See <a>algorithm to map depth pixels to color pixels</a> and
+              Brown-Conrady distortion model implementation in <a>3D point
+              cloud rendering</a> example GLSL shader.<br>
+            </dt>
+          </dl>
+        </div>
+        <h3>
+          <code>DepthToVideoTransform</code> dictionary
+        </h3>
+        <div data-dfn-for="DepthToVideoTransform">
+          <dl class="dictionary-members">
+            <dt>
+              The <dfn><code>transformationMatrix</code></dfn> dictionary
+              member is a 16 element array that defines the <a>transformation
+              matrix</a> of the <a>depth map</a>'s camera's 3D coordinate
+              system to video track's camera 3D coordinate system.
+            </dt>
+            <dt class="note">
+              The first four elements of the array correspond to the first
+              matrix row, followed by four elements of the second matrix row
+              and so on. It is in format suitable for use with WebGL's
+              uniformMatrix4fv.
+            </dt>
+            <dt>
+              The <dfn><code>videoDeviceId</code></dfn> dictionary member
+              represents the deviceId of video camera the depth stream must be
+              synchronized with.
+            </dt>
+            <dt class="note">
+              The value of <a><code>videoDeviceId</code></a> can be used as
+              deviceId constraint in [[!GETUSERMEDIA]] to get the corresponding
+              video and audio streams.
+            </dt>
+          </dl>
+        </div>
       </section>
       <section>
         <h2>
@@ -778,6 +1106,15 @@ enum VideoKindEnum {
             requirements, since it might not be possible to synchronize tracks
             from sources.
           </p>
+          <p class="note">
+            This approach is simple to use but comes with the following
+            caveats: it might might not be supported by the implementation and
+            the resolutions of two tracks are intended to be the same that can
+            require downsampling and degrade quality. The alternative approach
+            is that a web developer implements the <a>algorithm to map depth
+            pixels to color pixels</a>. See the <a>3D point cloud rendering</a>
+            example code.
+          </p>
         </section>
         <p>
           The following constrainable properties are defined to apply only to
@@ -842,16 +1179,71 @@ enum VideoKindEnum {
                 The <a>vertical focal length</a>, in pixels.
               </td>
             </tr>
+            <tr id="def-constraint-principalPointX">
+              <td>
+                <dfn>principalPointX</dfn>
+              </td>
+              <td>
+                <code>ConstrainDouble</code>
+              </td>
+              <td>
+                The <a>principal point x</a> coordinate, in pixels.
+              </td>
+            </tr>
+            <tr id="def-constraint-principalPointY">
+              <td>
+                <dfn>principalPointY</dfn>
+              </td>
+              <td>
+                <code>ConstrainDouble</code>
+              </td>
+              <td>
+                The <a>principal point y</a> coordinate, in pixels.
+              </td>
+            </tr>
+            <tr id="def-constraint-deprojectionDistortionCoefficients">
+              <td>
+                <dfn>deprojectionDistortionCoefficients</dfn>
+              </td>
+              <td>
+                <code>ConstrainDOMDictionary</code>
+              </td>
+              <td>
+                The deprojection distortion coefficients.
+              </td>
+            </tr>
+            <tr id="def-constraint-projectionDistortionCoefficients">
+              <td>
+                <dfn>projectionDistortionCoefficients</dfn>
+              </td>
+              <td>
+                <code>ConstrainDOMDictionary</code>
+              </td>
+              <td>
+                The projection distortion coefficients.
+              </td>
+            </tr>
+            <tr id="def-constraint-depthToVideoTransform">
+              <td>
+                <dfn>depthToVideoTransform</dfn>
+              </td>
+              <td>
+                <code>ConstrainDOMDictionary</code>
+              </td>
+              <td>
+                The <a>transformation from depth to video</a> camera 3D
+                coordinate system.
+              </td>
+            </tr>
           </tbody>
         </table>
         <p>
           The <code>depthNear</code> and <code>depthFar</code> constrainable
           properties, when set, allow the implementation to pick the best depth
-          camera mode optimized for the range <code>[depthNear,
-          depthFar]</code> and help minimize the error introduced by the lossy
-          conversion from the depth value <var>d</var> to a quantized
-          d<sub>8bit</sub> and back to an approximation of the depth value
-          <var>d</var>.
+          camera mode optimized for the range <code>[near, far]</code> and help
+          minimize the error introduced by the lossy conversion from the depth
+          value <var>d</var> to a quantized d<sub>8bit</sub> and back to an
+          approximation of the depth value <var>d</var>.
         </p>
         <p>
           If the <code>depthFar</code> property's value is less than the
@@ -892,6 +1284,243 @@ enum VideoKindEnum {
             value in B component is not defined.
           </p>
         </section>
+      </section>
+    </section>
+    <section class="informative">
+      <h2>
+        Synchronizing depth and color video rendering
+      </h2>
+      <p class="note">
+        The algorithms presented in this section explain how a web developer
+        can <dfn>map depth and color</dfn> pixels. Concrete example on how to
+        do the mapping is provided in example vertex shader used for <a>3D
+        point cloud rendering</a>.
+      </p>
+      <p></p>
+      <p>
+        When rendering, we want to position a color value from color video
+        frame to corresponding <a>depth map value</a> or 3D point in space
+        defined by <a>depth map value</a>. We use <a>deprojection distortion
+        coefficients</a> to compensate camera distortion when deprojecting 2D
+        pixel coordinates to 3D space coordinates and <a>projection distortion
+        coefficients</a> in the opposite case, when projecting camera 3D space
+        points to pixels.
+      </p>
+      <p>
+        The <dfn>algorithm to map depth pixels to color pixels</dfn> is as
+        follows:
+      </p>
+      <ol>
+        <li>
+          <a>Deproject</a> <a>depth map value</a> to point in depth 3D space.
+        </li>
+        <li>
+          <a>Transform</a> 3D point from depth camera 3D space to color camera
+          3D space.
+        </li>
+        <li>
+          <a>Project</a> from color camera 3D space to color frame 2D pixels.
+        </li>
+      </ol>
+      <p></p>
+      <section>
+        <h2>
+          Deproject to depth 3D space
+        </h2>
+        <p>
+          The algorithm to <dfn>deproject</dfn> depth map value to point in
+          depth camera is as follows:
+        </p>
+        <p>
+          Let <var>dx</var> and <var>dy</var> be 2D coordinates, in pixels, of
+          a pixel in <a>depth map</a>.
+        </p><var></var>
+        <p>
+          Let <var>dz</var> be <a>depth map value</a> of the same pixel in the
+          <a>depth map</a>.
+        </p>
+        <p>
+          Let <var>fx</var> and <var>fy</var> be <a>depth map</a>'s
+          <a>horizontal focal length</a> and <a>vertical focal length</a>
+          respectively.
+        </p>
+        <p>
+          Let <var>cx</var> and <var>cy</var> be <a>depth map</a>'s
+          <a>principal point</a> 2D coordinates.
+        </p>
+        <p>
+          Let 3D coordinates (Xd, Yd, Zd) be the output of this step - a 3D
+          point in depth camera's 3D coordinate system.
+        </p>
+        <p>
+          `px = (dx - cx) / (fx)`
+        </p>
+        <p>
+          `py = (dy - cy) / (fy)`
+        </p>
+        <ul>
+          <li>If <a>depth map</a>'s <a>deprojection distortion coefficients</a>
+          are <a>not present</a> in <a href=
+          "#mediatracksettings-dictionary">MediaTrackSettings</a> dictionary,
+            <p>
+              3D coordinates (Xd, Yd, Zd) in depth camera space are calculated
+              as:
+            </p>
+            <p>
+              `Xd = dz * px`
+            </p>
+            <p>
+              `Yd = dz * px`
+            </p>
+            <p>
+              `Zd = dz`
+            </p>
+          </li>
+          <li>If <a>depth map</a>'s <a>deprojection distortion coefficients</a>
+          <a>k1</a>, <a>k2</a>, <a>k3</a>, <a>p1</a> and <a>p2</a> are
+          <a>present</a> in <a href=
+          "#mediatracksettings-dictionary">MediaTrackSettings</a> dictionary,
+          with a note that some of those could be zero,
+            <p>
+              3D coordinates (Xd, Yd, Zd) in depth camera space are calculated
+              as:
+            </p>
+            <p>
+              `r2 = px^2 + py^2`
+            </p>
+            <p>
+              `r = 1 + k1 * r2 + k2 * r2^2 + k3 * r2^3`
+            </p>
+            <p>
+              `Xd = dz * (px * r + 2 * p1 * px * py + p2 * (r2 + 2 * px^2))`
+            </p>
+            <p>
+              `Yd = dz * (py * r + 2 * p2 * px * py + p1 * (r2 + 2 * py^2))`
+            </p>
+            <p>
+              `Zd = dz`
+            </p>
+          </li>
+        </ul>
+        <p class="note">
+          See depth_deproject function in <a>3D point cloud rendering</a>
+          example.
+        </p>
+      </section>
+      <section>
+        <h2>
+          Transform from depth to color 3D space
+        </h2>
+        <p>
+          The result of <a>project</a> depth value to 3D point step, 3D point
+          (Xd, Yd, Zd), is in depth camera 3D coordinate system. To
+          <dfn>transform</dfn> coordinates of the same point in space, but to
+          color camera 3D coordinate system, we use matrix multiplication of
+          <a>transformation from depth to video</a> matrix by the (Xd, Yd, Zd)
+          3D point vector.
+        </p>
+        <p>
+          Let (Xc, Yc, Zc) be the output of this step - a 3D coordinates of
+          projected <a>depth map value</a> to color camera 3D space.
+        </p>
+        <p>
+          Let <var>M</var> be <a>transformation matrix</a> defined in <a>depth
+          map</a>'s <a>depthToVideoTransform</a> field.
+        </p>
+        <p>
+          To multiply 4x4 matrix by 3 element vector, we extend the 3D vector
+          by one element to 4 dimensional vector. After multiplication, we use
+          vector's x, y and z coordinates as the result.
+        </p>
+        <p>
+          `((Xc), (Yc), (Zc)) = ([M] xx ((Xd), (Yd), (Zd), (1))).xyz`
+        </p>
+        <p class="note">
+          In <a>3D point cloud rendering</a> example, this is done by:
+          <code>vec4 color_point = u_depth_to_color * vec4(depth_point,
+          1.0);</code>
+        </p>
+      </section>
+      <section>
+        <h2>
+          Project from color 3D to pixel
+        </h2>
+        <p>
+          To <dfn>project</dfn> from color 3D to 2D coordinate we use the
+          corresponding color track's <a href=
+          "#mediatracksettings-dictionary">MediaTrackSettings</a>. The color
+          track we get using <a>depth map</a>'s <a>depthToVideoTransform</a>
+          field <a>videoDeviceId</a> - it represents the target color video
+          deviceID that should be used as a constraint with [[!GETUSERMEDIA]]
+          call to get the corresponding color video stream track. After that,
+          we use color track <a>getSettings()</a> to access <a href=
+          "#mediatracksettings-dictionary">MediaTrackSettings</a>.
+        </p>
+        <p>
+          Let `fx_c` and `fy_c` be color track's <a>horizontal focal length</a>
+          and <a>vertical focal length</a> respectively.
+        </p>
+        <p>
+          Let `cx_c` and `cy_c` be color track's <a>principal point</a> 2D
+          coordinates.
+        </p>
+        <p>
+          The result of this step is 2D coordinate of pixel in color video
+          frame (<var>x</var>, <var>y</var>).
+        </p>
+        <ul>
+          <li>If color track's <a>projection distortion coefficients</a>
+          <a>k1</a>, <a>k2</a>, <a>k3</a>, <a>p1</a> and <a>p2</a> are
+          <a>present</a> in <a href=
+          "#mediatracksettings-dictionary">MediaTrackSettings</a> dictionary,
+            <p>
+              position of pixel in color frame image (x, y) is calculated as:
+            </p>
+            <p>
+              `r2_c = (Xc)^2 + (Yc)^2`
+            </p>
+            <p>
+              `r = 1 + k1 * r2 + k2 * r2^2 + k3 * r2^3`
+            </p>
+            <p>
+              `px_c = r * (Xc) / (Zc)`
+            </p>
+            <p>
+              `py_c = r * (Yc) / (Zc)`
+            </p>
+            <p>
+              `x = (px_c + 2 * p1 * px_c * py_c + p2 * (r2_c + 2 * px_c^2)) *
+              fx_c + cx_c`
+            </p>
+            <p>
+              `y = (py_c + 2 * p2 * px_c * py_c + p1 * (r2_c + 2 * py_c^2)) *
+              fy_c + cy_c`
+            </p>
+          </li>
+          <li>If color track's <a>projection distortion coefficients</a> are
+          <a>not present</a> in <a href=
+          "#mediatracksettings-dictionary">MediaTrackSettings</a> dictionary,
+            <p>
+              position of pixel in color frame image (x, y) is calculated as:
+            </p>
+            <p>
+              `px_c = (Xc) / (Zc)`
+            </p>
+            <p>
+              `py_c = (Yc) / (Zc)`
+            </p>
+            <p>
+              `x = px_c * fx_c + cx_c`
+            </p>
+            <p>
+              `y = py_c * fy_c + cy_c`
+            </p>
+          </li>
+        </ul>
+        <p class="note">
+          See color_project function in <a>3D point cloud rendering</a>
+          example.
+        </p>
       </section>
     </section>
     <section class="informative">
@@ -965,6 +1594,95 @@ gl.texImage2D(
     depth = far * near / ( far - dn * ( far - near));
     // ...
   }
+&lt;/script&gt;
+</pre>
+      <h3>
+        WebGL Vertex Shader that implements mapping color and depth
+      </h3>
+      <p>
+        This vertex shader is used for <dfn>3D point cloud rendering</dfn>. The
+        code here shows how the web developer can implement <a>algorithm to map
+        depth pixels to color pixels</a>. Draw call used is
+        glDrawArrays(GL_POINTS, 0, depthMap.width * depthMap.height). Shader
+        output is 3D position of vertices (gl_Position) and color texture
+        sampling coordinates per vertex.
+      </p>
+      <pre class="example">
+&lt;script id="fragment-shader" type="x-shader/x-fragment"&gt;#version 300 es
+#define DISTORTION_NONE 0
+#define USE_DEPTH_DEPROJECTION_DISTORTION_COEFFICIENTS 1
+#define USE_COLOR_PROJECTION_DISTORTION_COEFFICIENTS 2
+uniform mat4 u_mvp;
+uniform vec2 u_color_size;
+uniform vec2 u_depth_size;
+uniform highp usampler2D s_depth_texture;
+uniform float u_depth_scale_in_meter;
+uniform mat4 u_depth_to_color;
+uniform vec2 u_color_offset;
+uniform vec2 u_color_focal_length;
+uniform float u_color_coeffs[5];
+uniform int u_color_projection_distortion;
+uniform vec2 u_depth_offset;
+uniform vec2 u_depth_focal_length;
+uniform float u_depth_coeffs[5];
+uniform int u_depth_deprojection_distortion;
+out vec2 v_tex;
+
+vec3 depth_deproject(vec2 pixel, float depth)
+{
+  vec2 point = (pixel - u_depth_offset) / u_depth_focal_length;
+  if(u_depth_deprojection_distortion == USE_DEPTH_DEPROJECTION_DISTORTION_COEFFICIENTS)
+  {
+    float r2 = dot(point, point);
+    float f = 1.0 + u_depth_coeffs[0] * r2 + u_depth_coeffs[1] * r2 * r2 + u_depth_coeffs[4] * r2 * r2 * r2;
+    float ux = point.x * f + 2.0 * u_depth_coeffs[2] * point.x * point.y +
+               u_depth_coeffs[3] * (r2 + 2.0 * point.x * point.x);
+    float uy = point.y * f + 2.0 * u_depth_coeffs[3] * point.x * point.y +
+               u_depth_coeffs[2] * (r2 + 2.0 * point.y * point.y);
+    point = vec2(ux, uy);
+  }
+  return vec3(point * depth, depth);
+}
+
+vec2 color_project(vec3 point)
+{
+  vec2 pixel = point.xy / point.z;
+  if(u_color_projection_distortion == USE_COLOR_PROJECTION_DISTORTION_COEFFICIENTS)
+  {
+    float r2 = dot(pixel, pixel);
+    float f = 1.0 + u_color_coeffs[0] * r2 + u_color_coeffs[1] * r2 * r2 +
+              u_color_coeffs[4] * r2 * r2 * r2;
+    pixel = pixel * f;
+    float dx = pixel.x + 2.0 * u_color_coeffs[2] * pixel.x * pixel.y +
+               u_color_coeffs[3] * (r2 + 2.0 * pixel.x * pixel.x);
+    float dy = pixel.y + 2.0 * u_color_coeffs[3] * pixel.x * pixel.y +
+               u_color_coeffs[2] * (r2 + 2.0 * pixel.y * pixel.y);
+    pixel = vec2(dx, dy);
+  }
+  return pixel * u_color_focal_length + u_color_offset;
+}
+
+void main()
+{
+  vec2 depth_pixel;
+  // generate lattice pos; (0, 0) (1, 0) (2, 0) ... (w-1, h-1)
+  depth_pixel.x = mod(float(gl_VertexID) + 0.5, u_depth_size.x);
+  depth_pixel.y = clamp(floor(float(gl_VertexID) / u_depth_size.x) + 0.5, 0.0, u_depth_size.y);
+
+  // get depth
+  vec2 depth_tex_pos = depth_pixel / u_depth_size;
+  uint depth = texture(s_depth_texture, depth_tex_pos).r;
+  float depth_in_meter = float(depth) * u_depth_scale_in_meter;
+
+  vec3 depth_point = depth_deproject(depth_pixel, depth_in_meter);
+  vec4 color_point = u_depth_to_color * vec4(depth_point, 1.0);
+  vec2 color_pixel = color_project(color_point.xyz);
+
+  // map [0, w) to [0, 1]
+  v_tex = color_pixel / u_color_size;
+
+  gl_Position = u_mvp * vec4(depth_point, 1.0);
+}
 &lt;/script&gt;
 </pre>
     </section>
