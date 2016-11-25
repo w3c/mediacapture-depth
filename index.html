@@ -420,19 +420,14 @@
           double. It represents the maximum range in meters.
         </p>
         <p>
-          A <a>depth map</a> has an associated <dfn>focal length</dfn> which is
-          a double. It represents the focal length of the camera in
-          millimeters.
+          A <a>depth map</a> has an associated <dfn>horizontal focal length
+          </dfn> which is a double. It represents the horizontal focal length of
+          the depth camera, in pixels.
         </p>
         <p>
-          A <a>depth map</a> has an associated <dfn>horizontal field of
-          view</dfn> which is a double. It represents the horizontal angle of
-          view in degrees.
-        </p>
-        <p>
-          A <a>depth map</a> has an associated <dfn>vertical field of
-          view</dfn> which is a double. It represents the vertical angle of
-          view in degrees.
+          A <a>depth map</a> has an associated <dfn>vertical focal length</dfn>
+          which is a double. It represents the vertical focal length of
+          the depth camera, in pixels.
         </p>
         <p>
           The data type of a <a>depth map</a> is 16-bit unsigned integer. The
@@ -916,11 +911,9 @@
           partial dictionary MediaTrackSettings {
               double              near;
               double              far;
-              double              focalLength;
-              double              horizontalFieldOfView;
-              double              verticalFieldOfView;
+              double              focalLengthX;
+              double              focalLengthY;
           };
-        
 </pre>
         <div dfn-for="MediaTrackSettings">
           <p>
@@ -932,16 +925,12 @@
             <a>depth map</a>'s <a>far value</a>.
           </p>
           <p>
-            The <dfn><code>focalLength</code></dfn> dictionary member
-            represents the <a>depth map</a>'s <a>focal length</a>.
+            The <dfn><code>focalLengthX</code></dfn> dictionary member
+            represents the <a>depth map</a>'s <a>horizontal focal length</a>.
           </p>
           <p>
-            The <dfn><code>horizontalFieldOfView</code></dfn> dictionary member
-            represents the <a>depth map</a>'s <a>horizontal field of view</a>.
-          </p>
-          <p>
-            The <dfn><code>verticalFieldOfView</code></dfn> dictionary member
-            represents the <a>depth map</a>'s <a>vertical field of view</a>.
+            The <dfn><code>focalLengthY</code></dfn> dictionary member
+            represents the <a>depth map</a>'s <a>vertical focal length</a>.
           </p>
         </div>
       </section>
@@ -988,52 +977,33 @@
             </tr>
             <tr>
               <td>
-                <code>focalLength</code>
+                <code>focalLengthX</code>
               </td>
               <td>
                 <code>ConstrainDouble</code>
               </td>
               <td>
-                The <a>focal length</a>, in millimeters.
+                The <a>horizontal focal length</a>, in pixels.
               </td>
             </tr>
             <tr>
               <td>
-                <code>horizontalFieldOfView</code>
+                <code>focalLengthY</code>
               </td>
               <td>
                 <code>ConstrainDouble</code>
               </td>
               <td>
-                The <a>horizontal field of view</a>, in degrees.
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <code>verticalFieldOfView</code>
-              </td>
-              <td>
-                <code>ConstrainDouble</code>
-              </td>
-              <td>
-                The <a>vertical field of view</a>, in degrees.
+                The <a>vertical focal length</a>, in pixels.
               </td>
             </tr>
           </tbody>
         </table>
         <p>
-          The <code>near</code>, <code>far</code>, <code>focalLength</code>,
-          <code>horizontalFieldOfView</code>, and
-          <code>verticalFieldOfView</code> constrainable properties are defined
+          The <code>near</code>, <code>far</code>, <code>focalLengthX</code>
+          and <code>focalLengthY</code> constrainable properties are defined
           to apply only to <a>depth stream track</a>s.
         </p>
-        <div class="note">
-          The <code>focalLength</code>, <code>horizontalFieldOfView</code>, and
-          <code>verticalFieldOfView</code> properties could be upstreamed to a
-          future version of the the <em>Media Capture and Streams</em>
-          specification [[!GETUSERMEDIA]] to allow them to be applied to video
-          <a>MediaStreamTrack</a> objects as well.
-        </div>
         <p>
           The <code>near</code> and <code>far</code> constrainable properties,
           when set, allow the implementation to pick the best depth camera mode
@@ -1048,37 +1018,33 @@
           <a>overconstrained</a>.
         </p>
         <p>
-          If the <a>near value</a>, <a>far value</a>, <a>focal length</a>,
-          <a>horizontal field of view</a>, or <a>vertical field of view</a> is
-          fixed due to a hardware or software limitation, the corresponding
-          constrainable property's value MUST be set to the value reported by
-          the underlying implementation. (For example, the focal length of the
-          lens may be fixed, or the underlying platform may not expose the
-          focal length information.)
+          If the <a>near value</a>, <a>far value</a>, <a>horizontal focal length
+          </a> or <a>vertical focal length</a> is fixed due to a hardware or
+          software limitation, the corresponding constrainable property's value
+          MUST be set to the value reported by the underlying implementation.
+          (For example, the focal lengths of the lens may be fixed, or the
+          underlying platform may not expose the focal length information.)
         </p>
         <pre class="idl">
           partial dictionary MediaTrackConstraintSet {
             ConstrainDouble near;
             ConstrainDouble far;
-            ConstrainDouble focalLength;
-            ConstrainDouble horizontalFieldOfView;
-            ConstrainDouble verticalFieldOfView;
+            ConstrainDouble focalLengthX;
+            ConstrainDouble focalLengthY;
           };
 
           partial dictionary MediaTrackSupportedConstraints {
             boolean near = true;
             boolean far = true;
-            boolean focalLength = true;
-            boolean horizontalFieldOfView = true;
-            boolean verticalFieldOfView = true;
+            boolean focalLengthX = true;
+            boolean focalLengthY = true;
           };
 
           partial dictionary MediaTrackCapabilities {
             (double or DoubleRange) near;
             (double or DoubleRange) far;
-            (double or DoubleRange) focalLength;
-            (double or DoubleRange) horizontalFieldOfView;
-            (double or DoubleRange) verticalFieldOfView;
+            (double or DoubleRange) focalLengthX;
+            (double or DoubleRange) focalLengthY;
           };
         
 </pre>
