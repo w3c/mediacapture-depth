@@ -8,7 +8,7 @@ branches:
 
 env:
   global:
-    - URL="https://rawgit.com/w3c/mediacapture-depth/TR/ECHIDNA"
+    - URL="https://rawgit.com/w3c/mediacapture-depth/TR/W3CTRMANIFEST"
     - DECISION="https://lists.w3.org/Archives/Public/public-media-capture/2015Dec/0031.html"
     - secure: "NOnRV3zs4zT3OFN5lSnuzc//VxvRKcUmGH/4YPQM2Xqm/LorP4D35GtREJL3o/n273CxyCV6IRtx/LPOSQQymZVSwfMHfIB+QA+llaGw6eItVGq0thxXGncXv5z8L6XV6cT7B0Y5UEK5GaHUdzyCHT5L8YvnadeXlVsASBAMinI="
  
