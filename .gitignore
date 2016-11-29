@@ -1,1 +1,9 @@
+*~
+old
+old?
+.DS_Store
+build
+support
+webrtc-respec-ci
+.webrtc-respec-ci
 node_modules
