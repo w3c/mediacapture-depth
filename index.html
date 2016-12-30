@@ -909,20 +909,20 @@
         </p>
         <pre class="idl">
           partial dictionary MediaTrackSettings {
-              double              near;
-              double              far;
+              double              depthNear;
+              double              depthFar;
               double              focalLengthX;
               double              focalLengthY;
           };
 </pre>
         <div dfn-for="MediaTrackSettings">
           <p>
-            The <dfn><code>near</code></dfn> dictionary member represents the
-            <a>depth map</a>'s <a>near value</a>.
+            The <dfn><code>depthNear</code></dfn> dictionary member represents
+            the <a>depth map</a>'s <a>near value</a>.
           </p>
           <p>
-            The <dfn><code>far</code></dfn> dictionary member represents the
-            <a>depth map</a>'s <a>far value</a>.
+            The <dfn><code>depthFar</code></dfn> dictionary member represents
+            the <a>depth map</a>'s <a>far value</a>.
           </p>
           <p>
             The <dfn><code>focalLengthX</code></dfn> dictionary member
@@ -955,7 +955,7 @@
           <tbody>
             <tr>
               <td>
-                <code>near</code>
+                <code>depthNear</code>
               </td>
               <td>
                 <code>ConstrainDouble</code>
@@ -966,7 +966,7 @@
             </tr>
             <tr>
               <td>
-                <code>far</code>
+                <code>depthFar</code>
               </td>
               <td>
                 <code>ConstrainDouble</code>
@@ -1000,22 +1000,22 @@
           </tbody>
         </table>
         <p>
-          The <code>near</code>, <code>far</code>, <code>focalLengthX</code>
-          and <code>focalLengthY</code> constrainable properties are defined
-          to apply only to <a>depth stream track</a>s.
+          The <code>depthNear</code>, <code>depthFar</code>, <code>focalLengthX
+          </code> and <code>focalLengthY</code> constrainable properties are
+          defined to apply only to <a>depth stream track</a>s.
         </p>
         <p>
-          The <code>near</code> and <code>far</code> constrainable properties,
-          when set, allow the implementation to pick the best depth camera mode
-          optimized for the range <code>[near, far]</code> and help minimize
-          the error introduced by the lossy conversion from the depth value
-          <var>d</var> to a quantized d<sub>8bit</sub> and back to an
-          approximation of the depth value <var>d</var>.
+          The <code>depthNear</code> and <code>depthFar</code> constrainable
+          properties, when set, allow the implementation to pick the best depth
+          camera mode optimized for the range <code>[depthNear, depthFar]</code>
+          and help minimize the error introduced by the lossy conversion from
+          the depth value <var>d</var> to a quantized d<sub>8bit</sub> and back
+          to an approximation of the depth value <var>d</var>.
         </p>
         <p>
-          If the <code>far</code> property's value is less than the
-          <code>near</code> property's value, the <a>depth stream track</a> is
-          <a>overconstrained</a>.
+          If the <code>depthFar</code> property's value is less than the
+          <code>depthNear</code> property's value, the <a>depth stream track</a>
+          is <a>overconstrained</a>.
         </p>
         <p>
           If the <a>near value</a>, <a>far value</a>, <a>horizontal focal length
@@ -1027,22 +1027,22 @@
         </p>
         <pre class="idl">
           partial dictionary MediaTrackConstraintSet {
-            ConstrainDouble near;
-            ConstrainDouble far;
+            ConstrainDouble depthNear;
+            ConstrainDouble depthFar;
             ConstrainDouble focalLengthX;
             ConstrainDouble focalLengthY;
           };
 
           partial dictionary MediaTrackSupportedConstraints {
-            boolean near = true;
-            boolean far = true;
+            boolean depthNear = true;
+            boolean depthFar = true;
             boolean focalLengthX = true;
             boolean focalLengthY = true;
           };
 
           partial dictionary MediaTrackCapabilities {
-            (double or DoubleRange) near;
-            (double or DoubleRange) far;
+            (double or DoubleRange) depthNear;
+            (double or DoubleRange) depthFar;
             (double or DoubleRange) focalLengthX;
             (double or DoubleRange) focalLengthY;
           };
