@@ -349,7 +349,7 @@
           An <dfn>invalid depth map value</dfn> is 0 (the user agent is unable
           to acquire depth information for the given pixel for any reason).
         </p>
-        <p>
+        <p></p>
         <p>
           A <a>depth map</a> has an associated <dfn>near value</dfn> which is a
           double. It represents the minimum range in meters.
@@ -409,8 +409,11 @@
             <var>d</var> as follows:
           </p>
           <ol>
-            <li>Given <var>d<sub>16bit</sub></var>, <var>near</var> <a>near
-            value</a> and <var>far</var> <a>far value</a>, normalize
+            <li>If <var>d<sub>16bit</sub></var> is 0, let <var>d</var> be an
+            <a>invalid depth map value</a>, and return it.
+            </li>
+            <li>Otherwise, given <var>d<sub>16bit</sub></var>, <var>near</var>
+            <a>near value</a> and <var>far</var> <a>far value</a>, normalize
             <var>d<sub>16bit</sub></var> to [0, 1] range:
               <p>
                 `d_(n) = d_(16bit) / 65535`
@@ -421,6 +424,8 @@
               <p>
                 `d = (d_(n) * (far - n ear)) + n ear`
               </p>
+            </li>
+            <li>Return <var>d</var>.
             </li>
           </ol>
         </div>

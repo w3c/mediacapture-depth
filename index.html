@@ -574,8 +574,11 @@
             <var>d</var> as follows:
           </p>
           <ol>
-            <li>Given <var>d<sub>16bit</sub></var>, <var>near</var> <a>near
-            value</a> and <var>far</var> <a>far value</a>, normalize
+            <li>If <var>d<sub>16bit</sub></var> is 0, let <var>d</var> be an
+            <a>invalid depth map value</a>, and return it.
+            </li>
+            <li>Otherwise, given <var>d<sub>16bit</sub></var>, <var>near</var>
+            <a>near value</a> and <var>far</var> <a>far value</a>, normalize
             <var>d<sub>16bit</sub></var> to [0, 1] range:
               <p>
                 <span id="MathJax-Element-3-Frame" class="mjx-chtml"><span id=
@@ -689,6 +692,8 @@
                 class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
                 "padding-top: 0.225em; padding-bottom: 0.298em;">r</span></span></span></span></span></span></span>
               </p>
+            </li>
+            <li>Return <var>d</var>.
             </li>
           </ol>
         </div>
