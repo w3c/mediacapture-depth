@@ -392,8 +392,12 @@
           A <dfn>depth map</dfn> is an abstract representation of a frame of a
           <a>depth stream track</a>. A <a>depth map</a> is an image that
           contains information relating to the distance of the surfaces of
-          scene objects from a viewpoint.
+          scene objects from a viewpoint. A <a>depth map</a> consists of pixels
+          referred to as <dfn data-lt="depth map value">depth map values</dfn>.
+          An <dfn>invalid depth map value</dfn> is 0 (the user agent is unable
+          to acquire depth information for the given pixel for any reason).
         </p>
+        <p></p>
         <p>
           A <a>depth map</a> has an associated <dfn>near value</dfn> which is a
           double. It represents the minimum range in meters.
@@ -415,7 +419,7 @@
         <p>
           The data type of a <a>depth map</a> is 16-bit unsigned integer. The
           algorithm to <dfn>convert the depth map value to grayscale</dfn>,
-          given a <dfn>depth map value</dfn> <var>d</var>, is as follows:
+          given a <a>depth map value</a> <var>d</var>, is as follows:
         </p>
         <ol>
           <li>Let <var>near</var> be the the <a>near value</a>.
@@ -423,7 +427,7 @@
           <li>Let <var>far</var> be the the <a>far value</a>.
           </li>
           <li>If the given <a>depth map value</a> <var>d</var> is unknown or
-          invalid, then return 0.
+          invalid, then return the <a>invalid depth map value</a>.
           </li>
           <li>Apply the <a>rules to convert using range linear</a> to
           <var>d</var> to obtain quantized value <var>d<sub>16bit</sub>.</var>
@@ -548,8 +552,11 @@
             <var>d</var> as follows:
           </p>
           <ol>
-            <li>Given <var>d<sub>16bit</sub></var>, <var>near</var> <a>near
-            value</a> and <var>far</var> <a>far value</a>, normalize
+            <li>If <var>d<sub>16bit</sub></var> is 0, let <var>d</var> be an
+            <a>invalid depth map value</a>, and return it.
+            </li>
+            <li>Otherwise, given <var>d<sub>16bit</sub></var>, <var>near</var>
+            <a>near value</a> and <var>far</var> <a>far value</a>, normalize
             <var>d<sub>16bit</sub></var> to [0, 1] range:
               <p>
                 <span id="MathJax-Element-3-Frame" class="mjx-chtml"><span id=
@@ -663,6 +670,8 @@
                 class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
                 "padding-top: 0.225em; padding-bottom: 0.298em;">r</span></span></span></span></span></span></span>
               </p>
+            </li>
+            <li>Return <var>d</var>.
             </li>
           </ol>
         </div>
