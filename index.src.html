@@ -40,20 +40,20 @@
           "Web Real-Time Communications Working Group"
         ],
         wgURI: [
-          "http://www.w3.org/2009/dap/",
-          "http://www.w3.org/2011/04/webrtc/"
+          "https://www.w3.org/2009/dap/",
+          "https://www.w3.org/2011/04/webrtc/"
         ],
         wgPublicList: "public-media-capture",
         wgPatentURI: [
-          "http://www.w3.org/2004/01/pp-impl/47318/status",
-          "http://www.w3.org/2004/01/pp-impl/43696/status"
+          "https://www.w3.org/2004/01/pp-impl/47318/status",
+          "https://www.w3.org/2004/01/pp-impl/43696/status"
         ],
         otherLinks: [{
         key: "Participate",
         data: [
           {
             value: "public-media-capture@w3.org",
-            href: "http://lists.w3.org/Archives/Public/public-media-capture/"
+            href: "https://lists.w3.org/Archives/Public/public-media-capture/"
           },
           {
             value: "GitHub w3c/mediacapture-depth",
@@ -81,23 +81,6 @@
               ],
               status:    "ED",
               publisher: "W3C"
-          },
-          "XDM": {
-              title:     "Extensible Device Metadata",
-              href:      "https://software.intel.com/sites/default/files/managed/b0/bf/ExtensibleDeviceMetadataXDM.pdf",
-              authors:  [
-                         "Houman Alagha",
-                         "Ivan Dryanovski",
-                         "Jim Foley",
-                         "James Fung",
-                         "Carlos Hernández",
-                         "Ryan Hickman",
-                         "Rohit Israni",
-                         "Ravi Teja Kommineni",
-                         "Cian Montgomery"
-              ],
-              status:    "Specification 1.0",
-              publisher: "XDM Working Group"
           }
         }
     };
@@ -296,11 +279,11 @@
       </p>
       <p>
         The <code><a href=
-        "http://heycam.github.io/webidl/#idl-DataView"><dfn>DataView</dfn></a></code>,
+        "https://heycam.github.io/webidl/#idl-DataView"><dfn>DataView</dfn></a></code>,
         <code><a href=
-        "http://heycam.github.io/webidl/#idl-Uint8ClampedArray"><dfn>Uint8ClampedArray</dfn></a></code>,
+        "https://heycam.github.io/webidl/#idl-Uint8ClampedArray"><dfn>Uint8ClampedArray</dfn></a></code>,
         and <code><a href=
-        "http://heycam.github.io/webidl/#idl-Uint16Array"><dfn>Uint16Array</dfn></a></code>
+        "https://heycam.github.io/webidl/#idl-Uint16Array"><dfn>Uint16Array</dfn></a></code>
         buffer source types are defined in [[WEBIDL]].
       </p>
     </section>
@@ -359,19 +342,14 @@
           double. It represents the maximum range in meters.
         </p>
         <p>
-          A <a>depth map</a> has an associated <dfn>focal length</dfn> which is
-          a double. It represents the focal length of the camera in
-          millimeters.
+          A <a>depth map</a> has an associated <dfn>horizontal focal length
+          </dfn> which is a double. It represents the horizontal focal length of
+          the depth camera, in pixels.
         </p>
         <p>
-          A <a>depth map</a> has an associated <dfn>horizontal field of
-          view</dfn> which is a double. It represents the horizontal angle of
-          view in degrees.
-        </p>
-        <p>
-          A <a>depth map</a> has an associated <dfn>vertical field of
-          view</dfn> which is a double. It represents the vertical angle of
-          view in degrees.
+          A <a>depth map</a> has an associated <dfn>vertical focal length</dfn>
+          which is a double. It represents the vertical focal length of
+          the depth camera, in pixels.
         </p>
         <p>
           The data type of a <a>depth map</a> is 16-bit unsigned integer. The
@@ -526,8 +504,8 @@
         </p>
         <p>
           If a <a>MediaStreamTrack</a> of <a>kind</a> "<code>depth</code>" is
-          <a>muted</a> or <a>disabled</a>, it MUST render black frames, or a
-          zero-information-content equivalent.
+          <a>muted</a> or <a>disabled</a>, it MUST render frames as if all the
+          pixels would be 0.
         </p>
       </section>
       <section>
@@ -658,34 +636,28 @@
         </p>
         <pre class="idl">
           partial dictionary MediaTrackSettings {
-              double              near;
-              double              far;
-              double              focalLength;
-              double              horizontalFieldOfView;
-              double              verticalFieldOfView;
+              double              depthNear;
+              double              depthFar;
+              double              focalLengthX;
+              double              focalLengthY;
           };
-        
 </pre>
         <div dfn-for="MediaTrackSettings">
           <p>
-            The <dfn><code>near</code></dfn> dictionary member represents the
-            <a>depth map</a>'s <a>near value</a>.
+            The <dfn><code>depthNear</code></dfn> dictionary member represents
+            the <a>depth map</a>'s <a>near value</a>.
           </p>
           <p>
-            The <dfn><code>far</code></dfn> dictionary member represents the
-            <a>depth map</a>'s <a>far value</a>.
+            The <dfn><code>depthFar</code></dfn> dictionary member represents
+            the <a>depth map</a>'s <a>far value</a>.
           </p>
           <p>
-            The <dfn><code>focalLength</code></dfn> dictionary member
-            represents the <a>depth map</a>'s <a>focal length</a>.
+            The <dfn><code>focalLengthX</code></dfn> dictionary member
+            represents the <a>depth map</a>'s <a>horizontal focal length</a>.
           </p>
           <p>
-            The <dfn><code>horizontalFieldOfView</code></dfn> dictionary member
-            represents the <a>depth map</a>'s <a>horizontal field of view</a>.
-          </p>
-          <p>
-            The <dfn><code>verticalFieldOfView</code></dfn> dictionary member
-            represents the <a>depth map</a>'s <a>vertical field of view</a>.
+            The <dfn><code>focalLengthY</code></dfn> dictionary member
+            represents the <a>depth map</a>'s <a>vertical focal length</a>.
           </p>
         </div>
       </section>
@@ -710,7 +682,7 @@
           <tbody>
             <tr>
               <td>
-                <code>near</code>
+                <code>depthNear</code>
               </td>
               <td>
                 <code>ConstrainDouble</code>
@@ -721,7 +693,7 @@
             </tr>
             <tr>
               <td>
-                <code>far</code>
+                <code>depthFar</code>
               </td>
               <td>
                 <code>ConstrainDouble</code>
@@ -732,97 +704,74 @@
             </tr>
             <tr>
               <td>
-                <code>focalLength</code>
+                <code>focalLengthX</code>
               </td>
               <td>
                 <code>ConstrainDouble</code>
               </td>
               <td>
-                The <a>focal length</a>, in millimeters.
+                The <a>horizontal focal length</a>, in pixels.
               </td>
             </tr>
             <tr>
               <td>
-                <code>horizontalFieldOfView</code>
+                <code>focalLengthY</code>
               </td>
               <td>
                 <code>ConstrainDouble</code>
               </td>
               <td>
-                The <a>horizontal field of view</a>, in degrees.
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <code>verticalFieldOfView</code>
-              </td>
-              <td>
-                <code>ConstrainDouble</code>
-              </td>
-              <td>
-                The <a>vertical field of view</a>, in degrees.
+                The <a>vertical focal length</a>, in pixels.
               </td>
             </tr>
           </tbody>
         </table>
         <p>
-          The <code>near</code>, <code>far</code>, <code>focalLength</code>,
-          <code>horizontalFieldOfView</code>, and
-          <code>verticalFieldOfView</code> constrainable properties are defined
-          to apply only to <a>depth stream track</a>s.
-        </p>
-        <div class="note">
-          The <code>focalLength</code>, <code>horizontalFieldOfView</code>, and
-          <code>verticalFieldOfView</code> properties could be upstreamed to a
-          future version of the the <em>Media Capture and Streams</em>
-          specification [[!GETUSERMEDIA]] to allow them to be applied to video
-          <a>MediaStreamTrack</a> objects as well.
-        </div>
-        <p>
-          The <code>near</code> and <code>far</code> constrainable properties,
-          when set, allow the implementation to pick the best depth camera mode
-          optimized for the range <code>[near, far]</code> and help minimize
-          the error introduced by the lossy conversion from the depth value
-          <var>d</var> to a quantized d<sub>8bit</sub> and back to an
-          approximation of the depth value <var>d</var>.
+          The <code>depthNear</code>, <code>depthFar</code>, <code>focalLengthX
+          </code> and <code>focalLengthY</code> constrainable properties are
+          defined to apply only to <a>depth stream track</a>s.
         </p>
         <p>
-          If the <code>far</code> property's value is less than the
-          <code>near</code> property's value, the <a>depth stream track</a> is
-          <a>overconstrained</a>.
+          The <code>depthNear</code> and <code>depthFar</code> constrainable
+          properties, when set, allow the implementation to pick the best depth
+          camera mode optimized for the range <code>[depthNear, depthFar]</code>
+          and help minimize the error introduced by the lossy conversion from
+          the depth value <var>d</var> to a quantized d<sub>8bit</sub> and back
+          to an approximation of the depth value <var>d</var>.
         </p>
         <p>
-          If the <a>near value</a>, <a>far value</a>, <a>focal length</a>,
-          <a>horizontal field of view</a>, or <a>vertical field of view</a> is
-          fixed due to a hardware or software limitation, the corresponding
-          constrainable property's value MUST be set to the value reported by
-          the underlying implementation. (For example, the focal length of the
-          lens may be fixed, or the underlying platform may not expose the
-          focal length information.)
+          If the <code>depthFar</code> property's value is less than the
+          <code>depthNear</code> property's value, the <a>depth stream track</a>
+          is <a>overconstrained</a>.
+        </p>
+        <p>
+          If the <a>near value</a>, <a>far value</a>, <a>horizontal focal length
+          </a> or <a>vertical focal length</a> is fixed due to a hardware or
+          software limitation, the corresponding constrainable property's value
+          MUST be set to the value reported by the underlying implementation.
+          (For example, the focal lengths of the lens may be fixed, or the
+          underlying platform may not expose the focal length information.)
         </p>
         <pre class="idl">
           partial dictionary MediaTrackConstraintSet {
-            ConstrainDouble near;
-            ConstrainDouble far;
-            ConstrainDouble focalLength;
-            ConstrainDouble horizontalFieldOfView;
-            ConstrainDouble verticalFieldOfView;
+            ConstrainDouble depthNear;
+            ConstrainDouble depthFar;
+            ConstrainDouble focalLengthX;
+            ConstrainDouble focalLengthY;
           };
 
           partial dictionary MediaTrackSupportedConstraints {
-            boolean near = true;
-            boolean far = true;
-            boolean focalLength = true;
-            boolean horizontalFieldOfView = true;
-            boolean verticalFieldOfView = true;
+            boolean depthNear = true;
+            boolean depthFar = true;
+            boolean focalLengthX = true;
+            boolean focalLengthY = true;
           };
 
           partial dictionary MediaTrackCapabilities {
-            (double or DoubleRange) near;
-            (double or DoubleRange) far;
-            (double or DoubleRange) focalLength;
-            (double or DoubleRange) horizontalFieldOfView;
-            (double or DoubleRange) verticalFieldOfView;
+            (double or DoubleRange) depthNear;
+            (double or DoubleRange) depthFar;
+            (double or DoubleRange) focalLengthX;
+            (double or DoubleRange) focalLengthY;
           };
         
 </pre>
@@ -947,10 +896,6 @@ gl.texImage2D(
         Cases and Requirements</a>, sent feedback and comments. Special thanks
         to Ningxin Hu for experimental implementations, as well as to the
         Project Tango for their experiments.
-      </p>
-      <p>
-        The range linear format [[!XDM]] is licensed under <a href=
-        "http://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.
       </p>
     </section>
   </body>
