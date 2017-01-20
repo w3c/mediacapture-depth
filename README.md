@@ -11,3 +11,4 @@ specification that is being worked on in the
 * [Specification](https://w3c.github.com/mediacapture-depth/) 
 * [Issue Tracker](https://github.com/w3c/mediacapture-depth/issues)
 * [Mailing List](http://lists.w3.org/Archives/Public/public-media-capture/) 
+
