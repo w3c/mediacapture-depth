@@ -40,20 +40,20 @@
           "Web Real-Time Communications Working Group"
         ],
         wgURI: [
-          "http://www.w3.org/2009/dap/",
-          "http://www.w3.org/2011/04/webrtc/"
+          "https://www.w3.org/2009/dap/",
+          "https://www.w3.org/2011/04/webrtc/"
         ],
         wgPublicList: "public-media-capture",
         wgPatentURI: [
-          "http://www.w3.org/2004/01/pp-impl/47318/status",
-          "http://www.w3.org/2004/01/pp-impl/43696/status"
+          "https://www.w3.org/2004/01/pp-impl/47318/status",
+          "https://www.w3.org/2004/01/pp-impl/43696/status"
         ],
         otherLinks: [{
         key: "Participate",
         data: [
           {
             value: "public-media-capture@w3.org",
-            href: "http://lists.w3.org/Archives/Public/public-media-capture/"
+            href: "https://lists.w3.org/Archives/Public/public-media-capture/"
           },
           {
             value: "GitHub w3c/mediacapture-depth",
@@ -90,8 +90,9 @@
 .mjx-chtml {display: inline-block; line-height: 0; text-indent: 0; text-align: left; text-transform: none; font-style: normal; font-weight: normal; font-size: 100%; font-size-adjust: none; letter-spacing: normal; word-wrap: normal; word-spacing: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; margin: 0; padding: 1px 0}
     .MJXc-display {display: block; text-align: center; margin: 1em 0; padding: 0}
     .mjx-chtml[tabindex]:focus, body :focus .mjx-chtml[tabindex] {display: inline-table}
+    .mjx-full-width {text-align: center; display: table-cell!important; width: 10000em}
     .mjx-math {display: inline-block; border-collapse: separate; border-spacing: 0}
-    .mjx-math * {display: inline-block; text-align: left}
+    .mjx-math * {display: inline-block; -webkit-box-sizing: content-box!important; -moz-box-sizing: content-box!important; box-sizing: content-box!important; text-align: left}
     .mjx-numerator {display: block; text-align: center}
     .mjx-denominator {display: block; text-align: center}
     .MJXc-stacked {height: 0; position: relative}
@@ -115,11 +116,12 @@
     .mjx-mtr {display: table-row}
     .mjx-mlabeledtr {display: table-row}
     .mjx-mtd {display: table-cell; text-align: center}
-    .mjx-label {display: block}
+    .mjx-label {display: table-row}
     .mjx-box {display: inline-block}
     .mjx-block {display: block}
+    .mjx-span {display: inline}
     .mjx-char {display: block; white-space: pre}
-    .mjx-itable {display: inline-table}
+    .mjx-itable {display: inline-table; width: auto}
     .mjx-row {display: table-row}
     .mjx-cell {display: table-cell}
     .mjx-table {display: table; width: 100%}
@@ -130,6 +132,8 @@
     .MJXc-space2 {margin-left: .222em}
     .MJXc-space3 {margin-left: .278em}
     .mjx-ex-box-test {position: absolute; width: 1px; height: 60ex}
+    .mjx-line-box-test {display: table!important}
+    .mjx-line-box-test span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
     .MJXc-TeX-unknown-R {font-family: monospace; font-style: normal; font-weight: normal}
     .MJXc-TeX-unknown-I {font-family: monospace; font-style: italic; font-weight: normal}
     .MJXc-TeX-unknown-B {font-family: monospace; font-style: normal; font-weight: bold}
@@ -344,11 +348,11 @@
       </p>
       <p>
         The <code><a href=
-        "http://heycam.github.io/webidl/#idl-DataView"><dfn>DataView</dfn></a></code>,
+        "https://heycam.github.io/webidl/#idl-DataView"><dfn>DataView</dfn></a></code>,
         <code><a href=
-        "http://heycam.github.io/webidl/#idl-Uint8ClampedArray"><dfn>Uint8ClampedArray</dfn></a></code>,
+        "https://heycam.github.io/webidl/#idl-Uint8ClampedArray"><dfn>Uint8ClampedArray</dfn></a></code>,
         and <code><a href=
-        "http://heycam.github.io/webidl/#idl-Uint16Array"><dfn>Uint16Array</dfn></a></code>
+        "https://heycam.github.io/webidl/#idl-Uint16Array"><dfn>Uint16Array</dfn></a></code>
         buffer source types are defined in [[WEBIDL]].
       </p>
     </section>
@@ -397,7 +401,6 @@
           An <dfn>invalid depth map value</dfn> is 0 (the user agent is unable
           to acquire depth information for the given pixel for any reason).
         </p>
-        <p></p>
         <p>
           A <a>depth map</a> has an associated <dfn>near value</dfn> which is a
           double. It represents the minimum range in meters.
@@ -407,14 +410,14 @@
           double. It represents the maximum range in meters.
         </p>
         <p>
-          A <a>depth map</a> has an associated <dfn>horizontal focal length
-          </dfn> which is a double. It represents the horizontal focal length of
-          the depth camera, in pixels.
+          A <a>depth map</a> has an associated <dfn>horizontal focal
+          length</dfn> which is a double. It represents the horizontal focal
+          length of the depth camera, in pixels.
         </p>
         <p>
           A <a>depth map</a> has an associated <dfn>vertical focal length</dfn>
-          which is a double. It represents the vertical focal length of
-          the depth camera, in pixels.
+          which is a double. It represents the vertical focal length of the
+          depth camera, in pixels.
         </p>
         <p>
           The data type of a <a>depth map</a> is 16-bit unsigned integer. The
@@ -441,8 +444,8 @@
         </p>
         <p>
           <span id="MathJax-Element-1-Frame" class="mjx-chtml"><span id=
-          "MJXc-Node-1" class="mjx-math" role="math"><span id="MJXc-Node-2"
-          class="mjx-mrow"><span id="MJXc-Node-3" class="mjx-mstyle"><span id=
+          "MJXc-Node-1" class="mjx-math"><span id="MJXc-Node-2" class=
+          "mjx-mrow"><span id="MJXc-Node-3" class="mjx-mstyle"><span id=
           "MJXc-Node-4" class="mjx-mrow"><span id="MJXc-Node-5" class=
           "mjx-msub"><span class="mjx-base" style=
           "margin-right: -0.003em;"><span id="MJXc-Node-6" class=
@@ -466,7 +469,7 @@
           class="mjx-mo" style=
           "padding-left: 0.267em; padding-right: 0.267em;"><span class=
           "mjx-char MJXc-TeX-main-R" style=
-          "margin-top: 0.004em; padding-bottom: 0.298em;">−</span></span><span id="MJXc-Node-14"
+          "padding-top: 0.298em; padding-bottom: 0.446em;">−</span></span><span id="MJXc-Node-14"
           class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
           "padding-top: 0.225em; padding-bottom: 0.298em;">n</span></span><span id="MJXc-Node-15"
           class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
@@ -486,7 +489,7 @@
           class="mjx-mo" style=
           "padding-left: 0.267em; padding-right: 0.267em;"><span class=
           "mjx-char MJXc-TeX-main-R" style=
-          "margin-top: 0.004em; padding-bottom: 0.298em;">−</span></span><span id="MJXc-Node-23"
+          "padding-top: 0.298em; padding-bottom: 0.446em;">−</span></span><span id="MJXc-Node-23"
           class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
           "padding-top: 0.225em; padding-bottom: 0.298em;">n</span></span><span id="MJXc-Node-24"
           class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
@@ -494,15 +497,12 @@
           class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
           "padding-top: 0.225em; padding-bottom: 0.298em;">a</span></span><span id="MJXc-Node-26"
           class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
-          "padding-top: 0.225em; padding-bottom: 0.298em;">r</span></span></span></span><span style="border-bottom: 1.3px solid; top: -0.296em; width: 5.087em;"
-          class="mjx-line"></span></span><span style=
-          "height: 2.396em; vertical-align: -1em;" class=
-          "mjx-vsize"></span></span></span></span></span></span></span>
+          "padding-top: 0.225em; padding-bottom: 0.298em;">r</span></span></span></span></span></span></span></span></span></span></span>
         </p>
         <p>
           <span id="MathJax-Element-2-Frame" class="mjx-chtml"><span id=
-          "MJXc-Node-27" class="mjx-math" role="math"><span id="MJXc-Node-28"
-          class="mjx-mrow"><span id="MJXc-Node-29" class="mjx-mstyle"><span id=
+          "MJXc-Node-27" class="mjx-math"><span id="MJXc-Node-28" class=
+          "mjx-mrow"><span id="MJXc-Node-29" class="mjx-mstyle"><span id=
           "MJXc-Node-30" class="mjx-mrow"><span id="MJXc-Node-31" class=
           "mjx-msub"><span class="mjx-base" style=
           "margin-right: -0.003em;"><span id="MJXc-Node-32" class=
@@ -560,10 +560,10 @@
             <var>d<sub>16bit</sub></var> to [0, 1] range:
               <p>
                 <span id="MathJax-Element-3-Frame" class="mjx-chtml"><span id=
-                "MJXc-Node-49" class="mjx-math" role="math"><span id=
-                "MJXc-Node-50" class="mjx-mrow"><span id="MJXc-Node-51" class=
-                "mjx-mstyle"><span id="MJXc-Node-52" class="mjx-mrow"><span id=
-                "MJXc-Node-53" class="mjx-msub"><span class="mjx-base" style=
+                "MJXc-Node-49" class="mjx-math"><span id="MJXc-Node-50" class=
+                "mjx-mrow"><span id="MJXc-Node-51" class="mjx-mstyle"><span id=
+                "MJXc-Node-52" class="mjx-mrow"><span id="MJXc-Node-53" class=
+                "mjx-msub"><span class="mjx-base" style=
                 "margin-right: -0.003em;"><span id="MJXc-Node-54" class=
                 "mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
                 "padding-top: 0.446em; padding-bottom: 0.298em; padding-right: 0.003em;">
@@ -596,21 +596,17 @@
                 "padding-top: 0.372em; padding-bottom: 0.298em;">t</span></span></span></span></span></span><span class="mjx-denominator"
                 style="width: 2.7em; bottom: -0.778em;"><span id="MJXc-Node-66"
                 class="mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style=
-                "padding-top: 0.372em; padding-bottom: 0.372em;">65535</span></span></span><span style="border-bottom: 1.3px solid; top: -0.296em; width: 2.7em;"
-                class="mjx-line"></span></span><span style=
-                "height: 2.225em; vertical-align: -0.778em;" class=
-                "mjx-vsize"></span></span></span></span></span></span></span>
+                "padding-top: 0.372em; padding-bottom: 0.372em;">65535</span></span></span></span></span></span></span></span></span></span>
               </p>
             </li>
             <li>Solve the <a>rules to convert using range linear</a> for <var>
               d</var>:
               <p>
                 <span id="MathJax-Element-4-Frame" class="mjx-chtml"><span id=
-                "MJXc-Node-67" class="mjx-math" role="math"><span id=
-                "MJXc-Node-68" class="mjx-mrow"><span id="MJXc-Node-69" class=
-                "mjx-mstyle"><span id="MJXc-Node-70" class="mjx-mrow"><span id=
-                "MJXc-Node-71" class="mjx-mi"><span class=
-                "mjx-char MJXc-TeX-math-I" style=
+                "MJXc-Node-67" class="mjx-math"><span id="MJXc-Node-68" class=
+                "mjx-mrow"><span id="MJXc-Node-69" class="mjx-mstyle"><span id=
+                "MJXc-Node-70" class="mjx-mrow"><span id="MJXc-Node-71" class=
+                "mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
                 "padding-top: 0.446em; padding-bottom: 0.298em; padding-right: 0.003em;">
                 d</span></span><span id="MJXc-Node-72" class="mjx-mo" style=
                 "padding-left: 0.333em; padding-right: 0.333em;"><span class=
@@ -644,7 +640,7 @@
                 class="mjx-mo" style=
                 "padding-left: 0.267em; padding-right: 0.267em;"><span class=
                 "mjx-char MJXc-TeX-main-R" style=
-                "margin-top: 0.004em; padding-bottom: 0.298em;">−</span></span><span id="MJXc-Node-86"
+                "padding-top: 0.298em; padding-bottom: 0.446em;">−</span></span><span id="MJXc-Node-86"
                 class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
                 "padding-top: 0.225em; padding-bottom: 0.298em;">n</span></span><span id="MJXc-Node-87"
                 class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
@@ -691,7 +687,7 @@
           };
         
 </pre>
-        <p data-dfn-for="MediaStreamConstraints" data-link-for="MediaStreamConstraints">
+        <p>
           If the <dfn><code>depth</code></dfn> dictionary member has the value
           true, the <a>MediaStream</a> returned by the <a>getUserMedia()</a>
           method MUST contain a <a>depth stream track</a>. If the <a>depth</a>
@@ -723,7 +719,7 @@
           };
         
 </pre>
-        <p data-dfn-for="MediaStream" data-link-for="MediaStream">
+        <p>
           The <code><dfn>getDepthTracks</dfn>()</code> method, when invoked,
           MUST return a sequence of <a data-lt="depth stream track">depth
           stream tracks</a> in this stream.
@@ -910,7 +906,7 @@
               double              focalLengthY;
           };
 </pre>
-        <div data-dfn-for="MediaTrackSettings">
+        <div>
           <p>
             The <dfn><code>depthNear</code></dfn> dictionary member represents
             the <a>depth map</a>'s <a>near value</a>.
@@ -995,30 +991,32 @@
           </tbody>
         </table>
         <p>
-          The <code>depthNear</code>, <code>depthFar</code>, <code>focalLengthX
-          </code> and <code>focalLengthY</code> constrainable properties are
-          defined to apply only to <a>depth stream track</a>s.
+          The <code>depthNear</code>, <code>depthFar</code>,
+          <code>focalLengthX</code> and <code>focalLengthY</code> constrainable
+          properties are defined to apply only to <a>depth stream track</a>s.
         </p>
         <p>
           The <code>depthNear</code> and <code>depthFar</code> constrainable
           properties, when set, allow the implementation to pick the best depth
-          camera mode optimized for the range <code>[depthNear, depthFar]</code>
-          and help minimize the error introduced by the lossy conversion from
-          the depth value <var>d</var> to a quantized d<sub>8bit</sub> and back
-          to an approximation of the depth value <var>d</var>.
+          camera mode optimized for the range <code>[depthNear,
+          depthFar]</code> and help minimize the error introduced by the lossy
+          conversion from the depth value <var>d</var> to a quantized
+          d<sub>8bit</sub> and back to an approximation of the depth value
+          <var>d</var>.
         </p>
         <p>
           If the <code>depthFar</code> property's value is less than the
-          <code>depthNear</code> property's value, the <a>depth stream track</a>
-          is <a>overconstrained</a>.
+          <code>depthNear</code> property's value, the <a>depth stream
+          track</a> is <a>overconstrained</a>.
         </p>
         <p>
-          If the <a>near value</a>, <a>far value</a>, <a>horizontal focal length
-          </a> or <a>vertical focal length</a> is fixed due to a hardware or
-          software limitation, the corresponding constrainable property's value
-          MUST be set to the value reported by the underlying implementation.
-          (For example, the focal lengths of the lens may be fixed, or the
-          underlying platform may not expose the focal length information.)
+          If the <a>near value</a>, <a>far value</a>, <a>horizontal focal
+          length</a> or <a>vertical focal length</a> is fixed due to a hardware
+          or software limitation, the corresponding constrainable property's
+          value MUST be set to the value reported by the underlying
+          implementation. (For example, the focal lengths of the lens may be
+          fixed, or the underlying platform may not expose the focal length
+          information.)
         </p>
         <pre class="idl">
           partial dictionary MediaTrackConstraintSet {
