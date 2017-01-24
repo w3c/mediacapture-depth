@@ -886,39 +886,6 @@ enum VideoKindEnum {
           fixed, or the underlying platform may not expose the focal length
           information.)
         </p>
-        <pre class="idl">
-          partial dictionary MediaTrackConstraintSet {
-            ConstrainDOMString videoKind;
-            ConstrainDouble depthNear;
-            ConstrainDouble depthFar;
-            ConstrainDouble focalLengthX;
-            ConstrainDouble focalLengthY;
-          };
-
-          partial dictionary MediaTrackSupportedConstraints {
-            boolean videoKind = true;
-            boolean depthNear = true;
-            boolean depthFar = true;
-            boolean focalLengthX = true;
-            boolean focalLengthY = true;
-          };
-
-          partial dictionary MediaTrackCapabilities {
-            DOMString videoKind;
-            (double or DoubleRange) depthNear;
-            (double or DoubleRange) depthFar;
-            (double or DoubleRange) focalLengthX;
-            (double or DoubleRange) focalLengthY;
-          };
-
-          partial dictionary MediaTrackSettings {
-            DOMString           videoKind;
-            double              depthNear;
-            double              depthFar;
-            double              focalLengthX;
-            double              focalLengthY;
-          };
-</pre>
       </section>
       <section>
         <h2>
@@ -1043,5 +1010,6 @@ gl.texImage2D(
         Project Tango for their experiments.
       </p>
     </section>
+    <section id="idl-index" class="appendix"></section>
   </body>
 </html>

@@ -90,9 +90,8 @@
 .mjx-chtml {display: inline-block; line-height: 0; text-indent: 0; text-align: left; text-transform: none; font-style: normal; font-weight: normal; font-size: 100%; font-size-adjust: none; letter-spacing: normal; word-wrap: normal; word-spacing: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; margin: 0; padding: 1px 0}
     .MJXc-display {display: block; text-align: center; margin: 1em 0; padding: 0}
     .mjx-chtml[tabindex]:focus, body :focus .mjx-chtml[tabindex] {display: inline-table}
-    .mjx-full-width {text-align: center; display: table-cell!important; width: 10000em}
     .mjx-math {display: inline-block; border-collapse: separate; border-spacing: 0}
-    .mjx-math * {display: inline-block; -webkit-box-sizing: content-box!important; -moz-box-sizing: content-box!important; box-sizing: content-box!important; text-align: left}
+    .mjx-math * {display: inline-block; text-align: left}
     .mjx-numerator {display: block; text-align: center}
     .mjx-denominator {display: block; text-align: center}
     .MJXc-stacked {height: 0; position: relative}
@@ -116,12 +115,11 @@
     .mjx-mtr {display: table-row}
     .mjx-mlabeledtr {display: table-row}
     .mjx-mtd {display: table-cell; text-align: center}
-    .mjx-label {display: table-row}
+    .mjx-label {display: block}
     .mjx-box {display: inline-block}
     .mjx-block {display: block}
-    .mjx-span {display: inline}
     .mjx-char {display: block; white-space: pre}
-    .mjx-itable {display: inline-table; width: auto}
+    .mjx-itable {display: inline-table}
     .mjx-row {display: table-row}
     .mjx-cell {display: table-cell}
     .mjx-table {display: table; width: 100%}
@@ -132,8 +130,6 @@
     .MJXc-space2 {margin-left: .222em}
     .MJXc-space3 {margin-left: .278em}
     .mjx-ex-box-test {position: absolute; width: 1px; height: 60ex}
-    .mjx-line-box-test {display: table!important}
-    .mjx-line-box-test span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
     .MJXc-TeX-unknown-R {font-family: monospace; font-style: normal; font-weight: normal}
     .MJXc-TeX-unknown-I {font-family: monospace; font-style: italic; font-weight: normal}
     .MJXc-TeX-unknown-B {font-family: monospace; font-style: normal; font-weight: bold}
@@ -447,8 +443,8 @@
         </p>
         <p>
           <span id="MathJax-Element-1-Frame" class="mjx-chtml"><span id=
-          "MJXc-Node-1" class="mjx-math"><span id="MJXc-Node-2" class=
-          "mjx-mrow"><span id="MJXc-Node-3" class="mjx-mstyle"><span id=
+          "MJXc-Node-1" class="mjx-math" role="math"><span id="MJXc-Node-2"
+          class="mjx-mrow"><span id="MJXc-Node-3" class="mjx-mstyle"><span id=
           "MJXc-Node-4" class="mjx-mrow"><span id="MJXc-Node-5" class=
           "mjx-msub"><span class="mjx-base" style=
           "margin-right: -0.003em;"><span id="MJXc-Node-6" class=
@@ -472,7 +468,7 @@
           class="mjx-mo" style=
           "padding-left: 0.267em; padding-right: 0.267em;"><span class=
           "mjx-char MJXc-TeX-main-R" style=
-          "padding-top: 0.298em; padding-bottom: 0.446em;">−</span></span><span id="MJXc-Node-14"
+          "margin-top: 0.004em; padding-bottom: 0.298em;">−</span></span><span id="MJXc-Node-14"
           class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
           "padding-top: 0.225em; padding-bottom: 0.298em;">n</span></span><span id="MJXc-Node-15"
           class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
@@ -492,7 +488,7 @@
           class="mjx-mo" style=
           "padding-left: 0.267em; padding-right: 0.267em;"><span class=
           "mjx-char MJXc-TeX-main-R" style=
-          "padding-top: 0.298em; padding-bottom: 0.446em;">−</span></span><span id="MJXc-Node-23"
+          "margin-top: 0.004em; padding-bottom: 0.298em;">−</span></span><span id="MJXc-Node-23"
           class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
           "padding-top: 0.225em; padding-bottom: 0.298em;">n</span></span><span id="MJXc-Node-24"
           class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
@@ -507,8 +503,8 @@
         </p>
         <p>
           <span id="MathJax-Element-2-Frame" class="mjx-chtml"><span id=
-          "MJXc-Node-27" class="mjx-math"><span id="MJXc-Node-28" class=
-          "mjx-mrow"><span id="MJXc-Node-29" class="mjx-mstyle"><span id=
+          "MJXc-Node-27" class="mjx-math" role="math"><span id="MJXc-Node-28"
+          class="mjx-mrow"><span id="MJXc-Node-29" class="mjx-mstyle"><span id=
           "MJXc-Node-30" class="mjx-mrow"><span id="MJXc-Node-31" class=
           "mjx-msub"><span class="mjx-base" style=
           "margin-right: -0.003em;"><span id="MJXc-Node-32" class=
@@ -566,10 +562,10 @@
             <var>d<sub>16bit</sub></var> to [0, 1] range:
               <p>
                 <span id="MathJax-Element-3-Frame" class="mjx-chtml"><span id=
-                "MJXc-Node-49" class="mjx-math"><span id="MJXc-Node-50" class=
-                "mjx-mrow"><span id="MJXc-Node-51" class="mjx-mstyle"><span id=
-                "MJXc-Node-52" class="mjx-mrow"><span id="MJXc-Node-53" class=
-                "mjx-msub"><span class="mjx-base" style=
+                "MJXc-Node-49" class="mjx-math" role="math"><span id=
+                "MJXc-Node-50" class="mjx-mrow"><span id="MJXc-Node-51" class=
+                "mjx-mstyle"><span id="MJXc-Node-52" class="mjx-mrow"><span id=
+                "MJXc-Node-53" class="mjx-msub"><span class="mjx-base" style=
                 "margin-right: -0.003em;"><span id="MJXc-Node-54" class=
                 "mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
                 "padding-top: 0.446em; padding-bottom: 0.298em; padding-right: 0.003em;">
@@ -612,10 +608,11 @@
               d</var>:
               <p>
                 <span id="MathJax-Element-4-Frame" class="mjx-chtml"><span id=
-                "MJXc-Node-67" class="mjx-math"><span id="MJXc-Node-68" class=
-                "mjx-mrow"><span id="MJXc-Node-69" class="mjx-mstyle"><span id=
-                "MJXc-Node-70" class="mjx-mrow"><span id="MJXc-Node-71" class=
-                "mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
+                "MJXc-Node-67" class="mjx-math" role="math"><span id=
+                "MJXc-Node-68" class="mjx-mrow"><span id="MJXc-Node-69" class=
+                "mjx-mstyle"><span id="MJXc-Node-70" class="mjx-mrow"><span id=
+                "MJXc-Node-71" class="mjx-mi"><span class=
+                "mjx-char MJXc-TeX-math-I" style=
                 "padding-top: 0.446em; padding-bottom: 0.298em; padding-right: 0.003em;">
                 d</span></span><span id="MJXc-Node-72" class="mjx-mo" style=
                 "padding-left: 0.333em; padding-right: 0.333em;"><span class=
@@ -649,7 +646,7 @@
                 class="mjx-mo" style=
                 "padding-left: 0.267em; padding-right: 0.267em;"><span class=
                 "mjx-char MJXc-TeX-main-R" style=
-                "padding-top: 0.298em; padding-bottom: 0.446em;">−</span></span><span id="MJXc-Node-86"
+                "margin-top: 0.004em; padding-bottom: 0.298em;">−</span></span><span id="MJXc-Node-86"
                 class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
                 "padding-top: 0.225em; padding-bottom: 0.298em;">n</span></span><span id="MJXc-Node-87"
                 class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style=
@@ -1157,39 +1154,6 @@ enum VideoKindEnum {
           fixed, or the underlying platform may not expose the focal length
           information.)
         </p>
-        <pre class="idl">
-          partial dictionary MediaTrackConstraintSet {
-            ConstrainDOMString videoKind;
-            ConstrainDouble depthNear;
-            ConstrainDouble depthFar;
-            ConstrainDouble focalLengthX;
-            ConstrainDouble focalLengthY;
-          };
-
-          partial dictionary MediaTrackSupportedConstraints {
-            boolean videoKind = true;
-            boolean depthNear = true;
-            boolean depthFar = true;
-            boolean focalLengthX = true;
-            boolean focalLengthY = true;
-          };
-
-          partial dictionary MediaTrackCapabilities {
-            DOMString videoKind;
-            (double or DoubleRange) depthNear;
-            (double or DoubleRange) depthFar;
-            (double or DoubleRange) focalLengthX;
-            (double or DoubleRange) focalLengthY;
-          };
-
-          partial dictionary MediaTrackSettings {
-            DOMString           videoKind;
-            double              depthNear;
-            double              depthFar;
-            double              focalLengthX;
-            double              focalLengthY;
-          };
-</pre>
       </section>
       <section>
         <h2>
@@ -1314,5 +1278,6 @@ gl.texImage2D(
         Project Tango for their experiments.
       </p>
     </section>
+    <section id="idl-index" class="appendix"></section>
   </body>
 </html>
