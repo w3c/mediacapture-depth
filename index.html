@@ -165,7 +165,7 @@
         This specification <a href=
         "https://w3c.github.io/mediacapture-main/#extensibility">extends</a>
         the <em>Media Capture and Streams</em> specification [[!GETUSERMEDIA]]
-        to allow a <a>depth-only stream</a> or combined <a>depth+video
+        to allow a <a>depth-only stream</a> or combined <a>depth+color
         stream</a> to be requested from the web platform using APIs familiar to
         web authors.
       </p>
@@ -210,7 +210,7 @@
         objects in the scene for that point in the array. A
         <code><a>MediaStream</a></code> object that contains one or more
         <a>depth stream track</a>s is referred to as a <a>depth-only stream</a>
-        or <a>depth+video stream</a>.
+        or <a>depth+color stream</a>.
       </p>
       <p>
         Depth cameras usually produce 16-bit depth values per pixel, so this
@@ -260,8 +260,6 @@
         The <code><a href=
         "https://w3c.github.io/mediacapture-main/archives/20160513/getusermedia.html#idl-def-Constraints">
         <dfn>Constraints</dfn></a></code>, <code><a href=
-        "https://w3c.github.io/mediacapture-main/archives/20160513/getusermedia.html#idl-def-MediaStreamConstraints">
-        <dfn>MediaStreamConstraints</dfn></a></code>, <code><a href=
         "https://w3c.github.io/mediacapture-main/archives/20160513/getusermedia.html#idl-def-MediaTrackSettings">
         <dfn>MediaTrackSettings</dfn></a></code>, <code><a href=
         "https://w3c.github.io/mediacapture-main/archives/20160513/getusermedia.html#idl-def-MediaTrackConstraints">
@@ -361,32 +359,37 @@
         Terminology
       </h2>
       <p>
-        The term <dfn>depth+video stream</dfn> means a <a>MediaStream</a>
-        object that contains one or more <a>MediaStreamTrack</a> objects of
-        kind "<code>depth</code>" (<a>depth stream track</a>) and one or more
-        <a>MediaStreamTrack</a> objects of kind "<code>video</code>" (<a>video
-        stream track</a>).
+        The term <dfn>depth+color stream</dfn> means a <a>MediaStream</a>
+        object that contains one or more <a>MediaStreamTrack</a> objects whose
+        <code>videoKind</code> of <code>Settings</code> is "<code>depth</code>"
+        (<a>depth stream track</a>) and one or more <a>MediaStreamTrack</a>
+        objects whose <code>videoKind</code> of <code>Settings</code> is
+        "<code>color</code>" (<a>color stream track</a>).
       </p>
       <p>
         The term <dfn>depth-only stream</dfn> means a <a>MediaStream</a> object
-        that contains one or more <a>MediaStreamTrack</a> objects of kind
-        "<code>depth</code>" (<a>depth stream track</a>) only.
+        that contains one or more <a>MediaStreamTrack</a> objects whose
+        <code>videoKind</code> of <code>Settings</code> is "<code>depth</code>"
+        (<a>depth stream track</a>) only.
       </p>
       <p>
-        The term <dfn>video-only stream</dfn> means a <a>MediaStream</a> object
-        that contains one or more <a>MediaStreamTrack</a> objects of kind
-        "<code>video</code>" (<a>video stream track</a>) only, and optionally
-        of kind "<code>audio</code>".
+        The term <dfn>color-only stream</dfn> means a <a>MediaStream</a> object
+        that contains one or more <a>MediaStreamTrack</a> objects whose
+        <code>videoKind</code> of <code>Settings</code> is "<code>color</code>"
+        (<a>color stream track</a>) only, and optionally of kind
+        "<code>audio</code>".
       </p>
       <p>
         The term <dfn>depth stream track</dfn> means a <a>MediaStreamTrack</a>
-        object whose kind is "<code>depth</code>". It represents a media stream
-        track whose <a>source</a> is a depth camera.
+        object whose <code>videoKind</code> of <code>Settings</code> is
+        "<code>depth</code>". It represents a media stream track whose
+        <a>source</a> is a depth camera.
       </p>
       <p>
-        The term <dfn>video stream track</dfn> means a <a>MediaStreamTrack</a>
-        object whose kind is "<code>video</code>". It represents a media stream
-        track whose <a>source</a> is a video camera.
+        The term <dfn>color stream track</dfn> means a <a>MediaStreamTrack</a>
+        object whose <code>videoKind</code> of <code>Settings</code> is
+        "<code>color</code>". It represents a media stream track whose
+        <a>source</a> is a color camera.
       </p>
       <section>
         <h2>
@@ -685,261 +688,284 @@
       </h2>
       <section>
         <h2>
-          <code><a>MediaStreamConstraints</a></code> dictionary
+          <code><a>MediaTrackSupportedConstraints</a></code> dictionary
         </h2>
         <pre class="idl">
-          partial dictionary MediaStreamConstraints {
-              (boolean or MediaTrackConstraints) depth = false;
+          partial dictionary MediaTrackSupportedConstraints {
+              boolean videoKind = true;
+              boolean depthNear = true;
+              boolean depthFar = true;
+              boolean focalLengthX = true;
+              boolean focalLengthY = true;
           };
-        
 </pre>
-        <p>
-          If the <dfn><code>depth</code></dfn> dictionary member has the value
-          true, the <a>MediaStream</a> returned by the <a>getUserMedia()</a>
-          method MUST contain a <a>depth stream track</a>. If the <a>depth</a>
-          dictionary member is set to false, is not provided, or is set to
-          null, the <a>MediaStream</a> MUST NOT contain a <a>depth stream
-          track</a>. If the <a>depth</a> dictionary member is set to a valid
-          <a>Constraints</a> dictionary, the <a>MediaStream</a> returned by the
-          <a>getUserMedia()</a> method MUST contain a <a>depth stream track</a>
-          that fulfills the specified mandatory constraints.
-        </p>
-        <p>
-          The <a>permission</a> associated with a depth camera <a>source</a> is
-          "<a>camera</a>",
-        </p>
-        <div class="note">
-          If the user agent requests a combined <a>depth+video stream</a>, the
-          devices in the constraint should be satisfied as belonging to the
-          same group or physical device. The decision to select and satisfy
-          which device pair is left up to the implementation.
-        </div>
-      </section>
-      <section>
-        <h2>
-          <code>MediaStream</code> interface
-        </h2>
-        <pre class="idl">
-          partial interface MediaStream {
-              sequence&lt;MediaStreamTrack&gt; getDepthTracks();
-          };
-        
-</pre>
-        <p>
-          The <code><dfn>getDepthTracks</dfn>()</code> method, when invoked,
-          MUST return a sequence of <a data-lt="depth stream track">depth
-          stream tracks</a> in this stream.
-        </p>
-        <p>
-          The <dfn><code>getDepthTracks()</code></dfn> method MUST return a
-          sequence that represents a snapshot of all the
-          <a><code>MediaStreamTrack</code></a> objects in this stream's track
-          set whose <a><code>kind</code></a> is equal to "<code>depth</code>".
-          The conversion from the track set to the sequence is <a>user
-          agent</a> defined and the order does not have to be stable between
-          calls.
-        </p>
-        <p>
-          The <a>MediaStream</a> <a>consumer</a> for the <a>depth-only
-          stream</a> and <a>depth+video stream</a> is <a href=
-          "#the-video-element">the <code>video</code> element</a> [[!HTML]].
-        </p>
-        <div class="note">
-          New <a>consumer</a>s may be added in a future version of this
-          specification.
-        </div>
-        <section class="informative">
-          <h3>
-            Implementation considerations
-          </h3>
-          <p>
-            A <a>video stream track</a> and a <a>depth stream track</a> can be
-            combined into one <a>depth+video stream</a>. The rendering of the
-            two tracks are intended to be synchronized. The resolution of the
-            two tracks are intended to be same. And the coordination of the two
-            tracks are intended to be calibrated. These are not hard
-            requirements, since it might not be possible to synchronize tracks
-            from sources.
-          </p>
-        </section>
-      </section>
-      <section>
-        <h2>
-          <code>MediaStreamTrack</code> interface
-        </h2>
-        <p>
-          The <code><dfn>kind</dfn></code> attribute MUST, on getting, return
-          the string "<code>depth</code>" if the object represents a <a>depth
-          stream track</a>.
-        </p>
-        <p>
-          If a <a>MediaStreamTrack</a> of <a>kind</a> "<code>depth</code>" is
-          <a>muted</a> or <a>disabled</a>, it MUST render frames as if all the
-          pixels would be 0.
-        </p>
-      </section>
-      <section>
-        <h2>
-          <code>MediaDeviceInfo</code> interface
-        </h2>
-        <p>
-          The string "<code>depthinput</code>" is the <a>MediaDeviceKind</a>
-          value for the depth camera input device.
-        </p>
-      </section>
-      <section>
-        <h2>
-          Media provider object
-        </h2>
-        <p>
-          A <a>media provider object</a> can represent a <a>depth-only
-          stream</a> (and specifically, not a <a>depth+video stream</a>). The
-          <a>user agent</a> MUST support a <a>HTMLMediaElement</a> with an
-          <a>assigned media provider object</a> that is a <a>depth-only
-          stream</a>, and in particular, the <a>srcObject</a> IDL attribute
-          that allows the <a>HTMLMediaElement</a> to be assigned a <a>media
-          provider object</a> MUST, on setting and getting, behave as specified
-          in [[!HTML]].
-        </p>
-      </section>
-      <section>
-        <h2>
-          The <code>video</code> element
-        </h2>
-        <p>
-          When a <a>video</a> element is <a>potentially playing</a> and its
-          <a>assigned media provider object</a> is a <a>depth-only stream</a>,
-          the <a>user agent</a> MUST, for each pixel of the <a>media data</a>
-          that is represented by a <a>depth map</a>, given a depth map value
-          <em>d</em>, <a>convert the depth map value to grayscale</a> and
-          render the returned value to the screen.
-        </p>
-        <div class="note">
-          It is an implementation detail how the frames are rendered to the
-          screen. For example, the implementation may use a grayscale or red
-          representation, with either 8-bit or 16-bit precision.
-        </div>
-        <p>
-          For a <a>video</a> element whose <a>assigned media provider
-          object</a> is a <a>depth+video stream</a>, the <a>user agent</a> MUST
-          act as if all the <a>MediaStreamTrack</a>s of kind
-          "<code>depth</code>" were removed prior to when the
-          <code>video</code> element is <a>potentially playing</a>.
-        </p>
         <section>
           <h2>
-            <code>VideoTrack</code> interface
+            Dictionary <a class="idlType">MediaTrackSupportedConstraints</a>
+            Members
           </h2>
-          <p>
-            For each <a>depth stream track</a> in the <a>depth-only stream</a>,
-            the <a>user agent</a> MUST create a corresponding <a>VideoTrack</a>
-            as defined in [[HTML]].
-          </p>
+          <dl data-link-for="MediaTrackSupportedConstraints" data-dfn-for=
+          "MediaTrackSupportedConstraints" class="dictionary-members">
+            <dt>
+              <dfn data-dfn-for=
+              "MediaTrackSupportedConstraints"><code>videoKind</code></dfn> of
+              type <span class="idlMemberType"><a>boolean</a></span>,
+              defaulting to <code>true</code>
+            </dt>
+            <dd>
+              See <code><a href=
+              "#def-constraint-videoKind">videoKind</a></code> for details.
+            </dd>
+            <dt>
+              <dfn data-dfn-for=
+              "MediaTrackSupportedConstraints"><code>depthNear</code></dfn> of
+              type <span class="idlMemberType"><a>boolean</a></span>,
+              defaulting to <code>true</code>
+            </dt>
+            <dd>
+              See <code><a href=
+              "#def-constraint-depthNear">depthNear</a></code> for details.
+            </dd>
+            <dt>
+              <dfn data-dfn-for=
+              "MediaTrackSupportedConstraints"><code>depthFar</code></dfn> of
+              type <span class="idlMemberType"><a>boolean</a></span>,
+              defaulting to <code>true</code>
+            </dt>
+            <dd>
+              See <code><a href="#def-constraint-depthFar">depthFar</a></code>
+              for details.
+            </dd>
+            <dt>
+              <dfn data-dfn-for=
+              "MediaTrackSupportedConstraints"><code>focalLengthX</code></dfn>
+              of type <span class="idlMemberType"><a>boolean</a></span>,
+              defaulting to <code>true</code>
+            </dt>
+            <dd>
+              See <code><a href=
+              "#def-constraint-focalLengthX">focalLengthX</a></code> for
+              details.
+            </dd>
+            <dt>
+              <dfn data-dfn-for=
+              "MediaTrackSupportedConstraints"><code>focalLengthY</code></dfn>
+              of type <span class="idlMemberType"><a>boolean</a></span>,
+              defaulting to <code>true</code>
+            </dt>
+            <dd>
+              See <code><a href=
+              "#def-constraint-focalLengthY">focalLengthY</a></code> for
+              details.
+            </dd>
+          </dl>
         </section>
       </section>
       <section>
         <h2>
-          <code>ImageData</code> interface
+          <code><a>MediaTrackCapabilities</a></code> dictionary
         </h2>
-        <p>
-          When an <a>ImageData</a> object's pixel values represent a <a>depth
-          map</a> (that is, the image source for the 2D rendering context
-          <a>CanvasImageSource</a> is a <a>HTMLVideoElement</a> whose <a>media
-          data</a> represents a <a>depth map</a>), its <a>Uint8ClampedArray</a>
-          source assigned to the <a>data</a> attribute represents the
-          <dfn>16-bit depth value</dfn> by assigning the low 8-bit of the
-          <a>16-bit depth value</a> <em>d<sub>low8bit</sub></em> on its red
-          component, and high 8-bit of the <a>16-bit depth value</a>
-          <em>d<sub>high8bit</sub></em> on its green component.
-        </p>
-        <p>
-          If the values are read from the default <a>Uint8ClampedArray</a>
-          view, they are represented as <a>Canvas Pixel
-          <code>ArrayBuffer</code></a> data as follows:
-        </p>
-        <p>
-          <em>red<sub>8bit</sub> = d<sub>low8bit</sub></em>
-        </p>
-        <p>
-          <em>green<sub>8bit</sub> = d<sub>high8bit</sub></em>
-        </p>
-        <p>
-          <em>blue<sub>8bit</sub> = 0</em>
-        </p>
-        <p>
-          <em>alpha<sub>8bit</sub> = 0</em>
-        </p>
-        <pre class="example highlight">
-          var depthVideo = document.querySelector('video');
-          var canvas = document.querySelector('canvas');
-          var context = canvas.getContext('2d');
-          var w = depthVideo.videoWidth, h = depthVideo.videoHeight;
-
-          context.drawImage(depthVideo, 0, 0, w, h);
-          var imageData = context.getImageData(0, 0, w, h);
-
-          // Create a new DataView dv on to an ArrayBuffer buffer
-          // that exposes it as an array of unsigned 16-bit integers.
-          var dv = new DataView(imageData.data.buffer);
-
-          // Read every fourth unsigned 16-bit value in little endian representation.
-          for (var i = 0; i &lt; imageData.data.length; i += 4) {
-            console.log(dv.getUint16(i, true));
-          }
-
-          // Alternatively, reconstruct unsigned 16-bit value. The result
-          // is the same as if DataView and getUint16() was used.
-          for (var i = 0; i &lt; imageData.data.length; i += 4) {
-            console.log(imageData.data[i] + (imageData.data[i+1] &lt;&lt; 8));
-          }
-        
+        <pre class="idl">
+          partial dictionary MediaTrackCapabilities {
+              DOMString videoKind;
+              (double or DoubleRange) depthNear;
+              (double or DoubleRange) depthFar;
+              (double or DoubleRange) focalLengthX;
+              (double or DoubleRange) focalLengthY;
+          };
 </pre>
+        <section>
+          <h2>
+            Dictionary <a class="idlType">MediaTrackCapabilities</a> Members
+          </h2>
+          <dl data-link-for="MediaTrackCapabilities" data-dfn-for=
+          "MediaTrackCapabilities" class="dictionary-members">
+            <dt>
+              <dfn><code>videoKind</code></dfn> of type <span class=
+              "idlMemberType"><a>DOMString</a></span>
+            </dt>
+            <dd>
+              See <code><a href=
+              "#def-constraint-videoKind">videoKind</a></code> for details.
+            </dd>
+            <dt>
+              <dfn><code>depthNear</code></dfn> of type <span class=
+              "idlMemberType"><a>(doule or DoubleRange)</a></span>
+            </dt>
+            <dd>
+              See <code><a href=
+              "#def-constraint-depthNear">depthNear</a></code> for details.
+            </dd>
+            <dt>
+              <dfn><code>depthFar</code></dfn> of type <span class=
+              "idlMemberType"><a>(doule or DoubleRange)</a></span>
+            </dt>
+            <dd>
+              See <code><a href="#def-constraint-depthFar">depthFar</a></code>
+              for details.
+            </dd>
+            <dt>
+              <dfn><code>focalLengthX</code></dfn> of type <span class=
+              "idlMemberType"><a>(doule or DoubleRange)</a></span>
+            </dt>
+            <dd>
+              See <code><a href=
+              "#def-constraint-focalLengthX">focalLengthX</a></code> for
+              details.
+            </dd>
+            <dt>
+              <dfn><code>focalLengthY</code></dfn> of type <span class=
+              "idlMemberType"><a>(doule or DoubleRange)</a></span>
+            </dt>
+            <dd>
+              See <code><a href=
+              "#def-constraint-focalLengthY">focalLengthY</a></code> for
+              details.
+            </dd>
+          </dl>
+        </section>
+      </section>
+      <section>
+        <h2>
+          MediaTrackConstraints
+        </h2>
+        <pre class="idl">
+          partial dictionary MediaTrackConstraintSet {
+              ConstrainDOMString videoKind;
+              ConstrainDouble depthNear;
+              ConstrainDouble depthFar;
+              ConstrainDouble focalLengthX;
+              ConstrainDouble focalLengthY;
+          };
+</pre>
+        <section>
+          <h2>
+            Dictionary <a class="idlType">MediaTrackConstraintSet</a> Members
+          </h2>
+          <dl data-link-for="MediaTrackConstraintSet" data-dfn-for=
+          "MediaTrackConstraintSet" class="dictionary-members">
+            <dt>
+              <dfn><code>videoKind</code></dfn> of type <span class=
+              "idlMemberType"><a>ConstrainDOMString</a></span>
+            </dt>
+            <dd>
+              See <code><a href=
+              "#def-constraint-videoKind">videoKind</a></code> for details.
+            </dd>
+            <dt>
+              <dfn><code>depthNear</code></dfn> of type <span class=
+              "idlMemberType"><a>ConstrainDouble</a></span>
+            </dt>
+            <dd>
+              See <code><a href=
+              "#def-constraint-depthNear">depthNear</a></code> for details.
+            </dd>
+            <dt>
+              <dfn><code>depthFar</code></dfn> of type <span class=
+              "idlMemberType"><a>ConstrainDouble</a></span>
+            </dt>
+            <dd>
+              See <code><a href="#def-constraint-depthFar">depthFar</a></code>
+              for details.
+            </dd>
+            <dt>
+              <dfn><code>focalLengthX</code></dfn> of type <span class=
+              "idlMemberType"><a>ConstrainDouble</a></span>
+            </dt>
+            <dd>
+              See <code><a href=
+              "#def-constraint-focalLengthX">focalLengthX</a></code> for
+              details.
+            </dd>
+            <dt>
+              <dfn><code>focalLengthY</code></dfn> of type <span class=
+              "idlMemberType"><a>ConstrainDouble</a></span>
+            </dt>
+            <dd>
+              See <code><a href=
+              "#def-constraint-focalLengthY">focalLengthY</a></code> for
+              details.
+            </dd>
+          </dl>
+        </section>
       </section>
       <section>
         <h2>
           <code>MediaTrackSettings</code> dictionary
         </h2>
-        <p>
-          When the <a>getSettings()</a> method is invoked on a <a>depth stream
-          track</a>, the <a>user agent</a> MUST return the following dictionary
-          that extends the <a><code>MediaTrackSettings</code></a> dictionary:
-        </p>
         <pre class="idl">
           partial dictionary MediaTrackSettings {
+              DOMString           videoKind;
               double              depthNear;
               double              depthFar;
               double              focalLengthX;
               double              focalLengthY;
           };
 </pre>
-        <div>
-          <p>
-            The <dfn><code>depthNear</code></dfn> dictionary member represents
-            the <a>depth map</a>'s <a>near value</a>.
-          </p>
-          <p>
-            The <dfn><code>depthFar</code></dfn> dictionary member represents
-            the <a>depth map</a>'s <a>far value</a>.
-          </p>
-          <p>
-            The <dfn><code>focalLengthX</code></dfn> dictionary member
-            represents the <a>depth map</a>'s <a>horizontal focal length</a>.
-          </p>
-          <p>
-            The <dfn><code>focalLengthY</code></dfn> dictionary member
-            represents the <a>depth map</a>'s <a>vertical focal length</a>.
-          </p>
-        </div>
+        <section>
+          <h2>
+            Dictionary <a class="idlType">MediaTrackSettings</a> Members
+          </h2>
+          <dl data-link-for="MediaTrackSettings" data-dfn-for=
+          "MediaTrackSettings" class="dictionary-members">
+            <dt>
+              <dfn><code>videoKind</code></dfn> of type <span class=
+              "idlMemberType"><a>DOMString</a></span>
+            </dt>
+            <dd>
+              See <code><a href=
+              "#def-constraint-videoKind">videoKind</a></code> for details.
+            </dd>
+            <dt>
+              <dfn><code>depthNear</code></dfn> of type <span class=
+              "idlMemberType"><a>double</a></span>
+            </dt>
+            <dd>
+              See <code><a href=
+              "#def-constraint-depthNear">depthNear</a></code> for details.
+            </dd>
+            <dt>
+              <dfn><code>depthFar</code></dfn> of type <span class=
+              "idlMemberType"><a>double</a></span>
+            </dt>
+            <dd>
+              See <code><a href="#def-constraint-depthFar">depthFar</a></code>
+              for details.
+            </dd>
+            <dt>
+              <dfn><code>focalLengthX</code></dfn> of type <span class=
+              "idlMemberType"><a>double</a></span>
+            </dt>
+            <dd>
+              See <code><a href=
+              "#def-constraint-focalLengthX">focalLengthX</a></code> for
+              details.
+            </dd>
+            <dt>
+              <dfn><code>focalLengthY</code></dfn> of type <span class=
+              "idlMemberType"><a>double</a></span>
+            </dt>
+            <dd>
+              See <code><a href=
+              "#def-constraint-focalLengthY">focalLengthY</a></code> for
+              details.
+            </dd>
+          </dl>
+        </section>
       </section>
       <section>
         <h2>
           Constrainable properties
         </h2>
+        <p>
+          The following constrainable properties are defined to apply only to
+          video <code><a>MediaStreamTrack</a></code> objects:
+        </p>
         <table class="simple">
           <thead>
             <tr>
               <th>
-                Property name
+                Property Name
               </th>
               <th>
                 Values
@@ -950,9 +976,121 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr id="def-constraint-videoKind">
               <td>
-                <code>depthNear</code>
+                <dfn>videoKind</dfn>
+              </td>
+              <td>
+                <code>ConstrainDOMString</code>
+              </td>
+              <td>
+                This string should be one of the members of
+                <dfn><code><a>VideoKindEnum</a></code></dfn>. The members
+                describe the kind of video that the camera can capture. Note
+                that <code>getConstraints</code> may not return exactly the
+                same string for strings not in this enum. This preserves the
+                possibility of using a future version of WebIDL enum for this
+                property.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div>
+          <pre class="idl">
+enum VideoKindEnum {
+    "color",
+    "depth"
+};
+</pre>
+          <table data-link-for="VideoKindEnum" data-dfn-for="VideoKindEnum"
+          class="simple">
+            <tbody>
+              <tr>
+                <th colspan="2">
+                  Enumeration description
+                </th>
+              </tr>
+              <tr>
+                <td>
+                  <dfn><code id=
+                  "idl-def-VideoKindEnum.color">color</code></dfn>
+                </td>
+                <td>
+                  <p>
+                    The source is capturing color images.
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <dfn><code id=
+                  "idl-def-VideoKindEnum.depth">depth</code></dfn>
+                </td>
+                <td>
+                  <p>
+                    The source is capturing depth maps.
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="note">
+          If the user agent requests a combined <a>depth+color stream</a>, the
+          devices in the constraint should be satisfied as belonging to the
+          same group or physical device. The decision to select and satisfy
+          which device pair is left up to the implementation.
+        </div>
+        <p>
+          The <a>MediaStream</a> <a>consumer</a> for the <a>depth-only
+          stream</a> and <a>depth+color stream</a> is <a href=
+          "#the-video-element">the <code>video</code> element</a> [[!HTML]].
+        </p>
+        <div class="note">
+          New <a>consumer</a>s may be added in a future version of this
+          specification.
+        </div>
+        <p>
+          If a <a>MediaStreamTrack</a> whose <code>videoKind</code> of
+          <code>Settings</code> is <a>muted</a> or <a>disabled</a>, it MUST
+          render frames as if all the pixels would be 0.
+        </p>
+        <section class="informative">
+          <h3>
+            Implementation considerations
+          </h3>
+          <p>
+            A <a>color stream track</a> and a <a>depth stream track</a> can be
+            combined into one <a>depth+color stream</a>. The rendering of the
+            two tracks are intended to be synchronized. The resolution of the
+            two tracks are intended to be same. And the coordination of the two
+            tracks are intended to be calibrated. These are not hard
+            requirements, since it might not be possible to synchronize tracks
+            from sources.
+          </p>
+        </section>
+        <p>
+          The following constrainable properties are defined to apply only to
+          <a>depth stream track</a>s
+        </p>
+        <table class="simple">
+          <thead>
+            <tr>
+              <th>
+                Property Name
+              </th>
+              <th>
+                Values
+              </th>
+              <th>
+                Notes
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr id="def-constraint-depthNear">
+              <td>
+                <dfn>depthNear</dfn>
               </td>
               <td>
                 <code>ConstrainDouble</code>
@@ -961,9 +1099,9 @@
                 The <a>near value</a>, in meters.
               </td>
             </tr>
-            <tr>
+            <tr id="def-constraint-depthFar">
               <td>
-                <code>depthFar</code>
+                <dfn>depthFar</dfn>
               </td>
               <td>
                 <code>ConstrainDouble</code>
@@ -972,9 +1110,9 @@
                 The <a>far value</a>, in meters.
               </td>
             </tr>
-            <tr>
+            <tr id="def-constraint-focalLengthX">
               <td>
-                <code>focalLengthX</code>
+                <dfn>focalLengthX</dfn>
               </td>
               <td>
                 <code>ConstrainDouble</code>
@@ -983,9 +1121,9 @@
                 The <a>horizontal focal length</a>, in pixels.
               </td>
             </tr>
-            <tr>
+            <tr id="def-constraint-focalLengthY">
               <td>
-                <code>focalLengthY</code>
+                <dfn>focalLengthY</dfn>
               </td>
               <td>
                 <code>ConstrainDouble</code>
@@ -996,11 +1134,6 @@
             </tr>
           </tbody>
         </table>
-        <p>
-          The <code>depthNear</code>, <code>depthFar</code>,
-          <code>focalLengthX</code> and <code>focalLengthY</code> constrainable
-          properties are defined to apply only to <a>depth stream track</a>s.
-        </p>
         <p>
           The <code>depthNear</code> and <code>depthFar</code> constrainable
           properties, when set, allow the implementation to pick the best depth
@@ -1026,6 +1159,7 @@
         </p>
         <pre class="idl">
           partial dictionary MediaTrackConstraintSet {
+            ConstrainDOMString videoKind;
             ConstrainDouble depthNear;
             ConstrainDouble depthFar;
             ConstrainDouble focalLengthX;
@@ -1033,6 +1167,7 @@
           };
 
           partial dictionary MediaTrackSupportedConstraints {
+            boolean videoKind = true;
             boolean depthNear = true;
             boolean depthFar = true;
             boolean focalLengthX = true;
@@ -1040,12 +1175,20 @@
           };
 
           partial dictionary MediaTrackCapabilities {
+            DOMString videoKind;
             (double or DoubleRange) depthNear;
             (double or DoubleRange) depthFar;
             (double or DoubleRange) focalLengthX;
             (double or DoubleRange) focalLengthY;
           };
-        
+
+          partial dictionary MediaTrackSettings {
+            DOMString           videoKind;
+            double              depthNear;
+            double              depthFar;
+            double              focalLengthX;
+            double              focalLengthY;
+          };
 </pre>
       </section>
       <section>
@@ -1079,26 +1222,27 @@
         Examples
       </h2>
       <h3>
-        Playback of depth+video stream
+        Playback of depth and color streams from same device group.
       </h3>
       <pre class="example highlight">
 navigator.mediaDevices.getUserMedia({
-  depth: true,
-  video: true
+  video: {videoKind: {exact: "color"}, groupId: {exact: id}}
 }).then(function (stream) {
     // Wire the media stream into a &lt;video&gt; element for playback.
     // The RGB video is rendered.
     var video = document.querySelector('#video');
     video.srcObject = stream;
     video.play();
+  }
+);
 
-    // Construct a depth-only stream out of the existing depth stream track.
-    var depthOnlyStream = new MediaStream(s.getDepthTracks()[0]);
-
+navigator.mediaDevices.getUserMedia({
+  video: {videoKind: {exact: "depth"}, groupId: {exact: id}}
+}).then(function (stream) {
     // Wire the depth-only stream into another &lt;video&gt; element for playback.
     // The depth information is rendered in its grayscale representation.
     var depthVideo = document.querySelector('#depthVideo');
-    depthVideo.srcObject = depthOnlyStream;
+    depthVideo.srcObject = stream;
     depthVideo.play();
   }
 );
@@ -1111,7 +1255,7 @@ navigator.mediaDevices.getUserMedia({
 // texture, and samples that texture in the fragment shader, reconstructing the
 // 16-bit depth values from the red and green channels.
 navigator.mediaDevices.getUserMedia({
-  depth: true,
+  video: {videoKind: {exact: "depth"}}
 }).then(function (stream) {
   // wire the stream into a &lt;video&gt; element for playback
   var depthVideo = document.querySelector('#depthVideo');
