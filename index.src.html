@@ -332,7 +332,6 @@
           An <dfn>invalid depth map value</dfn> is 0 (the user agent is unable
           to acquire depth information for the given pixel for any reason).
         </p>
-        <p></p>
         <p>
           A <a>depth map</a> has an associated <dfn>near value</dfn> which is a
           double. It represents the minimum range in meters.
@@ -342,14 +341,14 @@
           double. It represents the maximum range in meters.
         </p>
         <p>
-          A <a>depth map</a> has an associated <dfn>horizontal focal length
-          </dfn> which is a double. It represents the horizontal focal length of
-          the depth camera, in pixels.
+          A <a>depth map</a> has an associated <dfn>horizontal focal
+          length</dfn> which is a double. It represents the horizontal focal
+          length of the depth camera, in pixels.
         </p>
         <p>
           A <a>depth map</a> has an associated <dfn>vertical focal length</dfn>
-          which is a double. It represents the vertical focal length of
-          the depth camera, in pixels.
+          which is a double. It represents the vertical focal length of the
+          depth camera, in pixels.
         </p>
         <p>
           The data type of a <a>depth map</a> is 16-bit unsigned integer. The
@@ -423,7 +422,7 @@
           };
         
 </pre>
-        <p dfn-for="MediaStreamConstraints" link-for="MediaStreamConstraints">
+        <p>
           If the <dfn><code>depth</code></dfn> dictionary member has the value
           true, the <a>MediaStream</a> returned by the <a>getUserMedia()</a>
           method MUST contain a <a>depth stream track</a>. If the <a>depth</a>
@@ -455,7 +454,7 @@
           };
         
 </pre>
-        <p dfn-for="MediaStream" link-for="MediaStream">
+        <p>
           The <code><dfn>getDepthTracks</dfn>()</code> method, when invoked,
           MUST return a sequence of <a data-lt="depth stream track">depth
           stream tracks</a> in this stream.
@@ -642,7 +641,7 @@
               double              focalLengthY;
           };
 </pre>
-        <div dfn-for="MediaTrackSettings">
+        <div>
           <p>
             The <dfn><code>depthNear</code></dfn> dictionary member represents
             the <a>depth map</a>'s <a>near value</a>.
@@ -727,30 +726,32 @@
           </tbody>
         </table>
         <p>
-          The <code>depthNear</code>, <code>depthFar</code>, <code>focalLengthX
-          </code> and <code>focalLengthY</code> constrainable properties are
-          defined to apply only to <a>depth stream track</a>s.
+          The <code>depthNear</code>, <code>depthFar</code>,
+          <code>focalLengthX</code> and <code>focalLengthY</code> constrainable
+          properties are defined to apply only to <a>depth stream track</a>s.
         </p>
         <p>
           The <code>depthNear</code> and <code>depthFar</code> constrainable
           properties, when set, allow the implementation to pick the best depth
-          camera mode optimized for the range <code>[depthNear, depthFar]</code>
-          and help minimize the error introduced by the lossy conversion from
-          the depth value <var>d</var> to a quantized d<sub>8bit</sub> and back
-          to an approximation of the depth value <var>d</var>.
+          camera mode optimized for the range <code>[depthNear,
+          depthFar]</code> and help minimize the error introduced by the lossy
+          conversion from the depth value <var>d</var> to a quantized
+          d<sub>8bit</sub> and back to an approximation of the depth value
+          <var>d</var>.
         </p>
         <p>
           If the <code>depthFar</code> property's value is less than the
-          <code>depthNear</code> property's value, the <a>depth stream track</a>
-          is <a>overconstrained</a>.
+          <code>depthNear</code> property's value, the <a>depth stream
+          track</a> is <a>overconstrained</a>.
         </p>
         <p>
-          If the <a>near value</a>, <a>far value</a>, <a>horizontal focal length
-          </a> or <a>vertical focal length</a> is fixed due to a hardware or
-          software limitation, the corresponding constrainable property's value
-          MUST be set to the value reported by the underlying implementation.
-          (For example, the focal lengths of the lens may be fixed, or the
-          underlying platform may not expose the focal length information.)
+          If the <a>near value</a>, <a>far value</a>, <a>horizontal focal
+          length</a> or <a>vertical focal length</a> is fixed due to a hardware
+          or software limitation, the corresponding constrainable property's
+          value MUST be set to the value reported by the underlying
+          implementation. (For example, the focal lengths of the lens may be
+          fixed, or the underlying platform may not expose the focal length
+          information.)
         </p>
         <pre class="idl">
           partial dictionary MediaTrackConstraintSet {
