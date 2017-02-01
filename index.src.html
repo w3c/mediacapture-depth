@@ -902,7 +902,7 @@ enum VideoKindEnum {
       <h3>
         Playback of depth and color streams from same device group.
       </h3>
-      <pre class="example highlight">
+      <pre class="example">
 navigator.mediaDevices.getUserMedia({
   video: {videoKind: {exact: "color"}, groupId: {exact: id}}
 }).then(function (stream) {
@@ -928,7 +928,7 @@ navigator.mediaDevices.getUserMedia({
       <h3>
         WebGL Fragment Shader based post-processing
       </h3>
-      <pre class="example highlight">
+      <pre class="example">
 // This code sets up a video element from a depth stream, uploads it to a WebGL
 // texture, and samples that texture in the fragment shader, reconstructing the
 // 16-bit depth values from the red and green channels.
