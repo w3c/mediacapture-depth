@@ -65,9 +65,9 @@ mjAPI.typeset({
   var re3 = /\<script src="https:\/\/cdn.mathjax.org\/mathjax\/latest\/MathJax.js\?config=AM_CHTML"\>/gi;
 
   // remove the MathJax @font-face CSS at-rules
-  var re4 = /@font-face {font-family: MJX(.*?)}\n/gi;
+  // var re4 = /@font-face {font-family: MJX(.*?)}\n/gi;
 
-  var HTML = HTML.replace(re1, "").replace(re2, "").replace(re3, "").replace(re4, "");
+  var HTML = HTML.replace(re1, "").replace(re2, "").replace(re3, "");
     
   // tidy the generated output and write to index.html
   var HTML = tidy(HTML, tidyConfig);
