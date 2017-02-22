@@ -1262,82 +1262,113 @@ enum VideoKindEnum {
       <h2>
         Examples
       </h2>
-      <h3>
-        Playback of depth and color streams from same device group.
-      </h3>
-      <pre class="example">
-navigator.mediaDevices.getUserMedia({
-  video: {videoKind: {exact: "color"}, groupId: {exact: id}}
-}).then(function (stream) {
-    // Wire the media stream into a &lt;video&gt; element for playback.
-    // The RGB video is rendered.
-    var video = document.querySelector('#video');
-    video.srcObject = stream;
-    video.play();
+      <aside title="Playback of depth and color streams from same device group"
+      class="example">
+        <pre class="highlight">
+async function attachVideoStream(el, kind, groupId) {
+  const constraints = {
+    video: {
+      mandatory: {
+        groupId: groupId
+      },
+      videoKind: { exact: kind }
+    }
   }
-);
 
-navigator.mediaDevices.getUserMedia({
-  video: {videoKind: {exact: "depth"}, groupId: {exact: id}}
-}).then(function (stream) {
-    // Wire the depth-only stream into another &lt;video&gt; element for playback.
-    // The depth information is rendered in its grayscale representation.
-    var depthVideo = document.querySelector('#depthVideo');
-    depthVideo.srcObject = stream;
-    depthVideo.play();
-  }
-);
+  const stream = await navigator.mediaDevices.getUserMedia(constraints);
+
+  el.srcObject = stream;
+  el.play();
+
+  return el;
+}
+
+async function play() {
+  const colorEl = document.createElement("video");
+  const depthEl = document.createElement("video");
+
+  const body = document.querySelector('body');
+  body.appendChild(colorEl);
+  body.appendChild(depthEl);
+
+  // Assume that all our video inputs are depth stream capable.
+  const devices = await navigator.mediaDevices.enumerateDevices();
+  const sources = devices.filter(device =&gt; device.kind == "videoinput");
+
+  // Attached cameras usually comes last.
+  const camera = sources.pop();
+
+  // Regular RGB video will be rendered.
+  attachVideoStream(colorEl, "color", camera.groupId);
+
+  // Depth information will be rendered in its grayscale representation.
+  attachVideoStream(depthEl, "depth", camera.groupId);
+}
+
+play();     
+        
 </pre>
-      <h3>
-        WebGL: <dfn>upload to float texture</dfn>
-      </h3>
-      <p>
-        This code sets up a video element from a depth stream, uploads it to a
-        WebGL 2.0 float texture.
-      </p>
-      <pre class="example">
-navigator.mediaDevices.getUserMedia({
-  video: {videoKind: {exact: "depth"}}
-}).then(function (stream) {
-  // wire the stream into a &lt;video&gt; element for playback
-  var depthVideo = document.querySelector('#depthVideo');
-  depthVideo.srcObject = stream;
-  depthVideo.play();
-}).catch(function (reason) {
-  // handle gUM error here
-});
+      </aside>
+      <aside title="WebGL: upload to float texture" class="example">
+        <p>
+          This <dfn>upload to float texture</dfn> sets up a video element from
+          a depth stream, uploads it to a WebGL 2.0 float texture.
+        </p>
+        <pre class="highlight">
+async function attachVideoStream(el) {
+  const constraints = {
+    video: { videoKind: { exact: "depth" } }
+  }
 
-let gl = canvas.getContext("webgl2");
-// Activate the standard WebGL 2.0 extension for using single component R32F
-// texture format.
+  el.srcObject = await navigator.mediaDevices.getUserMedia(constraints);
+  el.play();
+
+  return el;
+}
+
+const depthVideoEl = attachVideoStream(document.querySelector('#depthVideo'));
+
+const gl = canvas.getContext("webgl2");
+// Activate the standard WebGL 2.0 extension for using
+// single component R32F texture format.
 gl.getExtension('EXT_color_buffer_float');
 
-// Later, in the rendering loop ...
-gl.bindTexture(gl.TEXTURE_2D, depthTexture);
-gl.texImage2D(
-   gl.TEXTURE_2D,
-   0,
-   gl.R32F,
-   gl.RED,
-   gl.FLOAT,
-   depthVideo);
+const render = () =&gt; {
+  // Later, in the rendering loop...
 
+  gl.bindTexture(gl.TEXTURE_2D, depthTexture);
+  gl.texImage2D(
+    gl.TEXTURE_2D,
+    0,
+    gl.R32F,
+    gl.RED,
+    gl.FLOAT,
+    depthVideoEl);
+
+  // ...
+
+  requestAnimationFrame(render);
+}
+
+render(); 
+        
 </pre>
-      <h3>
-        WebGL: <dfn>readPixels from float</dfn> texture
-      </h3>
-      <p>
-        This example extends <a>upload to float texture</a> example.
-      </p>
-      <p>
-        This code creates the texture to which we will upload the depth video
-        frame. Then, it sets up a named framebuffer, attach the texture as
-        color attachment and, after uploading the depth video to the texture,
-        reads the texture content to Float32Array.
-      </p>
-      <pre class="example">
+      </aside>
+      <aside title="WebGL: readPixels from float" class="example">
+        <p>
+          This <dfn>readPixels from float</dfn> example extends the <a>upload
+          to float texture</a> example.
+        </p>
+        <p>
+          This code creates the texture to which we will upload the depth video
+          frame. Then, it sets up a named framebuffer, attach the texture as
+          color attachment and, after uploading the depth video to the texture,
+          reads the texture content to Float32Array.
+        </p>
+        <pre class="highlight">
 // Initialize texture and framebuffer for reading back the texture.
-let depthTexture = gl.createTexture();
+const depthTexture = gl.createTexture();
+
 gl.bindTexture(gl.TEXTURE_2D, depthTexture);
 gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
 gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
@@ -1354,55 +1385,58 @@ gl.framebufferTexture2D(
   0);
 
 let buffer;
+const render = () =&gt; {
+  // Later, in the rendering loop ...
 
-// Later, in the rendering loop ...
-gl.bindTexture(gl.TEXTURE_2D, depthTexture);
-gl.texImage2D(
-   gl.TEXTURE_2D,
-   0,
-   gl.R32F,
-   gl.RED,
-   gl.FLOAT,
-   depthVideo);
+  gl.bindTexture(gl.TEXTURE_2D, depthTexture);
+  gl.texImage2D(
+    gl.TEXTURE_2D,
+    0,
+    gl.R32F,
+    gl.RED,
+    gl.FLOAT,
+    depthVideoEl);
 
-if (!buffer) {
-  buffer =
-      new Float32Array(depthVideo.videoWidth * depthVideo.videoHeight);
+  if (!buffer) {
+    const length = depthVideoEl.videoWidth * depthVideoEl.videoHeight;
+    buffer = new Float32Array(length);
+  }
+
+  gl.readPixels(
+    0, 0, depthVideoEl.videoWidth, depthVideoEl.videoHeight,
+    gl.RED, gl.FLOAT, buffer
+  );
+
+  // ...
+
+  requestAnimationFrame(render);
 }
-
-gl.readPixels(
-  0,
-  0,
-  depthVideo.videoWidth,
-  depthVideo.videoHeight,
-  gl.RED,
-  gl.FLOAT,
-  buffer);
-
 </pre>
+      </aside>
       <div class="note">
         <p>
           Use
-          <code>gl.getParameter(gl.IMPLEMENTATION_COLOR_READ_FORMAT);</code> to
+          <code>gl.getParameter(gl.IMPLEMENTATION_COLOR_READ_FORMAT)</code> to
           check whether readPixels to gl.RED or gl.RGBA float is supported.
         </p>
       </div>
-      <h3>
-        WebGL Vertex Shader that implements mapping color and depth
-      </h3>
-      <p>
-        This vertex shader is used for <dfn>3D point cloud rendering</dfn>. The
-        code here shows how the web developer can implement <a>algorithm to map
-        depth pixels to color pixels</a>. Draw call used is
-        glDrawArrays(GL_POINTS, 0, depthMap.width * depthMap.height). Shader
-        output is 3D position of vertices (gl_Position) and color texture
-        sampling coordinates per vertex.
-      </p>
-      <pre class="example">
-&lt;script id="fragment-shader" type="x-shader/x-fragment"&gt;#version 300 es
+      <aside title=
+      "WebGL Vertex Shader that implements mapping color and depth" class=
+      "example">
+        <p>
+          This vertex shader is used for <dfn>3D point cloud rendering</dfn>.
+          The code here shows how the web developer can implement <a>algorithm
+          to map depth pixels to color pixels</a>. Draw call used is
+          glDrawArrays(GL_POINTS, 0, depthMap.width * depthMap.height). Shader
+          output is 3D position of vertices (gl_Position) and color texture
+          sampling coordinates per vertex.
+        </p>
+        <pre class="highlight">
+#version 300 es
 #define DISTORTION_NONE 0
 #define USE_DEPTH_DEPROJECTION_DISTORTION_COEFFICIENTS 1
 #define USE_COLOR_PROJECTION_DISTORTION_COEFFICIENTS 2
+
 uniform mat4 u_mvp;
 uniform vec2 u_color_size;
 uniform vec2 u_depth_size;
@@ -1417,13 +1451,14 @@ uniform vec2 u_depth_offset;
 uniform vec2 u_depth_focal_length;
 uniform float u_depth_coeffs[5];
 uniform int u_depth_deprojection_distortion;
+
 out vec2 v_tex;
 
 vec3 depth_deproject(vec2 pixel, float depth)
 {
   vec2 point = (pixel - u_depth_offset) / u_depth_focal_length;
-  if(u_depth_deprojection_distortion == USE_DEPTH_DEPROJECTION_DISTORTION_COEFFICIENTS)
-  {
+
+  if (u_depth_deprojection_distortion == USE_DEPTH_DEPROJECTION_DISTORTION_COEFFICIENTS) {
     float r2 = dot(point, point);
     float f = 1.0 + u_depth_coeffs[0] * r2 + u_depth_coeffs[1] * r2 * r2 + u_depth_coeffs[4] * r2 * r2 * r2;
     float ux = point.x * f + 2.0 * u_depth_coeffs[2] * point.x * point.y +
@@ -1432,14 +1467,15 @@ vec3 depth_deproject(vec2 pixel, float depth)
                u_depth_coeffs[2] * (r2 + 2.0 * point.y * point.y);
     point = vec2(ux, uy);
   }
+
   return vec3(point * depth, depth);
 }
 
 vec2 color_project(vec3 point)
 {
   vec2 pixel = point.xy / point.z;
-  if(u_color_projection_distortion == USE_COLOR_PROJECTION_DISTORTION_COEFFICIENTS)
-  {
+
+  if (u_color_projection_distortion == USE_COLOR_PROJECTION_DISTORTION_COEFFICIENTS) {
     float r2 = dot(pixel, pixel);
     float f = 1.0 + u_color_coeffs[0] * r2 + u_color_coeffs[1] * r2 * r2 +
               u_color_coeffs[4] * r2 * r2 * r2;
@@ -1450,17 +1486,18 @@ vec2 color_project(vec3 point)
                u_color_coeffs[2] * (r2 + 2.0 * pixel.y * pixel.y);
     pixel = vec2(dx, dy);
   }
+
   return pixel * u_color_focal_length + u_color_offset;
 }
 
 void main()
 {
   vec2 depth_pixel;
-  // generate lattice pos; (0, 0) (1, 0) (2, 0) ... (w-1, h-1)
+
+  // Generate lattice pos; (0, 0) (1, 0) (2, 0) ... (w-1, h-1)
   depth_pixel.x = mod(float(gl_VertexID) + 0.5, u_depth_size.x);
   depth_pixel.y = clamp(floor(float(gl_VertexID) / u_depth_size.x) + 0.5, 0.0, u_depth_size.y);
 
-  // get depth
   vec2 depth_tex_pos = depth_pixel / u_depth_size;
   uint depth = texture(s_depth_texture, depth_tex_pos).r;
   float depth_in_meter = float(depth) * u_depth_scale_in_meter;
@@ -1473,9 +1510,9 @@ void main()
   v_tex = color_pixel / u_color_size;
 
   gl_Position = u_mvp * vec4(depth_point, 1.0);
-}
-&lt;/script&gt;
+}       
 </pre>
+      </aside>
     </section>
     <section class="informative">
       <h2>
