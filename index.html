@@ -242,17 +242,15 @@
         To bring depth capability to the web platform, this specification
         <a href=
         "https://w3c.github.io/mediacapture-main/#extensibility">extends</a>
-        the <code><a>MediaStream</a></code> interface [[!GETUSERMEDIA]] to
-        enable it to also contain depth-based
-        <a><code>MediaStreamTrack</code></a>s. A depth-based
-        <a><code>MediaStreamTrack</code></a>, referred to as a <a>depth stream
-        track</a>, represents an abstraction of a stream of frames that can
-        each be converted to objects which contain an array of pixel data,
-        where each pixel represents the distance between the camera and the
-        objects in the scene for that point in the array. A
-        <code><a>MediaStream</a></code> object that contains one or more
-        <a>depth stream track</a>s is referred to as a <a>depth-only stream</a>
-        or <a>depth+color stream</a>.
+        the <a>MediaStream</a> interface [[!GETUSERMEDIA]] to enable it to also
+        contain depth-based <a>MediaStreamTrack</a>s. A depth-based
+        <a>MediaStreamTrack</a>, referred to as a <a>depth stream track</a>,
+        represents an abstraction of a stream of frames that can each be
+        converted to objects which contain an array of pixel data, where each
+        pixel represents the distance between the camera and the objects in the
+        scene for that point in the array. A <a>MediaStream</a> object that
+        contains one or more <a>depth stream track</a>s is referred to as a
+        <a>depth-only stream</a> or <a>depth+color stream</a>.
       </p>
       <p>
         Depth cameras usually produce 16-bit depth values per pixel, so this
@@ -291,42 +289,42 @@
         Dependencies
       </h2>
       <p>
-        The <code><dfn data-cite=
-        "!GETUSERMEDIA#idl-def-MediaStreamTrack">MediaStreamTrack</dfn></code>
-        and <code><dfn data-cite=
-        "!GETUSERMEDIA#idl-def-MediaStream">MediaStream</dfn></code> interfaces
-        this specification extends are defined in [[!GETUSERMEDIA]].
+        The <dfn data-cite=
+        "!GETUSERMEDIA#idl-def-MediaStreamTrack"><code>MediaStreamTrack</code></dfn>
+        and <dfn data-cite=
+        "!GETUSERMEDIA#idl-def-MediaStream"><code>MediaStream</code></dfn>
+        interfaces this specification extends are defined in [[!GETUSERMEDIA]].
       </p>
       <p>
-        The <code><dfn data-cite=
-        "!GETUSERMEDIA#idl-def-Constraints">Constraints</dfn></code>,
-        <code><dfn data-cite=
-        "GETUSERMEDIA#idl-def-MediaTrackSettings">MediaTrackSettings</dfn></code>,
-        <code><dfn data-cite=
-        "!GETUSERMEDIA#idl-def-MediaTrackConstraints">MediaTrackConstraints</dfn></code>,
-        <code><dfn data-cite=
-        "!GETUSERMEDIA#idl-def-MediaTrackSupportedConstraints">MediaTrackSupportedConstraints</dfn></code>,
-        <code><dfn data-cite=
-        "!GETUSERMEDIA#idl-def-MediaTrackCapabilities">MediaTrackCapabilities</dfn></code>,
-        and <code><dfn data-cite=
-        "!GETUSERMEDIA#idl-def-MediaTrackConstraintSet">MediaTrackConstraintSet</dfn></code>
+        The <dfn data-cite=
+        "!GETUSERMEDIA#idl-def-Constraints"><code>Constraints</code></dfn>,
+        <dfn data-cite=
+        "GETUSERMEDIA#idl-def-MediaTrackSettings"><code>MediaTrackSettings</code></dfn>,
+        <dfn data-cite=
+        "!GETUSERMEDIA#idl-def-MediaTrackConstraints"><code>MediaTrackConstraints</code></dfn>,
+        <dfn data-cite=
+        "!GETUSERMEDIA#idl-def-MediaTrackSupportedConstraints"><code>MediaTrackSupportedConstraints</code></dfn>,
+        <dfn data-cite=
+        "!GETUSERMEDIA#idl-def-MediaTrackCapabilities"><code>MediaTrackCapabilities</code></dfn>,
+        and <dfn data-cite=
+        "!GETUSERMEDIA#idl-def-MediaTrackConstraintSet"><code>MediaTrackConstraintSet</code></dfn>
         dictionaries this specification extends are defined in
         [[!GETUSERMEDIA]].
       </p>
       <p>
-        The <code><dfn data-cite=
-        "!GETUSERMEDIA#dom-mediadevices-getusermedia">getUserMedia()</dfn></code>,
-        <code><dfn data-cite=
-        "!GETUSERMEDIA#dfn-getsettings">getSettings()</dfn></code> methods and
-        the <code><dfn data-cite=
-        "!GETUSERMEDIA#idl-def-NavigatorUserMediaSuccessCallback">NavigatorUserMediaSuccessCallback</dfn></code>
+        The <dfn data-cite=
+        "!GETUSERMEDIA#dom-mediadevices-getusermedia"><code>getUserMedia()</code></dfn>,
+        <dfn data-cite=
+        "!GETUSERMEDIA#dfn-getsettings"><code>getSettings()</code></dfn>
+        methods and the <dfn data-cite=
+        "!GETUSERMEDIA#idl-def-NavigatorUserMediaSuccessCallback"><code>NavigatorUserMediaSuccessCallback</code></dfn>
         callback are defined in [[!GETUSERMEDIA]].
       </p>
       <p>
         The concepts <dfn data-cite="!GETUSERMEDIA#track-muted">muted</dfn>,
         <dfn data-cite="!GETUSERMEDIA#track-enabled">disabled</dfn>, and
-        <code><dfn data-cite=
-        "!GETUSERMEDIA#event-mediastreamtrack-overconstrained">overconstrained</dfn></code>
+        <dfn data-cite=
+        "!GETUSERMEDIA#event-mediastreamtrack-overconstrained"><code>overconstrained</code></dfn>
         as applied to <a>MediaStreamTrack</a> are defined in [[!GETUSERMEDIA]].
       </p>
       <p>
@@ -335,24 +333,24 @@
         in [[!GETUSERMEDIA]].
       </p>
       <p>
-        The <code><dfn data-cite=
-        "!GETUSERMEDIA#idl-def-MediaDeviceKind">MediaDeviceKind</dfn></code>
+        The <dfn data-cite=
+        "!GETUSERMEDIA#idl-def-MediaDeviceKind"><code>MediaDeviceKind</code></dfn>
         enumeration is defined in [[!GETUSERMEDIA]].
       </p>
       <p>
-        The <code><dfn data-cite="!HTML#the-video-element">video</dfn></code>
-        element and <code><dfn data-cite=
-        "!HTML#imagedata">ImageData</dfn></code> (and its <code><dfn data-cite=
-        "!HTML#dom-imagedata-data">data</dfn></code> attribute and
+        The <dfn data-cite="!HTML#the-video-element"><code>video</code></dfn>
+        element and <dfn data-cite=
+        "!HTML#imagedata"><code>ImageData</code></dfn> (and its <dfn data-cite=
+        "!HTML#dom-imagedata-data"><code>data</code></dfn> attribute and
         <dfn data-cite="!HTML#canvas-pixel-arraybuffer">Canvas Pixel
-        <code>ArrayBuffer</code></dfn>), <code><dfn data-cite=
-        "!HTML#videotrack">VideoTrack</dfn></code>, <code><dfn data-cite=
-        "!HTML#htmlmediaelement">HTMLMediaElement</dfn></code> (and its
-        <code><dfn data-cite="!HTML#dom-media-srcobject">srcObject</dfn></code>
-        attribute), <code><dfn data-cite=
-        "!HTML#htmlvideoelement">HTMLVideoElement</dfn></code> interfaces and
-        the <code><dfn data-cite=
-        "!HTML#canvasimagesource">CanvasImageSource</dfn></code> enum are
+        <code>ArrayBuffer</code></dfn>), <dfn data-cite=
+        "!HTML#videotrack"><code>VideoTrack</code></dfn>, <dfn data-cite=
+        "!HTML#htmlmediaelement"><code>HTMLMediaElement</code></dfn> (and its
+        <dfn data-cite="!HTML#dom-media-srcobject"><code>srcObject</code></dfn>
+        attribute), <dfn data-cite=
+        "!HTML#htmlvideoelement"><code>HTMLVideoElement</code></dfn> interfaces
+        and the <dfn data-cite=
+        "!HTML#canvasimagesource"><code>CanvasImageSource</code></dfn> enum are
         defined in [[!HTML]].
       </p>
       <p>
@@ -366,16 +364,17 @@
       </p>
       <p>
         The term <dfn data-cite="!PERMISSIONS#permission">permission</dfn> and
-        the permission name <code>"<dfn data-cite=
-        "!PERMISSIONS#dom-permissionname-camera">camera</dfn>"</code> are
+        the permission name "<dfn data-cite=
+        "!PERMISSIONS#dom-permissionname-camera"><code>camera</code></dfn>" are
         defined in [[!PERMISSIONS]].
       </p>
       <p>
-        The <code><dfn data-cite="!WEBIDL#idl-DataView">DataView</dfn></code>,
-        <code><dfn data-cite=
-        "!WEBIDL#idl-Uint8ClampedArray">Uint8ClampedArray</dfn></code>, and
-        <code><dfn data-cite="!WEBIDL#idl-Uint16Array">Uint16Array</dfn></code>
-        buffer source types are defined in [[WEBIDL]].
+        The <dfn data-cite="!WEBIDL#idl-DataView"><code>DataView</code></dfn>,
+        <dfn data-cite=
+        "!WEBIDL#idl-Uint8ClampedArray"><code>Uint8ClampedArray</code></dfn>,
+        and <code><dfn data-cite=
+        "!WEBIDL#idl-Uint16Array">Uint16Array</dfn></code> buffer source types
+        are defined in [[WEBIDL]].
       </p>
     </section>
     <section>
@@ -713,7 +712,7 @@
       </h2>
       <section>
         <h2>
-          <code><a>MediaTrackSupportedConstraints</a></code> dictionary
+          <a>MediaTrackSupportedConstraints</a> dictionary
         </h2>
         <pre class="idl">
           partial dictionary MediaTrackSupportedConstraints {
@@ -788,7 +787,7 @@
       </section>
       <section>
         <h2>
-          <code><a>MediaTrackCapabilities</a></code> dictionary
+          <a>MediaTrackCapabilities</a> dictionary
         </h2>
         <pre class="idl">
           partial dictionary MediaTrackCapabilities {
@@ -815,7 +814,7 @@
             </dd>
             <dt>
               <dfn><code>depthNear</code></dfn> of type <span class=
-              "idlMemberType"><a>(doule or DoubleRange)</a></span>
+              "idlMemberType"><a>(double or DoubleRange)</a></span>
             </dt>
             <dd>
               See <code><a href=
@@ -823,7 +822,7 @@
             </dd>
             <dt>
               <dfn><code>depthFar</code></dfn> of type <span class=
-              "idlMemberType"><a>(doule or DoubleRange)</a></span>
+              "idlMemberType"><a>(double or DoubleRange)</a></span>
             </dt>
             <dd>
               See <code><a href="#def-constraint-depthFar">depthFar</a></code>
@@ -831,7 +830,7 @@
             </dd>
             <dt>
               <dfn><code>focalLengthX</code></dfn> of type <span class=
-              "idlMemberType"><a>(doule or DoubleRange)</a></span>
+              "idlMemberType"><a>(double or DoubleRange)</a></span>
             </dt>
             <dd>
               See <code><a href=
@@ -840,7 +839,7 @@
             </dd>
             <dt>
               <dfn><code>focalLengthY</code></dfn> of type <span class=
-              "idlMemberType"><a>(doule or DoubleRange)</a></span>
+              "idlMemberType"><a>(double or DoubleRange)</a></span>
             </dt>
             <dd>
               See <code><a href=
@@ -984,7 +983,7 @@
         </h2>
         <p>
           The following constrainable properties are defined to apply only to
-          video <code><a>MediaStreamTrack</a></code> objects:
+          video <a>MediaStreamTrack</a> objects:
         </p>
         <table class="simple">
           <thead>
@@ -1195,10 +1194,10 @@ enum VideoKindEnum {
             This section is currently work in progress, and subject to change.
           </div>
           <p>
-            A <code>video</code> element whose source is a
-            <a><code>MediaStream</code></a> object containing a <a>depth stream
-            track</a> may be uploaded to a WebGL texture of format
-            <code>RGB</code> and type <code>UNSIGNED_BYTE</code>. [[WEBGL]]
+            A <a>video</a> element whose source is a <a>MediaStream</a> object
+            containing a <a>depth stream track</a> may be uploaded to a WebGL
+            texture of format <code>RGB</code> and type
+            <code>UNSIGNED_BYTE</code>. [[WEBGL]]
           </p>
           <p>
             For each pixel of this WebGL texture, the R component represents
