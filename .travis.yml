@@ -1,36 +1,10 @@
-language: python
+language: node_js
+
+sudo: false
 
 branches:
   only:
-    - /.*/
-    - gh-pages
-
-python:
-  - "2.7_with_system_site_packages"
-sudo: false
-addons:
-  apt:
-    sources:
-      - george-edison55-precise-backports
-      - ubuntu-toolchain-r-test
-    packages:
-      - libwww-perl
-      - libcss-dom-perl
-      - python-lxml
-      - cmake
-      - cmake-data
-      - gcc-4.8
-      - g++-4.8
-before_install:
-  - export CXX="g++-4.8" CC="gcc-4.8"
-  - nvm install 6
-  - "export DISPLAY=:99.0"
-  - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16 -extension RANDR"
-  - sh -e /etc/init.d/xvfb start
-install:
- - make travissetup
-script:
- - make check
+    - TR
 
 env:
   global:
@@ -38,5 +12,8 @@ env:
     - DECISION="https://lists.w3.org/Archives/Public/public-media-capture/2015Dec/0031.html"
     - secure: "NOnRV3zs4zT3OFN5lSnuzc//VxvRKcUmGH/4YPQM2Xqm/LorP4D35GtREJL3o/n273CxyCV6IRtx/LPOSQQymZVSwfMHfIB+QA+llaGw6eItVGq0thxXGncXv5z8L6XV6cT7B0Y5UEK5GaHUdzyCHT5L8YvnadeXlVsASBAMinI="
  
+script:
+  - echo "ok"
+
 after_success:
-  - test $TRAVIS_BRANCH = "TR" -a test $TRAVIS_PULL_REQUEST = false && curl "https://labs.w3.org/echidna/api/request" --data "url=$URL" --data "decision=$DECISION" --data "token=$TOKEN"
+  - test $TRAVIS_PULL_REQUEST = false && curl "https://labs.w3.org/echidna/api/request" --data "url=$URL" --data "decision=$DECISION" --data "token=$TOKEN"
