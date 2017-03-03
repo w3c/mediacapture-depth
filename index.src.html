@@ -80,7 +80,7 @@
           "MEDIACAPTURE-WORKER": {
               title:     "Media Capture Stream with Worker",
               href:      "https://w3c.github.io/mediacapture-worker/",
-              authors:  [
+              authors:   [
                          "Chia-hung Tai",
                          "Robert O'Callahan",
                          "Tzuhao Kuo",
@@ -88,6 +88,26 @@
               ],
               status:    "ED",
               publisher: "W3C"
+          },
+          "WEBGL2": {
+            title:     "WebGL 2 Specification",
+            href:      "https://www.khronos.org/registry/webgl/specs/2.0.0/",
+            authors:   [
+                       "Dean Jackson (Apple Inc.)",
+                       "Jeff Gilbert (Mozilla Corp.)"
+            ],
+            "date": "1 December 2016",
+            publisher: "Khronos"
+          },
+          "WEBGL-GET-BUFFER-SUB-DATA-ASYNC": {
+            title:     "WebGL WEBGL_get_buffer_sub_data_async Extension Draft Specification",
+            href:      "https://www.khronos.org/registry/webgl/extensions/WEBGL_get_buffer_sub_data_async/",
+            authors:   [
+              "Kai Ninomiya, Google Inc.",
+              "Members of WebGL working group"
+            ],
+            "date": "13 December 2016",
+            publisher: "Khronos"
           }
         }
     };
@@ -945,16 +965,56 @@ enum VideoKindEnum {
             This section is currently work in progress, and subject to change.
           </div>
           <p>
+            There are several use-cases which are a good fit to be, at least
+            partially, implemented on the GPU, such as motion recognition,
+            pattern recognition, background removal, as well as 3D point cloud.
+          </p>
+          <p>
+            This section explains which APIs can be used for some of these
+            mentioned use-cases; the concrete examples are provided in the
+            <a href="#examples&quot;">Examples</a> section.
+          </p>
+          <h3>
+            Upload video frame to WebGL texture
+          </h3>
+          <p>
             A <a>video</a> element whose source is a <a>MediaStream</a> object
             containing a <a>depth stream track</a> may be uploaded to a WebGL
-            texture of format <code>RGB</code> and type
-            <code>UNSIGNED_BYTE</code>. [[WEBGL]]
+            texture of format <code>RGBA</code> or <code>RED</code> and type
+            <code>FLOAT</code>. See the specification [[WEBGL]] and the
+            <a>upload to float texture</a> example code.
           </p>
           <p>
             For each pixel of this WebGL texture, the R component represents
-            the lower 8 bit value of 16 bit depth value, the G component
-            represents the upper 8 bit value of 16 bit depth value and the
-            value in B component is not defined.
+            normalized 16-bit value following the formula: `d_(float) =
+            d_(16bit) / 65535.0`
+          </p>
+          <h3>
+            Read the data from a WebGL texture
+          </h3>
+          <p>
+            Here we list some of the possible approaches.
+          </p>
+          <ul>
+            <li>Synchronous readPixels usage requires the least amount of code
+            and it is available with WebGL 1.0. See the <a>readPixels from
+            float</a> example for further details.
+            </li>
+            <li>Asynchronous readPixels using pixel buffer objects to avoid
+            blocking the readPixels call.
+            </li>
+            <li>Transform feedback [[WEBGL2]] with GetBufferSubData(Async)
+            [[WEBGL-GET-BUFFER-SUB-DATA-ASYNC]] provides synchronous and
+            asynchronous read access to depth and color texture data processed
+            in the vertex shader.
+            </li>
+          </ul>
+          <p></p>
+          <p class="note">
+            Performance of synchronous <a>readPixels from float</a> example in
+            the current implementation suffice for some of the use cases. The
+            reason is that there is no rendering to the float texture bound to
+            named framebuffer.
           </p>
         </section>
       </section>
@@ -1229,12 +1289,13 @@ navigator.mediaDevices.getUserMedia({
 );
 </pre>
       <h3>
-        WebGL Fragment Shader based post-processing
+        WebGL: <dfn>upload to float texture</dfn>
       </h3>
+      <p>
+        This code sets up a video element from a depth stream, uploads it to a
+        WebGL 2.0 float texture.
+      </p>
       <pre class="example">
-// This code sets up a video element from a depth stream, uploads it to a WebGL
-// texture, and samples that texture in the fragment shader, reconstructing the
-// 16-bit depth values from the red and green channels.
 navigator.mediaDevices.getUserMedia({
   video: {videoKind: {exact: "depth"}}
 }).then(function (stream) {
@@ -1246,31 +1307,86 @@ navigator.mediaDevices.getUserMedia({
   // handle gUM error here
 });
 
-// ... later, in the rendering loop ...
+let gl = canvas.getContext("webgl2");
+// Activate the standard WebGL 2.0 extension for using single component R32F
+// texture format.
+gl.getExtension('EXT_color_buffer_float');
+
+// Later, in the rendering loop ...
+gl.bindTexture(gl.TEXTURE_2D, depthTexture);
 gl.texImage2D(
    gl.TEXTURE_2D,
    0,
-   gl.RGB,
-   gl.RGB,
-   gl.UNSIGNED_BYTE,
-   depthVideo
-);
+   gl.R32F,
+   gl.RED,
+   gl.FLOAT,
+   depthVideo);
 
-&lt;script id="fragment-shader" type="x-shader/x-fragment"&gt;
-  varying vec2 v_texCoord;
-  // u_tex points to the texture unit containing the depth texture.
-  uniform sampler2D u_tex;
-  uniform float far;
-  uniform float near;
-  void main() {
-    vec4 floatColor = texture2D(u_tex, v_texCoord);
-    float dn = floatColor.r;
-    float depth = 0.;
-    depth = far * near / ( far - dn * ( far - near));
-    // ...
-  }
-&lt;/script&gt;
 </pre>
+      <h3>
+        WebGL: <dfn>readPixels from float</dfn> texture
+      </h3>
+      <p>
+        This example extends <a>upload to float texture</a> example.
+      </p>
+      <p>
+        This code creates the texture to which we will upload the depth video
+        frame. Then, it sets up a named framebuffer, attach the texture as
+        color attachment and, after uploading the depth video to the texture,
+        reads the texture content to Float32Array.
+      </p>
+      <pre class="example">
+// Initialize texture and framebuffer for reading back the texture.
+let depthTexture = gl.createTexture();
+gl.bindTexture(gl.TEXTURE_2D, depthTexture);
+gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+
+let framebuffer = gl.createFramebuffer();
+gl.bindFramebuffer(gl.FRAMEBUFFER, framebuffer);
+gl.framebufferTexture2D(
+  gl.FRAMEBUFFER,
+  gl.COLOR_ATTACHMENT0,
+  gl.TEXTURE_2D,
+  depthTexture,
+  0);
+
+let buffer;
+
+// Later, in the rendering loop ...
+gl.bindTexture(gl.TEXTURE_2D, depthTexture);
+gl.texImage2D(
+   gl.TEXTURE_2D,
+   0,
+   gl.R32F,
+   gl.RED,
+   gl.FLOAT,
+   depthVideo);
+
+if (!buffer) {
+  buffer =
+      new Float32Array(depthVideo.videoWidth * depthVideo.videoHeight);
+}
+
+gl.readPixels(
+  0,
+  0,
+  depthVideo.videoWidth,
+  depthVideo.videoHeight,
+  gl.RED,
+  gl.FLOAT,
+  buffer);
+
+</pre>
+      <div class="note">
+        <p>
+          Use
+          <code>gl.getParameter(gl.IMPLEMENTATION_COLOR_READ_FORMAT);</code> to
+          check whether readPixels to gl.RED or gl.RGBA float is supported.
+        </p>
+      </div>
       <h3>
         WebGL Vertex Shader that implements mapping color and depth
       </h3>
