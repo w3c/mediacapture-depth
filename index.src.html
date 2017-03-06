@@ -376,63 +376,68 @@
           <a>projection distortion coefficients</a>. For the details, see
           <a>algorithm to map depth pixels to color pixels</a>.
         </p>
+      </section>
+    </section>
+    <section>
+      <h2>
+        Depth to grayscale conversion
+      </h2>
+      <p>
+        The data type of a <a>depth map</a> is 16-bit unsigned integer. The
+        algorithm to <dfn>convert the depth map value to grayscale</dfn>, given
+        a <a>depth map value</a> <var>d</var>, is as follows:
+      </p>
+      <ol>
+        <li>Let <var>near</var> be the the <a>near value</a>.
+        </li>
+        <li>Let <var>far</var> be the the <a>far value</a>.
+        </li>
+        <li>If the given <a>depth map value</a> <var>d</var> is unknown or
+        invalid, then return the <a>invalid depth map value</a>.
+        </li>
+        <li>Apply the <a>rules to convert using range linear</a> to
+        <var>d</var> to obtain quantized value <var>d<sub>16bit</sub>.</var>
+        </li>
+        <li>Return <var>d<sub>16bit</sub></var>.
+        </li>
+      </ol>
+      <p>
+        The <dfn>rules to convert using range linear</dfn> are as given in the
+        following formula:
+      </p>
+      <p>
+        `d_(n) = (d - n ear) / (far - n ear)`
+      </p>
+      <p>
+        `d_(16bit) = floor(d_(n) * 65535)`
+      </p>
+      <div class="note">
         <p>
-          The data type of a <a>depth map</a> is 16-bit unsigned integer. The
-          algorithm to <dfn>convert the depth map value to grayscale</dfn>,
-          given a <a>depth map value</a> <var>d</var>, is as follows:
+          The depth measurement <var>d</var> (in meter units) is recovered by
+          solving the <a>rules to convert using range linear</a> for
+          <var>d</var> as follows:
         </p>
         <ol>
-          <li>Let <var>near</var> be the the <a>near value</a>.
+          <li>If <var>d<sub>16bit</sub></var> is 0, let <var>d</var> be an <a>
+            invalid depth map value</a>, and return it.
           </li>
-          <li>Let <var>far</var> be the the <a>far value</a>.
+          <li>Otherwise, given <var>d<sub>16bit</sub></var>, <var>near</var>
+          <a>near value</a> and <var>far</var> <a>far value</a>, normalize
+          <var>d<sub>16bit</sub></var> to [0, 1] range:
+            <p>
+              `d_(n) = d_(16bit) / 65535`
+            </p>
           </li>
-          <li>If the given <a>depth map value</a> <var>d</var> is unknown or
-          invalid, then return the <a>invalid depth map value</a>.
+          <li>Solve the <a>rules to convert using range linear</a> for
+          <var>d</var>:
+            <p>
+              `d = (d_(n) * (far - n ear)) + n ear`
+            </p>
           </li>
-          <li>Apply the <a>rules to convert using range linear</a> to
-          <var>d</var> to obtain quantized value <var>d<sub>16bit</sub>.</var>
-          </li>
-          <li>Return <var>d<sub>16bit</sub></var>.
+          <li>Return <var>d</var>.
           </li>
         </ol>
-        <p>
-          The <dfn>rules to convert using range linear</dfn> are as given in
-          the following formula:
-        </p>
-        <p>
-          `d_(n) = (d - n ear) / (far - n ear)`
-        </p>
-        <p>
-          `d_(16bit) = floor(d_(n) * 65535)`
-        </p>
-        <div class="note">
-          <p>
-            The depth measurement <var>d</var> (in meter units) is recovered by
-            solving the <a>rules to convert using range linear</a> for
-            <var>d</var> as follows:
-          </p>
-          <ol>
-            <li>If <var>d<sub>16bit</sub></var> is 0, let <var>d</var> be an
-            <a>invalid depth map value</a>, and return it.
-            </li>
-            <li>Otherwise, given <var>d<sub>16bit</sub></var>, <var>near</var>
-            <a>near value</a> and <var>far</var> <a>far value</a>, normalize
-            <var>d<sub>16bit</sub></var> to [0, 1] range:
-              <p>
-                `d_(n) = d_(16bit) / 65535`
-              </p>
-            </li>
-            <li>Solve the <a>rules to convert using range linear</a> for <var>
-              d</var>:
-              <p>
-                `d = (d_(n) * (far - n ear)) + n ear`
-              </p>
-            </li>
-            <li>Return <var>d</var>.
-            </li>
-          </ol>
-        </div>
-      </section>
+      </div>
     </section>
     <section>
       <h2>
