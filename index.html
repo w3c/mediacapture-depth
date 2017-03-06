@@ -426,9 +426,9 @@
         <p>
           A <a>depth map</a> has an associated <dfn>transformation from depth
           to video</dfn>, which is a <dfn>transformation matrix</dfn>
-          represented by a <a>DepthToVideoTransform</a> dictionary. It is used
-          to translate position in depth camera 3D coordinate system to RGB
-          video stream's camera (identified by <dfn>videoDeviceId</dfn>) 3D
+          represented by a <a>Transformation</a> dictionary. It is used to
+          translate position in depth camera 3D coordinate system to RGB video
+          stream's camera (identified by <dfn>videoDeviceId</dfn>) 3D
           coordinate system. After projecting depth 2D pixel coordinates to 3D
           space, we use this matrix to transform depth camera 3D space
           coordinates to RGB video camera 3D space.
@@ -532,102 +532,6 @@
               boolean depthToVideoTransform = false;
           };
 </pre>
-        <section>
-          <h2>
-            Dictionary <a class="idlType">MediaTrackSupportedConstraints</a>
-            Members
-          </h2>
-          <dl data-link-for="MediaTrackSupportedConstraints" data-dfn-for="MediaTrackSupportedConstraints" class="dictionary-members">
-            <dt>
-              <dfn data-dfn-for="MediaTrackSupportedConstraints"><code>videoKind</code></dfn> of
-              type <span class="idlMemberType"><a>boolean</a></span>,
-              defaulting to <code>true</code>
-            </dt>
-            <dd>
-              See <code><a href="#def-constraint-videoKind">videoKind</a></code> for details.
-            </dd>
-            <dt>
-              <dfn data-dfn-for="MediaTrackSupportedConstraints"><code>depthNear</code></dfn> of
-              type <span class="idlMemberType"><a>boolean</a></span>,
-              defaulting to <code>true</code>
-            </dt>
-            <dd>
-              See <code><a href="#def-constraint-depthNear">depthNear</a></code> for details.
-            </dd>
-            <dt>
-              <dfn data-dfn-for="MediaTrackSupportedConstraints"><code>depthFar</code></dfn> of
-              type <span class="idlMemberType"><a>boolean</a></span>,
-              defaulting to <code>true</code>
-            </dt>
-            <dd>
-              See <code><a href="#def-constraint-depthFar">depthFar</a></code>
-              for details.
-            </dd>
-            <dt>
-              <dfn data-dfn-for="MediaTrackSupportedConstraints"><code>focalLengthX</code></dfn>
-              of type <span class="idlMemberType"><a>boolean</a></span>,
-              defaulting to <code>true</code>
-            </dt>
-            <dd>
-              See <code><a href="#def-constraint-focalLengthX">focalLengthX</a></code> for
-              details.
-            </dd>
-            <dt>
-              <dfn data-dfn-for="MediaTrackSupportedConstraints"><code>focalLengthY</code></dfn>
-              of type <span class="idlMemberType"><a>boolean</a></span>,
-              defaulting to <code>true</code>
-            </dt>
-            <dd>
-              See <code><a href="#def-constraint-focalLengthY">focalLengthY</a></code> for
-              details.
-            </dd>
-            <dt>
-              <dfn data-dfn-for="MediaTrackSupportedConstraints"><code>principalPointX</code></dfn>
-              of type <span class="idlMemberType"><a>boolean</a></span>,
-              defaulting to <code>true</code>
-            </dt>
-            <dd>
-              See <code><a href="#def-constraint-principalPointX">principalPointX</a></code> for
-              details.
-            </dd>
-            <dt>
-              <dfn data-dfn-for="MediaTrackSupportedConstraints"><code>principalPointY</code></dfn>
-              of type <span class="idlMemberType"><a>boolean</a></span>,
-              defaulting to <code>true</code>
-            </dt>
-            <dd>
-              See <code><a href="#def-constraint-principalPointY">principalPointY</a></code> for
-              details.
-            </dd>
-            <dt>
-              <dfn data-dfn-for="MediaTrackSupportedConstraints"><code>deprojectionDistortionCoefficients</code></dfn>
-              of type <span class="idlMemberType"><a>boolean</a></span> ,
-              defaulting to <code>false</code>
-            </dt>
-            <dd>
-              See <code><a href="#def-constraint-deprojectionDistortionCoefficients">deprojectionDistortionCoefficients</a></code>
-              for details.
-            </dd>
-            <dt>
-              <dfn data-dfn-for="MediaTrackSupportedConstraints"><code>projectionDistortionCoefficients</code></dfn>
-              of type <span class="idlMemberType"><a>boolean</a></span> ,
-              defaulting to <code>false</code>
-            </dt>
-            <dd>
-              See <code><a href="#def-constraint-projectionDistortionCoefficients">projectionDistortionCoefficients</a></code>
-              for details.
-            </dd>
-            <dt>
-              <dfn data-dfn-for="MediaTrackSupportedConstraints"><code>depthToVideoTransform</code></dfn>
-              of type <span class="idlMemberType"><a>boolean</a></span> ,
-              defaulting to <code>false</code>
-            </dt>
-            <dd>
-              See <code><a href="#def-constraint-depthToVideoTransform">depthToVideoTransform</a></code>
-              for details.
-            </dd>
-          </dl>
-        </section>
       </section>
       <section>
         <h2>
@@ -646,91 +550,10 @@
               boolean depthToVideoTransform;
           };
 </pre>
-        <section>
-          <h2>
-            Dictionary <a class="idlType">MediaTrackCapabilities</a> Members
-          </h2>
-          <dl data-link-for="MediaTrackCapabilities" data-dfn-for="MediaTrackCapabilities" class="dictionary-members">
-            <dt>
-              <dfn><code>videoKind</code></dfn> of type <span class="idlMemberType"><a>DOMString</a></span>
-            </dt>
-            <dd>
-              See <code><a href="#def-constraint-videoKind">videoKind</a></code> for details.
-            </dd>
-            <dt>
-              <dfn><code>depthNear</code></dfn> of type <span class="idlMemberType"><a>(double or DoubleRange)</a></span>
-            </dt>
-            <dd>
-              See <code><a href="#def-constraint-depthNear">depthNear</a></code> for details.
-            </dd>
-            <dt>
-              <dfn><code>depthFar</code></dfn> of type <span class="idlMemberType"><a>(double or DoubleRange)</a></span>
-            </dt>
-            <dd>
-              See <code><a href="#def-constraint-depthFar">depthFar</a></code>
-              for details.
-            </dd>
-            <dt>
-              <dfn><code>focalLengthX</code></dfn> of type <span class="idlMemberType"><a>(double or DoubleRange)</a></span>
-            </dt>
-            <dd>
-              See <code><a href="#def-constraint-focalLengthX">focalLengthX</a></code> for
-              details.
-            </dd>
-            <dt>
-              <dfn><code>focalLengthY</code></dfn> of type <span class="idlMemberType"><a>(double or DoubleRange)</a></span>
-            </dt>
-            <dd>
-              See <code><a href="#def-constraint-focalLengthY">focalLengthY</a></code> for
-              details.
-            </dd>
-            <dt>
-              <dfn><code>principalPointX</code></dfn> of type <span class="idlMemberType"><a>(double or DoubleRange)</a></span>
-            </dt>
-            <dd>
-              See <code><a href="#def-constraint-principalPointX">principalPointX</a></code> for
-              details.
-            </dd>
-            <dt>
-              <dfn><code>principalPointY</code></dfn> of type <span class="idlMemberType"><a>(double or DoubleRange)</a></span>
-            </dt>
-            <dd>
-              See <code><a href="#def-constraint-principalPointY">principalPointY</a></code> for
-              details.
-            </dd>
-            <dt>
-              <dfn><code>deprojectionDistortionCoefficients</code></dfn> of
-              type <span class="idlMemberType"><a>boolean</a></span>
-            </dt>
-            <dd>
-              See <code><a href="#def-constraint-deprojectionDistortionCoefficients">deprojectionDistortionCoefficients</a></code>
-              for details. Returns false if the source cannot provide this
-              information.
-            </dd>
-            <dt>
-              <dfn><code>projectionDistortionCoefficients</code></dfn> of type
-              <span class="idlMemberType"><a>boolean</a></span>
-            </dt>
-            <dd>
-              See <code><a href="#def-constraint-projectionDistortionCoefficients">projectionDistortionCoefficients</a></code>
-              for details. Returns false if the source cannot provide this
-              information.
-            </dd>
-            <dt>
-              <dfn><code>depthToVideoTransform</code></dfn> of type
-              <span class="idlMemberType"><a>boolean</a></span>
-            </dt>
-            <dd>
-              See <code><a href="#def-constraint-depthToVideoTransform">depthToVideoTransform</a></code>
-              for details. Returns false if the source cannot provide this
-              information.
-            </dd>
-          </dl>
-        </section>
       </section>
       <section>
         <h2>
-          MediaTrackConstraints
+          <code>MediaTrackConstraints</code> dictionary
         </h2>
         <pre class="idl">          partial dictionary MediaTrackConstraintSet {
               ConstrainDOMString videoKind;
@@ -745,84 +568,6 @@
               ConstrainBoolean depthToVideoTransform;
           };
 </pre>
-        <section>
-          <h2>
-            Dictionary <a class="idlType">MediaTrackConstraintSet</a> Members
-          </h2>
-          <dl data-link-for="MediaTrackConstraintSet" data-dfn-for="MediaTrackConstraintSet" class="dictionary-members">
-            <dt>
-              <dfn><code>videoKind</code></dfn> of type <span class="idlMemberType"><a>ConstrainDOMString</a></span>
-            </dt>
-            <dd>
-              See <code><a href="#def-constraint-videoKind">videoKind</a></code> for details.
-            </dd>
-            <dt>
-              <dfn><code>depthNear</code></dfn> of type <span class="idlMemberType"><a>ConstrainDouble</a></span>
-            </dt>
-            <dd>
-              See <code><a href="#def-constraint-depthNear">depthNear</a></code> for details.
-            </dd>
-            <dt>
-              <dfn><code>depthFar</code></dfn> of type <span class="idlMemberType"><a>ConstrainDouble</a></span>
-            </dt>
-            <dd>
-              See <code><a href="#def-constraint-depthFar">depthFar</a></code>
-              for details.
-            </dd>
-            <dt>
-              <dfn><code>focalLengthX</code></dfn> of type <span class="idlMemberType"><a>ConstrainDouble</a></span>
-            </dt>
-            <dd>
-              See <code><a href="#def-constraint-focalLengthX">focalLengthX</a></code> for
-              details.
-            </dd>
-            <dt>
-              <dfn><code>focalLengthY</code></dfn> of type <span class="idlMemberType"><a>ConstrainDouble</a></span>
-            </dt>
-            <dd>
-              See <code><a href="#def-constraint-focalLengthY">focalLengthY</a></code> for
-              details.
-            </dd>
-            <dt>
-              <dfn><code>principalPointX</code></dfn> of type <span class="idlMemberType"><a>ConstrainDouble</a></span>
-            </dt>
-            <dd>
-              See <code><a href="#def-constraint-principalPointX">principalPointX</a></code> for
-              details.
-            </dd>
-            <dt>
-              <dfn><code>principalPointY</code></dfn> of type <span class="idlMemberType"><a>ConstrainDouble</a></span>
-            </dt>
-            <dd>
-              See <code><a href="#def-constraint-principalPointY">principalPointY</a></code> for
-              details.
-            </dd>
-            <dt>
-              <dfn><code>deprojectionDistortionCoefficients</code></dfn> of
-              type <span class="idlMemberType"><a>ConstrainBoolean</a></span>
-            </dt>
-            <dd>
-              See <code><a href="#def-constraint-deprojectionDistortionCoefficients">deprojectionDistortionCoefficients</a></code>
-              for details.
-            </dd>
-            <dt>
-              <dfn><code>projectionDistortionCoefficients</code></dfn> of type
-              <span class="idlMemberType"><a>ConstrainBoolean</a></span>
-            </dt>
-            <dd>
-              See <code><a href="#def-constraint-projectionDistortionCoefficients">projectionDistortionCoefficients</a></code>
-              for details.
-            </dd>
-            <dt>
-              <dfn><code>depthToVideoTransform</code></dfn> of type
-              <span class="idlMemberType"><a>ConstrainBoolean</a></span>
-            </dt>
-            <dd>
-              See <code><a href="#def-constraint-depthToVideoTransform">depthToVideoTransform</a></code>
-              for details.
-            </dd>
-          </dl>
-        </section>
       </section>
       <section>
         <h2>
@@ -838,7 +583,7 @@
               double              principalPointY;
               DistortionCoefficients deprojectionDistortionCoefficients;
               DistortionCoefficients projectionDistortionCoefficients;
-              DepthToVideoTransform depthToVideoTransform;
+              Transform depthToVideoTransform;
           };
 
           dictionary DistortionCoefficients {
@@ -849,148 +594,56 @@
               double              k3;
           };
 
-          dictionary DepthToVideoTransform {
+          dictionary Transformation {
             Float32Array       transformationMatrix;
             DOMString          videoDeviceId;
           };
 </pre>
-        <section>
-          <h2>
-            Dictionary <a class="idlType">MediaTrackSettings</a> Members
-          </h2>
-          <dl data-link-for="MediaTrackSettings" data-dfn-for="MediaTrackSettings" class="dictionary-members">
-            <dt>
-              <dfn><code>videoKind</code></dfn> of type <span class="idlMemberType"><a>DOMString</a></span>
-            </dt>
-            <dd>
-              See <code><a href="#def-constraint-videoKind">videoKind</a></code> for details.
-            </dd>
-            <dt>
-              <dfn><code>depthNear</code></dfn> of type <span class="idlMemberType"><a>double</a></span>
-            </dt>
-            <dd>
-              See <code><a href="#def-constraint-depthNear">depthNear</a></code> for details.
-            </dd>
-            <dt>
-              <dfn><code>depthFar</code></dfn> of type <span class="idlMemberType"><a>double</a></span>
-            </dt>
-            <dd>
-              See <code><a href="#def-constraint-depthFar">depthFar</a></code>
-              for details.
-            </dd>
-            <dt>
-              <dfn><code>focalLengthX</code></dfn> of type <span class="idlMemberType"><a>double</a></span>
-            </dt>
-            <dd>
-              See <code><a href="#def-constraint-focalLengthX">focalLengthX</a></code> for
-              details.
-            </dd>
-            <dt>
-              <dfn><code>focalLengthY</code></dfn> of type <span class="idlMemberType"><a>double</a></span>
-            </dt>
-            <dd>
-              See <code><a href="#def-constraint-focalLengthY">focalLengthY</a></code> for
-              details.
-            </dd>
-            <dt>
-              <dfn><code>principalPointX</code></dfn> of type <span class="idlMemberType"><a>double</a></span>
-            </dt>
-            <dd>
-              See <code><a href="#def-constraint-principalPointX">principalPointX</a></code> for
-              details.
-            </dd>
-            <dt>
-              <dfn><code>principalPointY</code></dfn> of type <span class="idlMemberType"><a>double</a></span>
-            </dt>
-            <dd>
-              See <code><a href="#def-constraint-principalPointY">principalPointY</a></code> for
-              details.
-            </dd>
-            <dt>
-              The <dfn><code>deprojectionDistortionCoefficients</code></dfn>
-              dictionary member represents the <a>depth map</a>'s <a>distortion
-              coefficients</a> used when deprojecting from 2D to 3D space.
-            </dt>
-            <dd>
-              See <code><a href="#def-constraint-deprojectionDistortionCoefficients">deprojectionDistortionCoefficients</a></code>
-              for details.
-            </dd>
-            <dt>
-              The <dfn><code>projectionDistortionCoefficients</code></dfn>
-              dictionary member represents the media tracks's <a>distortion
-              coefficients</a> used when projecting from 3D to 2D space.
-            </dt>
-            <dd>
-              See <code><a href="#def-constraint-projectionDistortionCoefficients">projectionDistortionCoefficients</a></code>
-              for details.
-            </dd>
-            <dt>
-              The <dfn><code>depthToVideoTransform</code></dfn> dictionary
-              member represents the <a>depth map</a>'s camera's
-              <a>transformation from depth to video</a> camera 3D coordinate
-              system.
-            </dt>
-            <dd>
-              See <code><a href="#def-constraint-depthToVideoTransform">depthToVideoTransform</a></code>
-              for details.
-            </dd>
-          </dl>
-        </section>
-        <h3>
-          <dfn><code>DistortionCoefficients</code></dfn> dictionary
-        </h3>
         <div data-dfn-for="DistortionCoefficients">
-          <dl class="dictionary-members">
-            <dt>
-              The <dfn>k1</dfn>, <dfn>k2</dfn>, <dfn>p1</dfn>, <dfn>p2</dfn>
-              and <dfn>k3</dfn> dictionary members represent the
-              <a>deprojection distortion coefficients</a> or <a>projection
-              distortion coefficients</a>.<br>
-              <dfn data-dfn-for="k1">k1</dfn>, <dfn data-dfn-for="k2">k2</dfn>
-              and <dfn data-dfn-for="k3">k3</dfn> are <dfn>radial distortion
-              coefficients</dfn> while <dfn data-dfn-for="p1">p1</dfn> and
-              <dfn data-dfn-for="p2">p2</dfn> are <dfn>tangential distortion
-              coefficients</dfn>.<br>
-            </dt>
-            <dt class="note">
-              <a>Radial distortion coefficients</a> and <a>tangential
-              distortion coefficients</a> are used when there's need to
-              <a>deproject</a> depth value to 3D space or to <a>project</a> 3D
-              value to 2D video frame coordinates.<br>
-              See <a>algorithm to map depth pixels to color pixels</a> and
-              Brown-Conrady distortion model implementation in <a>3D point
-              cloud rendering</a> example GLSL shader.<br>
-            </dt>
-          </dl>
+          <p>
+            The <dfn><code>DistortionCoefficients</code></dfn> dictionary has
+            the <dfn>k1</dfn>, <dfn>k2</dfn>, <dfn>p1</dfn>, <dfn>p2</dfn> and
+            <dfn>k3</dfn> dictionary members that represent the <a>deprojection
+            distortion coefficients</a> or <a>projection distortion
+            coefficients</a>. <dfn data-dfn-for="k1">k1</dfn>,
+            <dfn data-dfn-for="k2">k2</dfn> and <dfn data-dfn-for="k3">k3</dfn>
+            are <dfn>radial distortion coefficients</dfn> while
+            <dfn data-dfn-for="p1">p1</dfn> and <dfn data-dfn-for="p2">p2</dfn>
+            are <dfn>tangential distortion coefficients</dfn>.
+          </p>
+          <p class="note">
+            <a>Radial distortion coefficients</a> and <a>tangential distortion
+            coefficients</a> are used when there's need to <a>deproject</a>
+            depth value to 3D space or to <a>project</a> 3D value to 2D video
+            frame coordinates.<br>
+            See <a>algorithm to map depth pixels to color pixels</a> and
+            Brown-Conrady distortion model implementation in <a>3D point cloud
+            rendering</a> example GLSL shader.<br>
+          </p>
         </div>
-        <h3>
-          <code>DepthToVideoTransform</code> dictionary
-        </h3>
-        <div data-dfn-for="DepthToVideoTransform">
-          <dl class="dictionary-members">
-            <dt>
-              The <dfn><code>transformationMatrix</code></dfn> dictionary
-              member is a 16 element array that defines the <a>transformation
-              matrix</a> of the <a>depth map</a>'s camera's 3D coordinate
-              system to video track's camera 3D coordinate system.
-            </dt>
-            <dt class="note">
-              The first four elements of the array correspond to the first
-              matrix row, followed by four elements of the second matrix row
-              and so on. It is in format suitable for use with WebGL's
-              uniformMatrix4fv.
-            </dt>
-            <dt>
-              The <dfn><code>videoDeviceId</code></dfn> dictionary member
-              represents the deviceId of video camera the depth stream must be
-              synchronized with.
-            </dt>
-            <dt class="note">
-              The value of <a><code>videoDeviceId</code></a> can be used as
-              deviceId constraint in [[!GETUSERMEDIA]] to get the corresponding
-              video and audio streams.
-            </dt>
-          </dl>
+        <div data-dfn-for="Transformation">
+          <p>
+            The <dfn><code>Transformation</code></dfn> dictionary has the
+            <dfn><code>transformationMatrix</code></dfn> dictionary member that
+            is a 16 element array that defines the <a>transformation matrix</a>
+            of the <a>depth map</a>'s camera's 3D coordinate system to video
+            track's camera 3D coordinate system.
+          </p>
+          <p class="note">
+            The first four elements of the array correspond to the first matrix
+            row, followed by four elements of the second matrix row and so on.
+            It is in format suitable for use with WebGL's uniformMatrix4fv.
+          </p>
+          <p>
+            The <dfn><code>videoDeviceId</code></dfn> dictionary member
+            represents the deviceId of video camera the depth stream must be
+            synchronized with.
+          </p>
+          <p class="note">
+            The value of <a><code>videoDeviceId</code></a> can be used as
+            deviceId constraint in [[!GETUSERMEDIA]] to get the corresponding
+            video and audio streams.
+          </p>
         </div>
       </section>
       <section>
@@ -1018,7 +671,10 @@
           <tbody>
             <tr id="def-constraint-videoKind">
               <td>
-                <dfn>videoKind</dfn>
+                <a>MediaTrackSupportedConstraints</a>.<dfn data-dfn-for="MediaTrackSupportedConstraints">videoKind</dfn><br>
+                <a>MediaTrackCapabilities</a>.<dfn data-dfn-for="MediaTrackCapabilities">videoKind</dfn><br>
+                <a>MediaTrackConstraintSet</a>.<dfn data-dfn-for="MediaTrackConstraintSet">videoKind</dfn><br>
+                <a>MediaTrackSettings</a>.<dfn data-dfn-for="MediaTrackSettings">videoKind</dfn>
               </td>
               <td>
                 <code>ConstrainDOMString</code>
@@ -1139,7 +795,10 @@
           <tbody>
             <tr id="def-constraint-depthNear">
               <td>
-                <dfn>depthNear</dfn>
+                <a>MediaTrackSupportedConstraints</a>.<dfn data-dfn-for="MediaTrackSupportedConstraints">depthNear</dfn><br>
+                <a>MediaTrackCapabilities</a>.<dfn data-dfn-for="MediaTrackCapabilities">depthNear</dfn><br>
+                <a>MediaTrackConstraintSet</a>.<dfn data-dfn-for="MediaTrackConstraintSet">depthNear</dfn><br>
+                <a>MediaTrackSettings</a>.<dfn data-dfn-for="MediaTrackSettings">depthNear</dfn>
               </td>
               <td>
                 <code>ConstrainDouble</code>
@@ -1150,7 +809,10 @@
             </tr>
             <tr id="def-constraint-depthFar">
               <td>
-                <dfn>depthFar</dfn>
+                <a>MediaTrackSupportedConstraints</a>.<dfn data-dfn-for="MediaTrackSupportedConstraints">depthFar</dfn><br>
+                <a>MediaTrackCapabilities</a>.<dfn data-dfn-for="MediaTrackCapabilities">depthFar</dfn><br>
+                <a>MediaTrackConstraintSet</a>.<dfn data-dfn-for="MediaTrackConstraintSet">depthFar</dfn><br>
+                <a>MediaTrackSettings</a>.<dfn data-dfn-for="MediaTrackSettings">depthFar</dfn>
               </td>
               <td>
                 <code>ConstrainDouble</code>
@@ -1161,7 +823,10 @@
             </tr>
             <tr id="def-constraint-focalLengthX">
               <td>
-                <dfn>focalLengthX</dfn>
+                <a>MediaTrackSupportedConstraints</a>.<dfn data-dfn-for="MediaTrackSupportedConstraints">focalLengthX</dfn><br>
+                <a>MediaTrackCapabilities</a>.<dfn data-dfn-for="MediaTrackCapabilities">focalLengthX</dfn><br>
+                <a>MediaTrackConstraintSet</a>.<dfn data-dfn-for="MediaTrackConstraintSet">focalLengthX</dfn>
+                <a>MediaTrackSettings</a>.<dfn data-dfn-for="MediaTrackSettings">focalLengthX</dfn>
               </td>
               <td>
                 <code>ConstrainDouble</code>
@@ -1172,7 +837,10 @@
             </tr>
             <tr id="def-constraint-focalLengthY">
               <td>
-                <dfn>focalLengthY</dfn>
+                <a>MediaTrackSupportedConstraints</a>.<dfn data-dfn-for="MediaTrackSupportedConstraints">focalLengthY</dfn><br>
+                <a>MediaTrackCapabilities</a>.<dfn data-dfn-for="MediaTrackCapabilities">focalLengthY</dfn><br>
+                <a>MediaTrackConstraintSet</a>.<dfn data-dfn-for="MediaTrackConstraintSet">focalLengthY</dfn>
+                <a>MediaTrackSettings</a>.<dfn data-dfn-for="MediaTrackSettings">focalLengthY</dfn>
               </td>
               <td>
                 <code>ConstrainDouble</code>
@@ -1183,7 +851,10 @@
             </tr>
             <tr id="def-constraint-principalPointX">
               <td>
-                <dfn>principalPointX</dfn>
+                <a>MediaTrackSupportedConstraints</a>.<dfn data-dfn-for="MediaTrackSupportedConstraints">principalPointX</dfn><br>
+                <a>MediaTrackCapabilities</a>.<dfn data-dfn-for="MediaTrackCapabilities">principalPointX</dfn><br>
+                <a>MediaTrackConstraintSet</a>.<dfn data-dfn-for="MediaTrackConstraintSet">principalPointX</dfn>
+                <a>MediaTrackSettings</a>.<dfn data-dfn-for="MediaTrackSettings">principalPointX</dfn>
               </td>
               <td>
                 <code>ConstrainDouble</code>
@@ -1194,7 +865,10 @@
             </tr>
             <tr id="def-constraint-principalPointY">
               <td>
-                <dfn>principalPointY</dfn>
+                <a>MediaTrackSupportedConstraints</a>.<dfn data-dfn-for="MediaTrackSupportedConstraints">principalPointY</dfn><br>
+                <a>MediaTrackCapabilities</a>.<dfn data-dfn-for="MediaTrackCapabilities">principalPointY</dfn><br>
+                <a>MediaTrackConstraintSet</a>.<dfn data-dfn-for="MediaTrackConstraintSet">principalPointY</dfn>
+                <a>MediaTrackSettings</a>.<dfn data-dfn-for="MediaTrackSettings">principalPointY</dfn>
               </td>
               <td>
                 <code>ConstrainDouble</code>
@@ -1205,36 +879,49 @@
             </tr>
             <tr id="def-constraint-deprojectionDistortionCoefficients">
               <td>
-                <dfn>deprojectionDistortionCoefficients</dfn>
+                <a>MediaTrackSupportedConstraints</a>.<dfn data-dfn-for="MediaTrackSupportedConstraints">deprojectionDistortionCoefficients</dfn><br>
+
+                <a>MediaTrackCapabilities</a>.<dfn data-dfn-for="MediaTrackCapabilities">deprojectionDistortionCoefficients</dfn><br>
+
+                <a>MediaTrackConstraintSet</a>.<dfn data-dfn-for="MediaTrackConstraintSet">deprojectionDistortionCoefficients</dfn>
+                <a>MediaTrackSettings</a>.<dfn data-dfn-for="MediaTrackSettings">deprojectionDistortionCoefficients</dfn>
               </td>
               <td>
                 <code>ConstrainDOMDictionary</code>
               </td>
               <td>
-                The deprojection distortion coefficients.
+                The <a>depth map</a>'s <a>deprojection distortion
+                coefficients</a> used when deprojecting from 2D to 3D space.
               </td>
             </tr>
             <tr id="def-constraint-projectionDistortionCoefficients">
               <td>
-                <dfn>projectionDistortionCoefficients</dfn>
+                <a>MediaTrackSupportedConstraints</a>.<dfn data-dfn-for="MediaTrackSupportedConstraints">projectionDistortionCoefficients</dfn>
+                <a>MediaTrackCapabilities</a>.<dfn data-dfn-for="MediaTrackCapabilities">projectionDistortionCoefficients</dfn>
+                <a>MediaTrackConstraintSet</a>.<dfn data-dfn-for="MediaTrackConstraintSet">projectionDistortionCoefficients</dfn>
+                <a>MediaTrackSettings</a>.<dfn data-dfn-for="MediaTrackSettings">projectionDistortionCoefficients</dfn>
               </td>
               <td>
                 <code>ConstrainDOMDictionary</code>
               </td>
               <td>
-                The projection distortion coefficients.
+                The <a>depth map</a>'s <a>projection distortion
+                coefficients</a> used when deprojecting from 2D to 3D space.
               </td>
             </tr>
             <tr id="def-constraint-depthToVideoTransform">
               <td>
-                <dfn>depthToVideoTransform</dfn>
+                <a>MediaTrackSupportedConstraints</a>.<dfn data-dfn-for="MediaTrackSupportedConstraints">depthToVideoTransform</dfn>
+                <a>MediaTrackCapabilities</a>.<dfn data-dfn-for="MediaTrackCapabilities">depthToVideoTransform</dfn>
+                <a>MediaTrackConstraintSet</a>.<dfn data-dfn-for="MediaTrackConstraintSet">depthToVideoTransform</dfn>
+                <a>MediaTrackSettings</a>.<dfn data-dfn-for="MediaTrackSettings">depthToVideoTransform</dfn>
               </td>
               <td>
                 <code>ConstrainDOMDictionary</code>
               </td>
               <td>
-                The <a>transformation from depth to video</a> camera 3D
-                coordinate system.
+                The <a>depth map</a>'s camera's <a>transformation from depth to
+                video</a> camera 3D coordinate system.
               </td>
             </tr>
           </tbody>
@@ -1425,7 +1112,7 @@
         </p>
         <p>
           Let <var>M</var> be <a>transformation matrix</a> defined in <a>depth
-          map</a>'s <a>depthToVideoTransform</a> field.
+          map</a>'s <a data-link-for="MediaTrackSettings">depthToVideoTransform</a> field.
         </p>
         <p>
           To multiply 4x4 matrix by 3 element vector, we extend the 3D vector
@@ -1456,11 +1143,11 @@
         <p>
           To <dfn>project</dfn> from color 3D to 2D coordinate we use the
           corresponding color track's <a href="#mediatracksettings-dictionary">MediaTrackSettings</a>. The color
-          track we get using <a>depth map</a>'s <a>depthToVideoTransform</a>
-          field <a>videoDeviceId</a> - it represents the target color video
-          deviceID that should be used as a constraint with [[!GETUSERMEDIA]]
-          call to get the corresponding color video stream track. After that,
-          we use color track <a>getSettings()</a> to access <a href="#mediatracksettings-dictionary">MediaTrackSettings</a>.
+          track we get using <a>depth map</a>'s <a data-link-for="MediaTrackSettings">Transformation</a>.<a>videoDeviceId</a> - it
+          represents the target color video deviceID that should be used as a
+          constraint with [[!GETUSERMEDIA]] call to get the corresponding color
+          video stream track. After that, we use color track
+          <a>getSettings()</a> to access <a href="#mediatracksettings-dictionary">MediaTrackSettings</a>.
         </p>
         <p>
           Let <span id="MathJax-Element-16-Frame" class="mjx-chtml"><span id="MJXc-Node-373" class="mjx-math" role="math"><span id="MJXc-Node-374" class="mjx-mrow"><span id="MJXc-Node-375" class="mjx-mstyle"><span id="MJXc-Node-376" class="mjx-mrow"><span id="MJXc-Node-377" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.519em; padding-bottom: 0.519em; padding-right: 0.06em;">f</span></span><span id="MJXc-Node-378" class="mjx-msub"><span class="mjx-base"><span id="MJXc-Node-379" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.225em; padding-bottom: 0.298em;">x</span></span></span><span class="mjx-sub" style="font-size: 70.7%; vertical-align: -0.212em; padding-right: 0.071em;"><span id="MJXc-Node-380" class="mjx-mi" style=""><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.225em; padding-bottom: 0.298em;">c</span></span></span></span></span></span></span></span></span> and <span id="MathJax-Element-17-Frame" class="mjx-chtml"><span id="MJXc-Node-381" class="mjx-math" role="math"><span id="MJXc-Node-382" class="mjx-mrow"><span id="MJXc-Node-383" class="mjx-mstyle"><span id="MJXc-Node-384" class="mjx-mrow"><span id="MJXc-Node-385" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.519em; padding-bottom: 0.519em; padding-right: 0.06em;">f</span></span><span id="MJXc-Node-386" class="mjx-msub"><span class="mjx-base" style="margin-right: -0.006em;"><span id="MJXc-Node-387" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.225em; padding-bottom: 0.519em; padding-right: 0.006em;">y</span></span></span><span class="mjx-sub" style="font-size: 70.7%; vertical-align: -0.212em; padding-right: 0.071em;"><span id="MJXc-Node-388" class="mjx-mi" style=""><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.225em; padding-bottom: 0.298em;">c</span></span></span></span></span></span></span></span></span> be color track's <a>horizontal focal length</a>
