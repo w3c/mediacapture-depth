@@ -470,21 +470,28 @@
       <h2>
         Extensions
       </h2>
+      <p>
+        If the implementation is unable to report the value represented by any
+        of the dictionary members, they are not <a>present</a> in the
+        dictionary.
+      </p>
       <section>
         <h2>
           <a>MediaTrackSupportedConstraints</a> dictionary
         </h2>
         <pre class="idl">
           partial dictionary MediaTrackSupportedConstraints {
+              // Apply to both depth stream track and color stream track:
               boolean videoKind = true;
-              boolean depthNear = true;
-              boolean depthFar = true;
               boolean focalLengthX = true;
               boolean focalLengthY = true;
               boolean principalPointX = true;
               boolean principalPointY = true;
               boolean deprojectionDistortionCoefficients = false;
               boolean projectionDistortionCoefficients = false;
+              // Apply to depth stream track:
+              boolean depthNear = true;
+              boolean depthFar = true;
               boolean depthToVideoTransform = false;
           };
 </pre>
@@ -495,15 +502,17 @@
         </h2>
         <pre class="idl">
           partial dictionary MediaTrackCapabilities {
+              // Apply to both depth stream track and color stream track:
               DOMString videoKind;
-              (double or DoubleRange) depthNear;
-              (double or DoubleRange) depthFar;
               (double or DoubleRange) focalLengthX;
               (double or DoubleRange) focalLengthY;
               (double or DoubleRange) principalPointX;
               (double or DoubleRange) principalPointY;
               boolean deprojectionDistortionCoefficients;
               boolean projectionDistortionCoefficients;
+              // Apply to depth stream track:
+              (double or DoubleRange) depthNear;
+              (double or DoubleRange) depthFar;
               boolean depthToVideoTransform;
           };
 </pre>
@@ -514,15 +523,17 @@
         </h2>
         <pre class="idl">
           partial dictionary MediaTrackConstraintSet {
+              // Apply to both depth stream track and color stream track:
               ConstrainDOMString videoKind;
-              ConstrainDouble depthNear;
-              ConstrainDouble depthFar;
               ConstrainDouble focalLengthX;
               ConstrainDouble focalLengthY;
               ConstrainDouble principalPointX;
               ConstrainDouble principalPointY;
               ConstrainBoolean deprojectionDistortionCoefficients;
               ConstrainBoolean projectionDistortionCoefficients;
+              // Apply to depth stream track:
+              ConstrainDouble depthNear;
+              ConstrainDouble depthFar;
               ConstrainBoolean depthToVideoTransform;
           };
 </pre>
@@ -533,15 +544,17 @@
         </h2>
         <pre class="idl">
           partial dictionary MediaTrackSettings {
+              // Apply to both depth stream track and color stream track:
               DOMString           videoKind;
-              double              depthNear;
-              double              depthFar;
               double              focalLengthX;
               double              focalLengthY;
               double              principalPointX;
               double              principalPointY;
               DistortionCoefficients deprojectionDistortionCoefficients;
               DistortionCoefficients projectionDistortionCoefficients;
+              // Apply to depth stream track:
+              double              depthNear;
+              double              depthFar;
               Transformation      depthToVideoTransform;
           };
 
@@ -610,8 +623,8 @@
           Constrainable properties for video
         </h2>
         <p>
-          The following constrainable properties are defined to apply only to
-          video <a>MediaStreamTrack</a> objects:
+          The following constrainable properties are defined to apply to both
+          <a>color stream track</a> and <a>depth stream track</a>:
         </p>
         <table class="simple">
           <thead>
@@ -650,151 +663,6 @@
                 same string for strings not in this enum. This preserves the
                 possibility of using a future version of WebIDL enum for this
                 property.
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <div>
-          <pre class="idl">
-enum VideoKindEnum {
-    "color",
-    "depth"
-};
-</pre>
-          <table data-link-for="VideoKindEnum" data-dfn-for="VideoKindEnum"
-          class="simple">
-            <tbody>
-              <tr>
-                <th colspan="2">
-                  Enumeration description
-                </th>
-              </tr>
-              <tr>
-                <td>
-                  <dfn><code id=
-                  "idl-def-VideoKindEnum.color">color</code></dfn>
-                </td>
-                <td>
-                  <p>
-                    The source is capturing color images.
-                  </p>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <dfn><code id=
-                  "idl-def-VideoKindEnum.depth">depth</code></dfn>
-                </td>
-                <td>
-                  <p>
-                    The source is capturing depth maps.
-                  </p>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="note">
-          If the user agent requests a combined <a>depth+color stream</a>, the
-          devices in the constraint should be satisfied as belonging to the
-          same group or physical device. The decision to select and satisfy
-          which device pair is left up to the implementation.
-        </div>
-        <p>
-          The <a>MediaStream</a> <a>consumer</a> for the <a>depth-only
-          stream</a> and <a>depth+color stream</a> is <a href=
-          "#the-video-element">the <code>video</code> element</a> [[!HTML]].
-        </p>
-        <div class="note">
-          New <a>consumer</a>s may be added in a future version of this
-          specification.
-        </div>
-        <p>
-          If a <a>MediaStreamTrack</a> whose <code>videoKind</code> of
-          <code>Settings</code> is <a>muted</a> or <a>disabled</a>, it MUST
-          render frames as if all the pixels would be 0.
-        </p>
-        <section class="informative">
-          <h3>
-            Implementation considerations
-          </h3>
-          <p>
-            A <a>color stream track</a> and a <a>depth stream track</a> can be
-            combined into one <a>depth+color stream</a>. The rendering of the
-            two tracks are intended to be synchronized. The resolution of the
-            two tracks are intended to be same. And the coordination of the two
-            tracks are intended to be calibrated. These are not hard
-            requirements, since it might not be possible to synchronize tracks
-            from sources.
-          </p>
-          <p class="note">
-            This approach is simple to use but comes with the following
-            caveats: it might might not be supported by the implementation and
-            the resolutions of two tracks are intended to be the same that can
-            require downsampling and degrade quality. The alternative approach
-            is that a web developer implements the <a>algorithm to map depth
-            pixels to color pixels</a>. See the <a>3D point cloud rendering</a>
-            example code.
-          </p>
-        </section>
-      </section>
-      <section>
-        <h2>
-          Constrainable properties for depth
-        </h2>
-        <p>
-          The following constrainable properties are defined to apply only to
-          <a>depth stream track</a>s:
-        </p>
-        <table class="simple">
-          <thead>
-            <tr>
-              <th>
-                Property Name
-              </th>
-              <th>
-                Values
-              </th>
-              <th>
-                Notes
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr id="def-constraint-depthNear">
-              <td>
-                <a>MediaTrackSupportedConstraints</a>.<dfn data-dfn-for=
-                "MediaTrackSupportedConstraints">depthNear</dfn><br>
-                <a>MediaTrackCapabilities</a>.<dfn data-dfn-for=
-                "MediaTrackCapabilities">depthNear</dfn><br>
-                <a>MediaTrackConstraintSet</a>.<dfn data-dfn-for=
-                "MediaTrackConstraintSet">depthNear</dfn><br>
-                <a>MediaTrackSettings</a>.<dfn data-dfn-for=
-                "MediaTrackSettings">depthNear</dfn>
-              </td>
-              <td>
-                <code>ConstrainDouble</code>
-              </td>
-              <td>
-                The <a>near value</a>, in meters.
-              </td>
-            </tr>
-            <tr id="def-constraint-depthFar">
-              <td>
-                <a>MediaTrackSupportedConstraints</a>.<dfn data-dfn-for=
-                "MediaTrackSupportedConstraints">depthFar</dfn><br>
-                <a>MediaTrackCapabilities</a>.<dfn data-dfn-for=
-                "MediaTrackCapabilities">depthFar</dfn><br>
-                <a>MediaTrackConstraintSet</a>.<dfn data-dfn-for=
-                "MediaTrackConstraintSet">depthFar</dfn><br>
-                <a>MediaTrackSettings</a>.<dfn data-dfn-for=
-                "MediaTrackSettings">depthFar</dfn>
-              </td>
-              <td>
-                <code>ConstrainDouble</code>
-              </td>
-              <td>
-                The <a>far value</a>, in meters.
               </td>
             </tr>
             <tr id="def-constraint-focalLengthX">
@@ -886,7 +754,7 @@ enum VideoKindEnum {
                 <code>ConstrainDOMDictionary</code>
               </td>
               <td>
-                The <a>depth map</a>'s <a>deprojection distortion
+                The <a>MediaStreamTrack</a>'s <a>deprojection distortion
                 coefficients</a> used when deprojecting from 2D to 3D space.
               </td>
             </tr>
@@ -905,8 +773,153 @@ enum VideoKindEnum {
                 <code>ConstrainDOMDictionary</code>
               </td>
               <td>
-                The <a>depth map</a>'s <a>projection distortion
+                The <a>MediaStreamTrack</a>'s <a>projection distortion
                 coefficients</a> used when deprojecting from 2D to 3D space.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div>
+          <pre class="idl">
+enum VideoKindEnum {
+    "color",
+    "depth"
+};
+</pre>
+          <table data-link-for="VideoKindEnum" data-dfn-for="VideoKindEnum"
+          class="simple">
+            <tbody>
+              <tr>
+                <th colspan="2">
+                  Enumeration description
+                </th>
+              </tr>
+              <tr>
+                <td>
+                  <dfn><code id=
+                  "idl-def-VideoKindEnum.color">color</code></dfn>
+                </td>
+                <td>
+                  <p>
+                    The source is capturing color images.
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <dfn><code id=
+                  "idl-def-VideoKindEnum.depth">depth</code></dfn>
+                </td>
+                <td>
+                  <p>
+                    The source is capturing depth maps.
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          If the user agent requests a combined <a>depth+color stream</a>, the
+          devices in the constraint should be satisfied as belonging to the
+          same group or physical device. The decision to select and satisfy
+          which device pair is left up to the implementation.
+        </p>
+        <p>
+          The <a>MediaStream</a> <a>consumer</a> for the <a>depth-only
+          stream</a> and <a>depth+color stream</a> is <a href=
+          "#the-video-element">the <code>video</code> element</a> [[!HTML]].
+        </p>
+        <div class="note">
+          New <a>consumer</a>s may be added in a future version of this
+          specification.
+        </div>
+        <p>
+          If a <a>MediaStreamTrack</a> whose <code>videoKind</code> of
+          <code>Settings</code> is <a>muted</a> or <a>disabled</a>, it MUST
+          render frames as if all the pixels would be 0.
+        </p>
+        <section class="informative">
+          <h3>
+            Implementation considerations
+          </h3>
+          <p>
+            A <a>color stream track</a> and a <a>depth stream track</a> can be
+            combined into one <a>depth+color stream</a>. The rendering of the
+            two tracks are intended to be synchronized. The resolution of the
+            two tracks are intended to be same. And the coordination of the two
+            tracks are intended to be calibrated. These are not hard
+            requirements, since it might not be possible to synchronize tracks
+            from sources.
+          </p>
+          <p class="note">
+            This approach is simple to use but comes with the following
+            caveats: it might might not be supported by the implementation and
+            the resolutions of two tracks are intended to be the same that can
+            require downsampling and degrade quality. The alternative approach
+            is that a web developer implements the <a>algorithm to map depth
+            pixels to color pixels</a>. See the <a>3D point cloud rendering</a>
+            example code.
+          </p>
+        </section>
+      </section>
+      <section>
+        <h2>
+          Constrainable properties for depth
+        </h2>
+        <p>
+          The following constrainable properties are defined to apply only to
+          <a>depth stream track</a>:
+        </p>
+        <table class="simple">
+          <thead>
+            <tr>
+              <th>
+                Property Name
+              </th>
+              <th>
+                Values
+              </th>
+              <th>
+                Notes
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr id="def-constraint-depthNear">
+              <td>
+                <a>MediaTrackSupportedConstraints</a>.<dfn data-dfn-for=
+                "MediaTrackSupportedConstraints">depthNear</dfn><br>
+                <a>MediaTrackCapabilities</a>.<dfn data-dfn-for=
+                "MediaTrackCapabilities">depthNear</dfn><br>
+                <a>MediaTrackConstraintSet</a>.<dfn data-dfn-for=
+                "MediaTrackConstraintSet">depthNear</dfn><br>
+                <a>MediaTrackSettings</a>.<dfn data-dfn-for=
+                "MediaTrackSettings">depthNear</dfn>
+              </td>
+              <td>
+                <code>ConstrainDouble</code>
+              </td>
+              <td>
+                The <a>near value</a>, in meters.
+              </td>
+            </tr>
+            <tr id="def-constraint-depthFar">
+              <td>
+                <a>MediaTrackSupportedConstraints</a>.<dfn data-dfn-for=
+                "MediaTrackSupportedConstraints">depthFar</dfn><br>
+                <a>MediaTrackCapabilities</a>.<dfn data-dfn-for=
+                "MediaTrackCapabilities">depthFar</dfn><br>
+                <a>MediaTrackConstraintSet</a>.<dfn data-dfn-for=
+                "MediaTrackConstraintSet">depthFar</dfn><br>
+                <a>MediaTrackSettings</a>.<dfn data-dfn-for=
+                "MediaTrackSettings">depthFar</dfn>
+              </td>
+              <td>
+                <code>ConstrainDouble</code>
+              </td>
+              <td>
+                The <a>far value</a>, in meters.
               </td>
             </tr>
             <tr id="def-constraint-depthToVideoTransform">
@@ -942,15 +955,6 @@ enum VideoKindEnum {
           If the <code>depthFar</code> property's value is less than the
           <code>depthNear</code> property's value, the <a>depth stream
           track</a> is <a>overconstrained</a>.
-        </p>
-        <p>
-          If the <a>near value</a>, <a>far value</a>, <a>horizontal focal
-          length</a> or <a>vertical focal length</a> is fixed due to a hardware
-          or software limitation, the corresponding constrainable property's
-          value MUST be set to the value reported by the underlying
-          implementation. (For example, the focal lengths of the lens may be
-          fixed, or the underlying platform may not expose the focal length
-          information.)
         </p>
       </section>
       <section>
