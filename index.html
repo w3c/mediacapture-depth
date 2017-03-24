@@ -387,7 +387,8 @@
         are defined in [[WEBIDL]].
       </p>
       <p>
-        The meaning of dictionary member being <dfn data-cite="!WEBIDL#dfn-present">present</dfn> or <dfn data-cite="!WEBIDL#dfn-present">not present</dfn> is defined in [[WEBIDL]].
+        The meaning of dictionary member being <dfn data-cite="!WEBIDL#dfn-present">present</dfn> or <dfn data-cite="!WEBIDL#dfn-present">not present</dfn>, and its <dfn data-cite="!WEBIDL#dfn-dictionary-member-default-value">default value</dfn> are
+        defined in [[WEBIDL]].
       </p>
     </section>
     <section>
@@ -580,18 +581,25 @@
         <pre class="idl">          partial dictionary MediaTrackSupportedConstraints {
               // Apply to both depth stream track and color stream track:
               boolean videoKind = true;
-              boolean focalLengthX = true;
-              boolean focalLengthY = true;
-              boolean principalPointX = true;
-              boolean principalPointY = true;
+              boolean focalLengthX = false;
+              boolean focalLengthY = false;
+              boolean principalPointX = false;
+              boolean principalPointY = false;
               boolean deprojectionDistortionCoefficients = false;
               boolean projectionDistortionCoefficients = false;
               // Apply to depth stream track:
-              boolean depthNear = true;
-              boolean depthFar = true;
+              boolean depthNear = false;
+              boolean depthFar = false;
               boolean depthToVideoTransform = false;
           };
+      
 </pre>
+        <p class="note">
+          <a>Constraints</a> passed to the <a>getUserMedia()</a> method, whose
+          <a>default value</a> in <a>MediaTrackSupportedConstraints</a>
+          dictionary is false, are omitted by the <a>user agent</a> as per the
+          step 6.2.2 in the <a>getUserMedia()</a> algorithm.
+        </p>
       </section>
       <section>
         <h2>
