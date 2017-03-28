@@ -228,6 +228,17 @@
         of constrainable properties</dfn> are defined in [[!GETUSERMEDIA]].
       </p>
       <p>
+        The <dfn data-cite=
+        "!GETUSERMEDIA#idl-def-ConstrainDOMString"><code>ConstrainDOMString</code></dfn>,
+        <dfn data-cite=
+        "!GETUSERMEDIA#idl-def-ConstrainDouble"><code>ConstrainDouble</code></dfn>,
+        <dfn data-cite=
+        "!GETUSERMEDIA#idl-def-ConstrainBoolean"><code>ConstrainBoolean</code></dfn>,
+        and <dfn data-cite=
+        "!GETUSERMEDIA#idl-def-DoubleRange"><code>DoubleRange</code></dfn>
+        types are defined in [[!GETUSERMEDIA]].
+      </p>
+      <p>
         <dfn data-cite=
         "GETUSERMEDIA#idl-def-MediaTrackSettings"><code>MediaTrackSettings</code></dfn>,
         <dfn data-cite=
@@ -501,6 +512,15 @@
           controlling the <a>Capabilities</a> of a <a>MediaStreamTrack</a>
           object.
         </p>
+        <p>
+          Partial dictionary <a>MediaTrackSupportedConstraints</a> extends the
+          original dictionary defined in [[!GETUSERMEDIA]]. The dictionary
+          value true represents an <a>applicable constraint</a>.
+        </p>
+        <p>
+          An <dfn>applicable constraint</dfn> is not omitted by the <a>user
+          agent</a> in step 6.2.2 in the <a>getUserMedia()</a> algorithm.
+        </p>
         <pre class="idl">
           partial dictionary MediaTrackSupportedConstraints {
               // Apply to both depth stream track and color stream track:
@@ -518,12 +538,6 @@
           };
       
 </pre>
-        <p class="note">
-          <a>Constraints</a> passed to the <a>getUserMedia()</a> method, whose
-          <a>default value</a> in <a>MediaTrackSupportedConstraints</a>
-          dictionary is false, are omitted by the <a>user agent</a> as per the
-          step 6.2.2 in the <a>getUserMedia()</a> algorithm.
-        </p>
       </section>
       <section>
         <h2>
@@ -532,6 +546,11 @@
         <p>
           <a>MediaTrackCapabilities</a> dictionary represents the
           <a>Capabilities</a> of a <a>MediaStreamTrack</a> object.
+        </p>
+        <p>
+          Partial dictionary <a>MediaTrackCapabilities</a> extends the original
+          <a>MediaTrackCapabilities</a> dictionary defined in
+          [[!GETUSERMEDIA]].
         </p>
         <pre class="idl">
           partial dictionary MediaTrackCapabilities {
@@ -556,13 +575,12 @@
         </h2>
         <p>
           <a>ConstraintSet</a> dictionary specifies each member's set of
-          allowed values.
+          <a>allowed values</a>.
         </p>
         <p>
-          See the <a>types of constrainable properties</a> for the definitions
-          of <dfn><code>ConstrainDOMString</code></dfn>,
-          <dfn><code>ConstrainDouble</code></dfn>, and
-          <dfn><code>ConstrainBoolean</code></dfn> types.
+          The <dfn>allowed values</dfn> for <a>ConstrainDOMString</a>,
+          <a>ConstrainDouble</a>, and <a>ConstrainBoolean</a> types are defined
+          in [[!GETUSERMEDIA]] respectively.
         </p>
         <pre class="idl">
           partial dictionary MediaTrackConstraintSet {
@@ -588,6 +606,10 @@
         <p>
           <a>MediaTrackSettings</a> dictionary represents the <a>Settings</a>
           of a <a>MediaStreamTrack</a> object.
+        </p>
+        <p>
+          Partial dictionary <a>MediaTrackSettings</a> extends the original
+          <a>MediaTrackSettings</a> dictionary.
         </p>
         <pre class="idl">
           partial dictionary MediaTrackSettings {
