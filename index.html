@@ -112,6 +112,10 @@
 
     </script>
     
+    <style>
+/* workaround to hide redundant dfns */
+    p.related { visibility: hidden; height: 0px; }
+    </style>
   <style id="MathJax_CHTML_styles">.mjx-chtml {display: inline-block; line-height: 0; text-indent: 0; text-align: left; text-transform: none; font-style: normal; font-weight: normal; font-size: 100%; font-size-adjust: none; letter-spacing: normal; word-wrap: normal; word-spacing: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; margin: 0; padding: 1px 0}
 .MJXc-display {display: block; text-align: center; margin: 1em 0; padding: 0}
 .mjx-chtml[tabindex]:focus, body :focus .mjx-chtml[tabindex] {display: inline-table}
@@ -317,7 +321,21 @@
         interfaces this specification extends are defined in [[!GETUSERMEDIA]].
       </p>
       <p>
-        The <dfn data-cite="!GETUSERMEDIA#idl-def-Constraints"><code>Constraints</code></dfn>,
+        The concepts <dfn data-cite="!GETUSERMEDIA#dfn-constraints"><code>Constraints</code></dfn>,
+        <dfn data-cite="!GETUSERMEDIA#dfn-capabilities"><code>Capabilities</code></dfn>,
+        <dfn data-cite="!GETUSERMEDIA#idl-def-ConstraintSet"><code>ConstraintSet</code></dfn>,
+        and <dfn data-cite="!GETUSERMEDIA#dfn-settings"><code>Settings</code></dfn>, and
+        <dfn data-cite="!GETUSERMEDIA#types-for-constrainable-properties">types
+        of constrainable properties</dfn> are defined in [[!GETUSERMEDIA]].
+      </p>
+      <p>
+        The <dfn data-cite="!GETUSERMEDIA#idl-def-ConstrainDOMString"><code>ConstrainDOMString</code></dfn>,
+        <dfn data-cite="!GETUSERMEDIA#idl-def-ConstrainDouble"><code>ConstrainDouble</code></dfn>,
+        <dfn data-cite="!GETUSERMEDIA#idl-def-ConstrainBoolean"><code>ConstrainBoolean</code></dfn>,
+        and <dfn data-cite="!GETUSERMEDIA#idl-def-DoubleRange"><code>DoubleRange</code></dfn>
+        types are defined in [[!GETUSERMEDIA]].
+      </p>
+      <p>
         <dfn data-cite="GETUSERMEDIA#idl-def-MediaTrackSettings"><code>MediaTrackSettings</code></dfn>,
         <dfn data-cite="!GETUSERMEDIA#idl-def-MediaTrackConstraints"><code>MediaTrackConstraints</code></dfn>,
         <dfn data-cite="!GETUSERMEDIA#idl-def-MediaTrackSupportedConstraints"><code>MediaTrackSupportedConstraints</code></dfn>,
@@ -376,7 +394,8 @@
         are defined in [[WEBIDL]].
       </p>
       <p>
-        The meaning of dictionary member being <dfn data-cite="!WEBIDL#dfn-present">present</dfn> or <dfn data-cite="!WEBIDL#dfn-present">not present</dfn> is defined in [[WEBIDL]].
+        The meaning of dictionary member being <dfn data-cite="!WEBIDL#dfn-present">present</dfn> or <dfn data-cite="!WEBIDL#dfn-present">not present</dfn>, and its <dfn data-cite="!WEBIDL#dfn-dictionary-member-default-value">default value</dfn> are
+        defined in [[WEBIDL]].
       </p>
     </section>
     <section>
@@ -560,26 +579,51 @@
         <h2>
           <a>MediaTrackSupportedConstraints</a> dictionary
         </h2>
+        <p>
+          <a>MediaTrackSupportedConstraints</a> dictionary represents the list
+          of <a>Constraints</a> recognized by a <a>user agent</a> for
+          controlling the <a>Capabilities</a> of a <a>MediaStreamTrack</a>
+          object.
+        </p>
+        <p>
+          Partial dictionary <a>MediaTrackSupportedConstraints</a> extends the
+          original dictionary defined in [[!GETUSERMEDIA]]. The dictionary
+          value true represents an <a>applicable constraint</a>.
+        </p>
+        <p>
+          An <dfn>applicable constraint</dfn> is not omitted by the <a>user
+          agent</a> in step 6.2.2 in the <a>getUserMedia()</a> algorithm.
+        </p>
         <pre class="idl">          partial dictionary MediaTrackSupportedConstraints {
               // Apply to both depth stream track and color stream track:
               boolean videoKind = true;
-              boolean focalLengthX = true;
-              boolean focalLengthY = true;
-              boolean principalPointX = true;
-              boolean principalPointY = true;
+              boolean focalLengthX = false;
+              boolean focalLengthY = false;
+              boolean principalPointX = false;
+              boolean principalPointY = false;
               boolean deprojectionDistortionCoefficients = false;
               boolean projectionDistortionCoefficients = false;
               // Apply to depth stream track:
-              boolean depthNear = true;
-              boolean depthFar = true;
+              boolean depthNear = false;
+              boolean depthFar = false;
               boolean depthToVideoTransform = false;
           };
+      
 </pre>
       </section>
       <section>
         <h2>
           <a>MediaTrackCapabilities</a> dictionary
         </h2>
+        <p>
+          <a>MediaTrackCapabilities</a> dictionary represents the
+          <a>Capabilities</a> of a <a>MediaStreamTrack</a> object.
+        </p>
+        <p>
+          Partial dictionary <a>MediaTrackCapabilities</a> extends the original
+          <a>MediaTrackCapabilities</a> dictionary defined in
+          [[!GETUSERMEDIA]].
+        </p>
         <pre class="idl">          partial dictionary MediaTrackCapabilities {
               // Apply to both depth stream track and color stream track:
               DOMString videoKind;
@@ -600,6 +644,15 @@
         <h2>
           <code>MediaTrackConstraintSet</code> dictionary
         </h2>
+        <p>
+          <a>ConstraintSet</a> dictionary specifies each member's set of
+          <a>allowed values</a>.
+        </p>
+        <p>
+          The <dfn>allowed values</dfn> for <a>ConstrainDOMString</a>,
+          <a>ConstrainDouble</a>, and <a>ConstrainBoolean</a> types are defined
+          in [[!GETUSERMEDIA]] respectively.
+        </p>
         <pre class="idl">          partial dictionary MediaTrackConstraintSet {
               // Apply to both depth stream track and color stream track:
               ConstrainDOMString videoKind;
@@ -620,6 +673,14 @@
         <h2>
           <code>MediaTrackSettings</code> dictionary
         </h2>
+        <p>
+          <a>MediaTrackSettings</a> dictionary represents the <a>Settings</a>
+          of a <a>MediaStreamTrack</a> object.
+        </p>
+        <p>
+          Partial dictionary <a>MediaTrackSettings</a> extends the original
+          <a>MediaTrackSettings</a> dictionary.
+        </p>
         <pre class="idl">          partial dictionary MediaTrackSettings {
               // Apply to both depth stream track and color stream track:
               DOMString           videoKind;
@@ -634,382 +695,319 @@
               double              depthFar;
               Transformation      depthToVideoTransform;
           };
-
-          dictionary DistortionCoefficients {
+        
+</pre>
+        <section>
+          <h2>
+            <code>DistortionCoefficients</code> dictionary
+          </h2>
+          <pre class="idl">          dictionary DistortionCoefficients {
               double              k1;
               double              k2;
               double              p1;
               double              p2;
               double              k3;
           };
-
-          dictionary Transformation {
+        
+</pre>
+          <div data-dfn-for="DistortionCoefficients">
+            <p>
+              The <dfn><code>DistortionCoefficients</code></dfn> dictionary has
+              the <dfn>k1</dfn>, <dfn>k2</dfn>, <dfn>p1</dfn>, <dfn>p2</dfn>
+              and <dfn>k3</dfn> dictionary members that represent the
+              <a>deprojection distortion coefficients</a> or <a>projection
+              distortion coefficients</a>. <dfn data-dfn-for="k1">k1</dfn>,
+              <dfn data-dfn-for="k2">k2</dfn> and <dfn data-dfn-for="k3">k3</dfn> are <dfn>radial distortion coefficients</dfn> while
+              <dfn data-dfn-for="p1">p1</dfn> and <dfn data-dfn-for="p2">p2</dfn> are <dfn>tangential distortion coefficients</dfn>.
+              <a>Radial distortion coefficients</a> and <a>tangential
+              distortion coefficients</a> are used to <a>deproject</a> depth
+              value to 3D space or to <a>project</a> 3D value to 2D video frame
+              coordinates.
+            </p>
+            <p class="note">
+              See the <a>algorithm to map depth pixels to color pixels</a> and
+              Brown-Conrady distortion model implementation in <a>3D point
+              cloud rendering</a> example GLSL shader.<br>
+            </p>
+          </div>
+        </section>
+        <section>
+          <h2>
+            <code>Transformation</code> dictionary
+          </h2>
+          <pre class="idl">          dictionary Transformation {
             Float32Array       transformationMatrix;
             DOMString          videoDeviceId;
           };
+        
 </pre>
-        <div data-dfn-for="DistortionCoefficients">
-          <p>
-            The <dfn><code>DistortionCoefficients</code></dfn> dictionary has
-            the <dfn>k1</dfn>, <dfn>k2</dfn>, <dfn>p1</dfn>, <dfn>p2</dfn> and
-            <dfn>k3</dfn> dictionary members that represent the <a>deprojection
-            distortion coefficients</a> or <a>projection distortion
-            coefficients</a>. <dfn data-dfn-for="k1">k1</dfn>,
-            <dfn data-dfn-for="k2">k2</dfn> and <dfn data-dfn-for="k3">k3</dfn>
-            are <dfn>radial distortion coefficients</dfn> while
-            <dfn data-dfn-for="p1">p1</dfn> and <dfn data-dfn-for="p2">p2</dfn>
-            are <dfn>tangential distortion coefficients</dfn>.
-          </p>
-          <p class="note">
-            <a>Radial distortion coefficients</a> and <a>tangential distortion
-            coefficients</a> are used when there's need to <a>deproject</a>
-            depth value to 3D space or to <a>project</a> 3D value to 2D video
-            frame coordinates.<br>
-            See <a>algorithm to map depth pixels to color pixels</a> and
-            Brown-Conrady distortion model implementation in <a>3D point cloud
-            rendering</a> example GLSL shader.<br>
-          </p>
-        </div>
-        <div data-dfn-for="Transformation">
-          <p>
-            The <dfn><code>Transformation</code></dfn> dictionary has the
-            <dfn><code>transformationMatrix</code></dfn> dictionary member that
-            is a 16 element array that defines the <a>transformation matrix</a>
-            of the <a>depth map</a>'s camera's 3D coordinate system to video
-            track's camera 3D coordinate system.
-          </p>
-          <p class="note">
-            The first four elements of the array correspond to the first matrix
-            row, followed by four elements of the second matrix row and so on.
-            It is in format suitable for use with WebGL's uniformMatrix4fv.
-          </p>
-          <p>
-            The <dfn><code>videoDeviceId</code></dfn> dictionary member
-            represents the deviceId of video camera the depth stream must be
-            synchronized with.
-          </p>
-          <p class="note">
-            The value of <a><code>videoDeviceId</code></a> can be used as
-            deviceId constraint in [[!GETUSERMEDIA]] to get the corresponding
-            video and audio streams.
-          </p>
-        </div>
+          <div data-dfn-for="Transformation">
+            <p>
+              The <dfn><code>Transformation</code></dfn> dictionary has the
+              <dfn><code>transformationMatrix</code></dfn> dictionary member
+              that is a 16 element array that defines the <a>transformation
+              matrix</a> of the <a>depth map</a>'s camera's 3D coordinate
+              system to video track's camera 3D coordinate system.
+            </p>
+            <p>
+              The first four elements of the array correspond to the first
+              matrix row, followed by four elements of the second matrix row
+              and so on. It is in format suitable for use with WebGL's
+              uniformMatrix4fv.
+            </p>
+            <p>
+              The <dfn><code>videoDeviceId</code></dfn> dictionary member
+              represents the <code>deviceId</code> of video camera the depth
+              stream must be synchronized with.
+            </p>
+            <p class="note">
+              The value of <a><code>videoDeviceId</code></a> can be used as the
+              <code>deviceId</code> constraint in [[!GETUSERMEDIA]] to get the
+              corresponding video and audio streams.
+            </p>
+          </div>
+        </section>
       </section>
       <section>
         <h2>
-          Constrainable properties for video
+          Constrainable properties for color stream track and depth stream
+          track
         </h2>
         <p>
           The following constrainable properties are defined to apply to both
-          <a>color stream track</a> and <a>depth stream track</a>:
+          <a>color stream track</a> and <a>depth stream track</a>.
         </p>
-        <table class="simple">
-          <thead>
-            <tr>
-              <th>
-                Property Name
-              </th>
-              <th>
-                Values
-              </th>
-              <th>
-                Notes
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr id="def-constraint-videoKind">
-              <td>
-                <a>MediaTrackSupportedConstraints</a>.<dfn data-dfn-for="MediaTrackSupportedConstraints">videoKind</dfn><br>
-                <a>MediaTrackCapabilities</a>.<dfn data-dfn-for="MediaTrackCapabilities">videoKind</dfn><br>
-                <a>MediaTrackConstraintSet</a>.<dfn data-dfn-for="MediaTrackConstraintSet">videoKind</dfn><br>
-                <a>MediaTrackSettings</a>.<dfn data-dfn-for="MediaTrackSettings">videoKind</dfn>
-              </td>
-              <td>
-                <code>ConstrainDOMString</code>
-              </td>
-              <td>
-                This string should be one of the members of
-                <dfn><code><a>VideoKindEnum</a></code></dfn>. The members
-                describe the kind of video that the camera can capture. Note
-                that <code>getConstraints</code> may not return exactly the
-                same string for strings not in this enum. This preserves the
-                possibility of using a future version of WebIDL enum for this
-                property.
-              </td>
-            </tr>
-            <tr id="def-constraint-focalLengthX">
-              <td>
-                <a>MediaTrackSupportedConstraints</a>.<dfn data-dfn-for="MediaTrackSupportedConstraints">focalLengthX</dfn><br>
-                <a>MediaTrackCapabilities</a>.<dfn data-dfn-for="MediaTrackCapabilities">focalLengthX</dfn><br>
-                <a>MediaTrackConstraintSet</a>.<dfn data-dfn-for="MediaTrackConstraintSet">focalLengthX</dfn>
-                <a>MediaTrackSettings</a>.<dfn data-dfn-for="MediaTrackSettings">focalLengthX</dfn>
-              </td>
-              <td>
-                <code>ConstrainDouble</code>
-              </td>
-              <td>
-                The <a>horizontal focal length</a>, in pixels.
-              </td>
-            </tr>
-            <tr id="def-constraint-focalLengthY">
-              <td>
-                <a>MediaTrackSupportedConstraints</a>.<dfn data-dfn-for="MediaTrackSupportedConstraints">focalLengthY</dfn><br>
-                <a>MediaTrackCapabilities</a>.<dfn data-dfn-for="MediaTrackCapabilities">focalLengthY</dfn><br>
-                <a>MediaTrackConstraintSet</a>.<dfn data-dfn-for="MediaTrackConstraintSet">focalLengthY</dfn>
-                <a>MediaTrackSettings</a>.<dfn data-dfn-for="MediaTrackSettings">focalLengthY</dfn>
-              </td>
-              <td>
-                <code>ConstrainDouble</code>
-              </td>
-              <td>
-                The <a>vertical focal length</a>, in pixels.
-              </td>
-            </tr>
-            <tr id="def-constraint-principalPointX">
-              <td>
-                <a>MediaTrackSupportedConstraints</a>.<dfn data-dfn-for="MediaTrackSupportedConstraints">principalPointX</dfn><br>
-                <a>MediaTrackCapabilities</a>.<dfn data-dfn-for="MediaTrackCapabilities">principalPointX</dfn><br>
-                <a>MediaTrackConstraintSet</a>.<dfn data-dfn-for="MediaTrackConstraintSet">principalPointX</dfn>
-                <a>MediaTrackSettings</a>.<dfn data-dfn-for="MediaTrackSettings">principalPointX</dfn>
-              </td>
-              <td>
-                <code>ConstrainDouble</code>
-              </td>
-              <td>
-                The <a>principal point x</a> coordinate, in pixels.
-              </td>
-            </tr>
-            <tr id="def-constraint-principalPointY">
-              <td>
-                <a>MediaTrackSupportedConstraints</a>.<dfn data-dfn-for="MediaTrackSupportedConstraints">principalPointY</dfn><br>
-                <a>MediaTrackCapabilities</a>.<dfn data-dfn-for="MediaTrackCapabilities">principalPointY</dfn><br>
-                <a>MediaTrackConstraintSet</a>.<dfn data-dfn-for="MediaTrackConstraintSet">principalPointY</dfn>
-                <a>MediaTrackSettings</a>.<dfn data-dfn-for="MediaTrackSettings">principalPointY</dfn>
-              </td>
-              <td>
-                <code>ConstrainDouble</code>
-              </td>
-              <td>
-                The <a>principal point y</a> coordinate, in pixels.
-              </td>
-            </tr>
-            <tr id="def-constraint-deprojectionDistortionCoefficients">
-              <td>
-                <a>MediaTrackSupportedConstraints</a>.<dfn data-dfn-for="MediaTrackSupportedConstraints">deprojectionDistortionCoefficients</dfn><br>
-
-                <a>MediaTrackCapabilities</a>.<dfn data-dfn-for="MediaTrackCapabilities">deprojectionDistortionCoefficients</dfn><br>
-
-                <a>MediaTrackConstraintSet</a>.<dfn data-dfn-for="MediaTrackConstraintSet">deprojectionDistortionCoefficients</dfn>
-                <a>MediaTrackSettings</a>.<dfn data-dfn-for="MediaTrackSettings">deprojectionDistortionCoefficients</dfn>
-              </td>
-              <td>
-                <code>ConstrainDOMDictionary</code>
-              </td>
-              <td>
-                The <a>MediaStreamTrack</a>'s <a>deprojection distortion
-                coefficients</a> used when deprojecting from 2D to 3D space.
-              </td>
-            </tr>
-            <tr id="def-constraint-projectionDistortionCoefficients">
-              <td>
-                <a>MediaTrackSupportedConstraints</a>.<dfn data-dfn-for="MediaTrackSupportedConstraints">projectionDistortionCoefficients</dfn>
-                <a>MediaTrackCapabilities</a>.<dfn data-dfn-for="MediaTrackCapabilities">projectionDistortionCoefficients</dfn>
-                <a>MediaTrackConstraintSet</a>.<dfn data-dfn-for="MediaTrackConstraintSet">projectionDistortionCoefficients</dfn>
-                <a>MediaTrackSettings</a>.<dfn data-dfn-for="MediaTrackSettings">projectionDistortionCoefficients</dfn>
-              </td>
-              <td>
-                <code>ConstrainDOMDictionary</code>
-              </td>
-              <td>
-                The <a>MediaStreamTrack</a>'s <a>projection distortion
-                coefficients</a> used when deprojecting from 2D to 3D space.
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <div>
-          <pre class="idl">enum VideoKindEnum {
-    "color",
-    "depth"
-};
-</pre>
-          <table data-link-for="VideoKindEnum" data-dfn-for="VideoKindEnum" class="simple">
-            <tbody>
-              <tr>
-                <th colspan="2">
-                  Enumeration description
-                </th>
-              </tr>
-              <tr>
-                <td>
-                  <dfn><code id="idl-def-VideoKindEnum.color">color</code></dfn>
-                </td>
-                <td>
-                  <p>
-                    The source is capturing color images.
-                  </p>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <dfn><code id="idl-def-VideoKindEnum.depth">depth</code></dfn>
-                </td>
-                <td>
-                  <p>
-                    The source is capturing depth maps.
-                  </p>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <p>
-          If the user agent requests a combined <a>depth+color stream</a>, the
-          devices in the constraint should be satisfied as belonging to the
-          same group or physical device. The decision to select and satisfy
-          which device pair is left up to the implementation.
-        </p>
-        <p>
-          The <a>MediaStream</a> <a>consumer</a> for the <a>depth-only
-          stream</a> and <a>depth+color stream</a> is <a href="#the-video-element">the <code>video</code> element</a> [[!HTML]].
-        </p>
-        <div class="note">
-          New <a>consumer</a>s may be added in a future version of this
-          specification.
-        </div>
-        <p>
-          If a <a>MediaStreamTrack</a> whose <code>videoKind</code> of
-          <code>Settings</code> is <a>muted</a> or <a>disabled</a>, it MUST
-          render frames as if all the pixels would be 0.
-        </p>
-        <section class="informative">
+        <section id="def-constraint-videoKind">
           <h3>
-            Implementation considerations
+            <code>videoKind</code>
           </h3>
-          <p>
-            A <a>color stream track</a> and a <a>depth stream track</a> can be
-            combined into one <a>depth+color stream</a>. The rendering of the
-            two tracks are intended to be synchronized. The resolution of the
-            two tracks are intended to be same. And the coordination of the two
-            tracks are intended to be calibrated. These are not hard
-            requirements, since it might not be possible to synchronize tracks
-            from sources.
+          <p class="related">
+            Related: <a>MediaTrackSupportedConstraints</a>.<dfn data-dfn-for="MediaTrackSupportedConstraints">videoKind</dfn>,
+            <a>MediaTrackCapabilities</a>.<dfn data-dfn-for="MediaTrackCapabilities">videoKind</dfn>,
+            <a>MediaTrackConstraintSet</a>.<dfn data-dfn-for="MediaTrackConstraintSet">videoKind</dfn>,
+            <a>MediaTrackSettings</a>.<dfn data-dfn-for="MediaTrackSettings">videoKind</dfn>
           </p>
-          <p class="note">
-            This approach is simple to use but comes with the following
-            caveats: it might might not be supported by the implementation and
-            the resolutions of two tracks are intended to be the same that can
-            require downsampling and degrade quality. The alternative approach
-            is that a web developer implements the <a>algorithm to map depth
-            pixels to color pixels</a>. See the <a>3D point cloud rendering</a>
-            example code.
+          <p>
+            The <code>videoKind</code> member specifies the <dfn>video
+            kind</dfn> of the <a>source</a>.
+          </p>
+          <pre class="idl">          enum VideoKindEnum {
+              "color",
+              "depth"
+          };
+          
+</pre>
+          <p>
+            The <dfn>VideoKindEnum</dfn> enumeration defines the valid <a>video
+            kind</a>s: <dfn data-dfn-for="VideoKindEnum">color</dfn> for
+            <a>color stream track</a> whose <a>source</a> is a color camera,
+            and <dfn data-dfn-for="VideoKindEnum">depth</dfn> for <a>depth
+            stream track</a> whose <a>source</a> is a depth camera.
+          </p>
+          <p>
+            The <a>MediaStream</a> <a>consumer</a> for the <a>depth-only
+            stream</a> and <a>depth+color stream</a> is <a href="#the-video-element">the <code>video</code> element</a> [[!HTML]].
+          </p>
+          <p>
+            If a <a>MediaStreamTrack</a> whose <code>videoKind</code> is
+            <a data-link-for="VideoKindEnum">depth</a> is <a>muted</a> or
+            <a>disabled</a>, it MUST render frames as if all the pixels would
+            be 0.
+          </p>
+          <div class="note">
+            <p>
+              A <a>color stream track</a> and a <a>depth stream track</a> can
+              be combined into one <a>depth+color stream</a>. The rendering of
+              the two tracks are intended to be synchronized. The resolution of
+              the two tracks are intended to be same. And the coordination of
+              the two tracks are intended to be calibrated. These are not hard
+              requirements, since it might not be possible to synchronize
+              tracks from sources.
+            </p>
+            <p>
+              This approach is simple to use but comes with the following
+              caveats: it might might not be supported by the implementation
+              and the resolutions of two tracks are intended to be the same
+              that can require downsampling and degrade quality. The
+              alternative approach is that a web developer implements the
+              <a>algorithm to map depth pixels to color pixels</a>. See the
+              <a>3D point cloud rendering</a> example code.
+            </p>
+          </div>
+        </section>
+        <section id="def-constraint-focalLengthX">
+          <h3>
+            <code>focalLengthX</code>
+          </h3>
+          <p class="related">
+            Related: <a>MediaTrackSupportedConstraints</a>.<dfn data-dfn-for="MediaTrackSupportedConstraints">focalLengthX</dfn>,
+            <a>MediaTrackCapabilities</a>.<dfn data-dfn-for="MediaTrackCapabilities">focalLengthX</dfn>,
+            <a>MediaTrackConstraintSet</a>.<dfn data-dfn-for="MediaTrackConstraintSet">focalLengthX</dfn>,
+            <a>MediaTrackSettings</a>.<dfn data-dfn-for="MediaTrackSettings">focalLengthX</dfn>
+          </p>
+          <p>
+            The <code>focalLengthX</code> member specifies the <a>horizontal
+            focal length</a>, in pixels.
+          </p>
+        </section>
+        <section id="def-constraint-focalLengthY">
+          <h3>
+            <code>focalLengthY</code>
+          </h3>
+          <p class="related">
+            Related: <a>MediaTrackSupportedConstraints</a>.<dfn data-dfn-for="MediaTrackSupportedConstraints">focalLengthY</dfn>,
+            <a>MediaTrackCapabilities</a>.<dfn data-dfn-for="MediaTrackCapabilities">focalLengthY</dfn>,
+            <a>MediaTrackConstraintSet</a>.<dfn data-dfn-for="MediaTrackConstraintSet">focalLengthY</dfn>,
+            <a>MediaTrackSettings</a>.<dfn data-dfn-for="MediaTrackSettings">focalLengthY</dfn>
+          </p>
+          <p>
+            The <code>focalLengthY</code> member specifies the <a>vertical
+            focal length</a>, in pixels.
+          </p>
+        </section>
+        <section id="def-constraint-principalPointX">
+          <h3>
+            <code>principalPointX</code>
+          </h3>
+          <p class="related">
+            Related: <a>MediaTrackSupportedConstraints</a>.<dfn data-dfn-for="MediaTrackSupportedConstraints">principalPointX</dfn>,
+            <a>MediaTrackCapabilities</a>.<dfn data-dfn-for="MediaTrackCapabilities">principalPointX</dfn>,
+            <a>MediaTrackConstraintSet</a>.<dfn data-dfn-for="MediaTrackConstraintSet">principalPointX</dfn>,
+            <a>MediaTrackSettings</a>.<dfn data-dfn-for="MediaTrackSettings">principalPointX</dfn>
+          </p>
+          <p>
+            The <code>principalPointX</code> member specifies the <a>principal
+            point x</a> coordinate, in pixels.
+          </p>
+        </section>
+        <section id="def-constraint-principalPointY">
+          <h3>
+            <code>principalPointY</code>
+          </h3>
+          <p class="related">
+            Related: <a>MediaTrackSupportedConstraints</a>.<dfn data-dfn-for="MediaTrackSupportedConstraints">principalPointY</dfn>,
+            <a>MediaTrackCapabilities</a>.<dfn data-dfn-for="MediaTrackCapabilities">principalPointY</dfn>,
+            <a>MediaTrackConstraintSet</a>.<dfn data-dfn-for="MediaTrackConstraintSet">principalPointY</dfn>,
+            <a>MediaTrackSettings</a>.<dfn data-dfn-for="MediaTrackSettings">principalPointY</dfn>
+          </p>
+          <p>
+            The <code>principalPointY</code> member specifies the <a>principal
+            point y</a> coordinate, in pixels.
+          </p>
+        </section>
+        <section id="def-constraint-deprojectionDistortionCoefficients">
+          <h3>
+            <code>deprojectionDistortionCoefficients</code>
+          </h3>
+          <p class="related">
+            Related: <a>MediaTrackSupportedConstraints</a>.<dfn data-dfn-for="MediaTrackSupportedConstraints">deprojectionDistortionCoefficients</dfn>,
+            <a>MediaTrackCapabilities</a>.<dfn data-dfn-for="MediaTrackCapabilities">deprojectionDistortionCoefficients</dfn>,
+            <a>MediaTrackConstraintSet</a>.<dfn data-dfn-for="MediaTrackConstraintSet">deprojectionDistortionCoefficients</dfn>,
+            <a>MediaTrackSettings</a>.<dfn data-dfn-for="MediaTrackSettings">deprojectionDistortionCoefficients</dfn>
+          </p>
+          <p>
+            The <code>deprojectionDistortionCoefficients</code> member
+            specifies the <a>MediaStreamTrack</a>'s <a>deprojection distortion
+            coefficients</a> used when deprojecting from 2D to 3D space.
+          </p>
+        </section>
+        <section id="def-constraint-projectionDistortionCoefficients">
+          <h3>
+            <code>projectionDistortionCoefficients</code>
+          </h3>
+          <p class="related">
+            Related: <a>MediaTrackSupportedConstraints</a>.<dfn data-dfn-for="MediaTrackSupportedConstraints">projectionDistortionCoefficients</dfn>,
+            <a>MediaTrackCapabilities</a>.<dfn data-dfn-for="MediaTrackCapabilities">projectionDistortionCoefficients</dfn>,
+            <a>MediaTrackConstraintSet</a>.<dfn data-dfn-for="MediaTrackConstraintSet">projectionDistortionCoefficients</dfn>,
+            <a>MediaTrackSettings</a>.<dfn data-dfn-for="MediaTrackSettings">projectionDistortionCoefficients</dfn>
+          </p>
+          <p>
+            The <code>projectionDistortionCoefficients</code> member specifies
+            the <a>MediaStreamTrack</a>'s <a>projection distortion
+            coefficients</a> used when deprojecting from 2D to 3D space.
           </p>
         </section>
       </section>
       <section>
         <h2>
-          Constrainable properties for depth
+          Constrainable properties for depth stream track
         </h2>
         <p>
           The following constrainable properties are defined to apply only to
-          <a>depth stream track</a>:
+          <a>depth stream track</a>.
         </p>
-        <table class="simple">
-          <thead>
-            <tr>
-              <th>
-                Property Name
-              </th>
-              <th>
-                Values
-              </th>
-              <th>
-                Notes
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr id="def-constraint-depthNear">
-              <td>
-                <a>MediaTrackSupportedConstraints</a>.<dfn data-dfn-for="MediaTrackSupportedConstraints">depthNear</dfn><br>
-                <a>MediaTrackCapabilities</a>.<dfn data-dfn-for="MediaTrackCapabilities">depthNear</dfn><br>
-                <a>MediaTrackConstraintSet</a>.<dfn data-dfn-for="MediaTrackConstraintSet">depthNear</dfn><br>
-                <a>MediaTrackSettings</a>.<dfn data-dfn-for="MediaTrackSettings">depthNear</dfn>
-              </td>
-              <td>
-                <code>ConstrainDouble</code>
-              </td>
-              <td>
-                The <a>near value</a>, in meters.
-              </td>
-            </tr>
-            <tr id="def-constraint-depthFar">
-              <td>
-                <a>MediaTrackSupportedConstraints</a>.<dfn data-dfn-for="MediaTrackSupportedConstraints">depthFar</dfn><br>
-                <a>MediaTrackCapabilities</a>.<dfn data-dfn-for="MediaTrackCapabilities">depthFar</dfn><br>
-                <a>MediaTrackConstraintSet</a>.<dfn data-dfn-for="MediaTrackConstraintSet">depthFar</dfn><br>
-                <a>MediaTrackSettings</a>.<dfn data-dfn-for="MediaTrackSettings">depthFar</dfn>
-              </td>
-              <td>
-                <code>ConstrainDouble</code>
-              </td>
-              <td>
-                The <a>far value</a>, in meters.
-              </td>
-            </tr>
-            <tr id="def-constraint-depthToVideoTransform">
-              <td>
-                <a>MediaTrackSupportedConstraints</a>.<dfn data-dfn-for="MediaTrackSupportedConstraints">depthToVideoTransform</dfn>
-                <a>MediaTrackCapabilities</a>.<dfn data-dfn-for="MediaTrackCapabilities">depthToVideoTransform</dfn>
-                <a>MediaTrackConstraintSet</a>.<dfn data-dfn-for="MediaTrackConstraintSet">depthToVideoTransform</dfn>
-                <a>MediaTrackSettings</a>.<dfn data-dfn-for="MediaTrackSettings">depthToVideoTransform</dfn>
-              </td>
-              <td>
-                <code>ConstrainDOMDictionary</code>
-              </td>
-              <td>
-                The <a>depth map</a>'s camera's <a>transformation from depth to
-                video</a> camera 3D coordinate system.
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <p>
-          The <code>depthNear</code> and <code>depthFar</code> constrainable
-          properties, when set, allow the implementation to pick the best depth
-          camera mode optimized for the range <code>[near, far]</code> and help
-          minimize the error introduced by the lossy conversion from the depth
-          value <var>d</var> to a quantized d<sub>8bit</sub> and back to an
-          approximation of the depth value <var>d</var>.
-        </p>
-        <p>
-          If the <code>depthFar</code> property's value is less than the
-          <code>depthNear</code> property's value, the <a>depth stream
-          track</a> is <a>overconstrained</a>.
-        </p>
-      </section>
-      <section>
-        <h2>
-          <code>WebGLRenderingContext</code> interface
-        </h2>
-        <section class="informative">
+        <section id="def-constraint-depthNear-depthFar">
           <h3>
-            Implementation considerations
+            <code>depthNear</code> and <code>depthFar</code>
           </h3>
-          <div class="note">
-            This section is currently work in progress, and subject to change.
-          </div>
-          <p>
-            There are several use-cases which are a good fit to be, at least
-            partially, implemented on the GPU, such as motion recognition,
-            pattern recognition, background removal, as well as 3D point cloud.
+          <p class="related">
+            Related: <a>MediaTrackSupportedConstraints</a>.<dfn data-dfn-for="MediaTrackSupportedConstraints">depthNear</dfn>,
+            <a>MediaTrackCapabilities</a>.<dfn data-dfn-for="MediaTrackCapabilities">depthNear</dfn>,
+            <a>MediaTrackConstraintSet</a>.<dfn data-dfn-for="MediaTrackConstraintSet">depthNear</dfn>,
+            <a>MediaTrackSettings</a>.<dfn data-dfn-for="MediaTrackSettings">depthNear</dfn>,
+            <a>MediaTrackSupportedConstraints</a>.<dfn data-dfn-for="MediaTrackSupportedConstraints">depthFar</dfn>,
+            <a>MediaTrackCapabilities</a>.<dfn data-dfn-for="MediaTrackCapabilities">depthFar</dfn>,
+            <a>MediaTrackConstraintSet</a>.<dfn data-dfn-for="MediaTrackConstraintSet">depthFar</dfn>,
+            <a>MediaTrackSettings</a>.<dfn data-dfn-for="MediaTrackSettings">depthFar</dfn>
           </p>
           <p>
-            This section explains which APIs can be used for some of these
-            mentioned use-cases; the concrete examples are provided in the
-            <a href="#examples&quot;">Examples</a> section.
+            The <code>depthNear</code> member specifies the <a>near value</a>,
+            in meters.
           </p>
+          <p>
+            The <code>depthFar</code> member specifies the <a>far value</a>, in
+            meters.
+          </p>
+          <p>
+            The <code>depthNear</code> and <code>depthFar</code> constrainable
+            properties, when set, allow the implementation to pick the best
+            depth camera mode optimized for the range <code>[depthNear,
+            depthFar]</code> and help minimize the error introduced by the
+            lossy conversion from the depth value <var>d</var> to a quantized
+            d<sub>8bit</sub> and back to an approximation of the depth value
+            <var>d</var>.
+          </p>
+          <p>
+            If the <code>depthFar</code> property's value is less than the
+            <code>depthNear</code> property's value, the <a>depth stream
+            track</a> is <a>overconstrained</a>.
+          </p>
+        </section>
+        <section id="def-constraint-depthToVideoTransform">
+          <h3>
+            <code>depthToVideoTransform</code>
+          </h3>
+          <p class="related">
+            Related: <a>MediaTrackSupportedConstraints</a>.<dfn data-dfn-for="MediaTrackSupportedConstraints">depthToVideoTransform</dfn>,
+            <a>MediaTrackCapabilities</a>.<dfn data-dfn-for="MediaTrackCapabilities">depthToVideoTransform</dfn>,
+            <a>MediaTrackConstraintSet</a>.<dfn data-dfn-for="MediaTrackConstraintSet">depthToVideoTransform</dfn>,
+            <a>MediaTrackSettings</a>.<dfn data-dfn-for="MediaTrackSettings">depthToVideoTransform</dfn>
+          </p>
+          <p>
+            The <code>depthToVideoTransform</code> member specifies the
+            <a>depth map</a>'s camera's <a>transformation from depth to
+            video</a> camera 3D coordinate system.
+          </p>
+        </section>
+      </section>
+      <section class="informative">
+        <h2>
+          WebGL implementation considerations
+        </h2>
+        <div class="note">
+          This section is currently work in progress, and subject to change.
+        </div>
+        <p>
+          There are several use-cases which are a good fit to be, at least
+          partially, implemented on the GPU, such as motion recognition,
+          pattern recognition, background removal, as well as 3D point cloud.
+        </p>
+        <p>
+          This section explains which APIs can be used for some of these
+          mentioned use-cases; the concrete examples are provided in the
+          <a href="#examples">Examples</a> section.
+        </p>
+        <section>
           <h3>
             Upload video frame to WebGL texture
           </h3>
@@ -1024,6 +1022,8 @@
             For each pixel of this WebGL texture, the R component represents
             normalized 16-bit value following the formula: <span id="MathJax-Element-5-Frame" class="mjx-chtml"><span id="MJXc-Node-97" class="mjx-math"><span id="MJXc-Node-98" class="mjx-mrow"><span id="MJXc-Node-99" class="mjx-mstyle"><span id="MJXc-Node-100" class="mjx-mrow"><span id="MJXc-Node-101" class="mjx-msub"><span class="mjx-base" style="margin-right: -0.003em;"><span id="MJXc-Node-102" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.446em; padding-bottom: 0.298em; padding-right: 0.003em;">d</span></span></span><span class="mjx-sub" style="font-size: 70.7%; vertical-align: -0.23em; padding-right: 0.071em;"><span id="MJXc-Node-103" class="mjx-mrow" style=""><span id="MJXc-Node-104" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.519em; padding-bottom: 0.519em; padding-right: 0.06em;">f</span></span><span id="MJXc-Node-105" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.446em; padding-bottom: 0.298em;">l</span></span><span id="MJXc-Node-106" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.225em; padding-bottom: 0.298em;">o</span></span><span id="MJXc-Node-107" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.225em; padding-bottom: 0.298em;">a</span></span><span id="MJXc-Node-108" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.372em; padding-bottom: 0.298em;">t</span></span></span></span></span><span id="MJXc-Node-109" class="mjx-mo" style="padding-left: 0.333em; padding-right: 0.333em;"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.077em; padding-bottom: 0.298em;">=</span></span><span id="MJXc-Node-110" class="mjx-mfrac"><span class="mjx-box MJXc-stacked" style="width: 3.478em; padding: 0px 0.12em;"><span class="mjx-numerator" style="width: 3.478em; top: -1.447em;"><span id="MJXc-Node-111" class="mjx-msub"><span class="mjx-base" style="margin-right: -0.003em;"><span id="MJXc-Node-112" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.446em; padding-bottom: 0.298em; padding-right: 0.003em;">d</span></span></span><span class="mjx-sub" style="font-size: 70.7%; vertical-align: -0.219em; padding-right: 0.071em;"><span id="MJXc-Node-113" class="mjx-mrow" style=""><span id="MJXc-Node-114" class="mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.372em; padding-bottom: 0.372em;">16</span></span><span id="MJXc-Node-115" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.446em; padding-bottom: 0.298em;">b</span></span><span id="MJXc-Node-116" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.446em; padding-bottom: 0.298em;">i</span></span><span id="MJXc-Node-117" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.372em; padding-bottom: 0.298em;">t</span></span></span></span></span></span><span class="mjx-denominator" style="width: 3.478em; bottom: -0.778em;"><span id="MJXc-Node-118" class="mjx-mn"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.372em; padding-bottom: 0.372em;">65535.0</span></span></span><span style="border-bottom: 1.3px solid; top: -0.296em; width: 3.478em;" class="mjx-line"></span></span><span style="height: 2.225em; vertical-align: -0.778em;" class="mjx-vsize"></span></span></span></span></span></span></span>
           </p>
+        </section>
+        <section>
           <h3>
             Read the data from a WebGL texture
           </h3>
@@ -1044,7 +1044,6 @@
             in the vertex shader.
             </li>
           </ul>
-          <p></p>
           <p class="note">
             Performance of synchronous <a>readPixels from float</a> example in
             the current implementation suffice for some of the use cases. The
