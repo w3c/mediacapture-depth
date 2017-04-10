@@ -99,6 +99,16 @@
             "date": "1 December 2016",
             publisher: "Khronos"
           },
+          "OpenGL ES 3.0.5": {
+            title:     "OpenGL ES 3.0.5 Specification",
+            href:      "http://www.khronos.org/registry/gles/specs/3.0/es_spec_3.0.5.pdf",
+            authors:   [
+                       "Jon Leech",
+                       "Benj Lipchak"
+            ],
+            "date": "3 November 2016",
+            publisher: "Khronos"
+          },
           "WEBGL-GET-BUFFER-SUB-DATA-ASYNC": {
             title:     "WebGL WEBGL_get_buffer_sub_data_async Extension Draft Specification",
             href:      "https://www.khronos.org/registry/webgl/extensions/WEBGL_get_buffer_sub_data_async/",
@@ -171,11 +181,6 @@
         scene for that point in the array. A <a>MediaStream</a> object that
         contains one or more <a>depth stream track</a>s is referred to as a
         <a>depth-only stream</a> or <a>depth+color stream</a>.
-      </p>
-      <p>
-        Depth cameras usually produce 16-bit depth values per pixel, so this
-        specification defines a 16-bit grayscale representation of a <a>depth
-        map</a>.
       </p>
     </section>
     <section>
@@ -368,20 +373,43 @@
         </h2>
         <p>
           A <dfn>depth map</dfn> is an abstract representation of a frame of a
-          <a>depth stream track</a>. A <a>depth map</a> is an image that
-          contains information relating to the distance of the surfaces of
-          scene objects from a viewpoint. A <a>depth map</a> consists of pixels
-          referred to as <dfn data-lt="depth map value">depth map values</dfn>.
-          An <dfn>invalid depth map value</dfn> is 0 (the user agent is unable
-          to acquire depth information for the given pixel for any reason).
+          <a>depth stream track</a>. A <a>depth map</a> is a two-dimensional
+          array that contains information relating to the perpendicular
+          distance of the surfaces of scene objects to camera's <a>near
+          plane</a>. The numeric values in the <a>depth map</a> are referred to
+          as <dfn data-lt="depth map value">depth map values</dfn> and
+          represent distances to <a>near plane</a> <a>normalized</a> against
+          the distance between <a href="#dfn-far-plane">far</a> and <a href=
+          "#dfn-near-plane">near</a> plane.
+        </p>
+        <p>
+          <dfn>Normalized</dfn> <a>depth map value</a> means that it's range is
+          from 0 to 1, where maximum <a>depth map value</a> of 1 corresponds to
+          distances equal to <a>far value</a>. Following the <a href=
+          "#dfn-calculate-depth-map-value">conversion between depth map value
+          and distance</a>, the minumum value of 0 would correspond to
+          distances equal to <a>near value</a>, but 0 has a special meaning -
+          it is an <dfn>invalid depth map value</dfn> and represents that the
+          user agent is unable to acquire depth information for the given pixel
+          for any reason. <a>Normalized</a> <a>depth map value</a> is
+          represented using <dfn>floating-point</dfn> or <dfn>unsigned
+          fixed-point</dfn> formats <a href=
+          "https://www.khronos.org/registry/gles/specs/3.0/es_spec_3.0.5.pdf#subsection.2.1.6">
+          [OpenGL ES 3.0.5]#subsection.2.1.6</a>.
         </p>
         <p>
           A <a>depth map</a> has an associated <dfn>near value</dfn> which is a
-          double. It represents the minimum range in meters.
+          double. It represents the minimum range in meters and it defines
+          <dfn>near plane</dfn> which is a plane perpendicular to camera
+          viewing direction on distance <a>near value</a> from the camera
+          origin.
         </p>
         <p>
           A <a>depth map</a> has an associated <dfn>far value</dfn> which is a
-          double. It represents the maximum range in meters.
+          double. It represents the maximum range in meters. It represents the
+          minimum range in meters and it defines <dfn>far plane</dfn> which is
+          a plane perpendicular to camera viewing direction on distance <a>far
+          value</a> from the camera origin.
         </p>
         <p>
           A <a>depth map</a> has an associated <dfn>horizontal focal
@@ -434,64 +462,39 @@
     </section>
     <section>
       <h2>
-        Depth to grayscale conversion
+        Conversion between depth map value and distance
       </h2>
       <p>
-        The data type of a <a>depth map</a> is 16-bit unsigned integer. The
-        algorithm to <dfn>convert the depth map value to grayscale</dfn>, given
-        a <a>depth map value</a> <var>d</var>, is as follows:
+        A <a>depth map value</a> is a distance to <a>near plane</a>
+        <a>normalized</a> against the distance between <a href=
+        "#dfn-far-plane">far</a> and <a href="#dfn-near-plane">near</a> plane:
       </p>
-      <ol>
+      <ul>
         <li>Let <var>near</var> be the the <a>near value</a>.
         </li>
         <li>Let <var>far</var> be the the <a>far value</a>.
         </li>
-        <li>If the given <a>depth map value</a> <var>d</var> is unknown or
-        invalid, then return the <a>invalid depth map value</a>.
+        <li>Let <var>d</var> be the the distance to <a>near plane</a>.
         </li>
-        <li>Apply the <a>rules to convert using range linear</a> to
-        <var>d</var> to obtain quantized value <var>d<sub>16bit</sub>.</var>
+        <li>Let <var>depth</var> be the the <a>depth map value</a>.
         </li>
-        <li>Return <var>d<sub>16bit</sub></var>.
+        <li>The formula to <dfn>calculate depth map value</dfn>
+        <var>depth</var> for the given distance <var>d</var> is:
+          <p>
+            `depth = (d - n ear) / (far - n ear)`
+          </p>
         </li>
-      </ol>
-      <p>
-        The <dfn>rules to convert using range linear</dfn> are as given in the
-        following formula:
-      </p>
-      <p>
-        `d_(n) = (d - n ear) / (far - n ear)`
-      </p>
-      <p>
-        `d_(16bit) = floor(d_(n) * 65535)`
-      </p>
-      <div class="note">
-        <p>
-          The depth measurement <var>d</var> (in meter units) is recovered by
-          solving the <a>rules to convert using range linear</a> for
-          <var>d</var> as follows:
-        </p>
-        <ol>
-          <li>If <var>d<sub>16bit</sub></var> is 0, let <var>d</var> be an <a>
-            invalid depth map value</a>, and return it.
-          </li>
-          <li>Otherwise, given <var>d<sub>16bit</sub></var>, <var>near</var>
-          <a>near value</a> and <var>far</var> <a>far value</a>, normalize
-          <var>d<sub>16bit</sub></var> to [0, 1] range:
-            <p>
-              `d_(n) = d_(16bit) / 65535`
-            </p>
-          </li>
-          <li>Solve the <a>rules to convert using range linear</a> for
-          <var>d</var>:
-            <p>
-              `d = (d_(n) * (far - n ear)) + n ear`
-            </p>
-          </li>
-          <li>Return <var>d</var>.
-          </li>
-        </ol>
-      </div>
+        <li>If the distance <var>d</var> is greater than <a>far value</a>, the
+        depth is <a>invalid depth map value</a>.
+        </li>
+        <li>The formula to <dfn>convert the depth map value to distance</dfn>
+        <var>d</var>, for a <a>depth map value</a> <var>depth</var>, is as
+        follows:
+          <p>
+            `d = depth * (far - n ear) + n ear`
+          </p>
+        </li>
+      </ul>
     </section>
     <section>
       <h2>
@@ -975,6 +978,19 @@
           This section is currently work in progress, and subject to change.
         </div>
         <p>
+          <a>Depth map</a> values that the camera produces are often in 16-bit
+          <a>normalized</a> <a>unsigned fixed-point</a> format. Application
+          developer can access the data using <a>canvas pixel arraybuffer</a>
+          red color component, but that would cause a precision loss given that
+          it is in 8-bit <a>normalized</a> <a>unsigned fixed-point</a> format.
+        </p>
+        <p>
+          The same precision loss is related to usage of [[WEBGL]]
+          <code>UNSIGNED_BYTE</code> textures. In order to access the full
+          precision, application developer <a href="#dfn-uploaded">can use</a>
+          [[WEBGL]] <a>floating-point</a> textures.
+        </p>
+        <p>
           There are several use-cases which are a good fit to be, at least
           partially, implemented on the GPU, such as motion recognition,
           pattern recognition, background removal, as well as 3D point cloud.
@@ -990,15 +1006,14 @@
           </h3>
           <p>
             A <a>video</a> element whose source is a <a>MediaStream</a> object
-            containing a <a>depth stream track</a> may be uploaded to a WebGL
-            texture of format <code>RGBA</code> or <code>RED</code> and type
-            <code>FLOAT</code>. See the specification [[WEBGL]] and the
-            <a>upload to float texture</a> example code.
+            containing a <a>depth stream track</a> may be <dfn>uploaded</dfn>
+            to a [[WEBGL]] texture of format <code>RGBA</code> or
+            <code>RED</code> and type <code>FLOAT</code>. See the specification
+            [[WEBGL]] and the <a>upload to float texture</a> example code.
           </p>
           <p>
             For each pixel of this WebGL texture, the R component represents
-            normalized 16-bit value following the formula: `d_(float) =
-            d_(16bit) / 65535.0`
+            <a>normalized</a> <a>floating-point</a> <a>depth map value</a>.
           </p>
         </section>
         <section>
@@ -1022,12 +1037,6 @@
             in the vertex shader.
             </li>
           </ul>
-          <p class="note">
-            Performance of synchronous <a>readPixels from float</a> example in
-            the current implementation suffice for some of the use cases. The
-            reason is that there is no rendering to the float texture bound to
-            named framebuffer.
-          </p>
         </section>
       </section>
     </section>
