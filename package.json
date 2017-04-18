@@ -8,7 +8,7 @@
     "url": "https://github.com/w3c/mediacapture-depth.git"
   },
   "dependencies": {
-    "mathjax-node": ">=0.4.0",
+    "mathjax-node": "=0.5.2",
     "tidy-html5": ">=0.1.0"
   }
 }
