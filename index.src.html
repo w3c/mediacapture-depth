@@ -127,7 +127,7 @@
       <p>
         This specification <a href=
         "https://w3c.github.io/mediacapture-main/#extensibility">extends</a>
-        the <em>Media Capture and Streams</em> specification [[!GETUSERMEDIA]]
+        the <em>Media Capture and Streams</em> specification [[GETUSERMEDIA]]
         to allow a <a>depth-only stream</a> or combined <a>depth+color
         stream</a> to be requested from the web platform using APIs familiar to
         web authors.
@@ -139,7 +139,7 @@
         constrainable property per <a href=
         "https://w3c.github.io/mediacapture-main/#extensibility">Extensibility</a>
         guidelines of the <em>Media Capture and Streams</em> specification
-        [[!GETUSERMEDIA]]. Horizontal reviews and feedback from early
+        [[GETUSERMEDIA]]. Horizontal reviews and feedback from early
         implementations of this specification are encouraged.
       </p>
     </section>
@@ -225,14 +225,8 @@
       </p>
       <p>
         The <dfn data-cite=
-        "!GETUSERMEDIA#idl-def-ConstrainDOMString"><code>ConstrainDOMString</code></dfn>,
-        <dfn data-cite=
-        "!GETUSERMEDIA#idl-def-ConstrainDouble"><code>ConstrainDouble</code></dfn>,
-        <dfn data-cite=
-        "!GETUSERMEDIA#idl-def-ConstrainBoolean"><code>ConstrainBoolean</code></dfn>,
-        and <dfn data-cite=
-        "!GETUSERMEDIA#idl-def-DoubleRange"><code>DoubleRange</code></dfn>
-        types are defined in [[!GETUSERMEDIA]].
+        "!GETUSERMEDIA#idl-def-ConstrainDOMString"><code>ConstrainDOMString</code></dfn>
+        type is defined in [[!GETUSERMEDIA]].
       </p>
       <p>
         <dfn data-cite=
@@ -376,116 +370,19 @@
         <p>
           <dfn>Normalized</dfn> <a>depth map value</a> means that it's range is
           from 0 to 1, where maximum <a>depth map value</a> of 1 corresponds to
-          distances equal to <a>far value</a>. Following the <a href=
-          "#dfn-calculate-depth-map-value">conversion between depth map value
-          and distance</a>, the minumum value of 0 would correspond to
-          distances equal to <a>near value</a>, but 0 has a special meaning -
-          it is an <dfn>invalid depth map value</dfn> and represents that the
-          user agent is unable to acquire depth information for the given pixel
-          for any reason. <a>Normalized</a> <a>depth map value</a> is
-          represented using <dfn>floating-point</dfn> or <dfn>unsigned
-          fixed-point</dfn> formats <a href=
+          distances equal to <a>far plane</a>. <a>Normalized</a> <a>depth map
+          value</a> is represented using <dfn>floating-point</dfn> or
+          <dfn>unsigned fixed-point</dfn> formats <a href=
           "https://www.khronos.org/registry/gles/specs/3.0/es_spec_3.0.5.pdf#subsection.2.1.6">
           [OpenGL ES 3.0.5]#subsection.2.1.6</a>.
         </p>
         <p>
-          A <a>depth map</a> has an associated <dfn>near value</dfn> which is a
-          double. It represents the minimum range in meters and it defines
-          <dfn>near plane</dfn> which is a plane perpendicular to camera
-          viewing direction on distance <a>near value</a> from the camera
-          origin.
-        </p>
-        <p>
-          A <a>depth map</a> has an associated <dfn>far value</dfn> which is a
-          double. It represents the maximum range in meters. It represents the
-          minimum range in meters and it defines <dfn>far plane</dfn> which is
-          a plane perpendicular to camera viewing direction on distance <a>far
-          value</a> from the camera origin.
-        </p>
-        <p>
-          A <a>depth map</a> has an associated <dfn>horizontal focal
-          length</dfn> which is a double. It represents the horizontal
-          <dfn>focal length</dfn> of the depth camera, in pixels.
-        </p>
-        <p>
-          A <a>depth map</a> has an associated <dfn>vertical focal length</dfn>
-          which is a double. It represents the vertical focal length of the
-          depth camera, in pixels.
-        </p>
-        <p>
-          A <a>depth map</a> has an associated <dfn>principal point</dfn>,
-          specified by <dfn>principal point x</dfn> and <dfn>principal point
-          y</dfn> coordinates which are double. It is a concept defined in the
-          pinhole camera model; a projection of perspective center to the image
-          plane.
-        </p>
-        <p>
-          A <a>depth map</a> has an associated <dfn>transformation from depth
-          to video</dfn>, which is a <dfn>transformation matrix</dfn>
-          represented by a <a>Transformation</a> dictionary. It is used to
-          translate position in depth camera 3D coordinate system to RGB video
-          stream's camera (identified by <dfn>videoDeviceId</dfn>) 3D
-          coordinate system. After projecting depth 2D pixel coordinates to 3D
-          space, we use this matrix to transform depth camera 3D space
-          coordinates to RGB video camera 3D space.
-        </p>
-        <p>
-          Both depth and color cameras usually introduce significant distortion
-          caused by the camera and lens. While in some cases, the effects are
-          not noticeable, these distortions cause errors in image analysis. To
-          map <a>depth map</a> pixel values to corresponding color video track
-          pixels, we use two <a>DistortionCoefficients</a> dictionaries:
-          <dfn>deprojection distortion coefficients</dfn> and <dfn>projection
-          distortion coefficients</dfn>.
-        </p>
-        <p>
-          <a>Deprojection distortion coefficients</a> are used for compensating
-          camera distortion when deprojecting 2D pixel coordinates to 3D space
-          coordinates. <a>Projection distortion coefficients</a> are used in
-          the opposite case, when projecting camera 3D space points to pixels.
-          One track doesn't have both of the coefficients specified. The most
-          common scenario is that the depth track has <a>deprojection
-          distortion coefficients</a> or that the color video track has
-          <a>projection distortion coefficients</a>. For the details, see
-          <a>algorithm to map depth pixels to color pixels</a>.
+          <a>Depth map</a>'s <dfn>near plane</dfn> and <dfn>far plane</dfn> are
+          concepts of 3D graphics that define camera viewing volume (view
+          frustum). Their definition is outside the scope of this
+          specification.
         </p>
       </section>
-    </section>
-    <section>
-      <h2>
-        Conversion between depth map value and distance
-      </h2>
-      <p>
-        A <a>depth map value</a> is a distance to <a>near plane</a>
-        <a>normalized</a> against the distance between <a href=
-        "#dfn-far-plane">far</a> and <a href="#dfn-near-plane">near</a> plane:
-      </p>
-      <ul>
-        <li>Let <var>near</var> be the the <a>near value</a>.
-        </li>
-        <li>Let <var>far</var> be the the <a>far value</a>.
-        </li>
-        <li>Let <var>d</var> be the the distance to <a>near plane</a>.
-        </li>
-        <li>Let <var>depth</var> be the the <a>depth map value</a>.
-        </li>
-        <li>The formula to <dfn>calculate depth map value</dfn>
-        <var>depth</var> for the given distance <var>d</var> is:
-          <p>
-            `depth = (d - n ear) / (far - n ear)`
-          </p>
-        </li>
-        <li>If the distance <var>d</var> is greater than <a>far value</a>, the
-        depth is <a>invalid depth map value</a>.
-        </li>
-        <li>The formula to <dfn>convert the depth map value to distance</dfn>
-        <var>d</var>, for a <a>depth map value</a> <var>depth</var>, is as
-        follows:
-          <p>
-            `d = depth * (far - n ear) + n ear`
-          </p>
-        </li>
-      </ul>
     </section>
     <section>
       <h2>
@@ -517,18 +414,8 @@
         </p>
         <pre class="idl">
           partial dictionary MediaTrackSupportedConstraints {
-              // Apply to both depth stream track and color stream track:
+              // Applies to both depth stream track and color stream track:
               boolean videoKind = true;
-              boolean focalLengthX = false;
-              boolean focalLengthY = false;
-              boolean principalPointX = false;
-              boolean principalPointY = false;
-              boolean deprojectionDistortionCoefficients = false;
-              boolean projectionDistortionCoefficients = false;
-              // Apply to depth stream track:
-              boolean depthNear = false;
-              boolean depthFar = false;
-              boolean depthToVideoTransform = false;
           };
       
 </pre>
@@ -548,18 +435,8 @@
         </p>
         <pre class="idl">
           partial dictionary MediaTrackCapabilities {
-              // Apply to both depth stream track and color stream track:
+              // Applies to both depth stream track and color stream track:
               DOMString videoKind;
-              (double or DoubleRange) focalLengthX;
-              (double or DoubleRange) focalLengthY;
-              (double or DoubleRange) principalPointX;
-              (double or DoubleRange) principalPointY;
-              boolean deprojectionDistortionCoefficients;
-              boolean projectionDistortionCoefficients;
-              // Apply to depth stream track:
-              (double or DoubleRange) depthNear;
-              (double or DoubleRange) depthFar;
-              boolean depthToVideoTransform;
           };
 </pre>
       </section>
@@ -572,24 +449,13 @@
           <a>allowed values</a>.
         </p>
         <p>
-          The <dfn>allowed values</dfn> for <a>ConstrainDOMString</a>,
-          <a>ConstrainDouble</a>, and <a>ConstrainBoolean</a> types are defined
-          in [[!GETUSERMEDIA]] respectively.
+          The <dfn>allowed values</dfn> for <a>ConstrainDOMString</a> type are
+          defined in [[!GETUSERMEDIA]].
         </p>
         <pre class="idl">
           partial dictionary MediaTrackConstraintSet {
-              // Apply to both depth stream track and color stream track:
+              // Applies to both depth stream track and color stream track:
               ConstrainDOMString videoKind;
-              ConstrainDouble focalLengthX;
-              ConstrainDouble focalLengthY;
-              ConstrainDouble principalPointX;
-              ConstrainDouble principalPointY;
-              ConstrainBoolean deprojectionDistortionCoefficients;
-              ConstrainBoolean projectionDistortionCoefficients;
-              // Apply to depth stream track:
-              ConstrainDouble depthNear;
-              ConstrainDouble depthFar;
-              ConstrainBoolean depthToVideoTransform;
           };
 </pre>
       </section>
@@ -607,109 +473,21 @@
         </p>
         <pre class="idl">
           partial dictionary MediaTrackSettings {
-              // Apply to both depth stream track and color stream track:
+              // Applies to both depth stream track and color stream track:
               DOMString           videoKind;
-              double              focalLengthX;
-              double              focalLengthY;
-              double              principalPointX;
-              double              principalPointY;
-              DistortionCoefficients deprojectionDistortionCoefficients;
-              DistortionCoefficients projectionDistortionCoefficients;
-              // Apply to depth stream track:
-              double              depthNear;
-              double              depthFar;
-              Transformation      depthToVideoTransform;
           };
         
 </pre>
-        <section>
-          <h2>
-            <code>DistortionCoefficients</code> dictionary
-          </h2>
-          <pre class="idl">
-          dictionary DistortionCoefficients {
-              double              k1;
-              double              k2;
-              double              p1;
-              double              p2;
-              double              k3;
-          };
-        
-</pre>
-          <div data-dfn-for="DistortionCoefficients">
-            <p>
-              The <dfn><code>DistortionCoefficients</code></dfn> dictionary has
-              the <dfn>k1</dfn>, <dfn>k2</dfn>, <dfn>p1</dfn>, <dfn>p2</dfn>
-              and <dfn>k3</dfn> dictionary members that represent the
-              <a>deprojection distortion coefficients</a> or <a>projection
-              distortion coefficients</a>. <dfn data-dfn-for="k1">k1</dfn>,
-              <dfn data-dfn-for="k2">k2</dfn> and <dfn data-dfn-for=
-              "k3">k3</dfn> are <dfn>radial distortion coefficients</dfn> while
-              <dfn data-dfn-for="p1">p1</dfn> and <dfn data-dfn-for=
-              "p2">p2</dfn> are <dfn>tangential distortion coefficients</dfn>.
-              <a>Radial distortion coefficients</a> and <a>tangential
-              distortion coefficients</a> are used to <a>deproject</a> depth
-              value to 3D space or to <a>project</a> 3D value to 2D video frame
-              coordinates.
-            </p>
-            <p class="note">
-              See the <a>algorithm to map depth pixels to color pixels</a> and
-              Brown-Conrady distortion model implementation in <a>3D point
-              cloud rendering</a> example GLSL shader.<br>
-            </p>
-          </div>
-        </section>
-        <section>
-          <h2>
-            <code>Transformation</code> dictionary
-          </h2>
-          <pre class="idl">
-          dictionary Transformation {
-            Float32Array       transformationMatrix;
-            DOMString          videoDeviceId;
-          };
-        
-</pre>
-          <div data-dfn-for="Transformation">
-            <p>
-              The <dfn><code>Transformation</code></dfn> dictionary has the
-              <dfn><code>transformationMatrix</code></dfn> dictionary member
-              that is a 16 element array that defines the <a>transformation
-              matrix</a> of the <a>depth map</a>'s camera's 3D coordinate
-              system to video track's camera 3D coordinate system.
-            </p>
-            <p>
-              The first four elements of the array correspond to the first
-              matrix row, followed by four elements of the second matrix row
-              and so on. It is in format suitable for use with WebGL's
-              uniformMatrix4fv.
-            </p>
-            <p>
-              The <dfn><code>videoDeviceId</code></dfn> dictionary member
-              represents the <code>deviceId</code> of video camera the depth
-              stream must be synchronized with.
-            </p>
-            <p class="note">
-              The value of <a><code>videoDeviceId</code></a> can be used as the
-              <code>deviceId</code> constraint in [[!GETUSERMEDIA]] to get the
-              corresponding video and audio streams.
-            </p>
-          </div>
-        </section>
-      </section>
-      <section>
-        <h2>
-          Constrainable properties for color stream track and depth stream
-          track
-        </h2>
-        <p>
-          The following constrainable properties are defined to apply to both
-          <a>color stream track</a> and <a>depth stream track</a>.
-        </p>
         <section id="def-constraint-videoKind">
-          <h3>
-            <code>videoKind</code>
-          </h3>
+          <h2>
+            Video kind constrainable property
+          </h2>
+          <p>
+            The <code>videoKind</code> constrainable property is defined to
+            apply to both <a>color stream track</a> and <a>depth stream
+            track</a>. The <code>videoKind</code> member specifies the
+            <dfn>video kind</dfn> of the <a>source</a>.
+          </p>
           <p class="related">
             Related: <a>MediaTrackSupportedConstraints</a>.<dfn data-dfn-for=
             "MediaTrackSupportedConstraints">videoKind</dfn>,
@@ -720,16 +498,12 @@
             <a>MediaTrackSettings</a>.<dfn data-dfn-for=
             "MediaTrackSettings">videoKind</dfn>
           </p>
-          <p>
-            The <code>videoKind</code> member specifies the <dfn>video
-            kind</dfn> of the <a>source</a>.
-          </p>
           <pre class="idl">
-          enum VideoKindEnum {
-              "color",
-              "depth"
-          };
-          
+        enum VideoKindEnum {
+            "color",
+            "depth"
+        };
+        
 </pre>
           <p>
             The <dfn>VideoKindEnum</dfn> enumeration defines the valid <a>video
@@ -749,535 +523,87 @@
             <a>disabled</a>, it MUST render frames as if all the pixels would
             be 0.
           </p>
+        </section>
+        <section class="informative">
+          <h2>
+            WebGL implementation considerations
+          </h2>
           <div class="note">
-            <p>
-              A <a>color stream track</a> and a <a>depth stream track</a> can
-              be combined into one <a>depth+color stream</a>. The rendering of
-              the two tracks are intended to be synchronized. The resolution of
-              the two tracks are intended to be same. And the coordination of
-              the two tracks are intended to be calibrated. These are not hard
-              requirements, since it might not be possible to synchronize
-              tracks from sources.
-            </p>
-            <p>
-              This approach is simple to use but comes with the following
-              caveats: it might might not be supported by the implementation
-              and the resolutions of two tracks are intended to be the same
-              that can require downsampling and degrade quality. The
-              alternative approach is that a web developer implements the
-              <a>algorithm to map depth pixels to color pixels</a>. See the
-              <a>3D point cloud rendering</a> example code.
-            </p>
+            This section is currently work in progress, and subject to change.
           </div>
-        </section>
-        <section id="def-constraint-focalLengthX">
-          <h3>
-            <code>focalLengthX</code>
-          </h3>
-          <p class="related">
-            Related: <a>MediaTrackSupportedConstraints</a>.<dfn data-dfn-for=
-            "MediaTrackSupportedConstraints">focalLengthX</dfn>,
-            <a>MediaTrackCapabilities</a>.<dfn data-dfn-for=
-            "MediaTrackCapabilities">focalLengthX</dfn>,
-            <a>MediaTrackConstraintSet</a>.<dfn data-dfn-for=
-            "MediaTrackConstraintSet">focalLengthX</dfn>,
-            <a>MediaTrackSettings</a>.<dfn data-dfn-for=
-            "MediaTrackSettings">focalLengthX</dfn>
+          <p>
+            <a>Depth map</a> values that the camera produces are often in
+            16-bit <a>normalized</a> <a>unsigned fixed-point</a> format.
+            Application developer can access the data using <a>canvas pixel
+            arraybuffer</a> red color component, but that would cause a
+            precision loss given that it is in 8-bit <a>normalized</a>
+            <a>unsigned fixed-point</a> format.
           </p>
           <p>
-            The <code>focalLengthX</code> member specifies the <a>horizontal
-            focal length</a>, in pixels.
-          </p>
-        </section>
-        <section id="def-constraint-focalLengthY">
-          <h3>
-            <code>focalLengthY</code>
-          </h3>
-          <p class="related">
-            Related: <a>MediaTrackSupportedConstraints</a>.<dfn data-dfn-for=
-            "MediaTrackSupportedConstraints">focalLengthY</dfn>,
-            <a>MediaTrackCapabilities</a>.<dfn data-dfn-for=
-            "MediaTrackCapabilities">focalLengthY</dfn>,
-            <a>MediaTrackConstraintSet</a>.<dfn data-dfn-for=
-            "MediaTrackConstraintSet">focalLengthY</dfn>,
-            <a>MediaTrackSettings</a>.<dfn data-dfn-for=
-            "MediaTrackSettings">focalLengthY</dfn>
+            The same precision loss is related to usage of [[WEBGL]]
+            <code>UNSIGNED_BYTE</code> textures. In order to access the full
+            precision, application developer <a href="#dfn-uploaded">can
+            use</a> [[WEBGL]] <a>floating-point</a> textures.
           </p>
           <p>
-            The <code>focalLengthY</code> member specifies the <a>vertical
-            focal length</a>, in pixels.
-          </p>
-        </section>
-        <section id="def-constraint-principalPointX">
-          <h3>
-            <code>principalPointX</code>
-          </h3>
-          <p class="related">
-            Related: <a>MediaTrackSupportedConstraints</a>.<dfn data-dfn-for=
-            "MediaTrackSupportedConstraints">principalPointX</dfn>,
-            <a>MediaTrackCapabilities</a>.<dfn data-dfn-for=
-            "MediaTrackCapabilities">principalPointX</dfn>,
-            <a>MediaTrackConstraintSet</a>.<dfn data-dfn-for=
-            "MediaTrackConstraintSet">principalPointX</dfn>,
-            <a>MediaTrackSettings</a>.<dfn data-dfn-for=
-            "MediaTrackSettings">principalPointX</dfn>
+            There are several use-cases which are a good fit to be, at least
+            partially, implemented on the GPU, such as motion recognition,
+            pattern recognition, background removal, as well as 3D point cloud.
           </p>
           <p>
-            The <code>principalPointX</code> member specifies the <a>principal
-            point x</a> coordinate, in pixels.
+            This section explains which APIs can be used for some of these
+            mentioned use-cases; the concrete examples are provided in the
+            <a href="#examples">Examples</a> section.
           </p>
-        </section>
-        <section id="def-constraint-principalPointY">
-          <h3>
-            <code>principalPointY</code>
-          </h3>
-          <p class="related">
-            Related: <a>MediaTrackSupportedConstraints</a>.<dfn data-dfn-for=
-            "MediaTrackSupportedConstraints">principalPointY</dfn>,
-            <a>MediaTrackCapabilities</a>.<dfn data-dfn-for=
-            "MediaTrackCapabilities">principalPointY</dfn>,
-            <a>MediaTrackConstraintSet</a>.<dfn data-dfn-for=
-            "MediaTrackConstraintSet">principalPointY</dfn>,
-            <a>MediaTrackSettings</a>.<dfn data-dfn-for=
-            "MediaTrackSettings">principalPointY</dfn>
-          </p>
-          <p>
-            The <code>principalPointY</code> member specifies the <a>principal
-            point y</a> coordinate, in pixels.
-          </p>
-        </section>
-        <section id="def-constraint-deprojectionDistortionCoefficients">
-          <h3>
-            <code>deprojectionDistortionCoefficients</code>
-          </h3>
-          <p class="related">
-            Related: <a>MediaTrackSupportedConstraints</a>.<dfn data-dfn-for=
-            "MediaTrackSupportedConstraints">deprojectionDistortionCoefficients</dfn>,
-            <a>MediaTrackCapabilities</a>.<dfn data-dfn-for=
-            "MediaTrackCapabilities">deprojectionDistortionCoefficients</dfn>,
-            <a>MediaTrackConstraintSet</a>.<dfn data-dfn-for=
-            "MediaTrackConstraintSet">deprojectionDistortionCoefficients</dfn>,
-            <a>MediaTrackSettings</a>.<dfn data-dfn-for=
-            "MediaTrackSettings">deprojectionDistortionCoefficients</dfn>
-          </p>
-          <p>
-            The <code>deprojectionDistortionCoefficients</code> member
-            specifies the <a>MediaStreamTrack</a>'s <a>deprojection distortion
-            coefficients</a> used when deprojecting from 2D to 3D space.
-          </p>
-        </section>
-        <section id="def-constraint-projectionDistortionCoefficients">
-          <h3>
-            <code>projectionDistortionCoefficients</code>
-          </h3>
-          <p class="related">
-            Related: <a>MediaTrackSupportedConstraints</a>.<dfn data-dfn-for=
-            "MediaTrackSupportedConstraints">projectionDistortionCoefficients</dfn>,
-            <a>MediaTrackCapabilities</a>.<dfn data-dfn-for=
-            "MediaTrackCapabilities">projectionDistortionCoefficients</dfn>,
-            <a>MediaTrackConstraintSet</a>.<dfn data-dfn-for=
-            "MediaTrackConstraintSet">projectionDistortionCoefficients</dfn>,
-            <a>MediaTrackSettings</a>.<dfn data-dfn-for=
-            "MediaTrackSettings">projectionDistortionCoefficients</dfn>
-          </p>
-          <p>
-            The <code>projectionDistortionCoefficients</code> member specifies
-            the <a>MediaStreamTrack</a>'s <a>projection distortion
-            coefficients</a> used when deprojecting from 2D to 3D space.
-          </p>
-        </section>
-      </section>
-      <section>
-        <h2>
-          Constrainable properties for depth stream track
-        </h2>
-        <p>
-          The following constrainable properties are defined to apply only to
-          <a>depth stream track</a>.
-        </p>
-        <section id="def-constraint-depthNear-depthFar">
-          <h3>
-            <code>depthNear</code> and <code>depthFar</code>
-          </h3>
-          <p class="related">
-            Related: <a>MediaTrackSupportedConstraints</a>.<dfn data-dfn-for=
-            "MediaTrackSupportedConstraints">depthNear</dfn>,
-            <a>MediaTrackCapabilities</a>.<dfn data-dfn-for=
-            "MediaTrackCapabilities">depthNear</dfn>,
-            <a>MediaTrackConstraintSet</a>.<dfn data-dfn-for=
-            "MediaTrackConstraintSet">depthNear</dfn>,
-            <a>MediaTrackSettings</a>.<dfn data-dfn-for=
-            "MediaTrackSettings">depthNear</dfn>,
-            <a>MediaTrackSupportedConstraints</a>.<dfn data-dfn-for=
-            "MediaTrackSupportedConstraints">depthFar</dfn>,
-            <a>MediaTrackCapabilities</a>.<dfn data-dfn-for=
-            "MediaTrackCapabilities">depthFar</dfn>,
-            <a>MediaTrackConstraintSet</a>.<dfn data-dfn-for=
-            "MediaTrackConstraintSet">depthFar</dfn>,
-            <a>MediaTrackSettings</a>.<dfn data-dfn-for=
-            "MediaTrackSettings">depthFar</dfn>
-          </p>
-          <p>
-            The <code>depthNear</code> member specifies the <a>near value</a>,
-            in meters.
-          </p>
-          <p>
-            The <code>depthFar</code> member specifies the <a>far value</a>, in
-            meters.
-          </p>
-          <p>
-            The <code>depthNear</code> and <code>depthFar</code> constrainable
-            properties, when set, allow the implementation to pick the best
-            depth camera mode optimized for the range <code>[depthNear,
-            depthFar]</code> and help minimize the error introduced by the
-            lossy conversion from the depth value <var>d</var> to a quantized
-            d<sub>8bit</sub> and back to an approximation of the depth value
-            <var>d</var>.
-          </p>
-          <p>
-            If the <code>depthFar</code> property's value is less than the
-            <code>depthNear</code> property's value, the <a>depth stream
-            track</a> is <a>overconstrained</a>.
-          </p>
-        </section>
-        <section id="def-constraint-depthToVideoTransform">
-          <h3>
-            <code>depthToVideoTransform</code>
-          </h3>
-          <p class="related">
-            Related: <a>MediaTrackSupportedConstraints</a>.<dfn data-dfn-for=
-            "MediaTrackSupportedConstraints">depthToVideoTransform</dfn>,
-            <a>MediaTrackCapabilities</a>.<dfn data-dfn-for=
-            "MediaTrackCapabilities">depthToVideoTransform</dfn>,
-            <a>MediaTrackConstraintSet</a>.<dfn data-dfn-for=
-            "MediaTrackConstraintSet">depthToVideoTransform</dfn>,
-            <a>MediaTrackSettings</a>.<dfn data-dfn-for=
-            "MediaTrackSettings">depthToVideoTransform</dfn>
-          </p>
-          <p>
-            The <code>depthToVideoTransform</code> member specifies the
-            <a>depth map</a>'s camera's <a>transformation from depth to
-            video</a> camera 3D coordinate system.
-          </p>
+          <section>
+            <h3>
+              Upload video frame to WebGL texture
+            </h3>
+            <p>
+              A <a>video</a> element whose source is a <a>MediaStream</a>
+              object containing a <a>depth stream track</a> may be
+              <dfn>uploaded</dfn> to a [[WEBGL]] texture of format
+              <code>RGBA</code> or <code>RED</code> and type
+              <code>FLOAT</code>. See the specification [[WEBGL]] and the
+              <a>upload to float texture</a> example code.
+            </p>
+            <p>
+              For each pixel of this WebGL texture, the R component represents
+              <a>normalized</a> <a>floating-point</a> <a>depth map value</a>.
+            </p>
+          </section>
+          <section>
+            <h3>
+              Read the data from a WebGL texture
+            </h3>
+            <p>
+              Here we list some of the possible approaches.
+            </p>
+            <ul>
+              <li>Synchronous readPixels usage requires the least amount of
+              code and it is available with WebGL 1.0. See the <a>readPixels
+              from float</a> example for further details.
+              </li>
+              <li>Asynchronous readPixels using pixel buffer objects to avoid
+              blocking the readPixels call.
+              </li>
+              <li>Transform feedback [[WEBGL2]] with GetBufferSubData(Async)
+              [[WEBGL-GET-BUFFER-SUB-DATA-ASYNC]] provides synchronous and
+              asynchronous read access to depth and color texture data
+              processed in the vertex shader.
+              </li>
+            </ul>
+          </section>
         </section>
       </section>
       <section class="informative">
         <h2>
-          WebGL implementation considerations
+          Examples
         </h2>
-        <div class="note">
-          This section is currently work in progress, and subject to change.
-        </div>
-        <p>
-          <a>Depth map</a> values that the camera produces are often in 16-bit
-          <a>normalized</a> <a>unsigned fixed-point</a> format. Application
-          developer can access the data using <a>canvas pixel arraybuffer</a>
-          red color component, but that would cause a precision loss given that
-          it is in 8-bit <a>normalized</a> <a>unsigned fixed-point</a> format.
-        </p>
-        <p>
-          The same precision loss is related to usage of [[WEBGL]]
-          <code>UNSIGNED_BYTE</code> textures. In order to access the full
-          precision, application developer <a href="#dfn-uploaded">can use</a>
-          [[WEBGL]] <a>floating-point</a> textures.
-        </p>
-        <p>
-          There are several use-cases which are a good fit to be, at least
-          partially, implemented on the GPU, such as motion recognition,
-          pattern recognition, background removal, as well as 3D point cloud.
-        </p>
-        <p>
-          This section explains which APIs can be used for some of these
-          mentioned use-cases; the concrete examples are provided in the
-          <a href="#examples">Examples</a> section.
-        </p>
-        <section>
-          <h3>
-            Upload video frame to WebGL texture
-          </h3>
-          <p>
-            A <a>video</a> element whose source is a <a>MediaStream</a> object
-            containing a <a>depth stream track</a> may be <dfn>uploaded</dfn>
-            to a [[WEBGL]] texture of format <code>RGBA</code> or
-            <code>RED</code> and type <code>FLOAT</code>. See the specification
-            [[WEBGL]] and the <a>upload to float texture</a> example code.
-          </p>
-          <p>
-            For each pixel of this WebGL texture, the R component represents
-            <a>normalized</a> <a>floating-point</a> <a>depth map value</a>.
-          </p>
-        </section>
-        <section>
-          <h3>
-            Read the data from a WebGL texture
-          </h3>
-          <p>
-            Here we list some of the possible approaches.
-          </p>
-          <ul>
-            <li>Synchronous readPixels usage requires the least amount of code
-            and it is available with WebGL 1.0. See the <a>readPixels from
-            float</a> example for further details.
-            </li>
-            <li>Asynchronous readPixels using pixel buffer objects to avoid
-            blocking the readPixels call.
-            </li>
-            <li>Transform feedback [[WEBGL2]] with GetBufferSubData(Async)
-            [[WEBGL-GET-BUFFER-SUB-DATA-ASYNC]] provides synchronous and
-            asynchronous read access to depth and color texture data processed
-            in the vertex shader.
-            </li>
-          </ul>
-        </section>
-      </section>
-    </section>
-    <section class="informative">
-      <h2>
-        Synchronizing depth and color video rendering
-      </h2>
-      <p class="note">
-        The algorithms presented in this section explain how a web developer
-        can <dfn>map depth and color</dfn> pixels. Concrete example on how to
-        do the mapping is provided in example vertex shader used for <a>3D
-        point cloud rendering</a>.
-      </p>
-      <p></p>
-      <p>
-        When rendering, we want to position a color value from color video
-        frame to corresponding <a>depth map value</a> or 3D point in space
-        defined by <a>depth map value</a>. We use <a>deprojection distortion
-        coefficients</a> to compensate camera distortion when deprojecting 2D
-        pixel coordinates to 3D space coordinates and <a>projection distortion
-        coefficients</a> in the opposite case, when projecting camera 3D space
-        points to pixels.
-      </p>
-      <p>
-        The <dfn>algorithm to map depth pixels to color pixels</dfn> is as
-        follows:
-      </p>
-      <ol>
-        <li>
-          <a>Deproject</a> <a>depth map value</a> to point in depth 3D space.
-        </li>
-        <li>
-          <a>Transform</a> 3D point from depth camera 3D space to color camera
-          3D space.
-        </li>
-        <li>
-          <a>Project</a> from color camera 3D space to color frame 2D pixels.
-        </li>
-      </ol>
-      <p></p>
-      <section>
-        <h2>
-          Deproject to depth 3D space
-        </h2>
-        <p>
-          The algorithm to <dfn>deproject</dfn> depth map value to point in
-          depth camera is as follows:
-        </p>
-        <p>
-          Let <var>dx</var> and <var>dy</var> be 2D coordinates, in pixels, of
-          a pixel in <a>depth map</a>.
-        </p><var></var>
-        <p>
-          Let <var>dz</var> be <a>depth map value</a> of the same pixel in the
-          <a>depth map</a>.
-        </p>
-        <p>
-          Let <var>fx</var> and <var>fy</var> be <a>depth map</a>'s
-          <a>horizontal focal length</a> and <a>vertical focal length</a>
-          respectively.
-        </p>
-        <p>
-          Let <var>cx</var> and <var>cy</var> be <a>depth map</a>'s
-          <a>principal point</a> 2D coordinates.
-        </p>
-        <p>
-          Let 3D coordinates (Xd, Yd, Zd) be the output of this step - a 3D
-          point in depth camera's 3D coordinate system.
-        </p>
-        <p>
-          `px = (dx - cx) / (fx)`
-        </p>
-        <p>
-          `py = (dy - cy) / (fy)`
-        </p>
-        <ul>
-          <li>If <a>depth map</a>'s <a>deprojection distortion coefficients</a>
-          are <a>not present</a> in <a href=
-          "#mediatracksettings-dictionary">MediaTrackSettings</a> dictionary,
-            <p>
-              3D coordinates (Xd, Yd, Zd) in depth camera space are calculated
-              as:
-            </p>
-            <p>
-              `Xd = dz * px`
-            </p>
-            <p>
-              `Yd = dz * px`
-            </p>
-            <p>
-              `Zd = dz`
-            </p>
-          </li>
-          <li>If <a>depth map</a>'s <a>deprojection distortion coefficients</a>
-          <a>k1</a>, <a>k2</a>, <a>k3</a>, <a>p1</a> and <a>p2</a> are
-          <a>present</a> in <a href=
-          "#mediatracksettings-dictionary">MediaTrackSettings</a> dictionary,
-          with a note that some of those could be zero,
-            <p>
-              3D coordinates (Xd, Yd, Zd) in depth camera space are calculated
-              as:
-            </p>
-            <p>
-              `r2 = px^2 + py^2`
-            </p>
-            <p>
-              `r = 1 + k1 * r2 + k2 * r2^2 + k3 * r2^3`
-            </p>
-            <p>
-              `Xd = dz * (px * r + 2 * p1 * px * py + p2 * (r2 + 2 * px^2))`
-            </p>
-            <p>
-              `Yd = dz * (py * r + 2 * p2 * px * py + p1 * (r2 + 2 * py^2))`
-            </p>
-            <p>
-              `Zd = dz`
-            </p>
-          </li>
-        </ul>
-        <p class="note">
-          See depth_deproject function in <a>3D point cloud rendering</a>
-          example.
-        </p>
-      </section>
-      <section>
-        <h2>
-          Transform from depth to color 3D space
-        </h2>
-        <p>
-          The result of <a>project</a> depth value to 3D point step, 3D point
-          (Xd, Yd, Zd), is in depth camera 3D coordinate system. To
-          <dfn>transform</dfn> coordinates of the same point in space, but to
-          color camera 3D coordinate system, we use matrix multiplication of
-          <a>transformation from depth to video</a> matrix by the (Xd, Yd, Zd)
-          3D point vector.
-        </p>
-        <p>
-          Let (Xc, Yc, Zc) be the output of this step - a 3D coordinates of
-          projected <a>depth map value</a> to color camera 3D space.
-        </p>
-        <p>
-          Let <var>M</var> be <a>transformation matrix</a> defined in <a>depth
-          map</a>'s <a data-link-for=
-          "MediaTrackSettings">depthToVideoTransform</a> field.
-        </p>
-        <p>
-          To multiply 4x4 matrix by 3 element vector, we extend the 3D vector
-          by one element to 4 dimensional vector. After multiplication, we use
-          vector's x, y and z coordinates as the result.
-        </p>
-        <p>
-          `((Xc), (Yc), (Zc)) = ([M] xx ((Xd), (Yd), (Zd), (1))).xyz`
-        </p>
-        <p class="note">
-          In <a>3D point cloud rendering</a> example, this is done by:
-          <code>vec4 color_point = u_depth_to_color * vec4(depth_point,
-          1.0);</code>
-        </p>
-      </section>
-      <section>
-        <h2>
-          Project from color 3D to pixel
-        </h2>
-        <p>
-          To <dfn>project</dfn> from color 3D to 2D coordinate we use the
-          corresponding color track's <a href=
-          "#mediatracksettings-dictionary">MediaTrackSettings</a>. The color
-          track we get using <a>depth map</a>'s <a data-link-for=
-          "MediaTrackSettings">Transformation</a>.<a>videoDeviceId</a> - it
-          represents the target color video deviceID that should be used as a
-          constraint with [[!GETUSERMEDIA]] call to get the corresponding color
-          video stream track. After that, we use color track
-          <a>getSettings()</a> to access <a href=
-          "#mediatracksettings-dictionary">MediaTrackSettings</a>.
-        </p>
-        <p>
-          Let `fx_c` and `fy_c` be color track's <a>horizontal focal length</a>
-          and <a>vertical focal length</a> respectively.
-        </p>
-        <p>
-          Let `cx_c` and `cy_c` be color track's <a>principal point</a> 2D
-          coordinates.
-        </p>
-        <p>
-          The result of this step is 2D coordinate of pixel in color video
-          frame (<var>x</var>, <var>y</var>).
-        </p>
-        <ul>
-          <li>If color track's <a>projection distortion coefficients</a>
-          <a>k1</a>, <a>k2</a>, <a>k3</a>, <a>p1</a> and <a>p2</a> are
-          <a>present</a> in <a href=
-          "#mediatracksettings-dictionary">MediaTrackSettings</a> dictionary,
-            <p>
-              position of pixel in color frame image (x, y) is calculated as:
-            </p>
-            <p>
-              `r2_c = (Xc)^2 + (Yc)^2`
-            </p>
-            <p>
-              `r = 1 + k1 * r2 + k2 * r2^2 + k3 * r2^3`
-            </p>
-            <p>
-              `px_c = r * (Xc) / (Zc)`
-            </p>
-            <p>
-              `py_c = r * (Yc) / (Zc)`
-            </p>
-            <p>
-              `x = (px_c + 2 * p1 * px_c * py_c + p2 * (r2_c + 2 * px_c^2)) *
-              fx_c + cx_c`
-            </p>
-            <p>
-              `y = (py_c + 2 * p2 * px_c * py_c + p1 * (r2_c + 2 * py_c^2)) *
-              fy_c + cy_c`
-            </p>
-          </li>
-          <li>If color track's <a>projection distortion coefficients</a> are
-          <a>not present</a> in <a href=
-          "#mediatracksettings-dictionary">MediaTrackSettings</a> dictionary,
-            <p>
-              position of pixel in color frame image (x, y) is calculated as:
-            </p>
-            <p>
-              `px_c = (Xc) / (Zc)`
-            </p>
-            <p>
-              `py_c = (Yc) / (Zc)`
-            </p>
-            <p>
-              `x = px_c * fx_c + cx_c`
-            </p>
-            <p>
-              `y = py_c * fy_c + cy_c`
-            </p>
-          </li>
-        </ul>
-        <p class="note">
-          See color_project function in <a>3D point cloud rendering</a>
-          example.
-        </p>
-      </section>
-    </section>
-    <section class="informative">
-      <h2>
-        Examples
-      </h2>
-      <h3>
-        Playback of depth and color streams from same device group.
-      </h3>
-      <pre class="example">
+        <h3>
+          Playback of depth and color streams from same device group.
+        </h3>
+        <pre class="example">
 navigator.mediaDevices.getUserMedia({
   video: {videoKind: {exact: "color"}, groupId: {exact: id}}
 }).then(function (stream) {
@@ -1300,14 +626,14 @@ navigator.mediaDevices.getUserMedia({
   }
 );
 </pre>
-      <h3>
-        WebGL: <dfn>upload to float texture</dfn>
-      </h3>
-      <p>
-        This code sets up a video element from a depth stream, uploads it to a
-        WebGL 2.0 float texture.
-      </p>
-      <pre class="example">
+        <h3>
+          WebGL: <dfn>upload to float texture</dfn>
+        </h3>
+        <p>
+          This code sets up a video element from a depth stream, uploads it to
+          a WebGL 2.0 float texture.
+        </p>
+        <pre class="example">
 navigator.mediaDevices.getUserMedia({
   video: {videoKind: {exact: "depth"}}
 }).then(function (stream) {
@@ -1335,19 +661,19 @@ gl.texImage2D(
    depthVideo);
 
 </pre>
-      <h3>
-        WebGL: <dfn>readPixels from float</dfn> texture
-      </h3>
-      <p>
-        This example extends <a>upload to float texture</a> example.
-      </p>
-      <p>
-        This code creates the texture to which we will upload the depth video
-        frame. Then, it sets up a named framebuffer, attach the texture as
-        color attachment and, after uploading the depth video to the texture,
-        reads the texture content to Float32Array.
-      </p>
-      <pre class="example">
+        <h3>
+          WebGL: <dfn>readPixels from float</dfn> texture
+        </h3>
+        <p>
+          This example extends <a>upload to float texture</a> example.
+        </p>
+        <p>
+          This code creates the texture to which we will upload the depth video
+          frame. Then, it sets up a named framebuffer, attach the texture as
+          color attachment and, after uploading the depth video to the texture,
+          reads the texture content to Float32Array.
+        </p>
+        <pre class="example">
 // Initialize texture and framebuffer for reading back the texture.
 let depthTexture = gl.createTexture();
 gl.bindTexture(gl.TEXTURE_2D, depthTexture);
@@ -1392,125 +718,38 @@ gl.readPixels(
   buffer);
 
 </pre>
-      <div class="note">
+        <div class="note">
+          <p>
+            Use
+            <code>gl.getParameter(gl.IMPLEMENTATION_COLOR_READ_FORMAT);</code>
+            to check whether readPixels to gl.RED or gl.RGBA float is
+            supported.
+          </p>
+        </div>
+      </section>
+      <section class="informative">
+        <h2>
+          Privacy and security considerations
+        </h2>
         <p>
-          Use
-          <code>gl.getParameter(gl.IMPLEMENTATION_COLOR_READ_FORMAT);</code> to
-          check whether readPixels to gl.RED or gl.RGBA float is supported.
+          The <a href=
+          "https://w3c.github.io/mediacapture-main/#privacy-and-security-considerations">
+          privacy and security considerations</a> discussed in
+          [[!GETUSERMEDIA]] apply to this extension specification.
         </p>
-      </div>
-      <h3>
-        WebGL Vertex Shader that implements mapping color and depth
-      </h3>
-      <p>
-        This vertex shader is used for <dfn>3D point cloud rendering</dfn>. The
-        code here shows how the web developer can implement <a>algorithm to map
-        depth pixels to color pixels</a>. Draw call used is
-        glDrawArrays(GL_POINTS, 0, depthMap.width * depthMap.height). Shader
-        output is 3D position of vertices (gl_Position) and color texture
-        sampling coordinates per vertex.
-      </p>
-      <pre class="example">
-&lt;script id="fragment-shader" type="x-shader/x-fragment"&gt;#version 300 es
-#define DISTORTION_NONE 0
-#define USE_DEPTH_DEPROJECTION_DISTORTION_COEFFICIENTS 1
-#define USE_COLOR_PROJECTION_DISTORTION_COEFFICIENTS 2
-uniform mat4 u_mvp;
-uniform vec2 u_color_size;
-uniform vec2 u_depth_size;
-uniform highp usampler2D s_depth_texture;
-uniform float u_depth_scale_in_meter;
-uniform mat4 u_depth_to_color;
-uniform vec2 u_color_offset;
-uniform vec2 u_color_focal_length;
-uniform float u_color_coeffs[5];
-uniform int u_color_projection_distortion;
-uniform vec2 u_depth_offset;
-uniform vec2 u_depth_focal_length;
-uniform float u_depth_coeffs[5];
-uniform int u_depth_deprojection_distortion;
-out vec2 v_tex;
-
-vec3 depth_deproject(vec2 pixel, float depth)
-{
-  vec2 point = (pixel - u_depth_offset) / u_depth_focal_length;
-  if(u_depth_deprojection_distortion == USE_DEPTH_DEPROJECTION_DISTORTION_COEFFICIENTS)
-  {
-    float r2 = dot(point, point);
-    float f = 1.0 + u_depth_coeffs[0] * r2 + u_depth_coeffs[1] * r2 * r2 + u_depth_coeffs[4] * r2 * r2 * r2;
-    float ux = point.x * f + 2.0 * u_depth_coeffs[2] * point.x * point.y +
-               u_depth_coeffs[3] * (r2 + 2.0 * point.x * point.x);
-    float uy = point.y * f + 2.0 * u_depth_coeffs[3] * point.x * point.y +
-               u_depth_coeffs[2] * (r2 + 2.0 * point.y * point.y);
-    point = vec2(ux, uy);
-  }
-  return vec3(point * depth, depth);
-}
-
-vec2 color_project(vec3 point)
-{
-  vec2 pixel = point.xy / point.z;
-  if(u_color_projection_distortion == USE_COLOR_PROJECTION_DISTORTION_COEFFICIENTS)
-  {
-    float r2 = dot(pixel, pixel);
-    float f = 1.0 + u_color_coeffs[0] * r2 + u_color_coeffs[1] * r2 * r2 +
-              u_color_coeffs[4] * r2 * r2 * r2;
-    pixel = pixel * f;
-    float dx = pixel.x + 2.0 * u_color_coeffs[2] * pixel.x * pixel.y +
-               u_color_coeffs[3] * (r2 + 2.0 * pixel.x * pixel.x);
-    float dy = pixel.y + 2.0 * u_color_coeffs[3] * pixel.x * pixel.y +
-               u_color_coeffs[2] * (r2 + 2.0 * pixel.y * pixel.y);
-    pixel = vec2(dx, dy);
-  }
-  return pixel * u_color_focal_length + u_color_offset;
-}
-
-void main()
-{
-  vec2 depth_pixel;
-  // generate lattice pos; (0, 0) (1, 0) (2, 0) ... (w-1, h-1)
-  depth_pixel.x = mod(float(gl_VertexID) + 0.5, u_depth_size.x);
-  depth_pixel.y = clamp(floor(float(gl_VertexID) / u_depth_size.x) + 0.5, 0.0, u_depth_size.y);
-
-  // get depth
-  vec2 depth_tex_pos = depth_pixel / u_depth_size;
-  uint depth = texture(s_depth_texture, depth_tex_pos).r;
-  float depth_in_meter = float(depth) * u_depth_scale_in_meter;
-
-  vec3 depth_point = depth_deproject(depth_pixel, depth_in_meter);
-  vec4 color_point = u_depth_to_color * vec4(depth_point, 1.0);
-  vec2 color_pixel = color_project(color_point.xyz);
-
-  // map [0, w) to [0, 1]
-  v_tex = color_pixel / u_color_size;
-
-  gl_Position = u_mvp * vec4(depth_point, 1.0);
-}
-&lt;/script&gt;
-</pre>
+      </section>
+      <section class="appendix">
+        <h2>
+          Acknowledgements
+        </h2>
+        <p>
+          Thanks to everyone who contributed to the <a href=
+          "https://www.w3.org/wiki/Media_Capture_Depth_Stream_Extension">Use
+          Cases and Requirements</a>, sent feedback and comments. Special
+          thanks to Ningxin Hu for experimental implementations, as well as to
+          the Project Tango for their experiments.
+        </p>
+      </section><!--section id="idl-index" class="appendix"></section-->
     </section>
-    <section class="informative">
-      <h2>
-        Privacy and security considerations
-      </h2>
-      <p>
-        The <a href=
-        "https://w3c.github.io/mediacapture-main/#privacy-and-security-considerations">
-        privacy and security considerations</a> discussed in [[!GETUSERMEDIA]]
-        apply to this extension specification.
-      </p>
-    </section>
-    <section class="appendix">
-      <h2>
-        Acknowledgements
-      </h2>
-      <p>
-        Thanks to everyone who contributed to the <a href=
-        "https://www.w3.org/wiki/Media_Capture_Depth_Stream_Extension">Use
-        Cases and Requirements</a>, sent feedback and comments. Special thanks
-        to Ningxin Hu for experimental implementations, as well as to the
-        Project Tango for their experiments.
-      </p>
-    </section><!--section id="idl-index" class="appendix"></section-->
   </body>
 </html>
