@@ -99,16 +99,6 @@
             ],
             "date": "3 November 2016",
             publisher: "Khronos"
-          },
-          "WEBGL-GET-BUFFER-SUB-DATA-ASYNC": {
-            title:     "WebGL WEBGL_get_buffer_sub_data_async Extension Draft Specification",
-            href:      "https://www.khronos.org/registry/webgl/extensions/WEBGL_get_buffer_sub_data_async/",
-            authors:   [
-              "Kai Ninomiya, Google Inc.",
-              "Members of WebGL working group"
-            ],
-            "date": "13 December 2016",
-            publisher: "Khronos"
           }
         }
     };
@@ -543,13 +533,10 @@
               code and it is available with WebGL 1.0. See the <a>readPixels
               from float</a> example for further details.
               </li>
-              <li>Asynchronous readPixels using pixel buffer objects to avoid
-              blocking the readPixels call.
-              </li>
-              <li>Transform feedback [[WEBGL2]] with GetBufferSubData(Async)
-              [[WEBGL-GET-BUFFER-SUB-DATA-ASYNC]] provides synchronous and
-              asynchronous read access to depth and color texture data
-              processed in the vertex shader.
+              <li>Using GetBufferSubData after WebGLSync's status signals that
+              readPixels (read to pixel buffer objects) or transform feedback
+              [[WEBGL2]] is complete, enables asynchronous, non-blocking read
+              of depth data from GPU.
               </li>
             </ul>
           </section>
