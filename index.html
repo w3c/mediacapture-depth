@@ -1,20 +1,159 @@
-<!DOCTYPE html><html lang="en" dir="ltr"><head><meta charset="utf-8"><meta name="generator" content="ReSpec 25.14.0"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><style>span.example-title{text-transform:none}aside.example,div.example,div.illegal-example{padding:.5em;margin:1em 0;position:relative;clear:both}div.illegal-example{color:red}div.illegal-example p{color:#000}aside.example,div.example{padding:.5em;border-left-width:.5em;border-left-style:solid;border-color:#e0cb52;background:#fcfaee}aside.example div.example{border-left-width:.1em;border-color:#999;background:#fff}aside.example div.example span.example-title{color:#999}</style><style>.issue-label{text-transform:initial}.warning>p:first-child{margin-top:0}.warning{padding:.5em;border-left-width:.5em;border-left-style:solid}span.warning{padding:.1em .5em .15em}.issue.closed span.issue-number{text-decoration:line-through}.warning{border-color:#f11;border-width:.2em;border-style:solid;background:#fbe9e9}.warning-title:before{content:"⚠";font-size:1.3em;float:left;padding-right:.3em;margin-top:-.3em}li.task-list-item{list-style:none}input.task-list-item-checkbox{margin:0 .35em .25em -1.6em;vertical-align:middle}.issue a.respec-gh-label{padding:5px;margin:0 2px 0 2px;font-size:10px;text-transform:none;text-decoration:none;font-weight:700;border-radius:4px;position:relative;bottom:2px;border:none;display:inline-block}</style><style>pre.idl{padding:1em;position:relative}@media print{pre.idl{white-space:pre-wrap}}.idlHeader{display:block;width:150px;background:#8ccbf2;color:#fff;font-family:sans-serif;font-weight:700;margin:-1em 0 1em -1em;height:28px;line-height:28px}.idlHeader a.self-link{margin-left:.3cm;text-decoration:none;border-bottom:none}.idlID{font-weight:700;color:#005a9c}.idlType{color:#005a9c}.idlName{color:#ff4500}.idlName a{color:#ff4500;border-bottom:1px dotted #ff4500;text-decoration:none}a.idlEnumItem{color:#000;border-bottom:1px dotted #ccc;text-decoration:none}.idlSuperclass{font-style:italic;color:#005a9c}.idlDefaultValue,.idlParamName{font-style:italic}.extAttr{color:#666}.idlSectionComment{color:gray}.idlIncludes a{font-weight:700}.respec-button-copy-paste:focus{text-decoration:none;border-color:#51a7e8;outline:0;box-shadow:0 0 5px rgba(81,167,232,.5)}.respec-button-copy-paste.selected:focus,.respec-button-copy-paste:focus:hover{border-color:#51a7e8}.respec-button-copy-paste.zeroclipboard-is-active,.respec-button-copy-paste.zeroclipboard-is-hover,.respec-button-copy-paste:active,.respec-button-copy-paste:hover{text-decoration:none;background-color:#ddd;background-image:linear-gradient(#eee,#ddd);border-color:#ccc}.respec-button-copy-paste.selected,.respec-button-copy-paste.zeroclipboard-is-active,.respec-button-copy-paste:active{background-color:#dcdcdc;background-image:none;border-color:#b5b5b5;box-shadow:inset 0 2px 4px rgba(0,0,0,.15)}.respec-button-copy-paste.selected:hover{background-color:#cfcfcf}.respec-button-copy-paste.disabled,.respec-button-copy-paste.disabled:hover,.respec-button-copy-paste:disabled,.respec-button-copy-paste:disabled:hover{color:rgba(102,102,102,.5);cursor:default;background-color:rgba(229,229,229,.5);background-image:none;border-color:rgba(197,197,197,.5);box-shadow:none}@media print{.respec-button-copy-paste{visibility:hidden}}</style><style>dfn{cursor:pointer}.dfn-panel{position:absolute;z-index:35;min-width:300px;max-width:500px;padding:.5em .75em;margin-top:.6em;font:small Helvetica Neue,sans-serif,Droid Sans Fallback;background:#fff;color:#000;box-shadow:0 1em 3em -.4em rgba(0,0,0,.3),0 0 1px 1px rgba(0,0,0,.05);border-radius:2px}.dfn-panel:not(.docked)>.caret{position:absolute;top:-9px}.dfn-panel:not(.docked)>.caret::after,.dfn-panel:not(.docked)>.caret::before{content:"";position:absolute;border:10px solid transparent;border-top:0;border-bottom:10px solid #fff;top:0}.dfn-panel:not(.docked)>.caret::before{border-bottom:9px solid #a2a9b1}.dfn-panel *{margin:0}.dfn-panel b{display:block;color:#000;margin-top:.25em}.dfn-panel ul a[href]{color:#333}.dfn-panel a.self-link{font-weight:700}.dfn-panel .dfn-exported{float:right;padding:.1em;border-radius:.2em;text-align:center;white-space:nowrap;font-size:90%;background:#d1edfd;color:#040b1c;box-shadow:0 0 0 .125em #1ca5f940}.dfn-panel a:not(:hover){text-decoration:none!important;border-bottom:none!important}.dfn-panel a[href]:hover{border-bottom-width:1px}.dfn-panel ul{padding:0}.dfn-panel li{margin-left:1em}.dfn-panel.docked{position:fixed;left:.5em;top:unset;bottom:2em;margin:0 auto;max-width:calc(100vw - .75em * 2 - .5em - .2em * 2);max-height:30vh;overflow:auto}</style>
-    <title>Media Capture Depth Stream Extensions</title>
+<!DOCTYPE html><html dir="ltr" lang="en"><head>
+<meta charset="utf-8">
+<meta name="generator" content="ReSpec 29.0.1">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<style>
+span.example-title{text-transform:none}
+:is(aside,div).example,div.illegal-example{padding:.5em;margin:1em 0;position:relative;clear:both}
+div.illegal-example{color:red}
+div.illegal-example p{color:#000}
+:is(aside,div).example{border-left-width:.5em;border-left-style:solid;border-color:#e0cb52;background:#fcfaee}
+aside.example div.example{border-left-width:.1em;border-color:#999;background:#fff}
+.example pre{background-color:rgba(0,0,0,.03)}
+</style>
+<style>
+.issue-label{text-transform:initial}
+.warning>p:first-child{margin-top:0}
+.warning{padding:.5em;border-left-width:.5em;border-left-style:solid}
+span.warning{padding:.1em .5em .15em}
+.issue.closed span.issue-number{text-decoration:line-through}
+.warning{border-color:#f11;border-width:.2em;border-style:solid;background:#fbe9e9}
+.warning-title:before{content:"⚠";font-size:1.3em;float:left;padding-right:.3em;margin-top:-.3em}
+li.task-list-item{list-style:none}
+input.task-list-item-checkbox{margin:0 .35em .25em -1.6em;vertical-align:middle}
+.issue a.respec-gh-label{padding:5px;margin:0 2px 0 2px;font-size:10px;text-transform:none;text-decoration:none;font-weight:700;border-radius:4px;position:relative;bottom:2px;border:none;display:inline-block}
+</style>
+<style>
+pre.idl{padding:1em;position:relative}
+pre.idl>code{color:#000}
+@media print{
+pre.idl{white-space:pre-wrap}
+}
+.idlHeader{display:block;width:150px;background:#8ccbf2;color:#fff;font-family:sans-serif;font-weight:700;margin:-1em 0 1em -1em;height:28px;line-height:28px}
+.idlHeader a.self-link{margin-left:.3cm;text-decoration:none;border-bottom:none}
+.idlID{font-weight:700;color:#005a9c}
+.idlType{color:#005a9c}
+.idlName{color:#ff4500}
+.idlName a{color:#ff4500;border-bottom:1px dotted #ff4500;text-decoration:none}
+a.idlEnumItem{color:#000;border-bottom:1px dotted #ccc;text-decoration:none}
+.idlSuperclass{font-style:italic;color:#005a9c}
+.idlDefaultValue,.idlParamName{font-style:italic}
+.extAttr{color:#666}
+.idlSectionComment{color:gray}
+.idlIncludes a{font-weight:700}
+.respec-button-copy-paste:focus{text-decoration:none;border-color:#51a7e8;outline:0;box-shadow:0 0 5px rgba(81,167,232,.5)}
+.respec-button-copy-paste:is(:focus:hover,.selected:focus){border-color:#51a7e8}
+.respec-button-copy-paste:is(:hover,:active,.zeroclipboard-is-hover,.zeroclipboard-is-active){text-decoration:none;background-color:#ddd;background-image:linear-gradient(#eee,#ddd);border-color:#ccc}
+.respec-button-copy-paste:is(:active,.selected,.zeroclipboard-is-active){background-color:#dcdcdc;background-image:none;border-color:#b5b5b5;box-shadow:inset 0 2px 4px rgba(0,0,0,.15)}
+.respec-button-copy-paste.selected:hover{background-color:#cfcfcf}
+.respec-button-copy-paste:is(:disabled,:disabled:hover,.disabled,.disabled:hover){color:rgba(102,102,102,.5);cursor:default;background-color:rgba(229,229,229,.5);background-image:none;border-color:rgba(197,197,197,.5);box-shadow:none}
+@media print{
+.respec-button-copy-paste{visibility:hidden}
+}
+</style>
+<style>
+dfn{cursor:pointer}
+.dfn-panel{position:absolute;z-index:35;min-width:300px;max-width:500px;padding:.5em .75em;margin-top:.6em;font:small Helvetica Neue,sans-serif,Droid Sans Fallback;background:#fff;color:#000;box-shadow:0 1em 3em -.4em rgba(0,0,0,.3),0 0 1px 1px rgba(0,0,0,.05);border-radius:2px}
+.dfn-panel:not(.docked)>.caret{position:absolute;top:-9px}
+.dfn-panel:not(.docked)>.caret::after,.dfn-panel:not(.docked)>.caret::before{content:"";position:absolute;border:10px solid transparent;border-top:0;border-bottom:10px solid #fff;top:0}
+.dfn-panel:not(.docked)>.caret::before{border-bottom:9px solid #a2a9b1}
+.dfn-panel *{margin:0}
+.dfn-panel b{display:block;color:#000;margin-top:.25em}
+.dfn-panel ul a[href]{color:#333}
+.dfn-panel>div{display:flex}
+.dfn-panel a.self-link{font-weight:700;margin-right:auto}
+.dfn-panel .marker{padding:.1em;margin-left:.5em;border-radius:.2em;text-align:center;white-space:nowrap;font-size:90%;color:#040b1c}
+.dfn-panel .marker.dfn-exported{background:#d1edfd;box-shadow:0 0 0 .125em #1ca5f940}
+.dfn-panel .marker.idl-block{background:#8ccbf2;box-shadow:0 0 0 .125em #0670b161}
+.dfn-panel a:not(:hover){text-decoration:none!important;border-bottom:none!important}
+.dfn-panel a[href]:hover{border-bottom-width:1px}
+.dfn-panel ul{padding:0}
+.dfn-panel li{margin-left:1em}
+.dfn-panel.docked{position:fixed;left:.5em;top:unset;bottom:2em;margin:0 auto;max-width:calc(100vw - .75em * 2 - .5em - .2em * 2);max-height:30vh;overflow:auto}
+</style>
     
-    <style id="respec-mainstyle">@keyframes pop{0%{transform:scale(1,1)}25%{transform:scale(1.25,1.25);opacity:.75}100%{transform:scale(1,1)}}.hljs{background:0 0!important}a abbr,h1 abbr,h2 abbr,h3 abbr,h4 abbr,h5 abbr,h6 abbr{border:none}dfn{font-weight:700}a.internalDFN{color:inherit;border-bottom:1px solid #99c;text-decoration:none}a.externalDFN{color:inherit;border-bottom:1px dotted #ccc;text-decoration:none}a.bibref{text-decoration:none}.respec-offending-element:target{animation:pop .25s ease-in-out 0s 1}.respec-offending-element,a[href].respec-offending-element{text-decoration:red wavy underline}@supports not (text-decoration:red wavy underline){.respec-offending-element:not(pre){display:inline-block}.respec-offending-element{background:url(data:image/gif;base64,R0lGODdhBAADAPEAANv///8AAP///wAAACwAAAAABAADAEACBZQjmIAFADs=) bottom repeat-x}}#references :target{background:#eaf3ff;animation:pop .4s ease-in-out 0s 1}cite .bibref{font-style:normal}code{color:#c63501}th code{color:inherit}a[href].orcid{padding-left:4px;padding-right:4px}a[href].orcid>svg{margin-bottom:-2px}.toc a,.tof a{text-decoration:none}a .figno,a .secno{color:#000}ol.tof,ul.tof{list-style:none outside none}.caption{margin-top:.5em;font-style:italic}table.simple{border-spacing:0;border-collapse:collapse;border-bottom:3px solid #005a9c}.simple th{background:#005a9c;color:#fff;padding:3px 5px;text-align:left}.simple th a{color:#fff;padding:3px 5px;text-align:left}.simple th[scope=row]{background:inherit;color:inherit;border-top:1px solid #ddd}.simple td{padding:3px 10px;border-top:1px solid #ddd}.simple tr:nth-child(even){background:#f0f6ff}.section dd>p:first-child{margin-top:0}.section dd>p:last-child{margin-bottom:0}.section dd{margin-bottom:1em}.section dl.attrs dd,.section dl.eldef dd{margin-bottom:0}#issue-summary>ul,.respec-dfn-list{column-count:2}#issue-summary li,.respec-dfn-list li{list-style:none}details.respec-tests-details{margin-left:1em;display:inline-block;vertical-align:top}details.respec-tests-details>*{padding-right:2em}details.respec-tests-details[open]{z-index:999999;position:absolute;border:thin solid #cad3e2;border-radius:.3em;background-color:#fff;padding-bottom:.5em}details.respec-tests-details[open]>summary{border-bottom:thin solid #cad3e2;padding-left:1em;margin-bottom:1em;line-height:2em}details.respec-tests-details>ul{width:100%;margin-top:-.3em}details.respec-tests-details>li{padding-left:1em}a[href].self-link:hover{opacity:1;text-decoration:none;background-color:transparent}h2,h3,h4,h5,h6{position:relative}aside.example .marker>a.self-link{color:inherit}h2>a.self-link,h3>a.self-link,h4>a.self-link,h5>a.self-link,h6>a.self-link{border:none;color:inherit;font-size:83%;height:2em;left:-1.6em;opacity:.5;position:absolute;text-align:center;text-decoration:none;top:0;transition:opacity .2s;width:2em}h2>a.self-link::before,h3>a.self-link::before,h4>a.self-link::before,h5>a.self-link::before,h6>a.self-link::before{content:"§";display:block}@media (max-width:767px){dd{margin-left:0}h2>a.self-link,h3>a.self-link,h4>a.self-link,h5>a.self-link,h6>a.self-link{left:auto;top:auto}}@media print{.removeOnSave{display:none}}</style>
+<title>Media Capture Depth Stream Extensions</title>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=AM_CHTML" id="">
+    
+<style id="respec-mainstyle">
+@keyframes pop{
+0%{transform:scale(1,1)}
+25%{transform:scale(1.25,1.25);opacity:.75}
+100%{transform:scale(1,1)}
+}
+:is(h1,h2,h3,h4,h5,h6,a) abbr{border:none}
+dfn{font-weight:700}
+a.internalDFN{color:inherit;border-bottom:1px solid #99c;text-decoration:none}
+a.externalDFN{color:inherit;border-bottom:1px dotted #ccc;text-decoration:none}
+a.bibref{text-decoration:none}
+.respec-offending-element:target{animation:pop .25s ease-in-out 0s 1}
+.respec-offending-element,a[href].respec-offending-element{text-decoration:red wavy underline}
+@supports not (text-decoration:red wavy underline){
+.respec-offending-element:not(pre){display:inline-block}
+.respec-offending-element{background:url(data:image/gif;base64,R0lGODdhBAADAPEAANv///8AAP///wAAACwAAAAABAADAEACBZQjmIAFADs=) bottom repeat-x}
+}
+#references :target{background:#eaf3ff;animation:pop .4s ease-in-out 0s 1}
+cite .bibref{font-style:normal}
+code{color:#c63501}
+th code{color:inherit}
+a[href].orcid{padding-left:4px;padding-right:4px}
+a[href].orcid>svg{margin-bottom:-2px}
+.toc a,.tof a{text-decoration:none}
+a .figno,a .secno{color:#000}
+ol.tof,ul.tof{list-style:none outside none}
+.caption{margin-top:.5em;font-style:italic}
+table.simple{border-spacing:0;border-collapse:collapse;border-bottom:3px solid #005a9c}
+.simple th{background:#005a9c;color:#fff;padding:3px 5px;text-align:left}
+.simple th a{color:#fff;padding:3px 5px;text-align:left}
+.simple th[scope=row]{background:inherit;color:inherit;border-top:1px solid #ddd}
+.simple td{padding:3px 10px;border-top:1px solid #ddd}
+.simple tr:nth-child(even){background:#f0f6ff}
+.section dd>p:first-child{margin-top:0}
+.section dd>p:last-child{margin-bottom:0}
+.section dd{margin-bottom:1em}
+.section dl.attrs dd,.section dl.eldef dd{margin-bottom:0}
+#issue-summary>ul{column-count:2}
+#issue-summary li{list-style:none;display:inline-block}
+details.respec-tests-details{margin-left:1em;display:inline-block;vertical-align:top}
+details.respec-tests-details>*{padding-right:2em}
+details.respec-tests-details[open]{z-index:999999;position:absolute;border:thin solid #cad3e2;border-radius:.3em;background-color:#fff;padding-bottom:.5em}
+details.respec-tests-details[open]>summary{border-bottom:thin solid #cad3e2;padding-left:1em;margin-bottom:1em;line-height:2em}
+details.respec-tests-details>ul{width:100%;margin-top:-.3em}
+details.respec-tests-details>li{padding-left:1em}
+a[href].self-link:hover{opacity:1;text-decoration:none;background-color:transparent}
+aside.example .marker>a.self-link{color:inherit}
+:is(h2,h3,h4,h5,h6)+a.self-link{border:none;color:inherit;position:relative;top:-2.75em;left:-1.4em;margin-bottom:-2em;display:block;font-size:100%}
+:is(h2,h3,h4,h5,h6)+a.self-link::before{content:"§";opacity:.5;text-decoration:none;line-height:1.2em;vertical-align:middle}
+@media (max-width:767px){
+dd{margin-left:0}
+:is(h2,h3,h4,h5,h6)+a.self-link{left:101%}
+}
+@media print{
+.removeOnSave{display:none}
+}
+</style>
+    
+    
+<script src="https://www.w3.org/scripts/MathJax/2.7.5/MathJax.js?config=AM_CHTML">
 </script>
-    <style>
+    
+<style>
+
 /* workaround to hide redundant dfns */
     p.related { visibility: hidden; height: 0px; }
-    </style>
-  <style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+    
+</style>
+  
+<style type="text/css">
+.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
 .MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
 .MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
 .MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
 .MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
-</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+
+</style>
+<style type="text/css">
+#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
 #MathJax_About.MathJax_MousePost {outline: none}
 .MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 5px 0px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -khtml-border-radius: 5px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
 .MathJax_MenuItem {padding: 1px 2em; background: transparent}
@@ -39,18 +178,33 @@
 .MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
 .MathJax_MenuClose:hover span {background-color: #CCC!important}
 .MathJax_MenuClose:hover:focus {outline: none}
-</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
-</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+
+</style>
+<style type="text/css">
+.MathJax_Preview .MJXf-math {color: inherit!important}
+
+</style>
+<style type="text/css">
+.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
 .MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
-</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+
+</style>
+<style type="text/css">
+#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
 #MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
 #MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
 #MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
-</style><style type="text/css">.MathJax_Preview {color: #888}
+
+</style>
+<style type="text/css">
+.MathJax_Preview {color: #888}
 #MathJax_Message {position: fixed; left: 1px; bottom: 2px; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
 #MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
 .MathJax_Error {color: #CC0000; font-style: italic}
-</style><style type="text/css">.MJXp-script {font-size: .8em}
+
+</style>
+<style type="text/css">
+.MJXp-script {font-size: .8em}
 .MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
 .MJXp-bold {font-weight: bold}
 .MJXp-italic {font-style: italic}
@@ -103,15 +257,39 @@
 .MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
 .MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
 .MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
-</style><meta name="description" content="This specification extends
+
+</style>
+<meta name="description" content="This specification extends
         the Media Capture and Streams specification [GETUSERMEDIA]
         to allow a depth-only stream or combined depth+color
         stream to be requested from the web platform using APIs familiar to
-        web authors."><link rel="canonical" href="https://www.w3.org/TR/mediacapture-depth/"><style>.hljs{display:block;overflow-x:auto;padding:.5em;color:#383a42;background:#fafafa}.hljs-comment,.hljs-quote{color:#717277;font-style:italic}.hljs-doctag,.hljs-formula,.hljs-keyword{color:#a626a4}.hljs-deletion,.hljs-name,.hljs-section,.hljs-selector-tag,.hljs-subst{color:#ca4706;font-weight:700}.hljs-literal{color:#0b76c5}.hljs-addition,.hljs-attribute,.hljs-meta-string,.hljs-regexp,.hljs-string{color:#42803c}.hljs-built_in,.hljs-class .hljs-title{color:#9a6a01}.hljs-attr,.hljs-number,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-pseudo,.hljs-template-variable,.hljs-type,.hljs-variable{color:#986801}.hljs-bullet,.hljs-link,.hljs-meta,.hljs-selector-id,.hljs-symbol,.hljs-title{color:#336ae3}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}.hljs-link{text-decoration:underline}</style><style>var{position:relative;cursor:pointer}var[data-type]::after,var[data-type]::before{position:absolute;left:50%;top:-6px;opacity:0;transition:opacity .4s;pointer-events:none}var[data-type]::before{content:"";transform:translateX(-50%);border-width:4px 6px 0 6px;border-style:solid;border-color:transparent;border-top-color:#000}var[data-type]::after{content:attr(data-type);transform:translateX(-50%) translateY(-100%);background:#000;text-align:center;font-family:"Dank Mono","Fira Code",monospace;font-style:normal;padding:6px;border-radius:3px;color:#daca88;text-indent:0;font-weight:400}var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}</style><script id="initialUserConfig" type="application/json">{
-  "specStatus": "ED",
+        web authors.">
+<link rel="canonical" href="https://www.w3.org/TR/mediacapture-depth/">
+<style>
+.hljs{display:block;overflow-x:auto;padding:.5em;color:#383a42;background:#fafafa}
+.hljs-comment,.hljs-quote{color:#717277;font-style:italic}
+.hljs-doctag,.hljs-formula,.hljs-keyword{color:#a626a4}
+.hljs-deletion,.hljs-name,.hljs-section,.hljs-selector-tag,.hljs-subst{color:#ca4706;font-weight:700}
+.hljs-literal{color:#0b76c5}
+.hljs-addition,.hljs-attribute,.hljs-meta-string,.hljs-regexp,.hljs-string{color:#42803c}
+.hljs-built_in,.hljs-class .hljs-title{color:#9a6a01}
+.hljs-attr,.hljs-number,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-pseudo,.hljs-template-variable,.hljs-type,.hljs-variable{color:#986801}
+.hljs-bullet,.hljs-link,.hljs-meta,.hljs-selector-id,.hljs-symbol,.hljs-title{color:#336ae3}
+.hljs-emphasis{font-style:italic}
+.hljs-strong{font-weight:700}
+.hljs-link{text-decoration:underline}
+</style>
+<style>
+var{position:relative;cursor:pointer}
+var[data-type]::after,var[data-type]::before{position:absolute;left:50%;top:-6px;opacity:0;transition:opacity .4s;pointer-events:none}
+var[data-type]::before{content:"";transform:translateX(-50%);border-width:4px 6px 0 6px;border-style:solid;border-color:transparent;border-top-color:#000}
+var[data-type]::after{content:attr(data-type);transform:translateX(-50%) translateY(-100%);background:#000;text-align:center;font-family:"Dank Mono","Fira Code",monospace;font-style:normal;padding:6px;border-radius:3px;color:#daca88;text-indent:0;font-weight:400}
+var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
+</style>
+<script id="initialUserConfig" type="application/json">{
+  "publishDate": "2022-02-01",
+  "specStatus": "DISC",
   "shortName": "mediacapture-depth",
-  "previousPublishDate": "2015-12-08",
-  "previousMaturity": "WD",
   "edDraftURI": "https://w3c.github.io/mediacapture-depth/",
   "editors": [
     {
@@ -154,27 +332,6 @@
       "key": "Participate",
       "data": [
         {
-          "value": "GitHub w3c/mediacapture-depth",
-          "href": "https://github.com/w3c/mediacapture-depth/"
-        },
-        {
-          "value": "File a bug",
-          "href": "https://github.com/w3c/mediacapture-depth/issues/"
-        },
-        {
-          "value": "Commit history",
-          "href": "https://github.com/w3c/mediacapture-depth/commits/gh-pages"
-        },
-        {
-          "value": "Pull requests",
-          "href": "https://github.com/w3c/mediacapture-depth/pulls/"
-        }
-      ]
-    },
-    {
-      "key": "Participate",
-      "data": [
-        {
           "value": "public-webrtc@w3.org",
           "href": "https://lists.w3.org/Archives/Public/public-webrtc/"
         }
@@ -213,74 +370,81 @@
       "publisher": "Khronos"
     }
   },
-  "publishISODate": "2020-08-25T00:00:00.000Z",
-  "generatedSubtitle": "Editor's Draft 25 August 2020"
-}</script><link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED"></head>
-  <body class="h-entry" data-cite="WebIDL"><div class="head">
-    <a class="logo" href="https://www.w3.org/"><img alt="W3C" width="72" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C"></a> <h1 id="title" class="title">Media Capture Depth Stream Extensions</h1>
+  "publishISODate": "2022-02-01T00:00:00.000Z",
+  "generatedSubtitle": "Discontinued Draft 01 February 2022"
+}</script>
+<link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/W3C-DISC"></head>
+  <body class="h-entry toc-inline" data-cite="WEBIDL"><div id="MathJax_Message" style="display: none;"></div><div class="head">
+    <a class="logo" href="https://www.w3.org/"><img crossorigin="" alt="W3C" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72" height="48">
+  </a> <h1 id="title" class="title">Media Capture Depth Stream Extensions</h1>
     
-    <h2>
-      W3C Editor's Draft
-      <time class="dt-published" datetime="2020-08-25">25 August 2020</time>
-    </h2>
-    <dl>
-      <dt>This version:</dt><dd>
-              <a class="u-url" href="https://w3c.github.io/mediacapture-depth/">https://w3c.github.io/mediacapture-depth/</a>
-            </dd><dt>Latest published version:</dt><dd>
-              <a href="https://www.w3.org/TR/mediacapture-depth/">https://www.w3.org/TR/mediacapture-depth/</a>
-            </dd>
-      <dt>Latest editor's draft:</dt><dd><a href="https://w3c.github.io/mediacapture-depth/">https://w3c.github.io/mediacapture-depth/</a></dd>
-      
-      
-      
-      
-      
-      <dt>Editors:</dt>
-      <dd class="p-author h-card vcard" data-editor-id="41974"><span class="p-name fn">Anssi Kostiainen</span>
-            (<a class="p-org org h-org h-card" href="https://www.intel.com/">Intel</a>)
-          </dd><dd class="p-author h-card vcard" data-editor-id="68202"><span class="p-name fn">Ningxin Hu</span>
-            (<a class="p-org org h-org h-card" href="https://www.intel.com/">Intel</a>)
-          </dd><dd class="p-author h-card vcard" data-editor-id="80407"><span class="p-name fn">Rijubrata Bhaumik</span>
-            (<a class="p-org org h-org h-card" href="https://www.intel.com/">Intel</a>)
-          </dd><dd class="p-author h-card vcard" data-editor-id="76096"><span class="p-name fn">Rob Manson</span> (Invited Expert) </dd>
-      <dt>
-              Former editor:
-            </dt><dd class="p-author h-card vcard" data-editor-id="95320"><span class="p-name fn">Aleksandar Stojiljkovic</span>
-            (<a class="p-org org h-org h-card" href="https://www.intel.com/">Intel</a>)
-          </dd>
-      
-      <dt>Participate:</dt><dd>
-    <a href="https://github.com/w3c/mediacapture-depth/">GitHub w3c/mediacapture-depth</a>
-  </dd><dd>
-    <a href="https://github.com/w3c/mediacapture-depth/issues/">File a bug</a>
-  </dd><dd>
-    <a href="https://github.com/w3c/mediacapture-depth/commits/gh-pages">Commit history</a>
-  </dd><dd>
-    <a href="https://github.com/w3c/mediacapture-depth/pulls/">Pull requests</a>
-  </dd><dt>Participate:</dt><dd>
+    <p id="w3c-state"><a href="https://www.w3.org/standards/types#DISC">W3C Discontinued Draft</a> <time class="dt-published" datetime="2022-02-01">01 February 2022</time></p>
+    <details open="">
+      <summary>More details about this document</summary>
+      <dl>
+        <dt>This version:</dt><dd>
+                <a class="u-url" href="https://www.w3.org/TR/2022/DISC-mediacapture-depth-20220201/">https://www.w3.org/TR/2022/DISC-mediacapture-depth-20220201/</a>
+              </dd><dt>Latest published version:</dt><dd>
+                <a href="https://www.w3.org/TR/mediacapture-depth/">https://www.w3.org/TR/mediacapture-depth/</a>
+              </dd>
+        <dt>Latest editor's draft:</dt><dd><a href="https://w3c.github.io/mediacapture-depth/">https://w3c.github.io/mediacapture-depth/</a></dd>
+        <dt>History:</dt><dd>
+      <a href="https://www.w3.org/standards/history/mediacapture-depth">https://www.w3.org/standards/history/mediacapture-depth</a>
+    </dd><dd>
+        <a href="https://github.com/w3c/mediacapture-depth/commits/">Commit history</a>
+      </dd>
+        
+        
+        
+        
+        
+        <dt>Editors:</dt>
+        <dd class="editor p-author h-card vcard" data-editor-id="41974">
+    <span class="p-name fn">Anssi Kostiainen</span> (<a class="p-org org h-org" href="https://www.intel.com/">Intel</a>)
+  </dd><dd class="editor p-author h-card vcard" data-editor-id="68202">
+    <span class="p-name fn">Ningxin Hu</span> (<a class="p-org org h-org" href="https://www.intel.com/">Intel</a>)
+  </dd><dd class="editor p-author h-card vcard" data-editor-id="80407">
+    <span class="p-name fn">Rijubrata Bhaumik</span> (<a class="p-org org h-org" href="https://www.intel.com/">Intel</a>)
+  </dd><dd class="editor p-author h-card vcard" data-editor-id="76096">
+    <span class="p-name fn">Rob Manson</span> (<span class="p-org org h-org">Invited Expert</span>)
+  </dd>
+        <dt>
+                Former editor:
+              </dt><dd class="editor p-author h-card vcard" data-editor-id="95320">
+    <span class="p-name fn">Aleksandar Stojiljkovic</span> (<a class="p-org org h-org" href="https://www.intel.com/">Intel</a>)
+  </dd>
+        
+        <dt>Feedback:</dt><dd>
+        <a href="https://github.com/w3c/mediacapture-depth/">GitHub w3c/mediacapture-depth</a>
+        (<a href="https://github.com/w3c/mediacapture-depth/pulls/">pull requests</a>,
+        <a href="https://github.com/w3c/mediacapture-depth/issues/new/choose">new issue</a>,
+        <a href="https://github.com/w3c/mediacapture-depth/issues/">open issues</a>)
+      </dd><dd><a href="mailto:public-webrtc@w3.org?subject=%5Bmediacapture-depth%5D%20YOUR%20TOPIC%20HERE">public-webrtc@w3.org</a> with subject line <kbd>[mediacapture-depth] <em>… message topic …</em></kbd> (<a rel="discussion" href="https://lists.w3.org/Archives/Public/public-webrtc">archives</a>)</dd>
+        
+        <dt>Participate</dt><dd>
     <a href="https://lists.w3.org/Archives/Public/public-webrtc/">public-webrtc@w3.org</a>
-  </dd><dt>Implementation status:</dt><dd>
+  </dd><dt>Implementation status</dt><dd>
     <a href="https://crbug.com/616098">Blink</a>
   </dd>
-    </dl>
-    
+      </dl>
+    </details>
     
     
     <p class="copyright">
     <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a>
     ©
-    2020
+    2022
     
     <a href="https://www.w3.org/"><abbr title="World Wide Web Consortium">W3C</abbr></a><sup>®</sup> (<a href="https://www.csail.mit.edu/"><abbr title="Massachusetts Institute of Technology">MIT</abbr></a>,
     <a href="https://www.ercim.eu/"><abbr title="European Research Consortium for Informatics and Mathematics">ERCIM</abbr></a>, <a href="https://www.keio.ac.jp/">Keio</a>,
-    <a href="https://ev.buaa.edu.cn/">Beihang</a>). 
-    W3C <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>,
-    <a href="https://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and <a rel="license" href="https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document">permissive document license</a> rules
-    apply.
+    <a href="https://ev.buaa.edu.cn/">Beihang</a>). W3C
+    <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>,
+    <a href="https://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and
+    <a rel="license" href="https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document" title="W3C Software and Document Notice and License">permissive document license</a> rules apply.
   </p>
     <hr title="Separator for header">
-  </div><div id="MathJax_Message" style="display: none;"></div>
-    <section id="abstract" class="introductory"><h2>Abstract</h2>
+  </div>
+    <section id="abstract" class="introductory"><h2 id="abstract-0">Abstract</h2><a class="self-link" href="#abstract" aria-label="Permalink for this Section"></a>
       <p>
         This specification <a href="https://w3c.github.io/mediacapture-main/#extensibility">extends</a>
         the <em>Media Capture and Streams</em> specification [<cite><a class="bibref" data-link-type="biblio" href="#bib-getusermedia" title="Media Capture and Streams">GETUSERMEDIA</a></cite>]
@@ -289,46 +453,28 @@
         web authors.
       </p>
     </section>
-    <section id="sotd" class="introductory"><h2>Status of This Document</h2><p><em>This section describes the status of this
-      document at the time of its publication. Other documents may supersede
-      this document. A list of current <abbr title="World Wide Web Consortium">W3C</abbr> publications and the latest revision
-      of this technical report can be found in the
-      <a href="https://www.w3.org/TR/"><abbr title="World Wide Web Consortium">W3C</abbr> technical reports index</a> at
+    <section id="sotd" class="introductory"><h2 id="status-of-this-document">Status of This Document</h2><a class="self-link" href="#sotd" aria-label="Permalink for this Section"></a><p><em>This section describes the status of this
+      document at the time of its publication. A list of current <abbr title="World Wide Web Consortium">W3C</abbr>
+      publications and the latest revision of this technical report can be found
+      in the <a href="https://www.w3.org/TR/"><abbr title="World Wide Web Consortium">W3C</abbr> technical reports index</a> at
       https://www.w3.org/TR/.</em></p>
-      <p>
-        This extensions specification defines a new media type and
-        constrainable property per <a href="https://w3c.github.io/mediacapture-main/#extensibility">Extensibility</a>
-        guidelines of the <em>Media Capture and Streams</em> specification
-        [<cite><a class="bibref" data-link-type="biblio" href="#bib-getusermedia" title="Media Capture and Streams">GETUSERMEDIA</a></cite>]. Horizontal reviews and feedback from early
-        implementations of this specification are encouraged.
-      </p>
     <p>
-    This document was published by the <a href="https://www.w3.org/groups/wg/webrtc">Web Real-Time Communications Working Group</a> as an
-    Editor's Draft.
-    
-  </p><p>
-    <a href="https://github.com/w3c/mediacapture-depth/issues/">GitHub Issues</a> are preferred for
-          discussion of this specification.
-        
-    Alternatively, you can send comments to our mailing list.
-          Please send them to
-          <a href="mailto:public-webrtc@w3.org">public-webrtc@w3.org</a>
-          (<a href="https://lists.w3.org/Archives/Public/public-webrtc/">archives</a>).
-        
-  </p><p>
-    Publication as an Editor's Draft does not imply endorsement by the <abbr title="World Wide Web Consortium">W3C</abbr>
-    Membership. This is a draft document and may be updated, replaced or
-    obsoleted by other documents at any time. It is inappropriate to cite this
-    document as other than work in progress.
-  </p><p>
+    This document was published by the <a href="https://www.w3.org/groups/wg/webrtc">Web Real-Time Communications Working Group</a> as
+    a Discontinued Draft using the
+        <a href="https://www.w3.org/2021/Process-20211102/#recs-and-notes">Recommendation track</a>. 
+  </p><p>Publication as a Discontinued Draft implies that this document is no longer intended to advance or to be maintained. It is inappropriate to cite this document as other than abandoned work.
+    </p>
+    <p>The Working Group has decided to discontinue work on this specification due to lack of implementation momentum.</p>
+      <p>
     
         This document was produced by a group
         operating under the
-        <a href="https://www.w3.org/Consortium/Patent-Policy/"><abbr title="World Wide Web Consortium">W3C</abbr> Patent Policy</a>.
-       
+        <a href="https://www.w3.org/Consortium/Patent-Policy/"><abbr title="World Wide Web Consortium">W3C</abbr> Patent
+          Policy</a>.
+      
     
                 <abbr title="World Wide Web Consortium">W3C</abbr> maintains a
-                <a rel="disclosure" href="https://www.w3.org/2004/01/pp-impl/47318/status">public list of any patent disclosures</a>
+                <a rel="disclosure" href="https://www.w3.org/groups/wg/webrtc/ipr">public list of any patent disclosures</a>
           made in connection with the deliverables of
           the group; that page also includes
           instructions for disclosing a patent. An individual who has actual
@@ -337,11 +483,10 @@
           must disclose the information in accordance with
           <a href="https://www.w3.org/Consortium/Patent-Policy/#sec-Disclosure">section 6 of the <abbr title="World Wide Web Consortium">W3C</abbr> Patent Policy</a>.
         
-    
   </p><p>
                   This document is governed by the
-                  <a id="w3c_process_revision" href="https://www.w3.org/2019/Process-20190301/">1 March 2019 <abbr title="World Wide Web Consortium">W3C</abbr> Process Document</a>.
-                </p></section><nav id="toc"><h2 class="introductory" id="table-of-contents">Table of Contents</h2><ol class="toc"><li class="tocline"><a class="tocxref" href="#introduction"><bdi class="secno">1. </bdi>
+                  <a id="w3c_process_revision" href="https://www.w3.org/2021/Process-20211102/">2 November 2021 <abbr title="World Wide Web Consortium">W3C</abbr> Process Document</a>.
+                </p></section><nav id="toc"><h2 class="introductory" id="table-of-contents">Table of Contents</h2><ol class="toc"><li class="tocline"><a class="tocxref" href="#abstract">Abstract</a></li><li class="tocline"><a class="tocxref" href="#sotd">Status of This Document</a></li><li class="tocline"><a class="tocxref" href="#introduction"><bdi class="secno">1. </bdi>
         Introduction
       </a></li><li class="tocline"><a class="tocxref" href="#use-cases-and-requirements"><bdi class="secno">2. </bdi>
         Use cases and requirements
@@ -371,15 +516,21 @@
               Read the data from a WebGL texture
             </a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#examples"><bdi class="secno">6.5 </bdi>
           Examples
-        </a></li><li class="tocline"><a class="tocxref" href="#privacy-and-security-considerations"><bdi class="secno">6.6 </bdi>
+        </a><ol class="toc"><li class="tocline"><a class="tocxref" href="#playback-of-depth-and-color-streams-from-same-device-group"><bdi class="secno">6.5.1 </bdi>
+          Playback of depth and color streams from same device group.
+        </a></li><li class="tocline"><a class="tocxref" href="#webgl-upload-to-float-texture"><bdi class="secno">6.5.2 </bdi>
+          WebGL: <span>upload to float texture</span>
+        </a></li><li class="tocline"><a class="tocxref" href="#webgl-readpixels-from-float-texture"><bdi class="secno">6.5.3 </bdi>
+          WebGL: <span>readPixels from float</span> texture
+        </a></li></ol></li><li class="tocline"><a class="tocxref" href="#privacy-and-security-considerations"><bdi class="secno">6.6 </bdi>
           Privacy and security considerations
         </a></li><li class="tocline"><a class="tocxref" href="#acknowledgements"><bdi class="secno">6.7 </bdi>
           Acknowledgements
         </a></li></ol></li><li class="tocline"><a class="tocxref" href="#references"><bdi class="secno">A. </bdi>References</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#normative-references"><bdi class="secno">A.1 </bdi>Normative references</a></li><li class="tocline"><a class="tocxref" href="#informative-references"><bdi class="secno">A.2 </bdi>Informative references</a></li></ol></li></ol></nav>
-    <section id="introduction">
-      <h2 id="x1-introduction"><bdi class="secno">1. </bdi>
+    <section id="introduction"><h2 id="x1-introduction"><bdi class="secno">1. </bdi>
         Introduction
-      <a class="self-link" aria-label="§" href="#introduction"></a></h2>
+      </h2><a class="self-link" href="#introduction" aria-label="Permalink for Section 1."></a>
+      
       <p>
         Depth cameras are increasingly being integrated into devices such as
         phones, tablets, and laptops. Depth cameras provide a <a href="#dfn-depth-map" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-depth-map-1">depth map</a>,
@@ -406,10 +557,10 @@
         <a href="#dfn-depth-only-stream" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-depth-only-stream-2">depth-only stream</a> or <a href="#dfn-depth-color-stream" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-depth-color-stream-2">depth+color stream</a>.
       </p>
     </section>
-    <section id="use-cases-and-requirements">
-      <h2 id="x2-use-cases-and-requirements"><bdi class="secno">2. </bdi>
+    <section id="use-cases-and-requirements"><h2 id="x2-use-cases-and-requirements"><bdi class="secno">2. </bdi>
         Use cases and requirements
-      <a class="self-link" aria-label="§" href="#use-cases-and-requirements"></a></h2>
+      </h2><a class="self-link" href="#use-cases-and-requirements" aria-label="Permalink for Section 2."></a>
+      
       <p>
         This specification attempts to address the <a href="https://www.w3.org/wiki/Media_Capture_Depth_Stream_Extension">Use
         Cases and Requirements</a> for accessing depth stream from a depth
@@ -417,91 +568,89 @@
         Examples</a> section for concrete usage examples.
       </p>
     </section>
-    <section id="conformance"><h2 id="x3-conformance"><bdi class="secno">3. </bdi>Conformance<a class="self-link" aria-label="§" href="#conformance"></a></h2><p>
-      As well as sections marked as non-normative, all authoring guidelines, diagrams, examples, and notes in this specification are non-normative. Everything else in this specification is normative.
-    </p><p>
+    <section id="conformance"><h2 id="x3-conformance"><bdi class="secno">3. </bdi>Conformance</h2><a class="self-link" href="#conformance" aria-label="Permalink for Section 3."></a><p>As well as sections marked as non-normative, all authoring guidelines, diagrams, examples, and notes in this specification are non-normative. Everything else in this specification is normative.</p><p>
         The key word <em class="rfc2119">MUST</em> in this document
         is to be interpreted as described in
-        <a href="https://tools.ietf.org/html/bcp14">BCP 14</a>
+        <a href="https://datatracker.ietf.org/doc/html/bcp14">BCP 14</a>
         [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc2119" title="Key words for use in RFCs to Indicate Requirement Levels">RFC2119</a></cite>] [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc8174" title="Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words">RFC8174</a></cite>]
         when, and only when, they appear in all capitals, as shown here.
       </p>
       <p>
         This specification defines conformance criteria that apply to a single
-        product: the <dfn id="dfn-user-agent">user agent</dfn> that implements the interfaces that
+        product: the <dfn id="dfn-user-agent" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">user agent</dfn> that implements the interfaces that
         it contains.
       </p>
       <p>
         Implementations that use ECMAScript to implement the APIs defined in
         this specification must implement them in a manner consistent with the
-        ECMAScript Bindings defined in the Web IDL specification [<cite><a class="bibref" data-link-type="biblio" href="#bib-webidl" title="Web IDL">WEBIDL</a></cite>],
+        ECMAScript Bindings defined in the Web IDL specification [<cite><a class="bibref" data-link-type="biblio" href="#bib-webidl" title="Web IDL Standard">WEBIDL</a></cite>],
         as this specification uses that specification and terminology.
       </p>
     </section>
-    <section id="dependencies">
-      <h2 id="x4-dependencies"><bdi class="secno">4. </bdi>
+    <section id="dependencies"><h2 id="x4-dependencies"><bdi class="secno">4. </bdi>
         Dependencies
-      <a class="self-link" aria-label="§" href="#dependencies"></a></h2>
+      </h2><a class="self-link" href="#dependencies" aria-label="Permalink for Section 4."></a>
+      
       <p>
-        The <dfn id="dfn-mediastreamtrack" data-no-export=""><a href="https://www.w3.org/TR/mediacapture-streams/#idl-def-MediaStreamTrack"><code>MediaStreamTrack</code></a></dfn>
-        and <dfn id="dfn-mediastream" data-no-export=""><a href="https://www.w3.org/TR/mediacapture-streams/#idl-def-MediaStream"><code>MediaStream</code></a></dfn>
+        The <dfn id="dfn-mediastreamtrack" class="externalDFN" data-no-export="" data-dfn-type="dfn"><a href="https://www.w3.org/TR/mediacapture-streams/#idl-def-MediaStreamTrack"><code>MediaStreamTrack</code></a></dfn>
+        and <dfn id="dfn-mediastream" class="externalDFN" data-no-export="" data-dfn-type="dfn"><a href="https://www.w3.org/TR/mediacapture-streams/#idl-def-MediaStream"><code>MediaStream</code></a></dfn>
         interfaces this specification extends are defined in [<cite><a class="bibref" data-link-type="biblio" href="#bib-getusermedia" title="Media Capture and Streams">GETUSERMEDIA</a></cite>].
       </p>
       <p>
-        The concepts <dfn id="dfn-constraints" data-no-export=""><a href="https://www.w3.org/TR/mediacapture-streams/#dfn-constraints"><code>Constraints</code></a></dfn>,
-        <dfn id="dfn-capabilities" data-no-export=""><a href="https://www.w3.org/TR/mediacapture-streams/#dfn-capabilities"><code>Capabilities</code></a></dfn>,
-        <dfn id="dfn-constraintset" data-no-export=""><a href="https://www.w3.org/TR/mediacapture-streams/#idl-def-ConstraintSet"><code>ConstraintSet</code></a></dfn>,
-        and <dfn id="dfn-settings" data-no-export=""><a href="https://www.w3.org/TR/mediacapture-streams/#dfn-settings"><code>Settings</code></a></dfn>, and
-        <dfn id="dfn-types-of-constrainable-properties" data-no-export=""><a href="https://www.w3.org/TR/mediacapture-streams/#types-for-constrainable-properties">types
+        The concepts <dfn id="dfn-constraints" class="externalDFN" data-no-export="" data-dfn-type="dfn"><a href="https://www.w3.org/TR/mediacapture-streams/#dfn-constraints"><code>Constraints</code></a></dfn>,
+        <dfn id="dfn-capabilities" class="externalDFN" data-no-export="" data-dfn-type="dfn"><a href="https://www.w3.org/TR/mediacapture-streams/#dfn-capabilities"><code>Capabilities</code></a></dfn>,
+        <dfn id="dfn-constraintset" class="externalDFN" data-no-export="" data-dfn-type="dfn"><a href="https://www.w3.org/TR/mediacapture-streams/#idl-def-ConstraintSet"><code>ConstraintSet</code></a></dfn>,
+        and <dfn id="dfn-settings" class="externalDFN" data-no-export="" data-dfn-type="dfn"><a href="https://www.w3.org/TR/mediacapture-streams/#dfn-settings"><code>Settings</code></a></dfn>, and
+        <dfn id="dfn-types-of-constrainable-properties" class="externalDFN" data-no-export="" data-dfn-type="dfn"><a href="https://www.w3.org/TR/mediacapture-streams/#types-for-constrainable-properties">types
         of constrainable properties</a></dfn> are defined in [<cite><a class="bibref" data-link-type="biblio" href="#bib-getusermedia" title="Media Capture and Streams">GETUSERMEDIA</a></cite>].
       </p>
       <p>
-        The <dfn id="dfn-constraindomstring" data-no-export=""><a href="https://www.w3.org/TR/mediacapture-streams/#idl-def-ConstrainDOMString"><code>ConstrainDOMString</code></a></dfn>
+        The <dfn id="dfn-constraindomstring" class="externalDFN" data-no-export="" data-dfn-type="dfn"><a href="https://www.w3.org/TR/mediacapture-streams/#idl-def-ConstrainDOMString"><code>ConstrainDOMString</code></a></dfn>
         type is defined in [<cite><a class="bibref" data-link-type="biblio" href="#bib-getusermedia" title="Media Capture and Streams">GETUSERMEDIA</a></cite>].
       </p>
       <p>
-        <dfn id="dom-mediatracksettings" data-idl="dictionary" data-title="MediaTrackSettings" data-dfn-for="" data-no-export=""><a href="https://www.w3.org/TR/mediacapture-streams/#idl-def-MediaTrackSettings"><code>MediaTrackSettings</code></a></dfn>,
-        <dfn id="dfn-mediatrackconstraints" data-no-export=""><a href="https://www.w3.org/TR/mediacapture-streams/#idl-def-MediaTrackConstraints"><code>MediaTrackConstraints</code></a></dfn>,
-        <dfn id="dom-mediatracksupportedconstraints" data-idl="dictionary" data-title="MediaTrackSupportedConstraints" data-dfn-for="" data-no-export=""><a href="https://www.w3.org/TR/mediacapture-streams/#idl-def-MediaTrackSupportedConstraints"><code>MediaTrackSupportedConstraints</code></a></dfn>,
-        <dfn id="dom-mediatrackcapabilities" data-idl="dictionary" data-title="MediaTrackCapabilities" data-dfn-for="" data-no-export=""><a href="https://www.w3.org/TR/mediacapture-streams/#idl-def-MediaTrackCapabilities"><code>MediaTrackCapabilities</code></a></dfn>,
-        and <dfn id="dom-mediatrackconstraintset" data-idl="dictionary" data-title="MediaTrackConstraintSet" data-dfn-for="" data-no-export=""><a href="https://www.w3.org/TR/mediacapture-streams/#idl-def-MediaTrackConstraintSet"><code>MediaTrackConstraintSet</code></a></dfn>
+        <dfn id="dom-mediatracksettings" data-idl="dictionary" data-title="MediaTrackSettings" data-dfn-for="" class="externalDFN" data-no-export="" data-dfn-type="dfn"><a href="https://www.w3.org/TR/mediacapture-streams/#idl-def-MediaTrackSettings"><code>MediaTrackSettings</code></a></dfn>,
+        <dfn id="dfn-mediatrackconstraints" class="externalDFN" data-no-export="" data-dfn-type="dfn"><a href="https://www.w3.org/TR/mediacapture-streams/#idl-def-MediaTrackConstraints"><code>MediaTrackConstraints</code></a></dfn>,
+        <dfn id="dom-mediatracksupportedconstraints" data-idl="dictionary" data-title="MediaTrackSupportedConstraints" data-dfn-for="" class="externalDFN" data-no-export="" data-dfn-type="dfn"><a href="https://www.w3.org/TR/mediacapture-streams/#idl-def-MediaTrackSupportedConstraints"><code>MediaTrackSupportedConstraints</code></a></dfn>,
+        <dfn id="dom-mediatrackcapabilities" data-idl="dictionary" data-title="MediaTrackCapabilities" data-dfn-for="" class="externalDFN" data-no-export="" data-dfn-type="dfn"><a href="https://www.w3.org/TR/mediacapture-streams/#idl-def-MediaTrackCapabilities"><code>MediaTrackCapabilities</code></a></dfn>,
+        and <dfn id="dom-mediatrackconstraintset" data-idl="dictionary" data-title="MediaTrackConstraintSet" data-dfn-for="" class="externalDFN" data-no-export="" data-dfn-type="dfn"><a href="https://www.w3.org/TR/mediacapture-streams/#idl-def-MediaTrackConstraintSet"><code>MediaTrackConstraintSet</code></a></dfn>
         dictionaries this specification extends are defined in
         [<cite><a class="bibref" data-link-type="biblio" href="#bib-getusermedia" title="Media Capture and Streams">GETUSERMEDIA</a></cite>].
       </p>
       <p>
-        The <dfn id="dfn-getusermedia" data-no-export=""><a href="https://www.w3.org/TR/mediacapture-streams/#dom-mediadevices-getusermedia"><code>getUserMedia()</code></a></dfn>
+        The <dfn id="dfn-getusermedia" class="externalDFN" data-no-export="" data-dfn-type="dfn"><a href="https://www.w3.org/TR/mediacapture-streams/#dom-mediadevices-getusermedia"><code>getUserMedia()</code></a></dfn>
         is defined in [<cite><a class="bibref" data-link-type="biblio" href="#bib-getusermedia" title="Media Capture and Streams">GETUSERMEDIA</a></cite>].
       </p>
       <p>
-        The concepts <dfn id="dfn-muted" data-no-export=""><a href="https://www.w3.org/TR/mediacapture-streams/#track-muted">muted</a></dfn> and
-        <dfn id="dfn-disabled" data-no-export=""><a href="https://www.w3.org/TR/mediacapture-streams/#track-enabled">disabled</a></dfn> as applied
+        The concepts <dfn id="dfn-muted" class="externalDFN" data-no-export="" data-dfn-type="dfn"><a href="https://www.w3.org/TR/mediacapture-streams/#track-muted">muted</a></dfn> and
+        <dfn id="dfn-disabled" class="externalDFN" data-no-export="" data-dfn-type="dfn"><a href="https://www.w3.org/TR/mediacapture-streams/#track-enabled">disabled</a></dfn> as applied
         to <a data-link-type="dfn" href="https://www.w3.org/TR/mediacapture-streams/#idl-def-MediaStreamTrack"><code>MediaStreamTrack</code></a> are defined in [<cite><a class="bibref" data-link-type="biblio" href="#bib-getusermedia" title="Media Capture and Streams">GETUSERMEDIA</a></cite>].
       </p>
       <p>
-        The terms <dfn id="dfn-source" data-no-export=""><a href="https://www.w3.org/TR/mediacapture-streams/#dfn-source">source</a></dfn> and
-        <dfn id="dfn-consumer" data-no-export=""><a href="https://www.w3.org/TR/mediacapture-streams/#dfn-consumer">consumer</a></dfn> are defined
+        The terms <dfn id="dfn-source" class="externalDFN" data-no-export="" data-dfn-type="dfn"><a href="https://www.w3.org/TR/mediacapture-streams/#dfn-source">source</a></dfn> and
+        <dfn id="dfn-consumer" class="externalDFN" data-no-export="" data-dfn-type="dfn"><a href="https://www.w3.org/TR/mediacapture-streams/#dfn-consumer">consumer</a></dfn> are defined
         in [<cite><a class="bibref" data-link-type="biblio" href="#bib-getusermedia" title="Media Capture and Streams">GETUSERMEDIA</a></cite>].
       </p>
       <p>
-        The <dfn id="dfn-mediadevicekind" data-no-export=""><a href="https://www.w3.org/TR/mediacapture-streams/#idl-def-MediaDeviceKind"><code>MediaDeviceKind</code></a></dfn>
+        The <dfn id="dfn-mediadevicekind" class="externalDFN" data-no-export="" data-dfn-type="dfn"><a href="https://www.w3.org/TR/mediacapture-streams/#idl-def-MediaDeviceKind"><code>MediaDeviceKind</code></a></dfn>
         enumeration is defined in [<cite><a class="bibref" data-link-type="biblio" href="#bib-getusermedia" title="Media Capture and Streams">GETUSERMEDIA</a></cite>].
       </p>
       <p>
-        The <dfn id="dfn-video" data-no-export=""><a href="https://html.spec.whatwg.org/multipage/#the-video-element"><code>video</code></a></dfn>
-        element and <dfn id="dfn-canvas-pixel-arraybuffer" data-no-export=""><a href="https://html.spec.whatwg.org/multipage/#canvas-pixel-arraybuffer">Canvas
+        The <dfn id="dfn-video" class="externalDFN" data-no-export="" data-dfn-type="dfn"><a href="https://html.spec.whatwg.org/multipage/#the-video-element"><code>video</code></a></dfn>
+        element and <dfn id="dfn-canvas-pixel-arraybuffer" class="externalDFN" data-no-export="" data-dfn-type="dfn"><a href="https://html.spec.whatwg.org/multipage/#canvas-pixel-arraybuffer">Canvas
         Pixel <code>ArrayBuffer</code></a></dfn> interfaces are defined in
         [<cite><a class="bibref" data-link-type="biblio" href="#bib-html" title="HTML Standard">HTML</a></cite>].
       </p>
       <p>
-        The meaning of dictionary member being <dfn id="dfn-present" data-no-export=""><a href="https://heycam.github.io/webidl/#dfn-present">present</a></dfn> or <dfn id="dfn-not-present" data-no-export=""><a href="https://heycam.github.io/webidl/#dfn-present">not present</a></dfn> is defined in [<cite><a class="bibref" data-link-type="biblio" href="#bib-webidl" title="Web IDL">WEBIDL</a></cite>].
+        The meaning of dictionary member being <dfn id="dfn-present" class="externalDFN" data-no-export="" data-dfn-type="dfn"><a href="https://webidl.spec.whatwg.org/#dfn-present">present</a></dfn> or <dfn id="dfn-not-present" class="externalDFN" data-no-export="" data-dfn-type="dfn"><a href="https://webidl.spec.whatwg.org/#dfn-present">not present</a></dfn> is defined in [<cite><a class="bibref" data-link-type="biblio" href="#bib-webidl" title="Web IDL Standard">WEBIDL</a></cite>].
       </p>
     </section>
-    <section id="terminology">
-      <h2 id="x5-terminology"><bdi class="secno">5. </bdi>
+    <section id="terminology"><h2 id="x5-terminology"><bdi class="secno">5. </bdi>
         Terminology
-      <a class="self-link" aria-label="§" href="#terminology"></a></h2>
+      </h2><a class="self-link" href="#terminology" aria-label="Permalink for Section 5."></a>
+      
       <p>
-        The term <dfn id="dfn-depth-color-stream">depth+color stream</dfn> means a <a data-link-type="dfn" href="https://www.w3.org/TR/mediacapture-streams/#idl-def-MediaStream"><code>MediaStream</code></a>
+        The term <dfn id="dfn-depth-color-stream" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">depth+color stream</dfn> means a <a data-link-type="dfn" href="https://www.w3.org/TR/mediacapture-streams/#idl-def-MediaStream"><code>MediaStream</code></a>
         object that contains one or more <a data-link-type="dfn" href="https://www.w3.org/TR/mediacapture-streams/#idl-def-MediaStreamTrack"><code>MediaStreamTrack</code></a> objects whose
         <code>videoKind</code> of <code>Settings</code> is "<code>depth</code>"
         (<a href="#dfn-depth-stream-track" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-depth-stream-track-3">depth stream track</a>) and one or more <a data-link-type="dfn" href="https://www.w3.org/TR/mediacapture-streams/#idl-def-MediaStreamTrack"><code>MediaStreamTrack</code></a>
@@ -509,73 +658,73 @@
         "<code>color</code>" (<a href="#dfn-color-stream-track" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-color-stream-track-1">color stream track</a>).
       </p>
       <p>
-        The term <dfn id="dfn-depth-only-stream">depth-only stream</dfn> means a <a data-link-type="dfn" href="https://www.w3.org/TR/mediacapture-streams/#idl-def-MediaStream"><code>MediaStream</code></a> object
+        The term <dfn id="dfn-depth-only-stream" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">depth-only stream</dfn> means a <a data-link-type="dfn" href="https://www.w3.org/TR/mediacapture-streams/#idl-def-MediaStream"><code>MediaStream</code></a> object
         that contains one or more <a data-link-type="dfn" href="https://www.w3.org/TR/mediacapture-streams/#idl-def-MediaStreamTrack"><code>MediaStreamTrack</code></a> objects whose
         <code>videoKind</code> of <code>Settings</code> is "<code>depth</code>"
         (<a href="#dfn-depth-stream-track" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-depth-stream-track-4">depth stream track</a>) only.
       </p>
       <p>
-        The term <dfn id="dfn-color-only-stream">color-only stream</dfn> means a <a data-link-type="dfn" href="https://www.w3.org/TR/mediacapture-streams/#idl-def-MediaStream"><code>MediaStream</code></a> object
+        The term <dfn id="dfn-color-only-stream" tabindex="0" aria-haspopup="dialog" class="respec-offending-element" title="Found definition for &quot;color-only stream&quot;, but nothing links to it. This is usually a spec bug!" data-dfn-type="dfn">color-only stream</dfn> means a <a data-link-type="dfn" href="https://www.w3.org/TR/mediacapture-streams/#idl-def-MediaStream"><code>MediaStream</code></a> object
         that contains one or more <a data-link-type="dfn" href="https://www.w3.org/TR/mediacapture-streams/#idl-def-MediaStreamTrack"><code>MediaStreamTrack</code></a> objects whose
         <code>videoKind</code> of <code>Settings</code> is "<code>color</code>"
         (<a href="#dfn-color-stream-track" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-color-stream-track-2">color stream track</a>) only, and optionally of kind
         "<code>audio</code>".
       </p>
       <p>
-        The term <dfn id="dfn-depth-stream-track">depth stream track</dfn> means a <a data-link-type="dfn" href="https://www.w3.org/TR/mediacapture-streams/#idl-def-MediaStreamTrack"><code>MediaStreamTrack</code></a>
+        The term <dfn id="dfn-depth-stream-track" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">depth stream track</dfn> means a <a data-link-type="dfn" href="https://www.w3.org/TR/mediacapture-streams/#idl-def-MediaStreamTrack"><code>MediaStreamTrack</code></a>
         object whose <code>videoKind</code> of <code>Settings</code> is
         "<code>depth</code>". It represents a media stream track whose
         <a data-link-type="dfn" href="https://www.w3.org/TR/mediacapture-streams/#dfn-source">source</a> is a depth camera.
       </p>
       <p>
-        The term <dfn id="dfn-color-stream-track">color stream track</dfn> means a <a data-link-type="dfn" href="https://www.w3.org/TR/mediacapture-streams/#idl-def-MediaStreamTrack"><code>MediaStreamTrack</code></a>
+        The term <dfn id="dfn-color-stream-track" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">color stream track</dfn> means a <a data-link-type="dfn" href="https://www.w3.org/TR/mediacapture-streams/#idl-def-MediaStreamTrack"><code>MediaStreamTrack</code></a>
         object whose <code>videoKind</code> of <code>Settings</code> is
         "<code>color</code>". It represents a media stream track whose
         <a data-link-type="dfn" href="https://www.w3.org/TR/mediacapture-streams/#dfn-source">source</a> is a color camera.
       </p>
-      <section id="depth-map">
-        <h3 id="x5-1-depth-map"><bdi class="secno">5.1 </bdi>
+      <section id="depth-map"><h3 id="x5-1-depth-map"><bdi class="secno">5.1 </bdi>
           Depth map
-        <a class="self-link" aria-label="§" href="#depth-map"></a></h3>
+        </h3><a class="self-link" href="#depth-map" aria-label="Permalink for Section 5.1"></a>
+        
         <p>
-          A <dfn id="dfn-depth-map">depth map</dfn> is an abstract representation of a frame of a
+          A <dfn id="dfn-depth-map" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">depth map</dfn> is an abstract representation of a frame of a
           <a href="#dfn-depth-stream-track" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-depth-stream-track-5">depth stream track</a>. A <a href="#dfn-depth-map" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-depth-map-2">depth map</a> is a two-dimensional
           array that contains information relating to the perpendicular
           distance of the surfaces of scene objects to camera's <a href="#dfn-near-plane" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-near-plane-1">near
           plane</a>. The numeric values in the <a href="#dfn-depth-map" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-depth-map-3">depth map</a> are referred to
-          as <dfn data-lt="depth map value|depth map values" id="dfn-depth-map-value">depth map values</dfn> and
+          as <dfn data-lt="depth map value|depth map values" id="dfn-depth-map-value" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">depth map values</dfn> and
           represent distances to <a href="#dfn-near-plane" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-near-plane-2">near plane</a> <a href="#dfn-normalized" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-normalized-1">normalized</a> against
           the distance between <a href="#dfn-far-plane" id="ref-for-dfn-far-plane-1">far</a> and <a href="#dfn-near-plane" id="ref-for-dfn-near-plane-3">near</a> plane.
         </p>
         <p>
-          <dfn id="dfn-normalized">Normalized</dfn> <a href="#dfn-depth-map-value" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-depth-map-value-1">depth map value</a> means that it's range is
+          <dfn id="dfn-normalized" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">Normalized</dfn> <a href="#dfn-depth-map-value" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-depth-map-value-1">depth map value</a> means that it's range is
           from 0 to 1, where maximum <a href="#dfn-depth-map-value" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-depth-map-value-2">depth map value</a> of 1 corresponds to
           distances equal to <a href="#dfn-far-plane" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-far-plane-2">far plane</a>. <a href="#dfn-normalized" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-normalized-2">Normalized</a> <a href="#dfn-depth-map-value" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-depth-map-value-3">depth map
-          value</a> is represented using <dfn id="dfn-floating-point">floating-point</dfn> or
-          <dfn id="dfn-unsigned-fixed-point">unsigned fixed-point</dfn> formats <a href="https://www.khronos.org/registry/gles/specs/3.0/es_spec_3.0.5.pdf#subsection.2.1.6">
+          value</a> is represented using <dfn id="dfn-floating-point" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">floating-point</dfn> or
+          <dfn id="dfn-unsigned-fixed-point" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">unsigned fixed-point</dfn> formats <a href="https://www.khronos.org/registry/gles/specs/3.0/es_spec_3.0.5.pdf#subsection.2.1.6">
           [OpenGL ES 3.0.5]#subsection.2.1.6</a>.
         </p>
         <p>
-          <a href="#dfn-depth-map" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-depth-map-4">Depth map</a>'s <dfn id="dfn-near-plane">near plane</dfn> and <dfn id="dfn-far-plane">far plane</dfn> are
+          <a href="#dfn-depth-map" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-depth-map-4">Depth map</a>'s <dfn id="dfn-near-plane" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">near plane</dfn> and <dfn id="dfn-far-plane" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">far plane</dfn> are
           concepts of 3D graphics that define camera viewing volume (view
           frustum). Their definition is outside the scope of this
           specification.
         </p>
       </section>
     </section>
-    <section id="extensions">
-      <h2 id="x6-extensions"><bdi class="secno">6. </bdi>
+    <section id="extensions"><h2 id="x6-extensions"><bdi class="secno">6. </bdi>
         Extensions
-      <a class="self-link" aria-label="§" href="#extensions"></a></h2>
+      </h2><a class="self-link" href="#extensions" aria-label="Permalink for Section 6."></a>
+      
       <p>
         If the implementation is unable to report the value represented by any
-        of the dictionary members, they are not <a data-link-type="dfn" href="https://heycam.github.io/webidl/#dfn-present">present</a> in the
+        of the dictionary members, they are not <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-present">present</a> in the
         dictionary.
       </p>
-      <section id="mediatracksupportedconstraints-dictionary">
-        <h3 id="x6-1-mediatracksupportedconstraints-dictionary"><bdi class="secno">6.1 </bdi>
+      <section id="mediatracksupportedconstraints-dictionary"><h3 id="x6-1-mediatracksupportedconstraints-dictionary"><bdi class="secno">6.1 </bdi>
           <a data-link-type="idl" href="https://www.w3.org/TR/mediacapture-streams/#idl-def-MediaTrackSupportedConstraints"><code>MediaTrackSupportedConstraints</code></a> dictionary
-        <a class="self-link" aria-label="§" href="#mediatracksupportedconstraints-dictionary"></a></h3>
+        </h3><a class="self-link" href="#mediatracksupportedconstraints-dictionary" aria-label="Permalink for Section 6.1"></a>
+        
         <p>
           <a data-link-type="idl" href="https://www.w3.org/TR/mediacapture-streams/#idl-def-MediaTrackSupportedConstraints"><code>MediaTrackSupportedConstraints</code></a> dictionary represents the list
           of <a data-link-type="dfn" href="https://www.w3.org/TR/mediacapture-streams/#dfn-constraints"><code>Constraints</code></a> recognized by a <a href="#dfn-user-agent" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-user-agent-1">user agent</a> for
@@ -588,18 +737,18 @@
           value true represents an <a href="#dfn-applicable-constraint" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-applicable-constraint-1">applicable constraint</a>.
         </p>
         <p>
-          An <dfn id="dfn-applicable-constraint">applicable constraint</dfn> is not omitted by the <a href="#dfn-user-agent" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-user-agent-2">user
+          An <dfn id="dfn-applicable-constraint" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">applicable constraint</dfn> is not omitted by the <a href="#dfn-user-agent" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-user-agent-2">user
           agent</a> in step 6.2.2 in the <a data-link-type="dfn" href="https://www.w3.org/TR/mediacapture-streams/#dom-mediadevices-getusermedia"><code>getUserMedia()</code></a> algorithm.
         </p>
-        <pre class="idl def" id="webidl-289318473"><span class="idlHeader"><a class="self-link" href="#webidl-289318473">WebIDL</a></span><span data-idl="" class="idlDictionary" id="idl-def-mediatracksupportedconstraints-partial-1" data-title="MediaTrackSupportedConstraints">partial dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dom-mediatracksupportedconstraints" id="ref-for-dom-mediatracksupportedconstraints-1"><code>MediaTrackSupportedConstraints</code></a> {<span data-idl="" class="idlMember" id="idl-def-mediatracksupportedconstraints-videokind" data-title="videoKind" data-dfn-for="MediaTrackSupportedConstraints"><span class="idlType"><span class="idlSectionComment">
+        <pre class="idl def" id="webidl-289318473"><span class="idlHeader"><a class="self-link" href="#webidl-289318473">WebIDL</a></span><code><span data-idl="" class="idlDictionary" id="idl-def-mediatracksupportedconstraints-partial-1" data-title="MediaTrackSupportedConstraints">partial dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dom-mediatracksupportedconstraints"><code>MediaTrackSupportedConstraints</code></a> {<span data-idl="" class="idlMember" id="idl-def-mediatracksupportedconstraints-videokind" data-title="videoKind" data-dfn-for="MediaTrackSupportedConstraints"><span class="idlType"><span class="idlSectionComment">
     // Applies to both depth stream track and color stream track:
-    </span><a data-type="interface" href="https://heycam.github.io/webidl/#idl-boolean">boolean</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dom-mediatracksupportedconstraints-videokind" id="ref-for-dom-mediatracksupportedconstraints-videokind-1"><code>videoKind</code></a> = true;</span>
-};</span></pre>
+    </span><a data-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean">boolean</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dom-mediatracksupportedconstraints-videokind" id="ref-for-dom-mediatracksupportedconstraints-videokind-1"><code>videoKind</code></a> = true;</span>
+};</span></code></pre>
       </section>
-      <section id="mediatrackcapabilities-dictionary">
-        <h3 id="x6-2-mediatrackcapabilities-dictionary"><bdi class="secno">6.2 </bdi>
+      <section id="mediatrackcapabilities-dictionary"><h3 id="x6-2-mediatrackcapabilities-dictionary"><bdi class="secno">6.2 </bdi>
           <a data-link-type="idl" href="https://www.w3.org/TR/mediacapture-streams/#idl-def-MediaTrackCapabilities"><code>MediaTrackCapabilities</code></a> dictionary
-        <a class="self-link" aria-label="§" href="#mediatrackcapabilities-dictionary"></a></h3>
+        </h3><a class="self-link" href="#mediatrackcapabilities-dictionary" aria-label="Permalink for Section 6.2"></a>
+        
         <p>
           <a data-link-type="idl" href="https://www.w3.org/TR/mediacapture-streams/#idl-def-MediaTrackCapabilities"><code>MediaTrackCapabilities</code></a> dictionary represents the
           <a data-link-type="dfn" href="https://www.w3.org/TR/mediacapture-streams/#dfn-capabilities"><code>Capabilities</code></a> of a <a data-link-type="dfn" href="https://www.w3.org/TR/mediacapture-streams/#idl-def-MediaStreamTrack"><code>MediaStreamTrack</code></a> object.
@@ -609,32 +758,32 @@
           <a data-link-type="idl" href="https://www.w3.org/TR/mediacapture-streams/#idl-def-MediaTrackCapabilities"><code>MediaTrackCapabilities</code></a> dictionary defined in
           [<cite><a class="bibref" data-link-type="biblio" href="#bib-getusermedia" title="Media Capture and Streams">GETUSERMEDIA</a></cite>].
         </p>
-        <pre class="idl def" id="webidl-1788441543"><span class="idlHeader"><a class="self-link" href="#webidl-1788441543">WebIDL</a></span><span data-idl="" class="idlDictionary" id="idl-def-mediatrackcapabilities-partial-1" data-title="MediaTrackCapabilities">partial dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dom-mediatrackcapabilities" id="ref-for-dom-mediatrackcapabilities-1"><code>MediaTrackCapabilities</code></a> {<span data-idl="" class="idlMember" id="idl-def-mediatrackcapabilities-videokind" data-title="videoKind" data-dfn-for="MediaTrackCapabilities"><span class="idlType"><span class="idlSectionComment">
+        <pre class="idl def" id="webidl-1788441543"><span class="idlHeader"><a class="self-link" href="#webidl-1788441543">WebIDL</a></span><code><span data-idl="" class="idlDictionary" id="idl-def-mediatrackcapabilities-partial-1" data-title="MediaTrackCapabilities">partial dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dom-mediatrackcapabilities"><code>MediaTrackCapabilities</code></a> {<span data-idl="" class="idlMember" id="idl-def-mediatrackcapabilities-videokind" data-title="videoKind" data-dfn-for="MediaTrackCapabilities"><span class="idlType"><span class="idlSectionComment">
     // Applies to both depth stream track and color stream track:
-    </span><a data-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString">DOMString</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dom-mediatrackcapabilities-videokind" id="ref-for-dom-mediatrackcapabilities-videokind-1"><code>videoKind</code></a>;</span>
-};</span></pre>
+    </span><a data-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString">DOMString</a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dom-mediatrackcapabilities-videokind" id="ref-for-dom-mediatrackcapabilities-videokind-1"><code>videoKind</code></a>;</span>
+};</span></code></pre>
       </section>
-      <section id="mediatrackconstraintset-dictionary">
-        <h3 id="x6-3-mediatrackconstraintset-dictionary"><bdi class="secno">6.3 </bdi>
+      <section id="mediatrackconstraintset-dictionary"><h3 id="x6-3-mediatrackconstraintset-dictionary"><bdi class="secno">6.3 </bdi>
           <code>MediaTrackConstraintSet</code> dictionary
-        <a class="self-link" aria-label="§" href="#mediatrackconstraintset-dictionary"></a></h3>
+        </h3><a class="self-link" href="#mediatrackconstraintset-dictionary" aria-label="Permalink for Section 6.3"></a>
+        
         <p>
           <a data-link-type="dfn" href="https://www.w3.org/TR/mediacapture-streams/#idl-def-ConstraintSet"><code>ConstraintSet</code></a> dictionary specifies each member's set of
           <a href="#dfn-allowed-values" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-allowed-values-1">allowed values</a>.
         </p>
         <p>
-          The <dfn id="dfn-allowed-values">allowed values</dfn> for <a data-link-type="dfn" href="https://www.w3.org/TR/mediacapture-streams/#idl-def-ConstrainDOMString"><code>ConstrainDOMString</code></a> type are
+          The <dfn id="dfn-allowed-values" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">allowed values</dfn> for <a data-link-type="dfn" href="https://www.w3.org/TR/mediacapture-streams/#idl-def-ConstrainDOMString"><code>ConstrainDOMString</code></a> type are
           defined in [<cite><a class="bibref" data-link-type="biblio" href="#bib-getusermedia" title="Media Capture and Streams">GETUSERMEDIA</a></cite>].
         </p>
-        <pre class="idl def" id="webidl-1637593537"><span class="idlHeader"><a class="self-link" href="#webidl-1637593537">WebIDL</a></span><span data-idl="" class="idlDictionary" id="idl-def-mediatrackconstraintset-partial-1" data-title="MediaTrackConstraintSet">partial dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dom-mediatrackconstraintset" id="ref-for-dom-mediatrackconstraintset-1"><code>MediaTrackConstraintSet</code></a> {<span data-idl="" class="idlMember" id="idl-def-mediatrackconstraintset-videokind" data-title="videoKind" data-dfn-for="MediaTrackConstraintSet"><span class="idlType"><span class="idlSectionComment">
+        <pre class="idl def" id="webidl-1637593537"><span class="idlHeader"><a class="self-link" href="#webidl-1637593537">WebIDL</a></span><code><span data-idl="" class="idlDictionary" id="idl-def-mediatrackconstraintset-partial-1" data-title="MediaTrackConstraintSet">partial dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dom-mediatrackconstraintset"><code>MediaTrackConstraintSet</code></a> {<span data-idl="" class="idlMember" id="idl-def-mediatrackconstraintset-videokind" data-title="videoKind" data-dfn-for="MediaTrackConstraintSet"><span class="idlType"><span class="idlSectionComment">
     // Applies to both depth stream track and color stream track:
     </span><a data-link-type="dfn" href="https://www.w3.org/TR/mediacapture-streams/#idl-def-ConstrainDOMString"><code>ConstrainDOMString</code></a></span> <a class="internalDFN idlName" data-link-type="dict-member" href="#dom-mediatrackconstraintset-videokind" id="ref-for-dom-mediatrackconstraintset-videokind-1"><code>videoKind</code></a>;</span>
-};</span></pre>
+};</span></code></pre>
       </section>
-      <section id="mediatracksettings-dictionary">
-        <h3 id="x6-4-mediatracksettings-dictionary"><bdi class="secno">6.4 </bdi>
+      <section id="mediatracksettings-dictionary"><h3 id="x6-4-mediatracksettings-dictionary"><bdi class="secno">6.4 </bdi>
           <code>MediaTrackSettings</code> dictionary
-        <a class="self-link" aria-label="§" href="#mediatracksettings-dictionary"></a></h3>
+        </h3><a class="self-link" href="#mediatracksettings-dictionary" aria-label="Permalink for Section 6.4"></a>
+        
         <p>
           <a data-link-type="idl" href="https://www.w3.org/TR/mediacapture-streams/#idl-def-MediaTrackSettings"><code>MediaTrackSettings</code></a> dictionary represents the <a data-link-type="dfn" href="https://www.w3.org/TR/mediacapture-streams/#dfn-settings"><code>Settings</code></a>
           of a <a data-link-type="dfn" href="https://www.w3.org/TR/mediacapture-streams/#idl-def-MediaStreamTrack"><code>MediaStreamTrack</code></a> object.
@@ -643,35 +792,35 @@
           Partial dictionary <a data-link-type="idl" href="https://www.w3.org/TR/mediacapture-streams/#idl-def-MediaTrackSettings"><code>MediaTrackSettings</code></a> extends the original
           <a data-link-type="idl" href="https://www.w3.org/TR/mediacapture-streams/#idl-def-MediaTrackSettings"><code>MediaTrackSettings</code></a> dictionary.
         </p>
-        <pre class="idl def" id="webidl-1569617356"><span class="idlHeader"><a class="self-link" href="#webidl-1569617356">WebIDL</a></span><span data-idl="" class="idlDictionary" id="idl-def-mediatracksettings-partial-1" data-title="MediaTrackSettings">partial dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dom-mediatracksettings" id="ref-for-dom-mediatracksettings-1"><code>MediaTrackSettings</code></a> {<span data-idl="" class="idlMember" id="idl-def-mediatracksettings-videokind" data-title="videoKind" data-dfn-for="MediaTrackSettings"><span class="idlType"><span class="idlSectionComment">
+        <pre class="idl def" id="webidl-1569617356"><span class="idlHeader"><a class="self-link" href="#webidl-1569617356">WebIDL</a></span><code><span data-idl="" class="idlDictionary" id="idl-def-mediatracksettings-partial-1" data-title="MediaTrackSettings">partial dictionary <a class="internalDFN idlID" data-link-type="dictionary" href="#dom-mediatracksettings"><code>MediaTrackSettings</code></a> {<span data-idl="" class="idlMember" id="idl-def-mediatracksettings-videokind" data-title="videoKind" data-dfn-for="MediaTrackSettings"><span class="idlType"><span class="idlSectionComment">
     // Applies to both depth stream track and color stream track:
-    </span><a data-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString">DOMString</a></span>           <a class="internalDFN idlName" data-link-type="dict-member" href="#dom-mediatracksettings-videokind" id="ref-for-dom-mediatracksettings-videokind-1"><code>videoKind</code></a>;</span>
-};</span></pre>
-        <section id="def-constraint-videoKind">
-          <h4 id="x6-4-1-video-kind-constrainable-property"><bdi class="secno">6.4.1 </bdi>
+    </span><a data-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString">DOMString</a></span>           <a class="internalDFN idlName" data-link-type="dict-member" href="#dom-mediatracksettings-videokind" id="ref-for-dom-mediatracksettings-videokind-1"><code>videoKind</code></a>;</span>
+};</span></code></pre>
+        <section id="def-constraint-videoKind"><h4 id="x6-4-1-video-kind-constrainable-property"><bdi class="secno">6.4.1 </bdi>
             Video kind constrainable property
-          <a class="self-link" aria-label="§" href="#def-constraint-videoKind"></a></h4>
+          </h4><a class="self-link" href="#def-constraint-videoKind" aria-label="Permalink for Section 6.4.1"></a>
+          
           <p>
             The <code>videoKind</code> constrainable property is defined to
             apply to both <a href="#dfn-color-stream-track" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-color-stream-track-3">color stream track</a> and <a href="#dfn-depth-stream-track" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-depth-stream-track-6">depth stream
             track</a>. The <code>videoKind</code> member specifies the
-            <dfn id="dfn-video-kind">video kind</dfn> of the <a data-link-type="dfn" href="https://www.w3.org/TR/mediacapture-streams/#dfn-source">source</a>.
+            <dfn id="dfn-video-kind" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">video kind</dfn> of the <a data-link-type="dfn" href="https://www.w3.org/TR/mediacapture-streams/#dfn-source">source</a>.
           </p>
           <p class="related">
-            Related: <a data-link-type="idl" href="https://www.w3.org/TR/mediacapture-streams/#idl-def-MediaTrackSupportedConstraints"><code>MediaTrackSupportedConstraints</code></a>.<dfn data-dfn-for="MediaTrackSupportedConstraints" data-export="" data-dfn-type="dict-member" id="dom-mediatracksupportedconstraints-videokind" data-idl="field" data-title="videoKind" data-type="boolean"><code>videoKind</code></dfn>,
-            <a data-link-type="idl" href="https://www.w3.org/TR/mediacapture-streams/#idl-def-MediaTrackCapabilities"><code>MediaTrackCapabilities</code></a>.<dfn data-dfn-for="MediaTrackCapabilities" data-export="" data-dfn-type="dict-member" id="dom-mediatrackcapabilities-videokind" data-idl="field" data-title="videoKind" data-type="DOMString"><code>videoKind</code></dfn>,
-            <a data-link-type="idl" href="https://www.w3.org/TR/mediacapture-streams/#idl-def-MediaTrackConstraintSet"><code>MediaTrackConstraintSet</code></a>.<dfn data-dfn-for="MediaTrackConstraintSet" data-export="" data-dfn-type="dict-member" id="dom-mediatrackconstraintset-videokind" data-idl="field" data-title="videoKind" data-type="ConstrainDOMString"><code>videoKind</code></dfn>,
-            <a data-link-type="idl" href="https://www.w3.org/TR/mediacapture-streams/#idl-def-MediaTrackSettings"><code>MediaTrackSettings</code></a>.<dfn data-dfn-for="MediaTrackSettings" data-export="" data-dfn-type="dict-member" id="dom-mediatracksettings-videokind" data-idl="field" data-title="videoKind" data-type="DOMString"><code>videoKind</code></dfn>
+            Related: <a data-link-type="idl" href="https://www.w3.org/TR/mediacapture-streams/#idl-def-MediaTrackSupportedConstraints"><code>MediaTrackSupportedConstraints</code></a>.<dfn data-dfn-for="MediaTrackSupportedConstraints" data-export="" data-dfn-type="dict-member" id="dom-mediatracksupportedconstraints-videokind" data-idl="field" data-title="videoKind" data-type="boolean" tabindex="0" aria-haspopup="dialog"><code>videoKind</code></dfn>,
+            <a data-link-type="idl" href="https://www.w3.org/TR/mediacapture-streams/#idl-def-MediaTrackCapabilities"><code>MediaTrackCapabilities</code></a>.<dfn data-dfn-for="MediaTrackCapabilities" data-export="" data-dfn-type="dict-member" id="dom-mediatrackcapabilities-videokind" data-idl="field" data-title="videoKind" data-type="DOMString" tabindex="0" aria-haspopup="dialog"><code>videoKind</code></dfn>,
+            <a data-link-type="idl" href="https://www.w3.org/TR/mediacapture-streams/#idl-def-MediaTrackConstraintSet"><code>MediaTrackConstraintSet</code></a>.<dfn data-dfn-for="MediaTrackConstraintSet" data-export="" data-dfn-type="dict-member" id="dom-mediatrackconstraintset-videokind" data-idl="field" data-title="videoKind" data-type="ConstrainDOMString" tabindex="0" aria-haspopup="dialog"><code>videoKind</code></dfn>,
+            <a data-link-type="idl" href="https://www.w3.org/TR/mediacapture-streams/#idl-def-MediaTrackSettings"><code>MediaTrackSettings</code></a>.<dfn data-dfn-for="MediaTrackSettings" data-export="" data-dfn-type="dict-member" id="dom-mediatracksettings-videokind" data-idl="field" data-title="videoKind" data-type="DOMString" tabindex="0" aria-haspopup="dialog"><code>videoKind</code></dfn>
           </p>
-          <pre class="idl def" id="webidl-2119079806"><span class="idlHeader"><a class="self-link" href="#webidl-2119079806">WebIDL</a></span><span data-idl="" class="idlEnum" id="idl-def-videokindenum" data-title="VideoKindEnum">enum <a class="internalDFN idlID" data-link-type="enum" href="#dom-videokindenum" id="ref-for-dom-videokindenum-1"><code>VideoKindEnum</code></a> {
+          <pre class="idl def" id="webidl-2119079806"><span class="idlHeader"><a class="self-link" href="#webidl-2119079806">WebIDL</a></span><code><span data-idl="" class="idlEnum" id="idl-def-videokindenum" data-title="VideoKindEnum">enum <a class="internalDFN idlID" data-link-type="enum" href="#dom-videokindenum" id="ref-for-dom-videokindenum-1"><code>VideoKindEnum</code></a> {
     <span class="idlEnumItem">"<a class="internalDFN" data-link-type="enum-value" href="#dom-videokindenum-color" id="ref-for-dom-videokindenum-color-1"><code>color</code></a>"</span>,
     <span class="idlEnumItem">"<a class="internalDFN" data-link-type="enum-value" href="#dom-videokindenum-depth" id="ref-for-dom-videokindenum-depth-1"><code>depth</code></a>"</span>
-};</span></pre>
+};</span></code></pre>
           <p>
-            The <dfn data-export="" data-dfn-type="enum" id="dom-videokindenum" data-idl="enum" data-title="VideoKindEnum" data-dfn-for=""><code>VideoKindEnum</code></dfn> enumeration defines the valid <a href="#dfn-video-kind" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-video-kind-1">video
-            kind</a>s: <dfn data-dfn-for="VideoKindEnum" data-export="" data-dfn-type="enum-value" id="dom-videokindenum-color" data-idl="enum-value" data-title="color"><code>color</code></dfn> for
+            The <dfn data-export="" data-dfn-type="enum" id="dom-videokindenum" data-idl="enum" data-title="VideoKindEnum" data-dfn-for="" tabindex="0" aria-haspopup="dialog"><code>VideoKindEnum</code></dfn> enumeration defines the valid <a href="#dfn-video-kind" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-video-kind-1">video
+            kind</a>s: <dfn data-dfn-for="VideoKindEnum" data-export="" data-dfn-type="enum-value" id="dom-videokindenum-color" data-idl="enum-value" data-title="color" tabindex="0" aria-haspopup="dialog"><code>color</code></dfn> for
             <a href="#dfn-color-stream-track" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-color-stream-track-4">color stream track</a> whose <a data-link-type="dfn" href="https://www.w3.org/TR/mediacapture-streams/#dfn-source">source</a> is a color camera,
-            and <dfn data-dfn-for="VideoKindEnum" data-export="" data-dfn-type="enum-value" id="dom-videokindenum-depth" data-idl="enum-value" data-title="depth"><code>depth</code></dfn> for <a href="#dfn-depth-stream-track" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-depth-stream-track-7">depth
+            and <dfn data-dfn-for="VideoKindEnum" data-export="" data-dfn-type="enum-value" id="dom-videokindenum-depth" data-idl="enum-value" data-title="depth" tabindex="0" aria-haspopup="dialog"><code>depth</code></dfn> for <a href="#dfn-depth-stream-track" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-depth-stream-track-7">depth
             stream track</a> whose <a data-link-type="dfn" href="https://www.w3.org/TR/mediacapture-streams/#dfn-source">source</a> is a depth camera.
           </p>
           <p>
@@ -686,10 +835,10 @@
             be 0.
           </p>
         </section>
-        <section class="informative" id="webgl-implementation-considerations">
-          <h4 id="x6-4-2-webgl-implementation-considerations"><bdi class="secno">6.4.2 </bdi>
+        <section class="informative" id="webgl-implementation-considerations"><h4 id="x6-4-2-webgl-implementation-considerations"><bdi class="secno">6.4.2 </bdi>
             WebGL implementation considerations
-          <a class="self-link" aria-label="§" href="#webgl-implementation-considerations"></a></h4><p><em>This section is non-normative.</em></p>
+          </h4><a class="self-link" href="#webgl-implementation-considerations" aria-label="Permalink for Section 6.4.2"></a><p><em>This section is non-normative.</em></p>
+          
           <div class="note" role="note" id="issue-container-generatedID"><div role="heading" class="note-title marker" id="h-note" aria-level="5"><span>Note</span></div><div class="">
             This section is currently work in progress, and subject to change.
           </div></div>
@@ -717,14 +866,14 @@
             mentioned use-cases; the concrete examples are provided in the
             <a href="#examples">Examples</a> section.
           </p>
-          <section id="upload-video-frame-to-webgl-texture">
-            <h5 id="x6-4-2-1-upload-video-frame-to-webgl-texture"><bdi class="secno">6.4.2.1 </bdi>
+          <section id="upload-video-frame-to-webgl-texture"><h5 id="x6-4-2-1-upload-video-frame-to-webgl-texture"><bdi class="secno">6.4.2.1 </bdi>
               Upload video frame to WebGL texture
-            <a class="self-link" aria-label="§" href="#upload-video-frame-to-webgl-texture"></a></h5>
+            </h5><a class="self-link" href="#upload-video-frame-to-webgl-texture" aria-label="Permalink for Section 6.4.2.1"></a>
+            
             <p>
               A <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/#the-video-element"><code>video</code></a> element whose source is a <a data-link-type="dfn" href="https://www.w3.org/TR/mediacapture-streams/#idl-def-MediaStream"><code>MediaStream</code></a>
               object containing a <a href="#dfn-depth-stream-track" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-depth-stream-track-8">depth stream track</a> may be
-              <dfn id="dfn-uploaded">uploaded</dfn> to a [<cite><a class="bibref" data-link-type="biblio" href="#bib-webgl" title="WebGL 2.0 Specification">WEBGL</a></cite>] texture of format
+              <dfn id="dfn-uploaded" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">uploaded</dfn> to a [<cite><a class="bibref" data-link-type="biblio" href="#bib-webgl" title="WebGL 2.0 Specification">WEBGL</a></cite>] texture of format
               <code>RGBA</code> or <code>RED</code> and type
               <code>FLOAT</code>. See the specification [<cite><a class="bibref" data-link-type="biblio" href="#bib-webgl" title="WebGL 2.0 Specification">WEBGL</a></cite>] and the
               <a href="#dfn-upload-to-float-texture" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-upload-to-float-texture-1">upload to float texture</a> example code.
@@ -734,10 +883,10 @@
               <a href="#dfn-normalized" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-normalized-5">normalized</a> <a href="#dfn-floating-point" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-floating-point-2">floating-point</a> <a href="#dfn-depth-map-value" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-depth-map-value-4">depth map value</a>.
             </p>
           </section>
-          <section id="read-the-data-from-a-webgl-texture">
-            <h5 id="x6-4-2-2-read-the-data-from-a-webgl-texture"><bdi class="secno">6.4.2.2 </bdi>
+          <section id="read-the-data-from-a-webgl-texture"><h5 id="x6-4-2-2-read-the-data-from-a-webgl-texture"><bdi class="secno">6.4.2.2 </bdi>
               Read the data from a WebGL texture
-            <a class="self-link" aria-label="§" href="#read-the-data-from-a-webgl-texture"></a></h5>
+            </h5><a class="self-link" href="#read-the-data-from-a-webgl-texture" aria-label="Permalink for Section 6.4.2.2"></a>
+            
             <p>
               Here we list some of the possible approaches.
             </p>
@@ -755,13 +904,13 @@
           </section>
         </section>
       </section>
-      <section class="informative" id="examples">
-        <h3 id="x6-5-examples"><bdi class="secno">6.5 </bdi>
+      <section class="informative" id="examples"><h3 id="x6-5-examples"><bdi class="secno">6.5 </bdi>
           Examples
-        <a class="self-link" aria-label="§" href="#examples"></a></h3><p><em>This section is non-normative.</em></p>
-        <h3 id="playback-of-depth-and-color-streams-from-same-device-group">
+        </h3><a class="self-link" href="#examples" aria-label="Permalink for Section 6.5"></a><p><em>This section is non-normative.</em></p>
+        
+        <section id="playback-of-depth-and-color-streams-from-same-device-group"><h4 id="x6-5-1-playback-of-depth-and-color-streams-from-same-device-group"><bdi class="secno">6.5.1 </bdi>
           Playback of depth and color streams from same device group.
-        <a class="self-link" aria-label="§" href="#examples"></a></h3>
+        </h4><a class="self-link" href="#playback-of-depth-and-color-streams-from-same-device-group" aria-label="Permalink for Section 6.5.1"></a>
         <div class="example" id="example-1">
         <div class="marker">
     <a class="self-link" href="#example-1">Example<bdi> 1</bdi></a>
@@ -787,9 +936,9 @@ navigator.mediaDevices.getUserMedia({
   }
 );</code></pre>
       </div>
-        <h3 id="webgl-upload-to-float-texture">
-          WebGL: <dfn id="dfn-upload-to-float-texture">upload to float texture</dfn>
-        <a class="self-link" aria-label="§" href="#examples"></a></h3>
+        </section><section id="webgl-upload-to-float-texture"><h4 id="x6-5-2-webgl-upload-to-float-texture"><bdi class="secno">6.5.2 </bdi>
+          WebGL: <dfn id="dfn-upload-to-float-texture" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">upload to float texture</dfn>
+        </h4><a class="self-link" href="#webgl-upload-to-float-texture" aria-label="Permalink for Section 6.5.2"></a>
         <p>
           This code sets up a video element from a depth stream, uploads it to
           a WebGL 2.0 float texture.
@@ -823,9 +972,9 @@ gl.texImage2D(
    gl.FLOAT,
    depthVideo);</code></pre>
       </div>
-        <h3 id="webgl-readpixels-from-float-texture">
-          WebGL: <dfn id="dfn-readpixels-from-float">readPixels from float</dfn> texture
-        <a class="self-link" aria-label="§" href="#examples"></a></h3>
+        </section><section id="webgl-readpixels-from-float-texture"><h4 id="x6-5-3-webgl-readpixels-from-float-texture"><bdi class="secno">6.5.3 </bdi>
+          WebGL: <dfn id="dfn-readpixels-from-float" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">readPixels from float</dfn> texture
+        </h4><a class="self-link" href="#webgl-readpixels-from-float-texture" aria-label="Permalink for Section 6.5.3"></a>
         <p>
           This example extends <a href="#dfn-upload-to-float-texture" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-upload-to-float-texture-2">upload to float texture</a> example.
         </p>
@@ -889,21 +1038,21 @@ gl.readPixels(
             supported.
           </p>
         </div></div>
-      </section>
-      <section class="informative" id="privacy-and-security-considerations">
-        <h3 id="x6-6-privacy-and-security-considerations"><bdi class="secno">6.6 </bdi>
+      </section></section>
+      <section class="informative" id="privacy-and-security-considerations"><h3 id="x6-6-privacy-and-security-considerations"><bdi class="secno">6.6 </bdi>
           Privacy and security considerations
-        <a class="self-link" aria-label="§" href="#privacy-and-security-considerations"></a></h3><p><em>This section is non-normative.</em></p>
+        </h3><a class="self-link" href="#privacy-and-security-considerations" aria-label="Permalink for Section 6.6"></a><p><em>This section is non-normative.</em></p>
+        
         <p>
           The <a href="https://w3c.github.io/mediacapture-main/#privacy-and-security-considerations">
           privacy and security considerations</a> discussed in
           [<cite><a class="bibref" data-link-type="biblio" href="#bib-getusermedia" title="Media Capture and Streams">GETUSERMEDIA</a></cite>] apply to this extension specification.
         </p>
       </section>
-      <section class="appendix" id="acknowledgements">
-        <h3 id="x6-7-acknowledgements"><bdi class="secno">6.7 </bdi>
+      <section class="appendix" id="acknowledgements"><h3 id="x6-7-acknowledgements"><bdi class="secno">6.7 </bdi>
           Acknowledgements
-        <a class="self-link" aria-label="§" href="#acknowledgements"></a></h3>
+        </h3><a class="self-link" href="#acknowledgements" aria-label="Permalink for Appendix 6.7"></a>
+        
         <p>
           Thanks to everyone who contributed to the <a href="https://www.w3.org/wiki/Media_Capture_Depth_Stream_Extension">Use
           Cases and Requirements</a>, sent feedback and comments. Special
@@ -914,623 +1063,392 @@ gl.readPixels(
     </section>
   
 
-<section id="references" class="appendix"><h2 id="a-references"><bdi class="secno">A. </bdi>References<a class="self-link" aria-label="§" href="#references"></a></h2><section id="normative-references">
-    <h3 id="a-1-normative-references"><bdi class="secno">A.1 </bdi>Normative references<a class="self-link" aria-label="§" href="#normative-references"></a></h3>
-    <dl class="bibliography">
-      <dt id="bib-getusermedia">[GETUSERMEDIA]</dt><dd><a href="https://www.w3.org/TR/mediacapture-streams/"><cite>Media Capture and Streams</cite></a>. Daniel Burnett; Adam Bergkvist; Cullen Jennings; Anant Narayanan; Bernard Aboba; Jan-Ivar Bruaroey; Henrik Boström.  W3C. 2 July 2019. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/mediacapture-streams/">https://www.w3.org/TR/mediacapture-streams/</a></dd><dt id="bib-html">[HTML]</dt><dd><a href="https://html.spec.whatwg.org/multipage/"><cite>HTML Standard</cite></a>. Anne van Kesteren; Domenic Denicola; Ian Hickson; Philip Jägenstedt; Simon Pieters.  WHATWG. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a></dd><dt id="bib-rfc2119">[RFC2119]</dt><dd><a href="https://tools.ietf.org/html/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. S. Bradner.  IETF. March 1997. Best Current Practice. URL: <a href="https://tools.ietf.org/html/rfc2119">https://tools.ietf.org/html/rfc2119</a></dd><dt id="bib-rfc8174">[RFC8174]</dt><dd><a href="https://tools.ietf.org/html/rfc8174"><cite>Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words</cite></a>. B. Leiba.  IETF. May 2017. Best Current Practice. URL: <a href="https://tools.ietf.org/html/rfc8174">https://tools.ietf.org/html/rfc8174</a></dd><dt id="bib-webidl">[WEBIDL]</dt><dd><a href="https://heycam.github.io/webidl/"><cite>Web IDL</cite></a>. Boris Zbarsky.  W3C. 15 December 2016. W3C Editor's Draft. URL: <a href="https://heycam.github.io/webidl/">https://heycam.github.io/webidl/</a></dd>
-    </dl>
-  </section><section id="informative-references">
-    <h3 id="a-2-informative-references"><bdi class="secno">A.2 </bdi>Informative references<a class="self-link" aria-label="§" href="#informative-references"></a></h3>
-    <dl class="bibliography">
-      <dt id="bib-webgl">[WEBGL]</dt><dd><a href="https://www.khronos.org/registry/webgl/specs/latest/2.0/"><cite>WebGL 2.0 Specification</cite></a>. Dean Jackson; Jeff Gilbert.  Khronos. 12 August 2017. URL: <a href="https://www.khronos.org/registry/webgl/specs/latest/2.0/">https://www.khronos.org/registry/webgl/specs/latest/2.0/</a></dd><dt id="bib-webgl2">[WEBGL2]</dt><dd><a href="https://www.khronos.org/registry/webgl/specs/2.0.0/"><cite>WebGL 2 Specification</cite></a>. Dean Jackson (Apple Inc.); Jeff Gilbert (Mozilla Corp.).  Khronos. 1 December 2016. URL: <a href="https://www.khronos.org/registry/webgl/specs/2.0.0/">https://www.khronos.org/registry/webgl/specs/2.0.0/</a></dd>
-    </dl>
+<section id="references" class="appendix"><h2 id="a-references"><bdi class="secno">A. </bdi>References</h2><a class="self-link" href="#references" aria-label="Permalink for Appendix A."></a><section id="normative-references"><h3 id="a-1-normative-references"><bdi class="secno">A.1 </bdi>Normative references</h3><a class="self-link" href="#normative-references" aria-label="Permalink for Appendix A.1"></a>
+    
+    <dl class="bibliography"><dt id="bib-getusermedia">[GETUSERMEDIA]</dt><dd><a href="https://www.w3.org/TR/mediacapture-streams/"><cite>Media Capture and Streams</cite></a>. Cullen Jennings; Bernard Aboba; Jan-Ivar Bruaroey; Henrik Boström; youenn fablet.  W3C. 20 January 2022. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/mediacapture-streams/">https://www.w3.org/TR/mediacapture-streams/</a></dd><dt id="bib-html">[HTML]</dt><dd><a href="https://html.spec.whatwg.org/multipage/"><cite>HTML Standard</cite></a>. Anne van Kesteren; Domenic Denicola; Ian Hickson; Philip Jägenstedt; Simon Pieters.  WHATWG. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a></dd><dt id="bib-rfc2119">[RFC2119]</dt><dd><a href="https://www.rfc-editor.org/rfc/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. S. Bradner.  IETF. March 1997. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a></dd><dt id="bib-rfc8174">[RFC8174]</dt><dd><a href="https://www.rfc-editor.org/rfc/rfc8174"><cite>Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words</cite></a>. B. Leiba.  IETF. May 2017. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a></dd><dt id="bib-webidl">[WEBIDL]</dt><dd><a href="https://webidl.spec.whatwg.org/"><cite>Web IDL Standard</cite></a>. Edgar Chen; Timothy Gu.  WHATWG. Living Standard. URL: <a href="https://webidl.spec.whatwg.org/">https://webidl.spec.whatwg.org/</a></dd></dl>
+  </section><section id="informative-references"><h3 id="a-2-informative-references"><bdi class="secno">A.2 </bdi>Informative references</h3><a class="self-link" href="#informative-references" aria-label="Permalink for Appendix A.2"></a>
+    
+    <dl class="bibliography"><dt id="bib-webgl">[WEBGL]</dt><dd><a href="https://www.khronos.org/registry/webgl/specs/latest/2.0/"><cite>WebGL 2.0 Specification</cite></a>. Dean Jackson; Jeff Gilbert.  Khronos. 12 August 2017. URL: <a href="https://www.khronos.org/registry/webgl/specs/latest/2.0/">https://www.khronos.org/registry/webgl/specs/latest/2.0/</a></dd><dt id="bib-webgl2">[WEBGL2]</dt><dd><a href="https://www.khronos.org/registry/webgl/specs/2.0.0/"><cite>WebGL 2 Specification</cite></a>. Dean Jackson (Apple Inc.); Jeff Gilbert (Mozilla Corp.).  Khronos. 1 December 2016. URL: <a href="https://www.khronos.org/registry/webgl/specs/2.0.0/">https://www.khronos.org/registry/webgl/specs/2.0.0/</a></dd></dl>
   </section></section><p role="navigation" id="back-to-top">
     <a href="#title"><abbr title="Back to Top">↑</abbr></a>
-  </p><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-user-agent">
+  </p><div class="dfn-panel" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-user-agent" aria-label="Links in this document to definition: user agent" hidden="">
       <span class="caret"></span>
       <div>
-        <a class="self-link" href="#dfn-user-agent">Permalink</a>
-        
+        <a class="self-link" href="#dfn-user-agent" aria-label="Permalink for definition: user agent. Activate to close this dialog.">Permalink</a>
+         
       </div>
-      <b>Referenced in:</b>
+      <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-dfn-user-agent-1">6.1 MediaTrackSupportedConstraints dictionary</a> <a href="#ref-for-dfn-user-agent-2">(2)</a> 
+    <a href="#ref-for-dfn-user-agent-1" title="§ 6.1 MediaTrackSupportedConstraints dictionary">§ 6.1 MediaTrackSupportedConstraints dictionary</a> <a href="#ref-for-dfn-user-agent-2" title="Reference 2">(2)</a> 
   </li>
   </ul>
-    </aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-mediastreamtrack">
+    </div><div class="dfn-panel" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-depth-color-stream" aria-label="Links in this document to definition: depth+color stream" hidden="">
       <span class="caret"></span>
       <div>
-        <a class="self-link" href="#dfn-mediastreamtrack">Permalink</a>
-        
+        <a class="self-link" href="#dfn-depth-color-stream" aria-label="Permalink for definition: depth+color stream. Activate to close this dialog.">Permalink</a>
+         
       </div>
-      <b>Referenced in:</b>
-      <ul>
-      <li>Not referenced in this document.</li>
-    </ul>
-    </aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-mediastream">
-      <span class="caret"></span>
-      <div>
-        <a class="self-link" href="#dfn-mediastream">Permalink</a>
-        
-      </div>
-      <b>Referenced in:</b>
-      <ul>
-      <li>Not referenced in this document.</li>
-    </ul>
-    </aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-constraints">
-      <span class="caret"></span>
-      <div>
-        <a class="self-link" href="#dfn-constraints">Permalink</a>
-        
-      </div>
-      <b>Referenced in:</b>
-      <ul>
-      <li>Not referenced in this document.</li>
-    </ul>
-    </aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-capabilities">
-      <span class="caret"></span>
-      <div>
-        <a class="self-link" href="#dfn-capabilities">Permalink</a>
-        
-      </div>
-      <b>Referenced in:</b>
-      <ul>
-      <li>Not referenced in this document.</li>
-    </ul>
-    </aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-constraintset">
-      <span class="caret"></span>
-      <div>
-        <a class="self-link" href="#dfn-constraintset">Permalink</a>
-        
-      </div>
-      <b>Referenced in:</b>
-      <ul>
-      <li>Not referenced in this document.</li>
-    </ul>
-    </aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-settings">
-      <span class="caret"></span>
-      <div>
-        <a class="self-link" href="#dfn-settings">Permalink</a>
-        
-      </div>
-      <b>Referenced in:</b>
-      <ul>
-      <li>Not referenced in this document.</li>
-    </ul>
-    </aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-types-of-constrainable-properties">
-      <span class="caret"></span>
-      <div>
-        <a class="self-link" href="#dfn-types-of-constrainable-properties">Permalink</a>
-        
-      </div>
-      <b>Referenced in:</b>
-      <ul>
-      <li>Not referenced in this document.</li>
-    </ul>
-    </aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-constraindomstring">
-      <span class="caret"></span>
-      <div>
-        <a class="self-link" href="#dfn-constraindomstring">Permalink</a>
-        
-      </div>
-      <b>Referenced in:</b>
-      <ul>
-      <li>Not referenced in this document.</li>
-    </ul>
-    </aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dom-mediatracksettings">
-      <span class="caret"></span>
-      <div>
-        <a class="self-link" href="#dom-mediatracksettings">Permalink</a>
-        
-      </div>
-      <b>Referenced in:</b>
+      <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-dom-mediatracksettings-1">6.4 MediaTrackSettings dictionary</a> 
-  </li>
-  </ul>
-    </aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-mediatrackconstraints">
-      <span class="caret"></span>
-      <div>
-        <a class="self-link" href="#dfn-mediatrackconstraints">Permalink</a>
-        
-      </div>
-      <b>Referenced in:</b>
-      <ul>
-      <li>Not referenced in this document.</li>
-    </ul>
-    </aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dom-mediatracksupportedconstraints">
-      <span class="caret"></span>
-      <div>
-        <a class="self-link" href="#dom-mediatracksupportedconstraints">Permalink</a>
-        
-      </div>
-      <b>Referenced in:</b>
-      <ul>
-    <li>
-    <a href="#ref-for-dom-mediatracksupportedconstraints-1">6.1 MediaTrackSupportedConstraints dictionary</a> 
-  </li>
-  </ul>
-    </aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dom-mediatrackcapabilities">
-      <span class="caret"></span>
-      <div>
-        <a class="self-link" href="#dom-mediatrackcapabilities">Permalink</a>
-        
-      </div>
-      <b>Referenced in:</b>
-      <ul>
-    <li>
-    <a href="#ref-for-dom-mediatrackcapabilities-1">6.2 MediaTrackCapabilities dictionary</a> 
-  </li>
-  </ul>
-    </aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dom-mediatrackconstraintset">
-      <span class="caret"></span>
-      <div>
-        <a class="self-link" href="#dom-mediatrackconstraintset">Permalink</a>
-        
-      </div>
-      <b>Referenced in:</b>
-      <ul>
-    <li>
-    <a href="#ref-for-dom-mediatrackconstraintset-1">6.3 MediaTrackConstraintSet dictionary</a> 
-  </li>
-  </ul>
-    </aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-getusermedia">
-      <span class="caret"></span>
-      <div>
-        <a class="self-link" href="#dfn-getusermedia">Permalink</a>
-        
-      </div>
-      <b>Referenced in:</b>
-      <ul>
-      <li>Not referenced in this document.</li>
-    </ul>
-    </aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-muted">
-      <span class="caret"></span>
-      <div>
-        <a class="self-link" href="#dfn-muted">Permalink</a>
-        
-      </div>
-      <b>Referenced in:</b>
-      <ul>
-      <li>Not referenced in this document.</li>
-    </ul>
-    </aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-disabled">
-      <span class="caret"></span>
-      <div>
-        <a class="self-link" href="#dfn-disabled">Permalink</a>
-        
-      </div>
-      <b>Referenced in:</b>
-      <ul>
-      <li>Not referenced in this document.</li>
-    </ul>
-    </aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-source">
-      <span class="caret"></span>
-      <div>
-        <a class="self-link" href="#dfn-source">Permalink</a>
-        
-      </div>
-      <b>Referenced in:</b>
-      <ul>
-      <li>Not referenced in this document.</li>
-    </ul>
-    </aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-consumer">
-      <span class="caret"></span>
-      <div>
-        <a class="self-link" href="#dfn-consumer">Permalink</a>
-        
-      </div>
-      <b>Referenced in:</b>
-      <ul>
-      <li>Not referenced in this document.</li>
-    </ul>
-    </aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-mediadevicekind">
-      <span class="caret"></span>
-      <div>
-        <a class="self-link" href="#dfn-mediadevicekind">Permalink</a>
-        
-      </div>
-      <b>Referenced in:</b>
-      <ul>
-      <li>Not referenced in this document.</li>
-    </ul>
-    </aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-video">
-      <span class="caret"></span>
-      <div>
-        <a class="self-link" href="#dfn-video">Permalink</a>
-        
-      </div>
-      <b>Referenced in:</b>
-      <ul>
-      <li>Not referenced in this document.</li>
-    </ul>
-    </aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-canvas-pixel-arraybuffer">
-      <span class="caret"></span>
-      <div>
-        <a class="self-link" href="#dfn-canvas-pixel-arraybuffer">Permalink</a>
-        
-      </div>
-      <b>Referenced in:</b>
-      <ul>
-      <li>Not referenced in this document.</li>
-    </ul>
-    </aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-present">
-      <span class="caret"></span>
-      <div>
-        <a class="self-link" href="#dfn-present">Permalink</a>
-        
-      </div>
-      <b>Referenced in:</b>
-      <ul>
-      <li>Not referenced in this document.</li>
-    </ul>
-    </aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-not-present">
-      <span class="caret"></span>
-      <div>
-        <a class="self-link" href="#dfn-not-present">Permalink</a>
-        
-      </div>
-      <b>Referenced in:</b>
-      <ul>
-      <li>Not referenced in this document.</li>
-    </ul>
-    </aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-depth-color-stream">
-      <span class="caret"></span>
-      <div>
-        <a class="self-link" href="#dfn-depth-color-stream">Permalink</a>
-        
-      </div>
-      <b>Referenced in:</b>
-      <ul>
-    <li>
-    <a href="#ref-for-dfn-depth-color-stream-1">Abstract</a> 
+    <a href="#ref-for-dfn-depth-color-stream-1" title="§ Abstract">§ Abstract</a> 
   </li><li>
-    <a href="#ref-for-dfn-depth-color-stream-2">1. Introduction</a> 
+    <a href="#ref-for-dfn-depth-color-stream-2" title="§ 1. Introduction">§ 1. Introduction</a> 
   </li><li>
-    <a href="#ref-for-dfn-depth-color-stream-3">6.4.1 Video kind constrainable property</a> 
+    <a href="#ref-for-dfn-depth-color-stream-3" title="§ 6.4.1 Video kind constrainable property">§ 6.4.1 Video kind constrainable property</a> 
   </li>
   </ul>
-    </aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-depth-only-stream">
+    </div><div class="dfn-panel" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-depth-only-stream" aria-label="Links in this document to definition: depth-only stream" hidden="">
       <span class="caret"></span>
       <div>
-        <a class="self-link" href="#dfn-depth-only-stream">Permalink</a>
-        
+        <a class="self-link" href="#dfn-depth-only-stream" aria-label="Permalink for definition: depth-only stream. Activate to close this dialog.">Permalink</a>
+         
       </div>
-      <b>Referenced in:</b>
+      <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-dfn-depth-only-stream-1">Abstract</a> 
+    <a href="#ref-for-dfn-depth-only-stream-1" title="§ Abstract">§ Abstract</a> 
   </li><li>
-    <a href="#ref-for-dfn-depth-only-stream-2">1. Introduction</a> 
+    <a href="#ref-for-dfn-depth-only-stream-2" title="§ 1. Introduction">§ 1. Introduction</a> 
   </li><li>
-    <a href="#ref-for-dfn-depth-only-stream-3">6.4.1 Video kind constrainable property</a> 
+    <a href="#ref-for-dfn-depth-only-stream-3" title="§ 6.4.1 Video kind constrainable property">§ 6.4.1 Video kind constrainable property</a> 
   </li>
   </ul>
-    </aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-color-only-stream">
+    </div><div class="dfn-panel" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-color-only-stream" aria-label="Links in this document to definition: color-only stream" hidden="">
       <span class="caret"></span>
       <div>
-        <a class="self-link" href="#dfn-color-only-stream">Permalink</a>
-        
+        <a class="self-link" href="#dfn-color-only-stream" aria-label="Permalink for definition: color-only stream. Activate to close this dialog.">Permalink</a>
+         
       </div>
-      <b>Referenced in:</b>
+      <p><b>Referenced in:</b></p>
       <ul>
       <li>Not referenced in this document.</li>
     </ul>
-    </aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-depth-stream-track">
+    </div><div class="dfn-panel" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-depth-stream-track" aria-label="Links in this document to definition: depth stream track" hidden="">
       <span class="caret"></span>
       <div>
-        <a class="self-link" href="#dfn-depth-stream-track">Permalink</a>
-        
+        <a class="self-link" href="#dfn-depth-stream-track" aria-label="Permalink for definition: depth stream track. Activate to close this dialog.">Permalink</a>
+         
       </div>
-      <b>Referenced in:</b>
+      <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-dfn-depth-stream-track-1">1. Introduction</a> <a href="#ref-for-dfn-depth-stream-track-2">(2)</a> 
+    <a href="#ref-for-dfn-depth-stream-track-1" title="§ 1. Introduction">§ 1. Introduction</a> <a href="#ref-for-dfn-depth-stream-track-2" title="Reference 2">(2)</a> 
   </li><li>
-    <a href="#ref-for-dfn-depth-stream-track-3">5. Terminology</a> <a href="#ref-for-dfn-depth-stream-track-4">(2)</a> 
+    <a href="#ref-for-dfn-depth-stream-track-3" title="§ 5. Terminology">§ 5. Terminology</a> <a href="#ref-for-dfn-depth-stream-track-4" title="Reference 2">(2)</a> 
   </li><li>
-    <a href="#ref-for-dfn-depth-stream-track-5">5.1 Depth map</a> 
+    <a href="#ref-for-dfn-depth-stream-track-5" title="§ 5.1 Depth map">§ 5.1 Depth map</a> 
   </li><li>
-    <a href="#ref-for-dfn-depth-stream-track-6">6.4.1 Video kind constrainable property</a> <a href="#ref-for-dfn-depth-stream-track-7">(2)</a> 
+    <a href="#ref-for-dfn-depth-stream-track-6" title="§ 6.4.1 Video kind constrainable property">§ 6.4.1 Video kind constrainable property</a> <a href="#ref-for-dfn-depth-stream-track-7" title="Reference 2">(2)</a> 
   </li><li>
-    <a href="#ref-for-dfn-depth-stream-track-8">6.4.2.1 Upload video frame to WebGL texture</a> 
+    <a href="#ref-for-dfn-depth-stream-track-8" title="§ 6.4.2.1 Upload video frame to WebGL texture">§ 6.4.2.1 Upload video frame to WebGL texture</a> 
   </li>
   </ul>
-    </aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-color-stream-track">
+    </div><div class="dfn-panel" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-color-stream-track" aria-label="Links in this document to definition: color stream track" hidden="">
       <span class="caret"></span>
       <div>
-        <a class="self-link" href="#dfn-color-stream-track">Permalink</a>
-        
+        <a class="self-link" href="#dfn-color-stream-track" aria-label="Permalink for definition: color stream track. Activate to close this dialog.">Permalink</a>
+         
       </div>
-      <b>Referenced in:</b>
+      <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-dfn-color-stream-track-1">5. Terminology</a> <a href="#ref-for-dfn-color-stream-track-2">(2)</a> 
+    <a href="#ref-for-dfn-color-stream-track-1" title="§ 5. Terminology">§ 5. Terminology</a> <a href="#ref-for-dfn-color-stream-track-2" title="Reference 2">(2)</a> 
   </li><li>
-    <a href="#ref-for-dfn-color-stream-track-3">6.4.1 Video kind constrainable property</a> <a href="#ref-for-dfn-color-stream-track-4">(2)</a> 
+    <a href="#ref-for-dfn-color-stream-track-3" title="§ 6.4.1 Video kind constrainable property">§ 6.4.1 Video kind constrainable property</a> <a href="#ref-for-dfn-color-stream-track-4" title="Reference 2">(2)</a> 
   </li>
   </ul>
-    </aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-depth-map">
+    </div><div class="dfn-panel" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-depth-map" aria-label="Links in this document to definition: depth map" hidden="">
       <span class="caret"></span>
       <div>
-        <a class="self-link" href="#dfn-depth-map">Permalink</a>
-        
+        <a class="self-link" href="#dfn-depth-map" aria-label="Permalink for definition: depth map. Activate to close this dialog.">Permalink</a>
+         
       </div>
-      <b>Referenced in:</b>
+      <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-dfn-depth-map-1">1. Introduction</a> 
+    <a href="#ref-for-dfn-depth-map-1" title="§ 1. Introduction">§ 1. Introduction</a> 
   </li><li>
-    <a href="#ref-for-dfn-depth-map-2">5.1 Depth map</a> <a href="#ref-for-dfn-depth-map-3">(2)</a> <a href="#ref-for-dfn-depth-map-4">(3)</a> 
+    <a href="#ref-for-dfn-depth-map-2" title="§ 5.1 Depth map">§ 5.1 Depth map</a> <a href="#ref-for-dfn-depth-map-3" title="Reference 2">(2)</a> <a href="#ref-for-dfn-depth-map-4" title="Reference 3">(3)</a> 
   </li><li>
-    <a href="#ref-for-dfn-depth-map-5">6.4.2 WebGL implementation considerations</a> 
+    <a href="#ref-for-dfn-depth-map-5" title="§ 6.4.2 WebGL implementation considerations">§ 6.4.2 WebGL implementation considerations</a> 
   </li>
   </ul>
-    </aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-depth-map-value">
+    </div><div class="dfn-panel" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-depth-map-value" aria-label="Links in this document to definition: depth map values" hidden="">
       <span class="caret"></span>
       <div>
-        <a class="self-link" href="#dfn-depth-map-value">Permalink</a>
-        
+        <a class="self-link" href="#dfn-depth-map-value" aria-label="Permalink for definition: depth map values. Activate to close this dialog.">Permalink</a>
+         
       </div>
-      <b>Referenced in:</b>
+      <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-dfn-depth-map-value-1">5.1 Depth map</a> <a href="#ref-for-dfn-depth-map-value-2">(2)</a> <a href="#ref-for-dfn-depth-map-value-3">(3)</a> 
+    <a href="#ref-for-dfn-depth-map-value-1" title="§ 5.1 Depth map">§ 5.1 Depth map</a> <a href="#ref-for-dfn-depth-map-value-2" title="Reference 2">(2)</a> <a href="#ref-for-dfn-depth-map-value-3" title="Reference 3">(3)</a> 
   </li><li>
-    <a href="#ref-for-dfn-depth-map-value-4">6.4.2.1 Upload video frame to WebGL texture</a> 
+    <a href="#ref-for-dfn-depth-map-value-4" title="§ 6.4.2.1 Upload video frame to WebGL texture">§ 6.4.2.1 Upload video frame to WebGL texture</a> 
   </li>
   </ul>
-    </aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-normalized">
+    </div><div class="dfn-panel" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-normalized" aria-label="Links in this document to definition: Normalized" hidden="">
       <span class="caret"></span>
       <div>
-        <a class="self-link" href="#dfn-normalized">Permalink</a>
-        
+        <a class="self-link" href="#dfn-normalized" aria-label="Permalink for definition: Normalized. Activate to close this dialog.">Permalink</a>
+         
       </div>
-      <b>Referenced in:</b>
+      <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-dfn-normalized-1">5.1 Depth map</a> <a href="#ref-for-dfn-normalized-2">(2)</a> 
+    <a href="#ref-for-dfn-normalized-1" title="§ 5.1 Depth map">§ 5.1 Depth map</a> <a href="#ref-for-dfn-normalized-2" title="Reference 2">(2)</a> 
   </li><li>
-    <a href="#ref-for-dfn-normalized-3">6.4.2 WebGL implementation considerations</a> <a href="#ref-for-dfn-normalized-4">(2)</a> 
+    <a href="#ref-for-dfn-normalized-3" title="§ 6.4.2 WebGL implementation considerations">§ 6.4.2 WebGL implementation considerations</a> <a href="#ref-for-dfn-normalized-4" title="Reference 2">(2)</a> 
   </li><li>
-    <a href="#ref-for-dfn-normalized-5">6.4.2.1 Upload video frame to WebGL texture</a> 
+    <a href="#ref-for-dfn-normalized-5" title="§ 6.4.2.1 Upload video frame to WebGL texture">§ 6.4.2.1 Upload video frame to WebGL texture</a> 
   </li>
   </ul>
-    </aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-floating-point">
+    </div><div class="dfn-panel" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-floating-point" aria-label="Links in this document to definition: floating-point" hidden="">
       <span class="caret"></span>
       <div>
-        <a class="self-link" href="#dfn-floating-point">Permalink</a>
-        
+        <a class="self-link" href="#dfn-floating-point" aria-label="Permalink for definition: floating-point. Activate to close this dialog.">Permalink</a>
+         
       </div>
-      <b>Referenced in:</b>
+      <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-dfn-floating-point-1">6.4.2 WebGL implementation considerations</a> 
+    <a href="#ref-for-dfn-floating-point-1" title="§ 6.4.2 WebGL implementation considerations">§ 6.4.2 WebGL implementation considerations</a> 
   </li><li>
-    <a href="#ref-for-dfn-floating-point-2">6.4.2.1 Upload video frame to WebGL texture</a> 
+    <a href="#ref-for-dfn-floating-point-2" title="§ 6.4.2.1 Upload video frame to WebGL texture">§ 6.4.2.1 Upload video frame to WebGL texture</a> 
   </li>
   </ul>
-    </aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-unsigned-fixed-point">
+    </div><div class="dfn-panel" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-unsigned-fixed-point" aria-label="Links in this document to definition: unsigned fixed-point" hidden="">
       <span class="caret"></span>
       <div>
-        <a class="self-link" href="#dfn-unsigned-fixed-point">Permalink</a>
-        
+        <a class="self-link" href="#dfn-unsigned-fixed-point" aria-label="Permalink for definition: unsigned fixed-point. Activate to close this dialog.">Permalink</a>
+         
       </div>
-      <b>Referenced in:</b>
+      <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-dfn-unsigned-fixed-point-1">6.4.2 WebGL implementation considerations</a> <a href="#ref-for-dfn-unsigned-fixed-point-2">(2)</a> 
+    <a href="#ref-for-dfn-unsigned-fixed-point-1" title="§ 6.4.2 WebGL implementation considerations">§ 6.4.2 WebGL implementation considerations</a> <a href="#ref-for-dfn-unsigned-fixed-point-2" title="Reference 2">(2)</a> 
   </li>
   </ul>
-    </aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-near-plane">
+    </div><div class="dfn-panel" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-near-plane" aria-label="Links in this document to definition: near plane" hidden="">
       <span class="caret"></span>
       <div>
-        <a class="self-link" href="#dfn-near-plane">Permalink</a>
-        
+        <a class="self-link" href="#dfn-near-plane" aria-label="Permalink for definition: near plane. Activate to close this dialog.">Permalink</a>
+         
       </div>
-      <b>Referenced in:</b>
+      <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-dfn-near-plane-1">5.1 Depth map</a> <a href="#ref-for-dfn-near-plane-2">(2)</a> <a href="#ref-for-dfn-near-plane-3">(3)</a> 
+    <a href="#ref-for-dfn-near-plane-1" title="§ 5.1 Depth map">§ 5.1 Depth map</a> <a href="#ref-for-dfn-near-plane-2" title="Reference 2">(2)</a> <a href="#ref-for-dfn-near-plane-3" title="Reference 3">(3)</a> 
   </li>
   </ul>
-    </aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-far-plane">
+    </div><div class="dfn-panel" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-far-plane" aria-label="Links in this document to definition: far plane" hidden="">
       <span class="caret"></span>
       <div>
-        <a class="self-link" href="#dfn-far-plane">Permalink</a>
-        
+        <a class="self-link" href="#dfn-far-plane" aria-label="Permalink for definition: far plane. Activate to close this dialog.">Permalink</a>
+         
       </div>
-      <b>Referenced in:</b>
+      <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-dfn-far-plane-1">5.1 Depth map</a> <a href="#ref-for-dfn-far-plane-2">(2)</a> 
+    <a href="#ref-for-dfn-far-plane-1" title="§ 5.1 Depth map">§ 5.1 Depth map</a> <a href="#ref-for-dfn-far-plane-2" title="Reference 2">(2)</a> 
   </li>
   </ul>
-    </aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-applicable-constraint">
+    </div><div class="dfn-panel" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-applicable-constraint" aria-label="Links in this document to definition: applicable constraint" hidden="">
       <span class="caret"></span>
       <div>
-        <a class="self-link" href="#dfn-applicable-constraint">Permalink</a>
-        
+        <a class="self-link" href="#dfn-applicable-constraint" aria-label="Permalink for definition: applicable constraint. Activate to close this dialog.">Permalink</a>
+         
       </div>
-      <b>Referenced in:</b>
+      <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-dfn-applicable-constraint-1">6.1 MediaTrackSupportedConstraints dictionary</a> 
+    <a href="#ref-for-dfn-applicable-constraint-1" title="§ 6.1 MediaTrackSupportedConstraints dictionary">§ 6.1 MediaTrackSupportedConstraints dictionary</a> 
   </li>
   </ul>
-    </aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-allowed-values">
+    </div><div class="dfn-panel" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-allowed-values" aria-label="Links in this document to definition: allowed values" hidden="">
       <span class="caret"></span>
       <div>
-        <a class="self-link" href="#dfn-allowed-values">Permalink</a>
-        
+        <a class="self-link" href="#dfn-allowed-values" aria-label="Permalink for definition: allowed values. Activate to close this dialog.">Permalink</a>
+         
       </div>
-      <b>Referenced in:</b>
+      <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-dfn-allowed-values-1">6.3 MediaTrackConstraintSet dictionary</a> 
+    <a href="#ref-for-dfn-allowed-values-1" title="§ 6.3 MediaTrackConstraintSet dictionary">§ 6.3 MediaTrackConstraintSet dictionary</a> 
   </li>
   </ul>
-    </aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-video-kind">
+    </div><div class="dfn-panel" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-video-kind" aria-label="Links in this document to definition: video kind" hidden="">
       <span class="caret"></span>
       <div>
-        <a class="self-link" href="#dfn-video-kind">Permalink</a>
-        
+        <a class="self-link" href="#dfn-video-kind" aria-label="Permalink for definition: video kind. Activate to close this dialog.">Permalink</a>
+         
       </div>
-      <b>Referenced in:</b>
+      <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-dfn-video-kind-1">6.4.1 Video kind constrainable property</a> 
+    <a href="#ref-for-dfn-video-kind-1" title="§ 6.4.1 Video kind constrainable property">§ 6.4.1 Video kind constrainable property</a> 
   </li>
   </ul>
-    </aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dom-mediatracksupportedconstraints-videokind">
+    </div><div class="dfn-panel" role="dialog" aria-modal="true" id="dfn-panel-for-dom-mediatracksupportedconstraints-videokind" aria-label="Links in this document to definition: videoKind" hidden="">
       <span class="caret"></span>
       <div>
-        <a class="self-link" href="#dom-mediatracksupportedconstraints-videokind">Permalink</a>
-        <span class="dfn-exported" title="Definition can be referenced by other specifications">exported</span>
+        <a class="self-link" href="#dom-mediatracksupportedconstraints-videokind" aria-label="Permalink for definition: videoKind. Activate to close this dialog.">Permalink</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> <a class="marker idl-block" title="Jump to IDL declaration" href="#webidl-289318473">IDL</a>
       </div>
-      <b>Referenced in:</b>
+      <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-dom-mediatracksupportedconstraints-videokind-1">6.1 MediaTrackSupportedConstraints dictionary</a> 
+    <a href="#ref-for-dom-mediatracksupportedconstraints-videokind-1" title="§ 6.1 MediaTrackSupportedConstraints dictionary">§ 6.1 MediaTrackSupportedConstraints dictionary</a> 
   </li>
   </ul>
-    </aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dom-mediatrackcapabilities-videokind">
+    </div><div class="dfn-panel" role="dialog" aria-modal="true" id="dfn-panel-for-dom-mediatrackcapabilities-videokind" aria-label="Links in this document to definition: videoKind" hidden="">
       <span class="caret"></span>
       <div>
-        <a class="self-link" href="#dom-mediatrackcapabilities-videokind">Permalink</a>
-        <span class="dfn-exported" title="Definition can be referenced by other specifications">exported</span>
+        <a class="self-link" href="#dom-mediatrackcapabilities-videokind" aria-label="Permalink for definition: videoKind. Activate to close this dialog.">Permalink</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> <a class="marker idl-block" title="Jump to IDL declaration" href="#webidl-1788441543">IDL</a>
       </div>
-      <b>Referenced in:</b>
+      <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-dom-mediatrackcapabilities-videokind-1">6.2 MediaTrackCapabilities dictionary</a> 
+    <a href="#ref-for-dom-mediatrackcapabilities-videokind-1" title="§ 6.2 MediaTrackCapabilities dictionary">§ 6.2 MediaTrackCapabilities dictionary</a> 
   </li>
   </ul>
-    </aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dom-mediatrackconstraintset-videokind">
+    </div><div class="dfn-panel" role="dialog" aria-modal="true" id="dfn-panel-for-dom-mediatrackconstraintset-videokind" aria-label="Links in this document to definition: videoKind" hidden="">
       <span class="caret"></span>
       <div>
-        <a class="self-link" href="#dom-mediatrackconstraintset-videokind">Permalink</a>
-        <span class="dfn-exported" title="Definition can be referenced by other specifications">exported</span>
+        <a class="self-link" href="#dom-mediatrackconstraintset-videokind" aria-label="Permalink for definition: videoKind. Activate to close this dialog.">Permalink</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> <a class="marker idl-block" title="Jump to IDL declaration" href="#webidl-1637593537">IDL</a>
       </div>
-      <b>Referenced in:</b>
+      <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-dom-mediatrackconstraintset-videokind-1">6.3 MediaTrackConstraintSet dictionary</a> 
+    <a href="#ref-for-dom-mediatrackconstraintset-videokind-1" title="§ 6.3 MediaTrackConstraintSet dictionary">§ 6.3 MediaTrackConstraintSet dictionary</a> 
   </li>
   </ul>
-    </aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dom-mediatracksettings-videokind">
+    </div><div class="dfn-panel" role="dialog" aria-modal="true" id="dfn-panel-for-dom-mediatracksettings-videokind" aria-label="Links in this document to definition: videoKind" hidden="">
       <span class="caret"></span>
       <div>
-        <a class="self-link" href="#dom-mediatracksettings-videokind">Permalink</a>
-        <span class="dfn-exported" title="Definition can be referenced by other specifications">exported</span>
+        <a class="self-link" href="#dom-mediatracksettings-videokind" aria-label="Permalink for definition: videoKind. Activate to close this dialog.">Permalink</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> <a class="marker idl-block" title="Jump to IDL declaration" href="#webidl-1569617356">IDL</a>
       </div>
-      <b>Referenced in:</b>
+      <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-dom-mediatracksettings-videokind-1">6.4 MediaTrackSettings dictionary</a> 
+    <a href="#ref-for-dom-mediatracksettings-videokind-1" title="§ 6.4 MediaTrackSettings dictionary">§ 6.4 MediaTrackSettings dictionary</a> 
   </li>
   </ul>
-    </aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dom-videokindenum">
+    </div><div class="dfn-panel" role="dialog" aria-modal="true" id="dfn-panel-for-dom-videokindenum" aria-label="Links in this document to definition: VideoKindEnum" hidden="">
       <span class="caret"></span>
       <div>
-        <a class="self-link" href="#dom-videokindenum">Permalink</a>
-        <span class="dfn-exported" title="Definition can be referenced by other specifications">exported</span>
+        <a class="self-link" href="#dom-videokindenum" aria-label="Permalink for definition: VideoKindEnum. Activate to close this dialog.">Permalink</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> <a class="marker idl-block" title="Jump to IDL declaration" href="#webidl-2119079806">IDL</a>
       </div>
-      <b>Referenced in:</b>
+      <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-dom-videokindenum-1">6.4.1 Video kind constrainable property</a> 
+    <a href="#ref-for-dom-videokindenum-1" title="§ 6.4.1 Video kind constrainable property">§ 6.4.1 Video kind constrainable property</a> 
   </li>
   </ul>
-    </aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dom-videokindenum-color">
+    </div><div class="dfn-panel" role="dialog" aria-modal="true" id="dfn-panel-for-dom-videokindenum-color" aria-label="Links in this document to definition: color" hidden="">
       <span class="caret"></span>
       <div>
-        <a class="self-link" href="#dom-videokindenum-color">Permalink</a>
-        <span class="dfn-exported" title="Definition can be referenced by other specifications">exported</span>
+        <a class="self-link" href="#dom-videokindenum-color" aria-label="Permalink for definition: color. Activate to close this dialog.">Permalink</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> <a class="marker idl-block" title="Jump to IDL declaration" href="#webidl-2119079806">IDL</a>
       </div>
-      <b>Referenced in:</b>
+      <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-dom-videokindenum-color-1">6.4.1 Video kind constrainable property</a> 
+    <a href="#ref-for-dom-videokindenum-color-1" title="§ 6.4.1 Video kind constrainable property">§ 6.4.1 Video kind constrainable property</a> 
   </li>
   </ul>
-    </aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dom-videokindenum-depth">
+    </div><div class="dfn-panel" role="dialog" aria-modal="true" id="dfn-panel-for-dom-videokindenum-depth" aria-label="Links in this document to definition: depth" hidden="">
       <span class="caret"></span>
       <div>
-        <a class="self-link" href="#dom-videokindenum-depth">Permalink</a>
-        <span class="dfn-exported" title="Definition can be referenced by other specifications">exported</span>
+        <a class="self-link" href="#dom-videokindenum-depth" aria-label="Permalink for definition: depth. Activate to close this dialog.">Permalink</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> <a class="marker idl-block" title="Jump to IDL declaration" href="#webidl-2119079806">IDL</a>
       </div>
-      <b>Referenced in:</b>
+      <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-dom-videokindenum-depth-1">6.4.1 Video kind constrainable property</a> <a href="#ref-for-dom-videokindenum-depth-2">(2)</a> 
+    <a href="#ref-for-dom-videokindenum-depth-1" title="§ 6.4.1 Video kind constrainable property">§ 6.4.1 Video kind constrainable property</a> <a href="#ref-for-dom-videokindenum-depth-2" title="Reference 2">(2)</a> 
   </li>
   </ul>
-    </aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-uploaded">
+    </div><div class="dfn-panel" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-uploaded" aria-label="Links in this document to definition: uploaded" hidden="">
       <span class="caret"></span>
       <div>
-        <a class="self-link" href="#dfn-uploaded">Permalink</a>
-        
+        <a class="self-link" href="#dfn-uploaded" aria-label="Permalink for definition: uploaded. Activate to close this dialog.">Permalink</a>
+         
       </div>
-      <b>Referenced in:</b>
+      <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-dfn-uploaded-1">6.4.2 WebGL implementation considerations</a> 
+    <a href="#ref-for-dfn-uploaded-1" title="§ 6.4.2 WebGL implementation considerations">§ 6.4.2 WebGL implementation considerations</a> 
   </li>
   </ul>
-    </aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-upload-to-float-texture">
+    </div><div class="dfn-panel" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-upload-to-float-texture" aria-label="Links in this document to definition: upload to float texture" hidden="">
       <span class="caret"></span>
       <div>
-        <a class="self-link" href="#dfn-upload-to-float-texture">Permalink</a>
-        
+        <a class="self-link" href="#dfn-upload-to-float-texture" aria-label="Permalink for definition: upload to float texture. Activate to close this dialog.">Permalink</a>
+         
       </div>
-      <b>Referenced in:</b>
+      <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-dfn-upload-to-float-texture-1">6.4.2.1 Upload video frame to WebGL texture</a> 
+    <a href="#ref-for-dfn-upload-to-float-texture-1" title="§ 6.4.2.1 Upload video frame to WebGL texture">§ 6.4.2.1 Upload video frame to WebGL texture</a> 
   </li><li>
-    <a href="#ref-for-dfn-upload-to-float-texture-2">6.5 Examples</a> 
+    <a href="#ref-for-dfn-upload-to-float-texture-2" title="§ 6.5.3 WebGL: readPixels from float texture">§ 6.5.3 WebGL: readPixels from float texture</a> 
   </li>
   </ul>
-    </aside><aside class="dfn-panel" hidden="" id="dfn-panel-for-dfn-readpixels-from-float">
+    </div><div class="dfn-panel" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-readpixels-from-float" aria-label="Links in this document to definition: readPixels from float" hidden="">
       <span class="caret"></span>
       <div>
-        <a class="self-link" href="#dfn-readpixels-from-float">Permalink</a>
-        
+        <a class="self-link" href="#dfn-readpixels-from-float" aria-label="Permalink for definition: readPixels from float. Activate to close this dialog.">Permalink</a>
+         
       </div>
-      <b>Referenced in:</b>
+      <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-dfn-readpixels-from-float-1">6.4.2.2 Read the data from a WebGL texture</a> 
+    <a href="#ref-for-dfn-readpixels-from-float-1" title="§ 6.4.2.2 Read the data from a WebGL texture">§ 6.4.2.2 Read the data from a WebGL texture</a> 
   </li>
   </ul>
-    </aside><script id="respec-dfn-panel">(() => {
+    </div><script id="respec-dfn-panel">(() => {
 // @ts-check
-if (document.respecIsReady) {
-  document.respecIsReady.then(dfnPanel);
+if (document.respec) {
+  document.respec.ready.then(setupPanel);
 } else {
-  dfnPanel();
+  setupPanel();
 }
 
-function dfnPanel() {
+function setupPanel() {
+  const listener = panelListener();
+  document.body.addEventListener("keydown", listener);
+  document.body.addEventListener("click", listener);
+}
+
+function panelListener() {
   /** @type {HTMLElement} */
-  let panel;
-  document.body.addEventListener("click", event => {
-    if (!(event.target instanceof HTMLElement)) return;
+  let panel = null;
+  return event => {
+    const { target, type } = event;
 
-    /** @type {HTMLElement} */
-    const el = event.target;
+    if (!(target instanceof HTMLElement)) return;
 
-    const action = deriveAction(el);
+    // For keys, we only care about Enter key to activate the panel
+    // otherwise it's activated via a click.
+    if (type === "keydown" && event.key !== "Enter") return;
+
+    const action = deriveAction(event);
+
     switch (action) {
       case "show": {
-        if (panel) hidePanel(panel);
+        hidePanel(panel);
         /** @type {HTMLElement} */
-        const dfn = el.closest("dfn, .index-term");
+        const dfn = target.closest("dfn, .index-term");
         panel = document.getElementById(`dfn-panel-for-${dfn.id}`);
-        displayPanel(dfn, panel, { x: event.clientX, y: event.clientY });
+        const coords = deriveCoordinates(event);
+        displayPanel(dfn, panel, coords);
         break;
       }
       case "dock": {
@@ -1541,30 +1459,59 @@ function dfnPanel() {
       }
       case "hide": {
         hidePanel(panel);
+        panel = null;
         break;
       }
     }
-  });
+  };
 }
 
-/** @param {HTMLElement} clickTarget */
-function deriveAction(clickTarget) {
-  const hitALink = !!clickTarget.closest("a");
-  if (clickTarget.closest("dfn, .index-term")) {
-    return hitALink ? null : "show";
+/**
+ * @param {MouseEvent|KeyboardEvent} event
+ */
+function deriveCoordinates(event) {
+  const target = /** @type HTMLElement */ (event.target);
+
+  // We prevent synthetic AT clicks from putting
+  // the dialog in a weird place. The AT events sometimes
+  // lack coordinates, so they have clientX/Y = 0
+  const rect = target.getBoundingClientRect();
+  if (
+    event instanceof MouseEvent &&
+    event.clientX >= rect.left &&
+    event.clientY >= rect.top
+  ) {
+    // The event probably happened inside the bounding rect...
+    return { x: event.clientX, y: event.clientY };
   }
-  if (clickTarget.closest(".dfn-panel")) {
+
+  // Offset to the middle of the element
+  const x = rect.x + rect.width / 2;
+  // Placed at the bottom of the element
+  const y = rect.y + rect.height;
+  return { x, y };
+}
+
+/**
+ * @param {Event} event
+ */
+function deriveAction(event) {
+  const target = /** @type {HTMLElement} */ (event.target);
+  const hitALink = !!target.closest("a");
+  if (target.closest("dfn:not([data-cite]), .index-term")) {
+    return hitALink ? "none" : "show";
+  }
+  if (target.closest(".dfn-panel")) {
     if (hitALink) {
-      const clickedSelfLink = clickTarget.classList.contains("self-link");
-      return clickedSelfLink ? "hide" : "dock";
+      return target.classList.contains("self-link") ? "hide" : "dock";
     }
-    const panel = clickTarget.closest(".dfn-panel");
-    return panel.classList.contains("docked") ? "hide" : null;
+    const panel = target.closest(".dfn-panel");
+    return panel.classList.contains("docked") ? "hide" : "none";
   }
   if (document.querySelector(".dfn-panel:not([hidden])")) {
     return "hide";
   }
-  return null;
+  return "none";
 }
 
 /**
@@ -1606,11 +1553,86 @@ function displayPanel(dfn, panel, { x, y }) {
     const caret = panel.querySelector(".caret");
     caret.style.left = `${newCaretOffset}px`;
   }
+
+  // As it's a dialog, we trap focus.
+  // TODO: when <dialog> becomes a implemented, we should really
+  // use that.
+  trapFocus(panel, dfn);
+}
+
+/**
+ * @param {HTMLElement} panel
+ * @param {HTMLElement} dfn
+ * @returns
+ */
+function trapFocus(panel, dfn) {
+  /** @type NodeListOf<HTMLAnchorElement> elements */
+  const anchors = panel.querySelectorAll("a[href]");
+  // No need to trap focus
+  if (!anchors.length) return;
+
+  // Move focus to first anchor element
+  const first = anchors.item(0);
+  first.focus();
+
+  const trapListener = createTrapListener(anchors, panel, dfn);
+  panel.addEventListener("keydown", trapListener);
+
+  // Hiding the panel releases the trap
+  const mo = new MutationObserver(records => {
+    const [record] = records;
+    const target = /** @type HTMLElement */ (record.target);
+    if (target.hidden) {
+      panel.removeEventListener("keydown", trapListener);
+      mo.disconnect();
+    }
+  });
+  mo.observe(panel, { attributes: true, attributeFilter: ["hidden"] });
+}
+
+/**
+ *
+ * @param {NodeListOf<HTMLAnchorElement>} anchors
+ * @param {HTMLElement} panel
+ * @param {HTMLElement} dfn
+ * @returns
+ */
+function createTrapListener(anchors, panel, dfn) {
+  const lastIndex = anchors.length - 1;
+  let currentIndex = 0;
+  return event => {
+    switch (event.key) {
+      // Hitting "Tab" traps us in a nice loop around elements.
+      case "Tab": {
+        event.preventDefault();
+        currentIndex += event.shiftKey ? -1 : +1;
+        if (currentIndex < 0) {
+          currentIndex = lastIndex;
+        } else if (currentIndex > lastIndex) {
+          currentIndex = 0;
+        }
+        anchors.item(currentIndex).focus();
+        break;
+      }
+
+      // Hitting "Enter" on an anchor releases the trap.
+      case "Enter":
+        hidePanel(panel);
+        break;
+
+      // Hitting "Escape" returns focus to dfn.
+      case "Escape":
+        hidePanel(panel);
+        dfn.focus();
+        return;
+    }
+  };
 }
 
 /** @param {HTMLElement} panel */
 function hidePanel(panel) {
+  if (!panel) return;
   panel.hidden = true;
   panel.classList.remove("docked");
 }
-})()</script><script src="https://www.w3.org/scripts/TR/2016/fixup.js"></script></body></html>
+})()</script><script src="https://www.w3.org/scripts/TR/2021/fixup.js"></script></body></html>
